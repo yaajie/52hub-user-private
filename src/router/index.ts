@@ -271,6 +271,10 @@ const router = createRouter({
             meta: { userGuest: true }
         },
         {
+            path: '/login',
+            redirect: '/auth/login'
+        },
+        {
             path: '/auth/register',
             name: 'user-register',
             component: () => import('../views/auth/Register.vue'),
