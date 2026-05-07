@@ -337,21 +337,20 @@ const mobileDrawerItems = computed<NavItem[]>(() => {
 
 const languages = [
   { code: 'zh-CN', name: '简体中文' },
-  { code: 'zh-TW', name: '繁體中文' },
   { code: 'en-US', name: 'English' },
 ]
 
 const currentLocale = computed(() => {
   const lang = languages.find(l => l.code === appStore.locale)
   if (!lang) return 'CN'
-  return lang.code === 'en-US' ? 'EN' : (lang.code === 'zh-CN' ? '简' : '繁')
+  return lang.code === 'en-US' ? 'EN' : '简'
 })
 
 const cartCount = computed(() => cartStore.totalItems)
 
 const brandSiteName = computed(() => {
   const text = String(appStore.config?.brand?.site_name || '').trim()
-  return text !== '' ? text : 'Dujiao-Next'
+  return text !== '' ? text : '52Hub'
 })
 
 const toggleMobileMenu = () => {

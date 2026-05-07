@@ -31,12 +31,14 @@ export default defineConfig(({ mode }) => ({
     strictPort: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: process.env.VITE_DEV_PROXY || 'http://localhost:8080',
         changeOrigin: true,
+        secure: false,
       },
       '/uploads': {
-        target: 'http://localhost:8080',
+        target: process.env.VITE_DEV_PROXY || 'http://localhost:8080',
         changeOrigin: true,
+        secure: false,
       }
     }
   },

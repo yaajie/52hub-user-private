@@ -1,23 +1,22 @@
-/**
- * 获取完整的图片 URL
- * 如果传入的是相对路径（如 /uploads/xxx.png），则拼接 API 基础 URL
- * 如果传入的是完整 URL（如 http://...），则直接返回
- */
 export function getImageUrl(path: string | undefined | null): string {
     if (!path) return ''
 
-    // 如果已经是完整 URL，直接返回
-    if (path.startsWith('http://') || path.startsWith('https://')) {
+    if (
+        path.startsWith('http://') ||
+        path.startsWith('https://') ||
+        path.startsWith('data:') ||
+        path.startsWith('blob:')
+    ) {
         return path
     }
 
-    // 获取 API 基础 URL
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || ''
-
-    // 确保路径以 / 开头
+    const origin =
+        typeof window !== 'undefined' && window.location?.origin
+            ? window.location.origin
+            : ''
     const normalizedPath = path.startsWith('/') ? path : `/${path}`
 
-    return `${apiBaseUrl}${normalizedPath}`
+    return `${origin}${normalizedPath}`
 }
 
 /**

@@ -6,7 +6,7 @@
       <!-- Hero Banner (shared with card mode) -->
       <section v-if="showHeroSection" class="relative z-10 border-b theme-border pt-24 pb-10">
         <div class="container mx-auto px-4">
-          <div class="relative overflow-hidden rounded-2xl border theme-panel"
+          <div class="home-hero-banner relative overflow-hidden rounded-2xl border theme-panel"
             @touchstart="onBannerTouchStart"
             @touchend="onBannerTouchEnd">
             <Transition name="banner-fade" mode="out-in">
@@ -178,7 +178,7 @@
     <template v-else>
     <section v-if="showHeroSection" class="relative z-10 border-b theme-border pt-24 pb-10">
       <div class="container mx-auto px-4">
-        <div class="relative overflow-hidden rounded-2xl border theme-panel"
+        <div class="home-hero-banner relative overflow-hidden rounded-2xl border theme-panel"
           @touchstart="onBannerTouchStart"
           @touchend="onBannerTouchEnd">
           <!-- Banner image with fade transition -->

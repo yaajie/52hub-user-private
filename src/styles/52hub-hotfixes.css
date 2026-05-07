@@ -1,0 +1,224 @@
+/*
+ * 52Hub source-hardened CSS hotfixes.
+ * Imported from main.ts, applied AFTER the upstream Tailwind build.
+ * Originally accumulated as docker-cp hotfixes; consolidated 2026-05-07.
+ */
+
+/* 52Hub visual hotfix: banner readability, product image ratio, and public footer cleanup. */
+.home-page .home-hero-banner {
+  isolation: isolate;
+  background: #101114;
+}
+
+.home-page .home-hero-banner > img.absolute.inset-0 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: saturate(.95) contrast(.98);
+}
+
+.home-page .home-hero-banner > .absolute.inset-0.bg-black\/50 {
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.58) 43%, rgba(0,0,0,.72) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.64) 100%) !important;
+}
+
+.home-page .home-hero-banner h1,
+.home-page .home-hero-banner p {
+  text-shadow: 0 2px 16px rgba(0,0,0,.72);
+}
+
+.home-page img[src*="/uploads/product/"],
+.products-page img[src*="/uploads/product/"] {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center center;
+  background: #111318;
+}
+
+.product-detail-page img[src*="/uploads/product/"] {
+  object-position: center center;
+  background: #111318;
+}
+
+footer p:has(a[href*="github.com/dujiao-next"]) {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .home-page .home-hero-banner > img.absolute.inset-0 {
+    object-position: center center;
+  }
+
+  .home-page .home-hero-banner > .absolute.inset-0.bg-black\/50 {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.74) 58%, rgba(0,0,0,.84) 100%) !important;
+  }
+}
+
+/* 52Hub detail image: wrapper-level aspect-square (in ProductImageGallery.vue) handles the 1:1 box.
+   We only force object-cover here to make sure the image fills the square instead of letterboxing. */
+.product-detail-page .mb-4.md\:mb-6.relative.group > img[src*="/uploads/product/"] {
+  object-fit: cover !important;
+  object-position: center center !important;
+  background: #111318 !important;
+}
+
+/* 52Hub stage 13: unified 24:9 banner (closer to original "ultrawide" production look). Single image upload, mobile scales proportionally. */
+.home-page .home-hero-banner {
+  aspect-ratio: 24 / 9;
+  background: #101114;
+}
+
+.home-page .home-hero-banner > img.absolute.inset-0 {
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: saturate(1.03) contrast(1.02) brightness(1) !important;
+}
+
+.home-page .home-hero-banner > .absolute.inset-0.bg-black\/50 {
+  background:
+    linear-gradient(90deg,
+      rgba(0,0,0,.74) 0%,
+      rgba(0,0,0,.56) 30%,
+      rgba(0,0,0,.22) 48%,
+      rgba(0,0,0,.08) 72%,
+      rgba(0,0,0,.04) 100%),
+    linear-gradient(180deg,
+      rgba(0,0,0,.10) 0%,
+      rgba(0,0,0,.08) 55%,
+      rgba(0,0,0,.20) 100%) !important;
+}
+
+.home-page .home-hero-banner h1 {
+  max-width: min(720px, 58vw);
+  text-shadow: 0 2px 18px rgba(0,0,0,.72), 0 1px 2px rgba(0,0,0,.55);
+}
+
+.home-page .home-hero-banner p {
+  max-width: min(560px, 48vw);
+  text-shadow: 0 2px 14px rgba(0,0,0,.7), 0 1px 2px rgba(0,0,0,.55);
+}
+
+.home-page .home-hero-banner .theme-badge,
+.home-page .home-hero-banner a,
+.home-page .home-hero-banner button {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 640px) {
+  /* 移动端只调可读性，比例由桌面端的 aspect-ratio 16/9 自动接管 */
+  .home-page .home-hero-banner > img.absolute.inset-0 {
+    object-position: center center !important;
+  }
+
+  .home-page .home-hero-banner > .absolute.inset-0.bg-black\/50 {
+    background:
+      linear-gradient(180deg,
+        rgba(0,0,0,.46) 0%,
+        rgba(0,0,0,.42) 36%,
+        rgba(0,0,0,.18) 58%,
+        rgba(0,0,0,.30) 100%) !important;
+  }
+
+  .home-page .home-hero-banner h1,
+  .home-page .home-hero-banner p {
+    max-width: 92%;
+  }
+}
+
+/* 52Hub brand logo: icon asset plus theme-colored text for light and dark mode readability. */
+.theme-wordmark {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: auto;
+  min-width: 118px;
+  height: 36px;
+  padding-left: 36px;
+  background: url('/icon.svg') left center / 30px 30px no-repeat;
+  border-color: transparent !important;
+  color: var(--ui-text-primary) !important;
+}
+
+.theme-wordmark-text {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: nowrap !important;
+  color: currentColor !important;
+  font-weight: 760 !important;
+  letter-spacing: 0 !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+}
+
+@media (max-width: 640px) {
+  .theme-wordmark {
+    min-width: 106px;
+    height: 34px;
+    padding-left: 34px;
+    background-size: 28px 28px;
+  }
+}
+
+
+/* 52Hub mobile visual hotfix: keep brand/footer/product media consistent on small screens. */
+footer p:has(a[href*="github.com/dujiao-next"]),
+footer a[href*="github.com/dujiao-next"] {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .theme-wordmark {
+    color: var(--ui-text-primary) !important;
+  }
+
+  .home-page #featured .grid.grid-cols-2,
+  main .grid.grid-cols-2:has(.theme-card-interactive),
+  main .grid.grid-cols-2:has(img[src*="/uploads/product/"]) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .home-page #featured .theme-card-interactive,
+  main .theme-card-interactive {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  main img[src*="/uploads/product/"] {
+    max-width: 100% !important;
+  }
+
+  main .theme-panel:has(img[src*="/uploads/product/"]) {
+    overflow: hidden !important;
+  }
+
+  main .theme-panel:has(img[src*="/uploads/product/"]) img[src*="/uploads/product/"] {
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+}
+
+
+/* 52Hub mobile product cards: product poster images should be readable, not cropped. */
+@media (max-width: 640px) {
+  .theme-card-interactive img[src*="/uploads/product/"],
+  .home-page #featured img[src*="/uploads/product/"] {
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    background: #111318 !important;
+  }
+
+  .theme-card-interactive .aspect-square,
+  .home-page #featured .aspect-square {
+    background: #111318 !important;
+  }
+}
+
