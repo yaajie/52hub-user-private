@@ -12,7 +12,7 @@
 当前关键状态：
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- 最新 commit：`da061bd 52hub: optimize ContactFloat mobile UX and remove redundant ProductDetail blocks`
+- 最新 commit：`b538c1a 52hub: restore conditional manual delivery notice and fix footer text orphan`
 - remote backup：`https://github.com/yaajie/52hub-user-private`（private，已 push）
 - working tree：clean（CLAUDE.md 本地 dirty，待 commit）
 - ContactFloat 移动端优化已上线；ProductDetail 冗余块已移除。
