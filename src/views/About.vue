@@ -46,6 +46,7 @@
           <p v-if="contactText" class="theme-text-secondary mb-8 whitespace-pre-line">
             {{ contactText }}
           </p>
+          <QQContactCard class="mb-6" />
           <div v-if="hasContactLinks" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a v-if="contactConfig?.telegram" :href="contactConfig.telegram" target="_blank" rel="noopener noreferrer"
               class="group flex items-center justify-center space-x-3 theme-surface-soft border theme-border theme-text-secondary px-6 py-4 rounded-xl transition-colors hover:theme-text-primary">
@@ -74,6 +75,7 @@
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
+import QQContactCard from '../components/QQContactCard.vue'
 
 const { locale } = useI18n()
 const appStore = useAppStore()

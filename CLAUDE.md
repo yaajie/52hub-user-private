@@ -12,9 +12,11 @@
 当前关键状态：
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- 最新 commit：`5a6fd56 52hub: add customer contact and manual delivery guidance`
+- 最新 commit：`d3aab25 52hub: require shared handoff docs updates`
+- remote backup：`https://github.com/yaajie/52hub-user-private`（private，已 push）
 - working tree：clean
 - 客服入口、QQ 群入口、人工发货说明已上线并已本地 commit。
+- 实测发现待修复：关于页面缺 QQ 群入口；博客暂无内容。
 
 边界：
 
