@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`8600954 52hub: update CLAUDE.md to 438eb4a`**
+- **最新 commit：`ab0c6c5 52hub: rewrite AGENTS.md and CLAUDE.md with mandatory pre/post checklists for dual-agent handoff`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
