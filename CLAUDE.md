@@ -12,11 +12,11 @@
 当前关键状态：
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- 最新 commit：`d3aab25 52hub: require shared handoff docs updates`
+- 最新 commit：`da061bd 52hub: optimize ContactFloat mobile UX and remove redundant ProductDetail blocks`
 - remote backup：`https://github.com/yaajie/52hub-user-private`（private，已 push）
-- working tree：clean
-- 客服入口、QQ 群入口、人工发货说明已上线并已本地 commit。
-- 实测发现待修复：关于页面缺 QQ 群入口；博客暂无内容。
+- working tree：clean（CLAUDE.md 本地 dirty，待 commit）
+- ContactFloat 移动端优化已上线；ProductDetail 冗余块已移除。
+- 关于页面 QQ 群入口已上线；资讯（博客）首篇文章已发布。
 
 边界：
 
