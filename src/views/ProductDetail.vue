@@ -239,9 +239,6 @@
                   </p>
                 </div>
 
-                <ManualDeliveryNotice class="mb-4" />
-                <QQContactCard class="mb-8" />
-
                 <div class="mb-8">
                   <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
                     {{ t('productDetail.description') }}
@@ -414,8 +411,6 @@ import { useLocalized, useProductLabels } from '../composables/useProduct'
 import { toast } from '../composables/useToast'
 import ProductImageGallery from '../components/product/ProductImageGallery.vue'
 import ProductMobileBar from '../components/product/ProductMobileBar.vue'
-import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
-import QQContactCard from '../components/QQContactCard.vue'
 
 const route = useRoute()
 const router = useRouter()
