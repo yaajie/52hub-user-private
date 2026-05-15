@@ -332,17 +332,18 @@
         </div>
 
         <div v-if="posts.length > 0" class="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <article
+          <router-link
             v-for="post in posts"
             :key="post.id"
-            class="cursor-pointer rounded-xl border theme-panel p-5 transition hover:shadow-md"
-            @click="goToPost(post.slug)"
+            :to="getPostLink(post)"
+            class="rounded-xl border theme-panel p-5 transition hover:shadow-md no-underline"
+            :aria-label="getLocalizedText(post.title)"
           >
-            <div class="mb-2 text-xs theme-text-muted">{{ formatDate(post.created_at) }}</div>
+            <div v-if="getPostDate(post)" class="mb-2 text-xs theme-text-muted">{{ formatDate(getPostDate(post)) }}</div>
             <h3 class="line-clamp-2 text-base font-semibold">{{ getLocalizedText(post.title) }}</h3>
             <p class="mt-2 line-clamp-2 text-sm theme-text-secondary">{{ getLocalizedText(post.summary) }}</p>
             <div class="mt-4 text-sm font-medium theme-link">{{ t('blog.readMore') }}</div>
-          </article>
+          </router-link>
         </div>
         <div v-else class="rounded-2xl border border-dashed theme-border py-12 text-center theme-text-muted">
           {{ t('blog.empty') }}
@@ -449,15 +450,20 @@ const listProductGroups = useProductListGroups(listProducts, listCategoryMap)
 // ==================== Card Mode ====================
 const formatDate = (dateString: string) => {
   if (!dateString) return ''
-  return new Date(dateString).toLocaleDateString()
+  const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return ''
+  return date.toLocaleDateString()
 }
 
 const goToProduct = (slug: string) => {
   router.push(`/products/${slug}`)
 }
 
-const goToPost = (slug: string) => {
-  router.push(`/blog/${slug}`)
+const getPostDate = (post: any) => post.published_at || post.created_at || post.updated_at || ''
+
+const getPostLink = (post: any) => {
+  const type = post?.type === 'notice' ? 'notice' : 'blog'
+  return `/${type}/${post.slug}`
 }
 
 const loadFeaturedProducts = async () => {

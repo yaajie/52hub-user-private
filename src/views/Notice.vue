@@ -10,6 +10,7 @@
           {{ t('notice.subtitle') }}
         </p>
       </div>
+      <QQContactCard class="mb-8 max-w-4xl mx-auto" />
 
       <!-- Loading State -->
       <div v-if="loading" class="space-y-4 max-w-4xl mx-auto">
@@ -20,9 +21,9 @@
 
       <!-- Notices List -->
       <div v-else-if="notices.length > 0" class="max-w-4xl mx-auto space-y-4">
-        <article v-for="notice in notices" :key="notice.id"
-          class="group theme-panel backdrop-blur-xl border rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-x-1 hover:shadow-md cursor-pointer flex items-center gap-6"
-          @click="goToNotice(notice.slug)">
+        <router-link v-for="notice in notices" :key="notice.id" :to="getNoticeLink(notice.slug)"
+          class="group theme-panel backdrop-blur-xl border rounded-2xl p-6 md:p-8 transition-all duration-300 hover:-translate-x-1 hover:shadow-md flex items-center gap-6 no-underline"
+          :aria-label="getLocalizedText(notice.title)">
           <!-- Icon Column -->
           <div
             class="hidden sm:flex flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden theme-surface-soft border theme-border items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
@@ -41,8 +42,8 @@
                 class="text-xs font-bold px-2 py-0.5 rounded text-blue-600 dark:text-blue-400 theme-surface-soft border theme-border uppercase tracking-wider">
                 {{ t('nav.notice') }}
               </span>
-              <time class="text-xs theme-text-muted font-mono">
-                {{ formatDate(notice.created_at) }}
+              <time v-if="getNoticeDate(notice)" class="text-xs theme-text-muted font-mono">
+                {{ formatDate(getNoticeDate(notice)) }}
               </time>
             </div>
 
@@ -63,7 +64,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </div>
-        </article>
+        </router-link>
 
         <!-- Pagination -->
         <div v-if="totalPages > 1" class="mt-16 flex justify-center">
@@ -110,14 +111,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { debounceAsync } from '../utils/debounce'
+import QQContactCard from '../components/QQContactCard.vue'
 
-const router = useRouter()
 const { t } = useI18n()
 const appStore = useAppStore()
 
@@ -135,13 +135,17 @@ const getLocalizedText = (jsonData: any) => {
 }
 
 const formatDate = (dateString: string) => {
+  if (!dateString) return ''
   const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return ''
   return date.toLocaleDateString(appStore.locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
 }
+
+const getNoticeDate = (notice: any) => notice.published_at || notice.created_at || notice.updated_at || ''
 
 const loadNotices = async () => {
   loading.value = true
@@ -165,9 +169,7 @@ const loadNotices = async () => {
 
 const debouncedLoadNotices = debounceAsync(loadNotices, 300)
 
-const goToNotice = (slug: string) => {
-  router.push(`/blog/${slug}`) // 使用同一个详情页
-}
+const getNoticeLink = (slug: string) => `/notice/${slug}`
 
 const changePage = (page: number) => {
   if (page < 1 || page > totalPages.value) return

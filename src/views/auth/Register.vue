@@ -230,7 +230,7 @@ const formValidation = useFormValidation(['email', 'password'])
 formValidation.addRule('email', formValidation.requiredRule())
 formValidation.addRule('email', formValidation.emailRule())
 formValidation.addRule('password', formValidation.requiredRule())
-formValidation.addRule('password', formValidation.minLengthRule(6))
+formValidation.addRule('password', formValidation.minLengthRule(8))
 
 const passwordStrength = computed(() => getPasswordStrength(password.value))
 const error = ref('')

@@ -10,6 +10,10 @@
         </h1>
         <p class="theme-text-muted text-sm">{{ t('guestOrders.subtitle') }}</p>
       </div>
+      <div class="mb-8 grid gap-4 lg:grid-cols-2">
+        <ManualDeliveryNotice />
+        <QQContactCard />
+      </div>
 
       <div class="theme-panel rounded-2xl p-6 mb-8">
         <div v-if="hasSavedAuth"
@@ -124,6 +128,8 @@ import { useI18n } from 'vue-i18n'
 import { orderStatusClass, orderStatusLabel } from '../utils/status'
 import { debounceAsync } from '../utils/debounce'
 import { amountToCents } from '../utils/money'
+import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
+import QQContactCard from '../components/QQContactCard.vue'
 
 const savedAuth = ref<{ email: string; order_password: string }>({ email: '', order_password: '' })
 const email = ref('')

@@ -15,6 +15,7 @@
     <Toast />
     <ConfirmDialog />
     <BackToTop />
+    <ContactFloat />
     <MobileBottomNav />
   </div>
 </template>
@@ -28,6 +29,7 @@ import Toast from './components/Toast.vue'
 import ConfirmDialog from './components/ConfirmDialog.vue'
 import ErrorBoundary from './components/ErrorBoundary.vue'
 import BackToTop from './components/BackToTop.vue'
+import ContactFloat from './components/ContactFloat.vue'
 import MobileBottomNav from './components/MobileBottomNav.vue'
 
 // config 由 router.beforeEach 统一加载，无需在此重复调用

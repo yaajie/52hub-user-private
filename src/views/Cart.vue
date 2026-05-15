@@ -5,6 +5,10 @@
         <h1 class="mb-2 text-3xl font-black theme-text-primary">{{ t('cart.title') }}</h1>
         <p class="text-sm theme-text-secondary">{{ t('cart.subtitle') }}</p>
       </div>
+      <div class="mb-8 grid gap-4 lg:grid-cols-2">
+        <ManualDeliveryNotice />
+        <QQContactCard />
+      </div>
 
       <!-- Step Indicator with numbers and connecting lines -->
       <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
@@ -211,6 +215,8 @@ import { refreshCartStockSnapshots } from '../utils/cartStock'
 import { getImageUrl } from '../utils/image'
 import { useLocalized } from '../composables/useProduct'
 import { toast } from '../composables/useToast'
+import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
+import QQContactCard from '../components/QQContactCard.vue'
 
 const cartStore = useCartStore()
 const appStore = useAppStore()

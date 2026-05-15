@@ -10,6 +10,7 @@
           {{ t('blog.subtitle') }}
         </p>
       </div>
+      <QQContactCard class="mb-8 max-w-4xl mx-auto" />
 
       <!-- Loading State -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -21,9 +22,9 @@
       <!-- Posts Grid -->
       <div v-else-if="posts.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <article v-for="post in posts" :key="post.id"
-            class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer flex flex-col"
-            @click="goToPost(post.slug)">
+          <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
+            class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
+            :aria-label="getLocalizedText(post.title)">
             <!-- Thumbnail -->
             <div v-if="post.thumbnail" class="h-48 overflow-hidden relative">
               <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
@@ -39,8 +40,8 @@
                     : 'theme-badge-info'">
                   {{ post.type === 'blog' ? t('nav.blog') : t('nav.notice') }}
                 </span>
-                <time class="text-xs theme-text-muted font-mono">
-                  {{ formatDate(post.created_at) }}
+                <time v-if="getPostDate(post)" class="text-xs theme-text-muted font-mono">
+                  {{ formatDate(getPostDate(post)) }}
                 </time>
               </div>
 
@@ -62,7 +63,7 @@
                 </svg>
               </div>
             </div>
-          </article>
+          </router-link>
         </div>
 
         <!-- Pagination -->
@@ -110,14 +111,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { debounceAsync } from '../utils/debounce'
+import QQContactCard from '../components/QQContactCard.vue'
 
-const router = useRouter()
 const { t } = useI18n()
 const appStore = useAppStore()
 
@@ -135,13 +135,17 @@ const getLocalizedText = (jsonData: any) => {
 }
 
 const formatDate = (dateString: string) => {
+  if (!dateString) return ''
   const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return ''
   return date.toLocaleDateString(appStore.locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
 }
+
+const getPostDate = (post: any) => post.published_at || post.created_at || post.updated_at || ''
 
 const loadPosts = async () => {
   loading.value = true
@@ -165,9 +169,7 @@ const loadPosts = async () => {
 
 const debouncedLoadPosts = debounceAsync(loadPosts, 300)
 
-const goToPost = (slug: string) => {
-  router.push(`/blog/${slug}`)
-}
+const getPostLink = (slug: string) => `/blog/${slug}`
 
 const changePage = (page: number) => {
   if (page < 1 || page > totalPages.value) return

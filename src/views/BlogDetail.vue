@@ -42,8 +42,8 @@
                 : 'theme-badge-info'">
                 {{ post.type === 'blog' ? t('nav.blog') : t('nav.notice') }}
               </span>
-              <time class="text-sm theme-text-muted font-mono">
-                {{ formatDate(post.created_at) }}
+              <time v-if="postDate" class="text-sm theme-text-muted font-mono">
+                {{ formatDate(postDate) }}
               </time>
             </div>
 
@@ -60,6 +60,7 @@
           <div v-html="processHtmlForDisplay(getLocalizedText(post.content))"
             class="prose prose-lg max-w-none dark:prose-invert theme-prose">
           </div>
+          <QQContactCard class="mt-12" />
 
           <!-- Footer -->
           <footer class="mt-16 pt-12 border-t theme-border flex justify-center">
@@ -104,6 +105,7 @@ import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { processHtmlForDisplay } from '../utils/content'
 import { debounceAsync } from '../utils/debounce'
+import QQContactCard from '../components/QQContactCard.vue'
 
 const route = useRoute()
 const { t } = useI18n()
@@ -119,13 +121,20 @@ const getLocalizedText = (jsonData: any) => {
 }
 
 const formatDate = (dateString: string) => {
+  if (!dateString) return ''
   const date = new Date(dateString)
+  if (Number.isNaN(date.getTime())) return ''
   return date.toLocaleDateString(appStore.locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   })
 }
+
+const postDate = computed(() => {
+  if (!post.value) return ''
+  return post.value.published_at || post.value.created_at || post.value.updated_at || ''
+})
 
 const backLink = computed(() => {
   if (!post.value) return '/blog'

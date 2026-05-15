@@ -10,6 +10,10 @@
           class="theme-link-muted text-sm transition-colors">{{
             t('guestOrderDetail.backSearch') }}</router-link>
       </div>
+      <div class="mb-8 grid gap-4 lg:grid-cols-2">
+        <ManualDeliveryNotice />
+        <QQContactCard />
+      </div>
 
       <div v-if="showAuthForm"
         class="theme-panel rounded-2xl p-6 mb-6">
@@ -384,6 +388,8 @@ import { copyText } from '../utils/clipboard'
 import { amountToCents } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { getImageUrl } from '../utils/image'
+import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
+import QQContactCard from '../components/QQContactCard.vue'
 
 const route = useRoute()
 const router = useRouter()

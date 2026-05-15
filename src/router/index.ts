@@ -198,10 +198,7 @@ const router = createRouter({
         },
         {
             path: '/me/api',
-            name: 'personal-center-api',
-            component: () => import('../views/PersonalCenter.vue'),
-            props: { section: 'api' },
-            meta: { requiresUserAuth: true }
+            redirect: '/me'
         },
         {
             path: '/me/affiliate',
@@ -246,6 +243,11 @@ const router = createRouter({
             path: '/notice',
             name: 'notice',
             component: noticeViewLoader,
+        },
+        {
+            path: '/notice/:slug',
+            name: 'notice-detail',
+            component: () => import('../views/BlogDetail.vue'),
         },
         {
             path: '/about',
