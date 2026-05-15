@@ -1,38 +1,67 @@
-# 52HUB User Frontend Agent Entry
+# 52HUB User Frontend — Codex Agent Entry
 
 当前目录是 52HUB user 前台源码仓库。
 
-开始任务前必须先读：
+---
 
-1. `/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md`
-2. `/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md`
-3. `/Users/Apple/52hub-source-hardening/52HUB-OPERATIONS-RUNBOOK.md`
-4. `/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md`
+## ⚠️ 开始任务前——强制执行，不可跳过
 
-当前关键状态：
+### 第一步：读完四份共享文档
 
-- 分支：`52hub/v1.0.2-user-hardening`
-- 最新 commit：`5a6fd56 52hub: add customer contact and manual delivery guidance`
-- working tree：clean
-- 客服入口、QQ 群入口、人工发货说明已上线并已本地 commit。
+```
+/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md
+/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md
+/Users/Apple/52hub-source-hardening/52HUB-OPERATIONS-RUNBOOK.md
+/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md
+```
 
-边界：
-
-- 不修改 admin。
-- 不 push 到 `origin`。
-- 不碰生产，除非用户明确要求上线。
-- 上线只同步 `dist/` 到 `/opt/dujiao-next/web/user/`。
-- 上线前必须备份 `/opt/dujiao-next/web/user`。
-- 不输出任何配置密钥。
-- 每次完成任何改动后，必须同步更新父目录 Markdown：
-  - `/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md`
-  - `/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md`
-  - `/Users/Apple/52hub-source-hardening/52HUB-OPERATIONS-RUNBOOK.md`
-  - `/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md`
-- 如果本仓库 commit、dirty/clean 状态或部署状态变化，必须同步更新本文件和 `CLAUDE.md`。
-
-构建命令：
+### 第二步：只读预检
 
 ```bash
+cd /Users/Apple/52hub-source-hardening/dujiao-next-user
+git branch --show-current
+git log --oneline -5
+git status --short
+```
+
+**对比下方「当前仓库快照」，若 commit hash 不一致，以 git log 为准，文档滞后请继续工作但完成后必须补更新。**
+
+---
+
+## 当前仓库快照（每次 commit 后必须更新此块）
+
+- 分支：`52hub/v1.0.2-user-hardening`
+- **最新 commit：`8600954 52hub: update CLAUDE.md to 438eb4a`**
+- private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
+- working tree：clean
+
+---
+
+## ⚠️ 任务完成后——强制清单，全部勾完才算完成
+
+- [ ] `git add` 相关文件，`git commit`，`git push private 52hub/v1.0.2-user-hardening`
+- [ ] `/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md`：新增改动条目（改了什么 / 是否上线 / commit hash / 备份路径）
+- [ ] `/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md`：更新「当前 Git 快照」commit hash + 「最近改动速查」表
+- [ ] `/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md`：更新相关状态描述
+- [ ] 本文件（`AGENTS.md`）：更新「当前仓库快照」中的 commit hash
+- [ ] `CLAUDE.md`（同目录）：更新「当前仓库快照」中的 commit hash
+
+**以上清单未完成 = 任务未完成。下一个 agent 将读到错误状态。**
+
+---
+
+## 操作边界
+
+- 不修改 admin
+- 不 push 到 `origin`（只推 `private`）
+- 部署前必须备份：`cp -a /opt/dujiao-next/web/user /opt/dujiao-next/web/user.pre-<描述>-$(date +%Y%m%d-%H%M%S)`
+- 上线只同步 `dist/` 到 `/opt/dujiao-next/web/user/`
+- 不输出任何配置密钥
+- SSH 私钥：`/Users/Apple/.ssh/codex_vps_154_12_18_190_20260510`
+
+## 构建命令
+
+```bash
+cd /Users/Apple/52hub-source-hardening/dujiao-next-user
 npm run build
 ```
