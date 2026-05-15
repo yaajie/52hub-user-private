@@ -192,6 +192,17 @@
                   </div>
                 </div>
 
+                <!-- 人工交付提醒：仅当 fulfillment_type 不是 auto 时显示 -->
+                <div
+                  v-if="product.fulfillment_type !== 'auto'"
+                  class="mb-6 flex items-start gap-2 rounded-xl border border-amber-200 dark:border-amber-800/50 bg-amber-50/50 dark:bg-amber-950/20 px-4 py-3 text-sm text-amber-700 dark:text-amber-300"
+                >
+                  <svg class="mt-0.5 h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>人工发货商品，付款后请保留订单号并联系客服处理。</span>
+                </div>
+
                 <!-- 活动规则展示 -->
                 <div v-if="hasPromotionRules(product)" class="mb-8 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
                   <h2 class="mb-2 text-sm font-bold text-orange-700 dark:text-orange-300 flex items-center gap-1.5">

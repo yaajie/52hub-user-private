@@ -12,7 +12,7 @@
             </div>
             <h3 class="theme-text-primary text-xl font-bold tracking-tight">{{ brandSiteName }}</h3>
           </div>
-          <p class="text-sm leading-relaxed max-w-sm theme-text-muted">
+          <p class="text-sm leading-relaxed max-w-sm theme-text-muted" style="text-wrap: pretty">
             {{ brandDescription || t('footer.description') }}
           </p>
           <div class="flex space-x-4">
