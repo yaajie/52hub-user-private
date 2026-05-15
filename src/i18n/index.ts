@@ -51,7 +51,7 @@ const messages = {
         nav: {
             home: '首页',
             products: '商品中心',
-            blog: '博客',
+            blog: '资讯',
             notice: '公告',
             about: '关于',
         },
@@ -146,7 +146,7 @@ const messages = {
             empty: '暂无文章',
         },
         blogDetail: {
-            backToBlog: '返回博客列表',
+            backToBlog: '返回资讯列表',
             backToNotice: '返回公告列表',
             notFound: '文章不存在',
         },

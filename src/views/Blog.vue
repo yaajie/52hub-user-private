@@ -13,15 +13,17 @@
       <QQContactCard class="mb-8 max-w-4xl mx-auto" />
 
       <!-- Loading State -->
-      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="i in 6" :key="i"
+      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div v-for="i in 4" :key="i"
           class="theme-surface-muted rounded-2xl h-[300px] animate-pulse border">
         </div>
       </div>
 
       <!-- Posts Grid -->
       <div v-else-if="posts.length > 0">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div :class="posts.length === 1
+          ? 'max-w-2xl mx-auto'
+          : 'grid grid-cols-1 md:grid-cols-2 gap-8'">
           <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
             class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
             :aria-label="getLocalizedText(post.title)">
