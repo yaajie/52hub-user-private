@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`ab0c6c5 52hub: rewrite AGENTS.md and CLAUDE.md with mandatory pre/post checklists for dual-agent handoff`**
+- **最新 commit：`b3bc0d9 52hub: rewrite i18n hero/footer/cta to direct e-commerce tone + NotFound noindex (P0-5/P0-7)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
