@@ -43,20 +43,18 @@
               <div class="text-xs theme-text-muted truncate">@Hub52Notice</div>
             </div>
           </a>
-          <button
-            type="button"
-            @click="copyQQ"
-            class="flex items-center gap-3 px-4 py-3 rounded-xl theme-surface-soft hover:theme-surface-strong transition-colors text-left"
+          <div
+            class="flex items-center gap-3 px-4 py-3 rounded-xl theme-surface-soft hover:theme-surface-strong transition-colors"
           >
-            <svg class="w-6 h-6 shrink-0 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+            <svg class="w-6 h-6 shrink-0 text-[#1AB6FF]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21.395 15.035a39.548 39.548 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.527 4.587 17.747 0 12 0S4.473 4.587 4.473 9.24c0 .274.013.804.014.836l-1.08 2.695a39.547 39.547 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673" />
             </svg>
             <div class="flex-1 min-w-0">
               <div class="text-sm font-semibold theme-text-primary">QQ 群</div>
-              <div class="text-xs theme-text-muted truncate">{{ contacts.qqGroup }}</div>
-              <div class="text-xs theme-text-muted">{{ copyState === 'copied' ? '已复制 ✓' : `验证答案 ${contacts.qqGroupVerifyAnswer}` }}</div>
+              <div class="text-xs theme-text-muted select-text cursor-text">{{ contacts.qqGroup }}</div>
+              <div class="text-xs theme-text-muted">验证答案 {{ contacts.qqGroupVerifyAnswer }}</div>
             </div>
-          </button>
+          </div>
         </div>
 
         <div class="pt-6 mt-6 border-t border-dashed theme-border">
@@ -80,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { CONTACTS } from '../constants/contact'
 import { useAppStore } from '../stores/app'
@@ -96,17 +94,4 @@ const contacts = computed(() => ({
   ...CONTACTS,
   telegramService: appStore.config?.contact?.telegram || CONTACTS.telegramService,
 }))
-
-const copyState = ref<'idle' | 'copied'>('idle')
-const copyQQ = async () => {
-  try {
-    await navigator.clipboard.writeText(CONTACTS.qqGroup)
-    copyState.value = 'copied'
-    setTimeout(() => {
-      copyState.value = 'idle'
-    }, 2000)
-  } catch (error) {
-    console.error('copy failed', error)
-  }
-}
 </script>
