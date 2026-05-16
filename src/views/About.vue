@@ -121,7 +121,7 @@ const serviceItems = computed(() => {
 
 const hasIntroduction = computed(() => introductionText.value !== '')
 const hasServices = computed(() => servicesTitle.value !== '' || serviceItems.value.length > 0)
-const hasContactLinks = computed(() => !!(contactConfig.value?.telegram || contactConfig.value?.whatsapp))
+const hasContactLinks = computed(() => false)
 const hasContact = computed(() => contactTitle.value !== '' || contactText.value !== '' || hasContactLinks.value)
 
 onMounted(async () => {

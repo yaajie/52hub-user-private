@@ -7,7 +7,7 @@
     >
       <div class="border-b border-gray-100 px-4 py-3 dark:border-white/10">
         <div class="flex items-center justify-between gap-3">
-          <p class="text-sm font-bold theme-text-primary">联系客服</p>
+          <p class="text-sm font-bold theme-text-primary">联系我们</p>
           <button
             type="button"
             class="rounded-lg p-1.5 theme-text-muted transition hover:bg-gray-100 dark:hover:bg-white/10"
@@ -20,30 +20,37 @@
       </div>
 
       <div class="space-y-2 p-3">
-        <!-- QQ Group -->
+        <a
+          :href="telegramServiceUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-between rounded-xl border border-sky-200 bg-sky-50/80 px-3 py-2.5 text-sm transition hover:bg-sky-100/80 dark:border-sky-500/20 dark:bg-sky-500/10 dark:hover:bg-sky-500/15"
+        >
+          <span class="font-medium theme-text-primary">📨 TG 联系客服</span>
+          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
+        </a>
+
+        <a
+          :href="CONTACTS.telegramChannel"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-between rounded-xl border border-cyan-200 bg-cyan-50/80 px-3 py-2.5 text-sm transition hover:bg-cyan-100/80 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:hover:bg-cyan-500/15"
+        >
+          <span class="font-medium theme-text-primary">📢 TG 公告频道</span>
+          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
+        </a>
+
         <div class="rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
-          <p class="text-xs theme-text-muted mb-1">QQ 客服群</p>
           <div class="flex items-center justify-between gap-2">
-            <span class="text-sm font-mono font-bold theme-text-primary">1105879333</span>
+            <span class="text-sm font-medium theme-text-primary">💬 QQ 群 {{ CONTACTS.qqGroup }}</span>
             <button
               type="button"
-              class="rounded-md px-2 py-1 text-xs font-medium bg-blue-50 text-blue-600 transition hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-400 dark:hover:bg-blue-900/40"
+              class="rounded-md px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-200 dark:hover:bg-white/15"
               @click="copyQQ"
             >{{ copied ? '已复制' : '复制' }}</button>
           </div>
-          <p class="text-xs theme-text-muted mt-1.5">入群密码：<span class="font-medium theme-text-primary">52hub</span></p>
+          <p class="mt-1.5 text-xs theme-text-muted">验证答案：<span class="font-medium theme-text-primary">{{ CONTACTS.qqGroupVerifyAnswer }}</span></p>
         </div>
-
-        <a
-          v-if="telegramUrl"
-          :href="telegramUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 text-sm transition hover:bg-gray-50 dark:border-white/10 dark:hover:bg-white/5"
-        >
-          <span class="font-medium theme-text-primary">Telegram</span>
-          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
-        </a>
 
         <a
           v-if="supportEmail"
@@ -78,15 +85,16 @@ import {
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import { useAppStore } from '../stores/app'
+import { CONTACTS } from '../constants/contact'
 
 const appStore = useAppStore()
 
 const open = ref(false)
 const copied = ref(false)
 
-const telegramUrl = computed(() => {
+const telegramServiceUrl = computed(() => {
   const value = appStore.config?.contact?.telegram
-  return typeof value === 'string' && value.trim() ? value.trim() : ''
+  return typeof value === 'string' && value.trim() ? value.trim() : CONTACTS.telegramService
 })
 
 const supportEmail = computed(() => {
@@ -96,7 +104,7 @@ const supportEmail = computed(() => {
 
 const copyQQ = async () => {
   try {
-    await navigator.clipboard.writeText('1105879333')
+    await navigator.clipboard.writeText(CONTACTS.qqGroup)
     copied.value = true
     setTimeout(() => { copied.value = false }, 2000)
   } catch {
