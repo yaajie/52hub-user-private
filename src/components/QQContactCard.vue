@@ -39,7 +39,7 @@
 
       <div class="rounded-xl border border-gray-200 bg-gray-50/90 p-3 dark:border-white/10 dark:bg-white/5">
         <div class="flex items-start gap-2">
-          <UserGroupIcon class="mt-0.5 h-5 w-5 shrink-0 text-gray-600 dark:text-gray-300" />
+          <IconQQ class="mt-0.5 h-5 w-5 shrink-0 text-[#1AB6FF]" />
           <div class="min-w-0">
             <p class="text-sm font-bold theme-text-primary">加 QQ 群</p>
             <p class="mt-1 text-xs font-medium theme-text-secondary">{{ CONTACTS.qqGroup }}</p>
@@ -61,7 +61,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { ClipboardDocumentIcon, MegaphoneIcon, PaperAirplaneIcon, UserGroupIcon } from '@heroicons/vue/24/outline'
+import { ClipboardDocumentIcon, MegaphoneIcon, PaperAirplaneIcon } from '@heroicons/vue/24/outline'
+import IconQQ from './icons/IconQQ.vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
 

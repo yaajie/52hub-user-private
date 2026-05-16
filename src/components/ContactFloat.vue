@@ -42,7 +42,7 @@
 
         <div class="rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
           <div class="flex items-center justify-between gap-2">
-            <span class="text-sm font-medium theme-text-primary">💬 QQ 群 {{ CONTACTS.qqGroup }}</span>
+            <span class="text-sm font-medium theme-text-primary"><IconQQ class="inline-block h-4 w-4 mr-1 text-[#1AB6FF] align-text-bottom" />QQ 群 {{ CONTACTS.qqGroup }}</span>
             <button
               type="button"
               class="rounded-md px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-200 dark:hover:bg-white/15"
@@ -84,6 +84,7 @@ import {
   EnvelopeIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
+import IconQQ from './icons/IconQQ.vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
 
