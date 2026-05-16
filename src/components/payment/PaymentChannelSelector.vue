@@ -20,8 +20,8 @@
         </span>
       </div>
       <div class="mt-2 space-y-1 text-xs theme-text-muted">
-        <div>{{ t('payment.feeLabel') }}：{{ props.formatChannelFeeRate(channel) }}</div>
-        <div>{{ t('payment.fixedFeeLabel') }}：{{ props.formatChannelFixedFee(channel) }}</div>
+        <div v-if="Number(channel.fee_rate) > 0">{{ t('payment.feeLabel') }}：{{ props.formatChannelFeeRate(channel) }}</div>
+        <div v-if="Number(channel.fixed_fee) > 0">{{ t('payment.fixedFeeLabel') }}：{{ props.formatChannelFixedFee(channel) }}</div>
       </div>
       <div v-if="isDisabled(channel)" class="mt-2 text-xs text-amber-600">
         {{ channelHint(channel) }}

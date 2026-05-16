@@ -1504,17 +1504,20 @@ const resolveChannelName = (channel?: any, fallbackChannelType?: unknown, apiCha
 }
 
 const formatChannelFeeRate = (channel?: any) => {
-  const basisPoints = rateToBasisPoints(channel?.fee_rate)
-  if (basisPoints === null) return '0.00%'
-  return `${basisPointsToPercent(basisPoints)}%`
+  const feeRate = Number(channel?.fee_rate)
+  const baseAmount = Number(order.value?.total_amount)
+  if (!Number.isFinite(feeRate) || feeRate <= 0 || !Number.isFinite(baseAmount) || baseAmount <= 0) {
+    return '¥0.00'
+  }
+  return `¥${(baseAmount * feeRate / 100).toFixed(2)}`
 }
 
 const formatChannelFixedFee = (channel?: any) => {
   const fixedFee = channel?.fixed_fee
-  if (fixedFee === null || fixedFee === undefined || fixedFee === '') {
-    return formatMoney('0.00', order.value?.currency)
+  if (fixedFee === null || fixedFee === undefined || fixedFee === '' || Number(fixedFee) === 0) {
+    return '¥0.00 CNY'
   }
-  return formatMoney(String(fixedFee), order.value?.currency)
+  return `¥${Number(fixedFee).toFixed(2)} CNY`
 }
 
 onMounted(() => {
