@@ -192,6 +192,16 @@
           <div v-else class="text-sm theme-text-muted">{{ t('orderDetail.noItems') }}</div>
         </div>
 
+        <section v-if="productContent" class="theme-panel border theme-border rounded-2xl p-5 sm:p-6">
+          <h3 class="text-base font-semibold theme-text-primary mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 theme-text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 5.25H7.5A2.25 2.25 0 0 0 5.25 7.5v11.25A2.25 2.25 0 0 0 7.5 21h9a2.25 2.25 0 0 0 2.25-2.25V7.5A2.25 2.25 0 0 0 16.5 5.25H15m-6 0a2.25 2.25 0 1 1 4.5 0m-4.5 0a2.25 2.25 0 0 0 4.5 0" />
+            </svg>
+            <span>商品说明</span>
+          </h3>
+          <article class="prose prose-sm dark:prose-invert max-w-none theme-text-secondary" v-html="productContent"></article>
+        </section>
+
         <div v-if="order.children && order.children.length > 0"
           class="theme-panel rounded-2xl p-6">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.childOrdersTitle') }}</h2>
@@ -388,6 +398,8 @@ import { copyText } from '../utils/clipboard'
 import { amountToCents } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { getImageUrl } from '../utils/image'
+import { processHtmlForDisplay } from '../utils/content'
+import { productAPI } from '../api'
 import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
 import QQContactCard from '../components/QQContactCard.vue'
 
@@ -448,6 +460,50 @@ const showTimeCard = computed(() => {
   return Boolean(order.value.paid_at || order.value.expires_at || order.value.canceled_at)
 })
 
+const fetchedProductContent = ref('')
+const productContent = computed(() => {
+  const fromOrder = getLocalizedText(order.value?.product?.content)
+  if (fromOrder) return processHtmlForDisplay(fromOrder)
+
+  const items = Array.isArray(order.value?.items) ? order.value.items : []
+  for (const item of items) {
+    const itemContent = getLocalizedText(item?.content)
+    if (itemContent) return processHtmlForDisplay(itemContent)
+  }
+
+  if (fetchedProductContent.value) return processHtmlForDisplay(fetchedProductContent.value)
+  return ''
+})
+
+const resolveOrderProductSlug = (orderData: any) => {
+  const direct = String(orderData?.product?.slug || '').trim()
+  if (direct) return direct
+  const items = Array.isArray(orderData?.items) ? orderData.items : []
+  for (const item of items) {
+    const slug = String(item?.slug || item?.product_slug || item?.product?.slug || '').trim()
+    if (slug) return slug
+  }
+  return ''
+}
+
+const ensureProductContent = async (orderData: any) => {
+  fetchedProductContent.value = ''
+  const hasInlineContent = Boolean(getLocalizedText(orderData?.product?.content))
+    || (Array.isArray(orderData?.items) && orderData.items.some((item: any) => Boolean(getLocalizedText(item?.content))))
+  if (hasInlineContent) return
+
+  const slug = resolveOrderProductSlug(orderData)
+  if (!slug) return
+
+  try {
+    const response = await productAPI.detail(slug)
+    const content = getLocalizedText(response?.data?.data?.content)
+    fetchedProductContent.value = content || ''
+  } catch {
+    fetchedProductContent.value = ''
+  }
+}
+
 const loadSavedAuth = () => {
   const saved = localStorage.getItem('guest_order_auth')
   const savedAuth = saved ? JSON.parse(saved) : {}
@@ -473,9 +529,11 @@ const loadOrder = async () => {
       order_password: auth.value.order_password,
     })
     order.value = response.data.data
+    await ensureProductContent(order.value)
     authError.value = ''
   } catch (error) {
     order.value = null
+    fetchedProductContent.value = ''
     authError.value = t('guestOrderDetail.authInvalid')
   } finally {
     loading.value = false

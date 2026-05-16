@@ -212,6 +212,18 @@
                   </div>
                 </div>
 
+                <div v-if="visiblePaymentChannels.length" class="mt-3 mb-8 flex flex-wrap items-center gap-2 text-sm theme-text-secondary">
+                  <span class="theme-text-muted">支持支付：</span>
+                  <span
+                    v-for="ch in visiblePaymentChannels"
+                    :key="ch.id"
+                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg theme-surface-soft"
+                  >
+                    <img v-if="ch.icon" :src="getImageUrl(ch.icon)" :alt="ch.name" class="w-4 h-4 object-contain" loading="lazy" />
+                    <span>{{ ch.name }}</span>
+                  </span>
+                </div>
+
                 <!-- 活动规则展示 -->
                 <div v-if="hasPromotionRules(product)" class="mb-8 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
                   <h2 class="mb-2 text-sm font-bold text-orange-700 dark:text-orange-300 flex items-center gap-1.5">
@@ -611,6 +623,14 @@ const canPurchase = computed(() => {
   if (product.value.stock_status === 'out_of_stock') return false
   if (selectedSku.value && !isSkuPurchasable(selectedSku.value)) return false
   return true
+})
+
+const visiblePaymentChannels = computed(() => {
+  const all = Array.isArray(appStore.config?.payment_channels) ? appStore.config.payment_channels : []
+  const allowed = product.value?.payment_channel_ids
+  if (!Array.isArray(allowed) || allowed.length === 0) return all
+  const allowedSet = new Set(allowed.map((id: unknown) => Number(id)))
+  return all.filter((channel: any) => allowedSet.has(Number(channel?.id)))
 })
 const cannotPurchaseReason = computed(() => {
   if (!product.value) return ''
