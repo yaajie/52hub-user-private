@@ -77,6 +77,10 @@ const messages = {
                 cta: '看看商品',
                 badge: '52HUB',
             },
+            announcement: {
+                title: '公告',
+                noticeTitle: '下单须知',
+            },
             stats: {
                 activeUsers: '活跃用户',
                 premiumProducts: '精选商品',
@@ -1039,6 +1043,10 @@ const messages = {
                 subtitle: 'ChatGPT · Claude · Gemini · Apple ID — monthly top-ups and account sales.',
                 cta: 'Browse Products',
                 badge: 'Next Gen Digital Store',
+            },
+            announcement: {
+                title: 'Announcement',
+                noticeTitle: 'Order Notice',
             },
             stats: {
                 activeUsers: 'Active Users',
