@@ -81,11 +81,17 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
 import { useAppStore } from '../stores/app'
 
 const router = useRouter()
 const { t } = useI18n()
 const appStore = useAppStore()
+useHead({
+  meta: [
+    { name: 'robots', content: 'noindex, follow' },
+  ],
+})
 
 const brandSiteName = computed(() => {
   const siteName = String(appStore.config?.brand?.site_name || '').trim()

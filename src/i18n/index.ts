@@ -56,7 +56,7 @@ const messages = {
             about: '关于',
         },
         footer: {
-            description: '专业的在线工作室，为您提供优质的产品和服务。',
+            description: '52HUB · ChatGPT、Claude、Gemini 等 AI 工具直充，账号代购，下单后联系客服。',
             quickLinks: '快速链接',
             contact: '联系我们',
             rights: '保留所有权利',
@@ -72,10 +72,10 @@ const messages = {
         },
         home: {
             hero: {
-                title: '52Hub · D&N',
-                subtitle: '专业的产品与服务提供商',
-                cta: '浏览商品',
-                badge: '新一代数字商店',
+                title: 'AI 工具直充 & 账号代购',
+                subtitle: 'ChatGPT · Claude · Gemini · Apple ID — 直充月卡 / 出号 / 礼品卡兑换',
+                cta: '看看商品',
+                badge: '52HUB',
             },
             stats: {
                 activeUsers: '活跃用户',
@@ -84,15 +84,15 @@ const messages = {
                 support: '技术支持',
             },
             featured: {
-                title: '精选商品',
-                description: '探索我们精心挑选的优质数字资产系列。',
+                title: '热卖商品',
+                description: '直充月卡、年卡、Apple ID 出号、礼品卡兑换号。',
                 empty: '暂无商品',
                 viewAll: '查看全部商品',
             },
             cta: {
-                title: '准备好开始了吗？',
-                description: '立即加入成千上万满意客户的行列，提升您的数字体验。',
-                button: '查看所有商品',
+                title: '没找到想要的？',
+                description: '加 QQ 群 1105879333 直接问客服。',
+                button: '看全部商品',
             },
             latest: {
                 title: '最新动态',
@@ -157,7 +157,7 @@ const messages = {
         about: {
             title: '关于我们',
             subtitle: '了解52Hub',
-            introduction: '52Hub是一家专业的在线工作室，致力于为客户提供优质的产品和服务。我们以创新、专业、高效为核心价值观，不断追求卓越，为客户创造价值。',
+            introduction: '52HUB 提供 ChatGPT、Claude、Gemini 等 AI 工具直充与账号代购服务。',
             ourServices: '我们的服务',
             service1: '优质商品推荐与销售',
             service2: '专业的售前咨询服务',
@@ -1019,7 +1019,7 @@ const messages = {
             about: 'About',
         },
         footer: {
-            description: 'Professional online studio providing quality products and services.',
+            description: '52HUB · ChatGPT, Claude, Gemini top-ups and account services.',
             quickLinks: 'Quick Links',
             contact: 'Contact Us',
             rights: 'All rights reserved',
@@ -1035,8 +1035,8 @@ const messages = {
         },
         home: {
             hero: {
-                title: '52Hub',
-                subtitle: 'Professional Products and Services Provider',
+                title: 'AI Tool Top-ups & Accounts',
+                subtitle: 'ChatGPT · Claude · Gemini · Apple ID — monthly top-ups and account sales.',
                 cta: 'Browse Products',
                 badge: 'Next Gen Digital Store',
             },
