@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`b3bc0d9 52hub: rewrite i18n hero/footer/cta to direct e-commerce tone + NotFound noindex (P0-5/P0-7)`**
+- **最新 commit：`f98241d docs: sync handoff snapshots and Batch 2.3 closure`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 

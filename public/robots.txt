@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /me/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /pay
+Disallow: /auth/
+Disallow: /guest/orders
+Disallow: /orders/
+Disallow: /recharge-orders/
+
+Sitemap: https://52hub.org/sitemap.xml
