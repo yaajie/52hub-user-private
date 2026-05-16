@@ -83,7 +83,7 @@
         </button>
 
         <!-- Language Switcher (Desktop) -->
-        <div class="relative group/lang lang-switcher hidden lg:block">
+        <div v-if="false" class="relative group/lang lang-switcher hidden lg:block">
           <button @click="toggleLangMenu"
             class="theme-nav-link space-x-2">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +197,7 @@
           </button>
 
           <!-- Language Switcher -->
-          <div class="mt-4 pt-4 border-t theme-border">
+          <div v-if="false" class="mt-4 pt-4 border-t theme-border">
             <span class="text-xs theme-text-muted font-semibold uppercase tracking-wider px-4">{{ t('navbar.selectLanguage') }}</span>
             <div class="mt-2 space-y-1">
               <button v-for="lang in languages" :key="lang.code" @click="changeLanguage(lang.code)"

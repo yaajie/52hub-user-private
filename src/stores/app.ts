@@ -5,16 +5,21 @@ import { applyCustomScripts } from '../utils/customScripts'
 import { useHead } from '@unhead/vue'
 
 export const useAppStore = defineStore('app', () => {
-    const locale = ref(localStorage.getItem('locale') || 'zh-CN')
+    // P0-8 (2026-05-16): 锁死 zh-CN，忽略 localStorage 残留与浏览器语言
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('locale') && localStorage.getItem('locale') !== 'zh-CN') {
+        localStorage.removeItem('locale')
+    }
+    const locale = ref('zh-CN')
     const config = ref<any>(null)
     const loading = ref(false)
     // 服务器与客户端的时间偏移量（毫秒），serverTime = clientTime + offset
     const serverTimeOffset = ref(0)
 
-    // 设置语言
+    // P0-8: 切换 UI 已屏蔽，setLocale 只接受 zh-CN，其它 locale 调用被忽略
     const setLocale = (newLocale: string) => {
-        locale.value = newLocale
-        localStorage.setItem('locale', newLocale)
+        if (newLocale !== 'zh-CN') return
+        locale.value = 'zh-CN'
+        localStorage.setItem('locale', 'zh-CN')
     }
 
     // 全局响应式 SEO 配置

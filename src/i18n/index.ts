@@ -1930,20 +1930,12 @@ const messages = {
     },
 }
 
-const supportedLocales = ['zh-CN', 'en-US']
+// P0-8 (2026-05-16): 语言切换前端屏蔽，仅暴露 zh-CN。
+// en-US 翻译数据保留在 messages 中作 fallback，避免 KeyMissing。
+const supportedLocales = ['zh-CN']
 
 function detectLocale(): string {
-    const saved = localStorage.getItem('locale')
-    if (saved && supportedLocales.includes(saved)) return saved
-
-    const browserLang = navigator.language || ''
-    if (supportedLocales.includes(browserLang)) return browserLang
-
-    const langPrefix = browserLang.split('-')[0]
-    if (langPrefix === 'zh') return 'zh-CN'
-    if (langPrefix === 'en') return 'en-US'
-
-    return 'zh-CN'
+    return supportedLocales[0] || 'zh-CN'
 }
 
 const i18n = createI18n({
