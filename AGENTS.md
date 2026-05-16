@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`76fee74 52hub: replace hero banner image with announcement card (P1-B)`**
+- **最新 commit：`912c88a 52hub: order content render + product page payment list + checkout fee display (P1-C)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
