@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`9f4ce78 52hub: lock locale to zh-CN and hide language switcher (P0-8)`**
+- **最新 commit：`1049828 docs: sync user repo snapshots after P0-8`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
