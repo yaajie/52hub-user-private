@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`8787191 52hub: add Google/Baidu/Bing search engine verification files`**
+- **最新 commit：`待本次提交：52hub: add IndexNow key + push script for Baidu/Bing search engines (P0-2.3)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,11 @@ npm run build
 
 ## 最近任务记录
 
+- P0-2.3（2026-05-18）：
+  - 新增 `scripts/push-search.sh`（百度推送 + Bing IndexNow，读取 `BAIDU_PUSH_TOKEN` 和 `INDEXNOW_KEY` 环境变量）
+  - 新增 `scripts/urls-core.txt`（20 个核心 URL）
+  - 新增并部署 `public/<indexnow-key>.txt`（线上可访问，供 IndexNow 验证）
+  - 新增 `.env.local.example`（仅占位符，不含真实 token/key）
 - P0-2.2（2026-05-17）：
   - 新增并纳入版本控制：`public/google983c3b37d4dafb06.html`、`public/baidu_verify_codeva-xBQwq8EIH8.html`、`public/BingSiteAuth.xml`
   - 说明：Google/百度/Bing 验证文件已在生产可访问，本次仅做 git 收口
