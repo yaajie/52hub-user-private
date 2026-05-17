@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`43c24c3 52hub: add IndexNow key + push script for Baidu/Bing search engines`**
+- **最新 commit：`f331fcc 52hub: visual microtune after P1-I (compact contact pills + footer icon row)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,25 @@ npm run build
 
 ## 最近任务记录
 
+- 视觉微调（2026-05-18，commit `f331fcc`）：
+  - `SiteHero.vue` 顶部联系条恢复图标 + 单行胶囊样式，主标题不再被联系条压住
+  - `Footer.vue` "联系我们"由边框卡片改为紧凑图标行，5 列网格保留以避免"在线工具"换行
+  - 备份：`/opt/dujiao-next/web/user.pre-visual-microtune-20260518-020752`
+  - 部署先于 commit，事后补提交完成 git/生产一致性
+- P1-I（2026-05-18，commit `c5ff727`）：首页大改
+  - 新增 `SiteHero.vue` / `ResourceHubGrid.vue` / `ContactStrip.vue` 三个组件
+  - card mode 用 SiteHero + ResourceHubGrid 替换原 HomeAnnouncement（HomeAnnouncement 保留未删）
+  - `Footer.vue` 改 5 列：Brand / 快速链接 / AI 资源 / 在线工具（双子导航）
+  - PROJECT-STATUS §2.5 新增"定位演进"章节
+  - 备份：`/opt/dujiao-next/web/user.pre-p1i-20260518-014252`
+- P1-H（2026-05-18，commit `1d71398`）：
+  - 新增 `views/OpenaiHub.vue`、`views/GeminiHub.vue`
+  - `router/index.ts` 加 `/openai-hub`、`/gemini-hub`
+  - `views/Tools.vue` 新增 5sim.net + 尼日利亚 Apple Store
+- P1-G（2026-05-18，commit `86ec92e`）：
+  - 新增 `views/Tools.vue`（6 工具分类）、`views/ClaudeHub.vue`、`views/ChatgptHub.vue`
+  - `router/index.ts` 加 `/tools`、`/claude-hub`、`/chatgpt-hub`
+  - `views/Home.vue` card mode 在公告卡下新增"最新教程"区块（3 篇 blog）
 - P0-2.3（2026-05-18）：
   - 新增 `scripts/push-search.sh`（百度推送 + Bing IndexNow，读取 `BAIDU_PUSH_TOKEN` 和 `INDEXNOW_KEY` 环境变量）
   - 新增 `scripts/urls-core.txt`（20 个核心 URL）

@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`43c24c3 52hub: add IndexNow key + push script for Baidu/Bing search engines`**
+- **最新 commit：`f331fcc 52hub: visual microtune after P1-I (compact contact pills + footer icon row)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -88,6 +88,10 @@ npm run build
   - 新增 `src/components/PurchaseTerms.vue`
   - 在 `Products.vue`、`ProductDetail.vue`、`Cart.vue`、`Home.vue` 底部渲染 `<PurchaseTerms />`
 
-- P1-G（2026-05-18）：新增 Tools/ClaudeHub/ChatgptHub 页面，Home card mode 在公告卡下增加“最新教程”区块（3 篇 blog）。
+- P1-G（2026-05-18，commit `86ec92e`）：新增 Tools/ClaudeHub/ChatgptHub 页面，Home card mode 在公告卡下增加“最新教程”区块（3 篇 blog）。
 
-- P1-H（2026-05-18）：Tools 补充 `5sim.net` / `尼日利亚 Apple Store`，新增 `/openai-hub` 与 `/gemini-hub`，并按 SSH 流程完成生产部署与线上验证。
+- P1-H（2026-05-18，commit `1d71398`）：Tools 补充 `5sim.net` / `尼日利亚 Apple Store`，新增 `/openai-hub` 与 `/gemini-hub`，并按 SSH 流程完成生产部署与线上验证。
+
+- P1-I（2026-05-18，commit `c5ff727`）：首页大改——新增 `SiteHero.vue` / `ResourceHubGrid.vue` / `ContactStrip.vue`；card mode 用 SiteHero + ResourceHubGrid 替换原 HomeAnnouncement；`Footer.vue` 改 5 列双子导航（AI 资源 + 在线工具）；备份 `/opt/dujiao-next/web/user.pre-p1i-20260518-014252`。
+
+- 视觉微调（2026-05-18，commit `f331fcc`）：`SiteHero.vue` 顶部联系条恢复图标 + 单行胶囊样式；`Footer.vue` "联系我们"改紧凑图标行；备份 `/opt/dujiao-next/web/user.pre-visual-microtune-20260518-020752`。部署先于 commit，事后补提交。
