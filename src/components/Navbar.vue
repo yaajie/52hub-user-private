@@ -28,6 +28,38 @@
             <span class="relative z-10">{{ item.label }}</span>
           </a>
         </template>
+        <div class="relative group/aihub shrink-0">
+          <button type="button"
+            class="theme-nav-link text-sm flex items-center gap-1.5 whitespace-nowrap">
+            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+                d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span class="relative z-10">AI 资源</span>
+            <svg class="w-3 h-3 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="absolute left-0 top-full pt-2 hidden group-hover/aihub:block z-50">
+            <div class="min-w-[180px] theme-panel-strong border theme-border rounded-xl shadow-lg py-2 backdrop-blur-xl">
+              <router-link to="/claude-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Claude 资源</router-link>
+              <router-link to="/chatgpt-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">ChatGPT 资源</router-link>
+              <router-link to="/openai-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">OpenAI 全产品</router-link>
+              <router-link to="/gemini-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Gemini 资源</router-link>
+            </div>
+          </div>
+        </div>
+        <router-link to="/tools"
+          class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0"
+          active-class="theme-nav-link-active">
+          <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span class="relative z-10">工具</span>
+        </router-link>
       </div>
 
       <!-- Right Side Actions -->
@@ -176,6 +208,36 @@
               {{ item.label }}
             </a>
           </template>
+
+          <!-- AI 资源 + 工具（移动端展开列） -->
+          <div class="mt-3 pt-3 border-t theme-border">
+            <span class="block px-4 py-1.5 text-xs font-semibold theme-text-muted uppercase tracking-wider">AI 资源</span>
+            <router-link to="/claude-hub" @click="showMobileMenu = false"
+              class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
+              active-class="theme-nav-link-active">
+              <span class="w-5 text-center">🟠</span>Claude 资源
+            </router-link>
+            <router-link to="/chatgpt-hub" @click="showMobileMenu = false"
+              class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
+              active-class="theme-nav-link-active">
+              <span class="w-5 text-center">🟢</span>ChatGPT 资源
+            </router-link>
+            <router-link to="/openai-hub" @click="showMobileMenu = false"
+              class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
+              active-class="theme-nav-link-active">
+              <span class="w-5 text-center">⚪</span>OpenAI 全产品
+            </router-link>
+            <router-link to="/gemini-hub" @click="showMobileMenu = false"
+              class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
+              active-class="theme-nav-link-active">
+              <span class="w-5 text-center">🔵</span>Gemini 资源
+            </router-link>
+            <router-link to="/tools" @click="showMobileMenu = false"
+              class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
+              active-class="theme-nav-link-active">
+              <span class="w-5 text-center">🛠</span>工具集合
+            </router-link>
+          </div>
 
           <!-- Guest orders (not in bottom nav) -->
           <router-link v-if="!userAuthStore.isAuthenticated" to="/guest/orders" @click="showMobileMenu = false"
