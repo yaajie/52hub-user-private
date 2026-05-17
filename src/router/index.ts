@@ -15,6 +15,9 @@ const paymentViewLoader: RouteComponentLoader = () => import('../views/Payment.v
 const blogViewLoader: RouteComponentLoader = () => import('../views/Blog.vue')
 const noticeViewLoader: RouteComponentLoader = () => import('../views/Notice.vue')
 const loginViewLoader: RouteComponentLoader = () => import('../views/auth/Login.vue')
+const toolsViewLoader: RouteComponentLoader = () => import('../views/Tools.vue')
+const claudeHubViewLoader: RouteComponentLoader = () => import('../views/ClaudeHub.vue')
+const chatgptHubViewLoader: RouteComponentLoader = () => import('../views/ChatgptHub.vue')
 
 const routeWarmupLoaders: RouteComponentLoader[] = [
     productsViewLoader,
@@ -25,6 +28,9 @@ const routeWarmupLoaders: RouteComponentLoader[] = [
     blogViewLoader,
     noticeViewLoader,
     loginViewLoader,
+    toolsViewLoader,
+    claudeHubViewLoader,
+    chatgptHubViewLoader,
 ]
 
 let hasScheduledRouteWarmup = false
@@ -238,6 +244,21 @@ const router = createRouter({
             path: '/blog/:slug',
             name: 'blog-detail',
             component: () => import('../views/BlogDetail.vue'),
+        },
+        {
+            path: '/tools',
+            name: 'tools',
+            component: toolsViewLoader,
+        },
+        {
+            path: '/claude-hub',
+            name: 'claude-hub',
+            component: claudeHubViewLoader,
+        },
+        {
+            path: '/chatgpt-hub',
+            name: 'chatgpt-hub',
+            component: chatgptHubViewLoader,
         },
         {
             path: '/notice',

@@ -182,6 +182,25 @@
       :hero-subtitle="heroSubtitle"
     />
 
+    <section class="latest-posts container mx-auto px-4 pt-8" v-if="latestPosts.length">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">最新教程</h2>
+        <router-link to="/blog" class="text-sm theme-text-muted hover:theme-text-primary">查看全部 →</router-link>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <router-link
+          v-for="post in latestPosts"
+          :key="post.id"
+          :to="`/blog/${post.slug}`"
+          class="block theme-panel border theme-border rounded-2xl p-5 hover:theme-surface-strong transition-colors"
+        >
+          <h3 class="text-base font-semibold theme-text-primary line-clamp-2">{{ getLocalizedText(post.title) }}</h3>
+          <p class="mt-2 text-sm theme-text-secondary line-clamp-3">{{ getLocalizedText(post.summary) }}</p>
+          <div class="mt-3 text-xs theme-text-muted">{{ formatDate(post.published_at || post.created_at) }}</div>
+        </router-link>
+      </div>
+    </section>
+
     <section id="featured" class="relative z-10 pb-14" :class="showHeroSection ? 'pt-14' : 'pt-32 md:pt-36'">
       <div class="container mx-auto px-4">
         <div class="mb-8 flex items-end justify-between gap-4">
@@ -218,42 +237,6 @@
       </div>
     </section>
 
-    <template v-if="latestSectionVisible">
-    <hr class="theme-section-divider mx-4 md:mx-auto md:max-w-6xl" />
-
-    <section class="relative z-10 py-12">
-      <div class="container mx-auto px-4">
-        <div class="mb-6 flex items-end justify-between gap-4">
-          <div>
-            <h2 class="theme-section-heading text-[1.7rem]">{{ t('home.latest.title') }}</h2>
-            <p class="mt-1 text-sm theme-text-secondary">{{ t('home.latest.description') }}</p>
-          </div>
-          <div class="flex items-center gap-3 text-sm">
-            <router-link v-if="blogEnabled" to="/blog" class="theme-link-muted">{{ t('nav.blog') }}</router-link>
-            <router-link v-if="noticeEnabled" to="/notice" class="theme-link-muted">{{ t('nav.notice') }}</router-link>
-          </div>
-        </div>
-
-        <div v-if="posts.length > 0" class="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <router-link
-            v-for="post in posts"
-            :key="post.id"
-            :to="getPostLink(post)"
-            class="rounded-xl border theme-panel p-5 transition hover:shadow-md no-underline"
-            :aria-label="getLocalizedText(post.title)"
-          >
-            <div v-if="getPostDate(post)" class="mb-2 text-xs theme-text-muted">{{ formatDate(getPostDate(post)) }}</div>
-            <h3 class="line-clamp-2 text-base font-semibold">{{ getLocalizedText(post.title) }}</h3>
-            <p class="mt-2 line-clamp-2 text-sm theme-text-secondary">{{ getLocalizedText(post.summary) }}</p>
-            <div class="mt-4 text-sm font-medium theme-link">{{ t('blog.readMore') }}</div>
-          </router-link>
-        </div>
-        <div v-else class="rounded-2xl border border-dashed theme-border py-12 text-center theme-text-muted">
-          {{ t('blog.empty') }}
-        </div>
-      </div>
-    </section>
-    </template>
     </template>
 
     <div class="container mx-auto px-4 pb-12">
@@ -296,12 +279,10 @@ const appStore = useAppStore()
 const templateMode = computed(() => appStore.config?.template_mode || 'card')
 const navBuiltin = computed(() => (appStore.config?.nav_config as { builtin?: Record<string, boolean> } | undefined)?.builtin)
 const blogEnabled = computed(() => navBuiltin.value?.blog !== false)
-const noticeEnabled = computed(() => navBuiltin.value?.notice !== false)
-const latestSectionVisible = computed(() => blogEnabled.value || noticeEnabled.value)
 
 // ==================== Shared State ====================
 const products = ref<any[]>([])
-const posts = ref<any[]>([])
+const latestPosts = ref<any[]>([])
 const quickBuyProduct = ref<any>(null)
 const quickBuyVisible = ref(false)
 
@@ -366,13 +347,6 @@ const goToProduct = (slug: string) => {
   router.push(`/products/${slug}`)
 }
 
-const getPostDate = (post: any) => post.published_at || post.created_at || post.updated_at || ''
-
-const getPostLink = (post: any) => {
-  const type = post?.type === 'notice' ? 'notice' : 'blog'
-  return `/${type}/${post.slug}`
-}
-
 const loadFeaturedProducts = async () => {
   try {
     const response = await productAPI.list({ page: 1, page_size: 15 })
@@ -383,13 +357,10 @@ const loadFeaturedProducts = async () => {
 }
 
 const loadLatestPosts = async () => {
-  if (!latestSectionVisible.value) return
+  if (!blogEnabled.value) return
   try {
-    const params: Record<string, unknown> = { page: 1, page_size: 3 }
-    if (blogEnabled.value && !noticeEnabled.value) params.type = 'blog'
-    if (!blogEnabled.value && noticeEnabled.value) params.type = 'notice'
-    const response = await postAPI.list(params)
-    posts.value = response.data.data || []
+    const response = await postAPI.list({ page: 1, page_size: 3, type: 'blog' })
+    latestPosts.value = response.data.data || []
   } catch (error) {
     console.error('Failed to load posts:', error)
   }
