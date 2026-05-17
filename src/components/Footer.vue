@@ -2,7 +2,7 @@
   <footer
     class="relative theme-panel-strong theme-text-secondary border-t theme-border overflow-hidden">
     <div class="container mx-auto px-4 py-16 relative">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 mb-16">
         <!-- Brand -->
         <div class="col-span-2 space-y-6">
           <div class="flex items-center space-x-3">
@@ -40,6 +40,40 @@
                 {{ t(item.label) }}
               </router-link>
             </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="theme-text-primary font-bold mb-6 tracking-wide">AI 资源</h4>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <router-link to="/claude-hub" class="theme-link-muted transition-colors">Claude 资源</router-link>
+            </li>
+            <li>
+              <router-link to="/chatgpt-hub" class="theme-link-muted transition-colors">ChatGPT 资源</router-link>
+            </li>
+            <li>
+              <router-link to="/openai-hub" class="theme-link-muted transition-colors">OpenAI 全产品</router-link>
+            </li>
+            <li>
+              <router-link to="/gemini-hub" class="theme-link-muted transition-colors">Gemini 资源</router-link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="theme-text-primary font-bold mb-6 tracking-wide">在线工具</h4>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <router-link to="/tools" class="theme-link-muted transition-colors">工具集合</router-link>
+            </li>
+          </ul>
+          <ul class="mt-4 space-y-2 text-xs theme-text-muted">
+            <li>IP 检测</li>
+            <li>服务状态</li>
+            <li>DNS / 隐私</li>
+            <li>礼品卡 / 接码</li>
+            <li>域名查询</li>
           </ul>
         </div>
 

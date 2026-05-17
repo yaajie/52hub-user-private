@@ -176,11 +176,8 @@
 
     <!-- ==================== CARD MODE (default) ==================== -->
     <template v-else>
-    <HomeAnnouncement
-      v-if="showHeroSection"
-      :hero-title="heroTitle"
-      :hero-subtitle="heroSubtitle"
-    />
+    <SiteHero />
+    <ResourceHubGrid />
 
     <section class="latest-posts container mx-auto px-4 pt-8" v-if="latestPosts.length">
       <div class="flex items-center justify-between mb-4">
@@ -236,6 +233,7 @@
         </div>
       </div>
     </section>
+    <ContactStrip />
 
     </template>
 
@@ -268,7 +266,9 @@ import ProductListItem from '../components/ProductListItem.vue'
 import ProductQuickBuy from '../components/ProductQuickBuy.vue'
 import CategorySidebar from '../components/CategorySidebar.vue'
 import PaginationNav from '../components/PaginationNav.vue'
-import HomeAnnouncement from '../components/HomeAnnouncement.vue'
+import SiteHero from '../components/SiteHero.vue'
+import ResourceHubGrid from '../components/ResourceHubGrid.vue'
+import ContactStrip from '../components/ContactStrip.vue'
 import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const router = useRouter()
