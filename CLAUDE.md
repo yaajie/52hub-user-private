@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`a766d45 52hub: P1-J' add AI resource dropdown + tools entry to navbar`**
+- **最新 commit：`6759758 52hub: P1-J'-fix navbar AI dropdown — Vue ref + Teleport (drop named-group)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,13 @@ npm run build
 
 ## 最近任务记录
 
+- P1-J'-fix（2026-05-18，commit `6759758`）：
+  - 仅改 `src/components/Navbar.vue`
+  - 桌面 AI 资源下拉之前用 Tailwind v4 具名 group (`group/aihub`) — stylesheet 实测未编译该规则，hover 永远 `display:none`
+  - 父容器 `overflow-x:auto` 会同步把 overflow-y 升级为 auto，即使下拉能 display:block 也会被裁
+  - 修复：删除具名 group，改用 Vue ref + `@mouseenter/@mouseleave` + `<Teleport to="body">` + fixed 定位（位置基于 trigger `getBoundingClientRect`），加 `watch(() => route.path, ...)` 路由切换自动关闭
+  - Chrome 实测：hover → 4 个 hub 链接弹出；点击「Claude 资源」→ URL 跳转 `/claude-hub`
+  - 备份：`/opt/dujiao-next/web/user.pre-p1jfix-20260518-041645`
 - P1-J'（2026-05-18，commit `a766d45`）：
   - 仅改 `src/components/Navbar.vue`
   - 桌面端新增「AI 资源 ▾」hover 下拉（Claude/ChatGPT/OpenAI/Gemini）与「工具」顶级入口（`/tools`）
