@@ -89,10 +89,6 @@
         </span>
       </div>
 
-      <p class="hidden md:block theme-text-secondary text-sm mb-6 whitespace-pre-line line-clamp-5">
-        {{ getLocalizedText(product.description) }}
-      </p>
-
       <div class="flex items-center justify-between border-t theme-border pt-2 md:pt-4 mt-auto">
         <div class="flex flex-col">
           <span class="hidden md:block text-xs theme-text-muted uppercase tracking-wider">{{ t('products.price') }}</span>
@@ -148,16 +144,36 @@
           </svg>
         </div>
       </div>
+
+      <div class="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
+        <span :class="['inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft', fulfillmentBadgeColor]">
+          {{ fulfillmentBadgeText }}
+        </span>
+        <span :class="['inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft', stockBadgeColor]">
+          {{ stockBadgeText }}
+        </span>
+        <span
+          v-if="soldCount > 0"
+          class="inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft theme-text-muted"
+        >
+          ★ 已售 {{ soldCount }}
+        </span>
+      </div>
+
+      <p class="hidden md:block theme-text-secondary text-sm mt-3 whitespace-pre-line line-clamp-5">
+        {{ getLocalizedText(product.description) }}
+      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getFirstImageUrl, getImageUrl } from '../utils/image'
 import { useLocalized, useProductLabels } from '../composables/useProduct'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   product: any
   index?: number
   maxTags?: number
@@ -176,4 +192,34 @@ defineEmits<{
 const { t } = useI18n()
 const { getLocalizedText, siteCurrency, formatPrice } = useLocalized()
 const { getPurchaseTypeLabel, getFulfillmentTypeLabel, getStockBadgeClass, getStockStatusLabel, isSoldOut, hasPromotionPrice, getPromotionPriceAmount, hasPromotionRules } = useProductLabels()
+
+const normalizeCount = (value: unknown) => {
+  const numericValue = Number(value ?? 0)
+  if (!Number.isFinite(numericValue) || numericValue <= 0) return 0
+  return Math.floor(numericValue)
+}
+
+const availableStockCount = computed(() => {
+  const manualAvailable = normalizeCount(props.product?.manual_stock_available)
+  const autoAvailable = normalizeCount(props.product?.auto_stock_available)
+  return manualAvailable + autoAvailable
+})
+
+const soldCount = computed(() => {
+  const manualSold = normalizeCount(props.product?.manual_stock_sold)
+  const autoSold = normalizeCount(props.product?.auto_stock_sold)
+  return manualSold + autoSold
+})
+
+const fulfillmentBadgeText = computed(() => (props.product?.fulfillment_type === 'auto' ? '⚡ 自动发货' : '💬 人工交付'))
+const fulfillmentBadgeColor = computed(() => (props.product?.fulfillment_type === 'auto' ? 'text-emerald-500' : 'text-amber-500'))
+
+const stockBadgeText = computed(() => {
+  if (availableStockCount.value >= 50) return '✓ 库存充足'
+  if (availableStockCount.value >= 10) return '✓ 有库存'
+  if (availableStockCount.value >= 1) return '✓ 少量库存'
+  return '× 暂时缺货'
+})
+
+const stockBadgeColor = computed(() => (availableStockCount.value === 0 ? 'text-red-500' : 'text-emerald-500'))
 </script>

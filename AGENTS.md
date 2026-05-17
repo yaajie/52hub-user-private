@@ -68,6 +68,9 @@ npm run build
 
 ## 最近任务记录
 
+- P1-F（2026-05-17）：
+  - `ProductCard.vue` 价格下新增信任徽章（自动/人工发货、库存分级、已售）
+  - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、余额可提现、售后见说明）
 - P1-E（2026-05-17）：
   - 商品 description 支持 `whitespace-pre-line` 多行渲染（卡片 `line-clamp-5`，详情页全量展示）
   - 新增 `src/components/PurchaseTerms.vue`

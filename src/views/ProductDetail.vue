@@ -224,6 +224,42 @@
                   </span>
                 </div>
 
+                <div class="mt-4 mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm theme-text-secondary">
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4" />
+                    </svg>
+                    <span>平台担保</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 10h8M8 14h5m-7 6l-3 2 1-4a8 8 0 118 0z" />
+                    </svg>
+                    <span>人工客服</span>
+                  </span>
+                  <span v-if="product.fulfillment_type === 'auto'" class="inline-flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" />
+                    </svg>
+                    <span>直充即开</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18M5 7l1 12h12l1-12M9 11v4m6-4v4" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 7V5a3 3 0 016 0v2" />
+                    </svg>
+                    <span>余额可提现</span>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5">
+                    <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 3h8l5 5v13H3V3h5z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 3v5h8V3M8 12h8M8 16h5" />
+                    </svg>
+                    <span>售后详情见商品说明</span>
+                  </span>
+                </div>
+
                 <!-- 活动规则展示 -->
                 <div v-if="hasPromotionRules(product)" class="mb-8 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
                   <h2 class="mb-2 text-sm font-bold text-orange-700 dark:text-orange-300 flex items-center gap-1.5">
