@@ -233,8 +233,6 @@
         </div>
       </div>
     </section>
-    <ContactStrip />
-
     </template>
 
     <div class="container mx-auto px-4 pb-12">
@@ -268,7 +266,6 @@ import CategorySidebar from '../components/CategorySidebar.vue'
 import PaginationNav from '../components/PaginationNav.vue'
 import SiteHero from '../components/SiteHero.vue'
 import ResourceHubGrid from '../components/ResourceHubGrid.vue'
-import ContactStrip from '../components/ContactStrip.vue'
 import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const router = useRouter()

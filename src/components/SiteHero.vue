@@ -2,6 +2,36 @@
   <section class="site-hero relative z-10 pt-24 pb-6">
     <div class="container mx-auto px-4">
       <div class="theme-panel border theme-border rounded-3xl p-8 sm:p-10 md:p-12">
+        <div class="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <a :href="contacts.telegramService" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl theme-surface-soft hover:theme-surface-strong transition-colors">
+            <svg class="w-5 h-5 shrink-0 text-blue-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+            </svg>
+            <div class="text-sm flex-1 min-w-0">
+              <span class="font-semibold theme-text-primary">TG 客服</span>
+              <span class="ml-2 theme-text-muted truncate inline-block align-middle max-w-[12rem] sm:max-w-[9rem] md:max-w-[11rem]">@HUB52service</span>
+            </div>
+          </a>
+          <a :href="contacts.telegramChannel" target="_blank" rel="noopener noreferrer"
+             class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl theme-surface-soft hover:theme-surface-strong transition-colors">
+            <svg class="w-5 h-5 shrink-0 text-sky-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+            </svg>
+            <div class="text-sm flex-1 min-w-0">
+              <span class="font-semibold theme-text-primary">TG 频道</span>
+              <span class="ml-2 theme-text-muted truncate inline-block align-middle max-w-[12rem] sm:max-w-[9rem] md:max-w-[11rem]">@Hub52Notice</span>
+            </div>
+          </a>
+          <router-link to="/notice/announcement-channel"
+             class="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl theme-surface-soft hover:theme-surface-strong transition-colors">
+            <IconQQ class="w-5 h-5 shrink-0 text-[#1AB6FF]" />
+            <div class="text-sm flex-1 min-w-0">
+              <span class="font-semibold theme-text-primary">QQ 群</span>
+              <span class="ml-2 theme-text-muted truncate inline-block align-middle max-w-[12rem] sm:max-w-[9rem] md:max-w-[11rem]">1105879333 · 52hub</span>
+            </div>
+          </router-link>
+        </div>
         <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold theme-text-primary leading-tight">
           嗨，我是站长 Jay <span aria-hidden="true">👋</span>
         </h1>
@@ -38,4 +68,15 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue'
+import { CONTACTS } from '../constants/contact'
+import { useAppStore } from '../stores/app'
+import IconQQ from './icons/IconQQ.vue'
+
+const appStore = useAppStore()
+const contacts = computed(() => ({
+  ...CONTACTS,
+  telegramService: appStore.config?.contact?.telegram || CONTACTS.telegramService,
+}))
+</script>
