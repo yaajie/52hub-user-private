@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f331fcc 52hub: visual microtune after P1-I (compact contact pills + footer icon row)`**
+- **最新 commit：`a766d45 52hub: P1-J' add AI resource dropdown + tools entry to navbar`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- P1-J'（2026-05-18，commit `a766d45`）：
+  - 仅改 `src/components/Navbar.vue`
+  - 桌面端新增「AI 资源 ▾」hover 下拉（Claude/ChatGPT/OpenAI/Gemini）与「工具」顶级入口（`/tools`）
+  - 移动抽屉新增「AI 资源」分组（4 hub + 工具集合）
+  - 保持 `menuItems` / `mobileDrawerItems` 逻辑不变，不混入 backend builtin nav 配置
+  - 备份：`/opt/dujiao-next/web/user.pre-p1j-navbar-20260518-034323`
 - 视觉微调（2026-05-18，commit `f331fcc`）：
   - `SiteHero.vue` 顶部联系条恢复图标 + 单行胶囊样式，主标题不再被联系条压住
   - `Footer.vue` "联系我们"由边框卡片改为紧凑图标行，5 列网格保留以避免"在线工具"换行

@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f331fcc 52hub: visual microtune after P1-I (compact contact pills + footer icon row)`**
+- **最新 commit：`a766d45 52hub: P1-J' add AI resource dropdown + tools entry to navbar`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- P1-J'（2026-05-18，commit `a766d45`）：
+  - 仅改 `src/components/Navbar.vue`
+  - 桌面端新增「AI 资源 ▾」hover 下拉（Claude/ChatGPT/OpenAI/Gemini）与「工具」顶级入口（`/tools`）
+  - 移动抽屉新增「AI 资源」分组（4 hub + 工具集合）
+  - 保持 `menuItems` / `mobileDrawerItems` 逻辑不变，不混入 backend builtin nav 配置
+  - 备份：`/opt/dujiao-next/web/user.pre-p1j-navbar-20260518-034323`
 - P0-2.3（2026-05-18）：
   - 新增 `scripts/push-search.sh`（百度推送 + Bing IndexNow，读取 `BAIDU_PUSH_TOKEN` 和 `INDEXNOW_KEY` 环境变量）
   - 新增 `scripts/urls-core.txt`（20 个核心 URL）
