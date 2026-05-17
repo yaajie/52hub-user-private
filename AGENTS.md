@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`5c30d9c 52hub: add trust badges on ProductCard + trust band on ProductDetail (P1-F)`**
+- **最新 commit：`待本次提交：52hub: expand sitemap with 8 blog posts + 5 category pages, drop disallowed urls (P0-2.1)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,10 @@ npm run build
 
 ## 最近任务记录
 
+- P0-2.1（2026-05-17）：
+  - 更新 `public/sitemap.xml`：移除 `/auth/login` `/auth/register` `/guest/orders`
+  - 新增 5 个分类页（`chatgpt/claude/gemini/apple/google`）+ 8 篇博客 URL
+  - 线上验证：`https://52hub.org/sitemap.xml` 的 `<loc>` 计数为 `20`，`content-type: text/xml`
 - P1-F（2026-05-17）：
   - `ProductCard.vue` 价格下新增信任徽章（自动/人工发货、库存分级、已售）
   - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、余额可提现、售后见说明）
