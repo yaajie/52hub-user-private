@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`待本次提交：52hub: expand sitemap with 8 blog posts + 5 category pages, drop disallowed urls (P0-2.1)`**
+- **最新 commit：`f56e554 52hub: expand sitemap with 8 blog posts + 5 category pages, drop disallowed urls`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
