@@ -91,6 +91,8 @@
           </div>
         </main>
       </div>
+
+      <PurchaseTerms />
     </div>
 
     <ProductQuickBuy
@@ -111,6 +113,7 @@ import ProductCard from '../components/ProductCard.vue'
 import ProductQuickBuy from '../components/ProductQuickBuy.vue'
 import CategorySidebar from '../components/CategorySidebar.vue'
 import PaginationNav from '../components/PaginationNav.vue'
+import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const router = useRouter()
 const { t } = useI18n()

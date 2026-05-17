@@ -65,3 +65,10 @@ git status --short
 cd /Users/Apple/52hub-source-hardening/dujiao-next-user
 npm run build
 ```
+
+## 最近任务记录
+
+- P1-E（2026-05-17）：
+  - 商品 description 支持 `whitespace-pre-line` 多行渲染（卡片 `line-clamp-5`，详情页全量展示）
+  - 新增 `src/components/PurchaseTerms.vue`
+  - 在 `Products.vue`、`ProductDetail.vue`、`Cart.vue`、`Home.vue` 底部渲染 `<PurchaseTerms />`

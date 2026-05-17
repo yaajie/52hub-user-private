@@ -275,7 +275,7 @@
                   <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
                     {{ t('productDetail.description') }}
                   </h2>
-                  <p class="text-lg leading-relaxed theme-text-secondary">
+                  <p class="text-lg leading-relaxed theme-text-secondary whitespace-pre-line">
                     {{ getLocalizedText(product.description) }}
                   </p>
                 </div>
@@ -373,6 +373,8 @@
           </router-link>
         </div>
 
+        <PurchaseTerms />
+
         <!-- Mobile Fixed Purchase Bar -->
         <ProductMobileBar
           :visible="showMobileBar && !!product && !loading"
@@ -443,6 +445,7 @@ import { useLocalized, useProductLabels } from '../composables/useProduct'
 import { toast } from '../composables/useToast'
 import ProductImageGallery from '../components/product/ProductImageGallery.vue'
 import ProductMobileBar from '../components/product/ProductMobileBar.vue'
+import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const route = useRoute()
 const router = useRouter()

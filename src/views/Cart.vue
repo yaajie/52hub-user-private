@@ -200,6 +200,8 @@
           </div>
         </div>
       </div>
+
+      <PurchaseTerms />
     </div>
   </div>
 </template>
@@ -217,6 +219,7 @@ import { useLocalized } from '../composables/useProduct'
 import { toast } from '../composables/useToast'
 import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
 import QQContactCard from '../components/QQContactCard.vue'
+import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const cartStore = useCartStore()
 const appStore = useAppStore()

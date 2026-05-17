@@ -256,6 +256,10 @@
     </template>
     </template>
 
+    <div class="container mx-auto px-4 pb-12">
+      <PurchaseTerms />
+    </div>
+
     <ProductQuickBuy
       v-if="quickBuyProduct"
       :product="quickBuyProduct"
@@ -282,6 +286,7 @@ import ProductQuickBuy from '../components/ProductQuickBuy.vue'
 import CategorySidebar from '../components/CategorySidebar.vue'
 import PaginationNav from '../components/PaginationNav.vue'
 import HomeAnnouncement from '../components/HomeAnnouncement.vue'
+import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const router = useRouter()
 const { t } = useI18n()

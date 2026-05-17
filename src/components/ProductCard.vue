@@ -89,7 +89,7 @@
         </span>
       </div>
 
-      <p class="hidden md:block theme-text-secondary text-sm mb-6 line-clamp-2">
+      <p class="hidden md:block theme-text-secondary text-sm mb-6 whitespace-pre-line line-clamp-5">
         {{ getLocalizedText(product.description) }}
       </p>
 
