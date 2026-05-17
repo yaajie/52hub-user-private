@@ -28,7 +28,10 @@
             <span class="relative z-10">{{ item.label }}</span>
           </a>
         </template>
-        <div class="relative group/aihub shrink-0">
+        <div class="relative shrink-0"
+             ref="aihubTriggerRef"
+             @mouseenter="openAihub"
+             @mouseleave="scheduleCloseAihub">
           <button type="button"
             class="theme-nav-link text-sm flex items-center gap-1.5 whitespace-nowrap">
             <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,14 +43,6 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="absolute left-0 top-full pt-2 hidden group-hover/aihub:block z-50">
-            <div class="min-w-[180px] theme-panel-strong border theme-border rounded-xl shadow-lg py-2 backdrop-blur-xl">
-              <router-link to="/claude-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Claude 资源</router-link>
-              <router-link to="/chatgpt-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">ChatGPT 资源</router-link>
-              <router-link to="/openai-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">OpenAI 全产品</router-link>
-              <router-link to="/gemini-hub" class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Gemini 资源</router-link>
-            </div>
-          </div>
         </div>
         <router-link to="/tools"
           class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0"
@@ -154,6 +149,34 @@
     </div>
 
   </nav>
+
+  <!-- Desktop AI 资源 dropdown panel (teleported to body to escape nav overflow + named-group CSS pitfalls) -->
+  <Teleport to="body">
+    <Transition
+      enter-active-class="transition duration-150 ease-out"
+      enter-from-class="opacity-0 -translate-y-1"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-100 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-1">
+      <div v-if="aihubOpen"
+           class="fixed z-[100] pt-2"
+           :style="{ top: aihubTop + 'px', left: aihubLeft + 'px' }"
+           @mouseenter="cancelCloseAihub"
+           @mouseleave="scheduleCloseAihub">
+        <div class="min-w-[180px] theme-panel-strong border theme-border rounded-xl shadow-lg py-2 backdrop-blur-xl">
+          <router-link to="/claude-hub" @click="aihubOpen = false"
+            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Claude 资源</router-link>
+          <router-link to="/chatgpt-hub" @click="aihubOpen = false"
+            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">ChatGPT 资源</router-link>
+          <router-link to="/openai-hub" @click="aihubOpen = false"
+            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">OpenAI 全产品</router-link>
+          <router-link to="/gemini-hub" @click="aihubOpen = false"
+            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Gemini 资源</router-link>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 
   <!-- Teleport drawer outside nav to avoid backdrop-filter containing block bug -->
   <Teleport to="body">
@@ -282,6 +305,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { useCartStore } from '../stores/cart'
 import { useUserAuthStore } from '../stores/userAuth'
@@ -289,6 +313,7 @@ import { useTheme } from '../utils/theme'
 import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
 
 const { t, locale } = useI18n()
+const route = useRoute()
 const appStore = useAppStore()
 const cartStore = useCartStore()
 const userAuthStore = useUserAuthStore()
@@ -297,6 +322,37 @@ const { theme, toggleTheme } = useTheme()
 const showMobileMenu = ref(false)
 const showLangMenu = ref(false)
 const scrolled = ref(false)
+
+// Desktop AI 资源 dropdown state (Teleport + fixed position; no Tailwind named group)
+const aihubTriggerRef = ref<HTMLElement | null>(null)
+const aihubOpen = ref(false)
+const aihubTop = ref(0)
+const aihubLeft = ref(0)
+let aihubCloseTimer: ReturnType<typeof setTimeout> | null = null
+
+function cancelCloseAihub() {
+  if (aihubCloseTimer) {
+    clearTimeout(aihubCloseTimer)
+    aihubCloseTimer = null
+  }
+}
+
+function openAihub() {
+  cancelCloseAihub()
+  if (aihubTriggerRef.value) {
+    const r = aihubTriggerRef.value.getBoundingClientRect()
+    aihubTop.value = r.bottom
+    aihubLeft.value = r.left
+  }
+  aihubOpen.value = true
+}
+
+function scheduleCloseAihub() {
+  cancelCloseAihub()
+  aihubCloseTimer = setTimeout(() => { aihubOpen.value = false }, 150)
+}
+
+watch(() => route.path, () => { aihubOpen.value = false })
 const cartBounce = ref(false)
 
 const isListMode = computed(() => appStore.config?.template_mode === 'list')
