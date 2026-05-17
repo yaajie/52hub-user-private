@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`00ede8d 52hub: unify QQ icon to tencent qq mark across site (P1-D)`**
+- **最新 commit：`5c30d9c 52hub: add trust badges on ProductCard + trust band on ProductDetail (P1-F)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
