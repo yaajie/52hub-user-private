@@ -18,6 +18,8 @@ const loginViewLoader: RouteComponentLoader = () => import('../views/auth/Login.
 const toolsViewLoader: RouteComponentLoader = () => import('../views/Tools.vue')
 const claudeHubViewLoader: RouteComponentLoader = () => import('../views/ClaudeHub.vue')
 const chatgptHubViewLoader: RouteComponentLoader = () => import('../views/ChatgptHub.vue')
+const openaiHubViewLoader: RouteComponentLoader = () => import('../views/OpenaiHub.vue')
+const geminiHubViewLoader: RouteComponentLoader = () => import('../views/GeminiHub.vue')
 
 const routeWarmupLoaders: RouteComponentLoader[] = [
     productsViewLoader,
@@ -31,6 +33,8 @@ const routeWarmupLoaders: RouteComponentLoader[] = [
     toolsViewLoader,
     claudeHubViewLoader,
     chatgptHubViewLoader,
+    openaiHubViewLoader,
+    geminiHubViewLoader,
 ]
 
 let hasScheduledRouteWarmup = false
@@ -259,6 +263,16 @@ const router = createRouter({
             path: '/chatgpt-hub',
             name: 'chatgpt-hub',
             component: chatgptHubViewLoader,
+        },
+        {
+            path: '/openai-hub',
+            name: 'openai-hub',
+            component: openaiHubViewLoader,
+        },
+        {
+            path: '/gemini-hub',
+            name: 'gemini-hub',
+            component: geminiHubViewLoader,
         },
         {
             path: '/notice',

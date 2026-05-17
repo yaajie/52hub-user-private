@@ -100,6 +100,7 @@ const categories: ToolCategory[] = [
     items: [
       { name: 'Apple 礼品卡（美区）', url: 'https://www.apple.com/shop/buy-giftcard/giftcard', desc: '官方 Apple Gift Card 直购（需海外卡）' },
       { name: '土耳其 Apple Store', url: 'https://www.apple.com/tr/', desc: '土区 App Store 入口（充值便宜）' },
+      { name: '尼日利亚 Apple Store', url: 'https://www.apple.com/ng/', desc: '尼区 App Store 入口（部分 AI 订阅在尼区有价格优势）' },
     ],
   },
   {
@@ -107,6 +108,7 @@ const categories: ToolCategory[] = [
     description: '海外手机号短信接收 · 用于注册各类账号',
     items: [
       { name: 'HeroSMS', url: 'https://hero-sms.com/', desc: '主流接码平台之一，号源覆盖 180+ 国家' },
+      { name: '5sim.net', url: 'https://5sim.net/zh/', desc: '主流接码平台，号源覆盖 130+ 国家，API 简洁文档全' },
     ],
   },
 ]
