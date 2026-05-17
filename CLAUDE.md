@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f56e554 52hub: expand sitemap with 8 blog posts + 5 category pages, drop disallowed urls`**
+- **最新 commit：`8787191 52hub: add Google/Baidu/Bing search engine verification files`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,9 @@ npm run build
 
 ## 最近任务记录
 
+- P0-2.2（2026-05-17）：
+  - 新增并纳入版本控制：`public/google983c3b37d4dafb06.html`、`public/baidu_verify_codeva-xBQwq8EIH8.html`、`public/BingSiteAuth.xml`
+  - 说明：Google/百度/Bing 验证文件已在生产可访问，本次仅做 git 收口
 - P0-2.1（2026-05-17）：
   - 更新 `public/sitemap.xml`：移除 `/auth/login` `/auth/register` `/guest/orders`
   - 新增 5 个分类页（`chatgpt/claude/gemini/apple/google`）+ 8 篇博客 URL
