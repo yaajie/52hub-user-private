@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`e72606b 52hub: /tools hero replace mock status with live visitor IP info`**
+- **最新 commit：`f5516e2 52hub: /tools dual hero (IP + Browser) + arity fix + Footer mobile fix`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,21 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- /tools 双卡 hero + arity 补齐 + Footer 移动修复（2026-05-19，commit `f5516e2`）：
+  - **Hero 重排**：紧凑 banner（badge + H1 + counts 一行）+ 下方双卡 `grid md:grid-cols-3`：IP 卡 `md:col-span-2` + Browser 卡 `md:col-span-1`
+  - **Browser 卡**（新增）：navigator API 本地读取（无 IO），同步 onMounted 赋值（rAF 在某些时序不触发）
+    - 展示：browser (parseBrowser 含 Edge/Opera/Firefox/Chrome/Safari 顺序判定) / os.name (parseOS 含 iOS/Android/Windows/macOS/Linux) / screen (W×H · DPR) / language (zh-CN/en-US 等中文映射) / net.type (4G/WiFi/有线 + downlink Mbps)
+    - 右上 chip：desktop / mobile / tablet
+  - **Tools 分类 arity 补齐**：原 5/4/4/3/3/2 → 6/6/6/6/3/3（4 主类 6 卡 + 2 短类 3 卡，无 4/5/7 孤儿）：
+    - IP 检测 +IP-API、服务状态 +Cloudflare Status、DNS/隐私 +AmIUnique +CoverYourTracks、域名/备案 +DNSChecker +VirusTotal +BGP.he.net、接码 +SMS-Activate
+  - **Footer 移动修复**（同 commit）：`grid-cols-2 md:grid-cols-4` → `grid-cols-1 sm:grid-cols-3 md:grid-cols-4`；Brand `col-span-2 md:col-span-1` → `sm:col-span-3 md:col-span-1`
+    - xs：4 行堆叠（Brand 全宽 / 快速链接 / AI 资源 / 在线工具）
+    - sm：Brand 跨 3 + 3 链接列同行
+    - md+：4 等宽列
+    - 解决 mobile 下"在线工具"被挤为半行孤儿
+  - 备份：`/opt/dujiao-next/web/user.pre-tools-browserinfo-20260519-045904`
+  - Chrome 实测：IP/Browser 卡均填充正确，arity 6/6/6/6/3/3，Footer 桌面 4 等列、sm 3+1 错落
 
 - /tools hero IP 实时面板（2026-05-19，commit `e72606b`）：替换之前的 mock SERVICE STATUS
   - 调 `https://ipapi.co/json/`（免费 30k req/月，无 API key）拉访客真实 IP / 地理 / ISP
