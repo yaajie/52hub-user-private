@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f5516e2 52hub: /tools dual hero (IP + Browser) + arity fix + Footer mobile fix`**
+- **最新 commit：`5f0a6bf 52hub: tighten Footer mobile grid (A: online tools full width)`**（docs sync 待本次后续提交）
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Footer mobile 二次收口（2026-05-19，commit `5f0a6bf`）：
+  - 背景：用户在 iPhone 14 Pro Max 430×932 截图反馈 Footer mobile 排序仍乱、disclaimer 与 Footer Brand 体感过空。
+  - 预检量测：Chrome / Chrome headless 线上 430×932 实测 disclaimer bottom → footer top = 120px、→ Brand top = 185px，低于 200px；因此未动 `Tools.vue` `pb-16` / Footer `py-16` / `mb-16`。
+  - 布局方案：采用 A 方案。Footer xs 改 `grid-cols-2`；Brand `col-span-2` 全宽；快速链接 + AI 资源同行；在线工具 `col-span-2 sm:col-span-1`，xs 全宽避免孤儿。
+  - 断点修正：4 等宽桌面断点从 `md` 提到 `lg`，确保 768px 为 Brand 全宽 + 3 列同行；1440px 仍 4 等宽。
+  - 验证：线上 430×932 / 768×1024 / 1440×900 DOM rect 量测通过；ContactFloat 默认按钮 44×40（mobile）不遮挡 Footer；Tools hero 桌面 2/3 + 1/3 不受影响。
+  - 备份：`/opt/dujiao-next/web/user.pre-mobile-fix2-20260519-052226`。
 
 - /tools 双卡 hero + arity 补齐 + Footer 移动修复（2026-05-19，commit `f5516e2`）：
   - **Hero 重排**：紧凑 banner（badge + H1 + counts 一行）+ 下方双卡 `grid md:grid-cols-3`：IP 卡 `md:col-span-2` + Browser 卡 `md:col-span-1`
