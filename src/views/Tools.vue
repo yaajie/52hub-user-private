@@ -3,33 +3,35 @@
     <div class="container mx-auto px-4">
 
       <!-- ============================================================
-        Hero · 监控面板风格（左标题 + 右服务状态展示卡）
+        Hero · 顶部紧凑 banner + 下方双卡（IP 占 2/3 主视觉 + Browser 占 1/3）
       ============================================================ -->
       <header class="mb-14">
-        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-          <!-- 左：标题 + meta -->
+        <!-- Banner: badge + 大标题 + counts，一行紧凑 -->
+        <div class="mb-6 flex flex-wrap items-end gap-x-6 gap-y-3">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-surface-soft border theme-border mb-5">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-surface-soft border theme-border mb-3">
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span class="text-xs font-mono theme-text-muted tracking-tight">tools.52hub · live</span>
             </div>
-            <h1 class="text-3xl sm:text-5xl font-black tracking-tight theme-text-primary leading-tight">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight theme-text-primary leading-tight">
               AI 工具集合
             </h1>
-            <p class="mt-3 text-base theme-text-secondary leading-relaxed">
-              站长精选 · <span class="font-mono theme-text-primary">{{ totalTools }}</span> 个工具 · <span class="font-mono theme-text-primary">{{ categories.length }}</span> 大分类
-            </p>
-            <p class="mt-4 text-sm theme-text-muted leading-relaxed max-w-md">
-              IP 检测 · 服务状态 · DNS 泄露 · 域名查询 · 礼品卡 · 接码平台。<br />
-              按用途分类整理，点击直达官方入口。
-            </p>
           </div>
+          <div class="flex flex-col gap-1">
+            <p class="text-sm sm:text-base theme-text-secondary leading-relaxed">
+              <span class="font-mono theme-text-primary">{{ totalTools }}</span> 个工具 · <span class="font-mono theme-text-primary">{{ categories.length }}</span> 大分类 · 站长精选
+            </p>
+            <p class="text-xs theme-text-muted">IP 检测 / 服务状态 / DNS 泄露 / 域名查询 / 礼品卡 / 接码</p>
+          </div>
+        </div>
 
-          <!-- 右：访客自己的 IP 实时信息卡（ipapi.co 拉数据） -->
-          <div class="status-card theme-panel border theme-border rounded-2xl overflow-hidden">
+        <!-- 双卡：IP (md 占 2/3) + Browser (md 占 1/3) -->
+        <div class="grid md:grid-cols-3 gap-4 md:gap-5">
+          <!-- IP 卡（占 2 列） -->
+          <div class="status-card md:col-span-2 theme-panel border theme-border rounded-2xl overflow-hidden">
             <div class="status-titlebar flex items-center justify-between px-5 py-3 border-b theme-border">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -128,6 +130,76 @@
             </div>
             <div class="px-5 py-2.5 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
               <span class="theme-text-accent">›</span> 数据来自 ipapi.co · 仅用于本页展示，本站不存储
+            </div>
+          </div>
+
+          <!-- Browser 卡（占 1 列） -->
+          <div class="status-card md:col-span-1 theme-panel border theme-border rounded-2xl overflow-hidden">
+            <div class="status-titlebar flex items-center justify-between px-5 py-3 border-b theme-border">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+                <h2 class="text-xs font-mono font-semibold theme-text-primary tracking-wider">MY BROWSER · UA</h2>
+              </div>
+              <span class="text-xs font-mono theme-text-muted">{{ browserInfo?.platform || '—' }}</span>
+            </div>
+            <div class="px-5 py-4 font-mono text-sm space-y-2">
+              <div v-if="!browserInfo" class="space-y-2.5">
+                <div class="h-3 w-2/3 rounded theme-skeleton"></div>
+                <div class="h-3 w-1/2 rounded theme-skeleton"></div>
+                <div class="h-3 w-3/4 rounded theme-skeleton"></div>
+                <div class="h-3 w-1/3 rounded theme-skeleton"></div>
+              </div>
+              <template v-else>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">browser</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ browserInfo.browser }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">os.name</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ browserInfo.os }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">screen</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ browserInfo.screen }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">language</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ browserInfo.language }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">net.type</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ browserInfo.connection }}</span>
+                </div>
+              </template>
+            </div>
+            <div class="px-5 py-2.5 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
+              <span class="theme-text-accent">›</span> 来自浏览器 navigator API · 本地读取不上传
             </div>
           </div>
         </div>
@@ -236,6 +308,7 @@ const categories: ToolCategory[] = [
       { name: 'WhatIsMyIPAddress', url: 'https://whatismyipaddress.com/', desc: '基础 IP 信息 + 黑名单查询' },
       { name: 'Scamalytics', url: 'https://scamalytics.com/', desc: 'IP 欺诈值评分（低于 30 算干净）' },
       { name: 'BrowserLeaks IP', url: 'https://browserleaks.com/ip', desc: 'IP + WebRTC + 浏览器指纹综合检测' },
+      { name: 'IP-API', url: 'https://ip-api.com/', desc: 'IP 地理 / ISP 详情 + 免费 JSON API' },
     ],
   },
   {
@@ -249,6 +322,7 @@ const categories: ToolCategory[] = [
       { name: 'OpenAI Status', url: 'https://status.openai.com/', desc: 'ChatGPT / API / Sora 状态' },
       { name: 'Google Cloud Status', url: 'https://status.cloud.google.com/', desc: 'Gemini / Google API 状态' },
       { name: 'Apple System Status', url: 'https://www.apple.com/support/systemstatus/', desc: 'iCloud / App Store / Apple ID 状态' },
+      { name: 'Cloudflare Status', url: 'https://www.cloudflarestatus.com/', desc: 'CDN / DNS / Turnstile 状态（很多 AI 站走 CF）' },
       { name: 'Down For Everyone', url: 'https://downforeveryoneorjustme.com/', desc: '通用网站可达性检测' },
     ],
   },
@@ -263,6 +337,8 @@ const categories: ToolCategory[] = [
       { name: 'BrowserLeaks WebRTC', url: 'https://browserleaks.com/webrtc', desc: 'WebRTC 泄露真实 IP 检测' },
       { name: 'Whoer.net', url: 'https://whoer.net/', desc: '综合匿名性评分' },
       { name: 'IPLeak', url: 'https://ipleak.net/', desc: '泄露综合检测（含 IPv6 / Flash）' },
+      { name: 'AmIUnique', url: 'https://amiunique.org/', desc: '浏览器指纹独特度（你有多容易被识别）' },
+      { name: 'CoverYourTracks', url: 'https://coveryourtracks.eff.org/', desc: 'EFF 出品 · 综合反追踪能力评估' },
     ],
   },
   {
@@ -275,6 +351,9 @@ const categories: ToolCategory[] = [
       { name: 'Whois 查询', url: 'https://whois.chinaz.com/', desc: '域名注册信息、到期时间' },
       { name: 'ICP 备案查询', url: 'https://icp.chinaz.com/', desc: '国内 ICP 备案信息（境外域名查不到正常）' },
       { name: 'BuiltWith', url: 'https://builtwith.com/', desc: '查网站用什么技术栈' },
+      { name: 'DNSChecker', url: 'https://dnschecker.org/', desc: '全球 30+ 节点 DNS 解析传播检测' },
+      { name: 'VirusTotal', url: 'https://www.virustotal.com/gui/home/url', desc: '70+ 引擎扫描 URL / 域名安全' },
+      { name: 'BGP.he.net', url: 'https://bgp.he.net/', desc: 'Hurricane Electric · ASN / 路由 / IPv6 查询' },
     ],
   },
   {
@@ -298,6 +377,7 @@ const categories: ToolCategory[] = [
     items: [
       { name: 'HeroSMS', url: 'https://hero-sms.com/', desc: '主流接码平台之一，号源覆盖 180+ 国家' },
       { name: '5sim.net', url: 'https://5sim.net/zh/', desc: '主流接码平台，号源覆盖 130+ 国家，API 简洁文档全' },
+      { name: 'SMS-Activate', url: 'https://sms-activate.org/', desc: '俄系老牌平台，价格低号源杂，适合批量需求' },
     ],
   },
 ]
@@ -379,10 +459,134 @@ function tickClock() {
   liveClock.value = `${date} ${time} ${tz}`
 }
 
+// ============================================================
+// 浏览器信息（navigator API · 本地读取不上传）
+// ============================================================
+
+interface BrowserInfo {
+  browser: string
+  os: string
+  screen: string
+  language: string
+  connection: string
+  platform: string  // 标题栏右上角 chip
+}
+
+const browserInfo = ref<BrowserInfo | null>(null)
+
+function parseBrowser(ua: string): string {
+  // 顺序敏感：Edge / Opera 必须在 Chrome 之前匹配
+  if (/Edg\/(\d+)/i.test(ua)) {
+    const m = ua.match(/Edg\/(\d+)/i)
+    return `Edge ${m?.[1] || ''}`.trim()
+  }
+  if (/OPR\/(\d+)|Opera\/(\d+)/i.test(ua)) {
+    const m = ua.match(/OPR\/(\d+)|Opera\/(\d+)/i)
+    return `Opera ${m?.[1] || m?.[2] || ''}`.trim()
+  }
+  if (/Firefox\/(\d+)/i.test(ua)) {
+    const m = ua.match(/Firefox\/(\d+)/i)
+    return `Firefox ${m?.[1] || ''}`.trim()
+  }
+  if (/Chrome\/(\d+)/i.test(ua) && !/Edg\//i.test(ua)) {
+    const m = ua.match(/Chrome\/(\d+)/i)
+    return `Chrome ${m?.[1] || ''}`.trim()
+  }
+  if (/Version\/(\d+).*Safari/i.test(ua)) {
+    const m = ua.match(/Version\/(\d+)/i)
+    return `Safari ${m?.[1] || ''}`.trim()
+  }
+  return '未知浏览器'
+}
+
+function parseOS(ua: string, platform: string): string {
+  if (/iPhone|iPad|iPod/i.test(ua)) {
+    const m = ua.match(/OS (\d+[_\d]*)/i)
+    return `iOS ${m?.[1]?.replace(/_/g, '.') || ''}`.trim()
+  }
+  if (/Android (\d+(?:\.\d+)?)/i.test(ua)) {
+    const m = ua.match(/Android (\d+(?:\.\d+)?)/i)
+    return `Android ${m?.[1] || ''}`.trim()
+  }
+  if (/Windows NT (\d+\.\d+)/i.test(ua)) {
+    const m = ua.match(/Windows NT (\d+\.\d+)/i)
+    const ver = m?.[1] || ''
+    const map: Record<string, string> = { '10.0': '10/11', '6.3': '8.1', '6.2': '8', '6.1': '7' }
+    return `Windows ${map[ver] || ver}`
+  }
+  if (/Mac OS X (\d+[_\.\d]*)/i.test(ua)) {
+    const m = ua.match(/Mac OS X (\d+[_\.\d]*)/i)
+    return `macOS ${m?.[1]?.replace(/_/g, '.') || ''}`.trim()
+  }
+  if (/Linux/i.test(ua)) return 'Linux'
+  return platform || '未知系统'
+}
+
+function platformLabel(ua: string): string {
+  if (/iPhone|iPad|iPod|Android|Mobile/i.test(ua)) return 'mobile'
+  if (/Tablet/i.test(ua)) return 'tablet'
+  return 'desktop'
+}
+
+function languageLabel(): string {
+  const lang = (navigator.language || 'unknown').toLowerCase()
+  const map: Record<string, string> = {
+    'zh-cn': '简体中文 (zh-CN)',
+    'zh-tw': '繁体中文 (zh-TW)',
+    'zh-hk': '繁体中文 (zh-HK)',
+    'zh': '中文 (zh)',
+    'en-us': '英文 (en-US)',
+    'en-gb': '英文 (en-GB)',
+    'en': '英文 (en)',
+    'ja': '日文 (ja)',
+    'ko': '韩文 (ko)',
+  }
+  return map[lang] || (navigator.language || 'unknown')
+}
+
+function connectionLabel(): string {
+  const conn = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection
+  if (!conn) return '未知（浏览器未提供）'
+  const type = conn.effectiveType || conn.type || '—'
+  const map: Record<string, string> = {
+    'slow-2g': '极慢 (slow-2g)',
+    '2g': '2G',
+    '3g': '3G',
+    '4g': '4G / WiFi',
+    'wifi': 'WiFi',
+    'ethernet': '有线',
+    'cellular': '蜂窝网络',
+  }
+  const label = map[type] || type
+  const down = typeof conn.downlink === 'number' ? ` · ${conn.downlink} Mbps` : ''
+  return `${label}${down}`
+}
+
+function detectBrowserInfo(): BrowserInfo {
+  const ua = navigator.userAgent || ''
+  const platform = (navigator as any).userAgentData?.platform || navigator.platform || ''
+  return {
+    browser: parseBrowser(ua),
+    os: parseOS(ua, platform),
+    screen: typeof window !== 'undefined' && window.screen
+      ? `${window.screen.width} × ${window.screen.height} · ${window.devicePixelRatio || 1}x`
+      : '未知',
+    language: languageLabel(),
+    connection: connectionLabel(),
+    platform: platformLabel(ua),
+  }
+}
+
 onMounted(() => {
   tickClock()
   clockTimer = setInterval(tickClock, 1000)
   loadIpInfo()
+  // 浏览器信息：本地读取，无 IO，同步赋值即可
+  try {
+    browserInfo.value = detectBrowserInfo()
+  } catch {
+    // 不上报错误：失败保持 skeleton，影响仅一张卡
+  }
 })
 
 onUnmounted(() => {
