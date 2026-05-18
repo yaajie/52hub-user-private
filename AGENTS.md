@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`e4cc16c 52hub: fix Products.vue Store JSON-LD field (children → innerHTML)`**
+- **最新 commit：`a4b6152 52hub: P1-M home featured products use backend sort_order`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- P1-M（2026-05-18，前端 `a4b6152` + 后端 `139055a`）：首页"精选推荐"接入后台 sort_order。后端 clone `dujiao-next/dujiao-next` 到 `/Users/Apple/52hub-source-hardening/dujiao-next-api`（本地 branch `52hub/v1.0.2-api-sortorder`，未 push），改 dto + handler 各 1 行暴露 sort_order；生产 docker build 新镜像 `dujiaonext/api:v1.0.2-52hub-sortorder` 已部署，老镜像保留可回滚。前端 Home.vue 拉 50 个 filter sort_order>0 取前 6，fallback 4 个最新；网格 3 列。**admin 后台操作**：商品编辑表 sort_order 数字输入（1+ 上首页，越大越靠前）。备份：api compose `/opt/dujiao-next/docker-compose.yml.pre-sortorder-20260518-163010`，前端 `/opt/dujiao-next/web/user.pre-p1m-frontend-20260518-165839`。
 - P1-L follow-up（2026-05-18，commit `e4cc16c`）：修复 `Products.vue` Store JSON-LD 字段。P1-L 用 `children: JSON.stringify(...)` 注入 schema，但 @unhead/vue 把 `children` 当 slot prop 处理，Chrome 实测 `/products` 第 3 段 JSON-LD parse 失败。改用 `innerHTML`，三段 schema 全 parse 成功；分类页仍只 2 段 + noindex,follow。备份 `/opt/dujiao-next/web/user.pre-jsonld-fix-20260518-144959`。
 - P1-L（2026-05-18，commit `4aa6354`）：SEO 收口 + hub 口径文案 + 4 核心页 useHead + 死 asset 清理。`index.html` 改 hub-first SEO 与 Organization + WebSite JSON-LD；Store schema 移到 `/products` 的 setup-level useHead；Home/Blog/Notice/Products 加 setup 顶层 useHead，分类页 `noindex,follow`；sitemap/categories URL 从 25 降到 20；删除无引用 `public/dj.svg`。备份 `/opt/dujiao-next/web/user.pre-p1l-20260518-135915`，构建产物 `dist/assets/index-CL5XHmkk.js`。
 - BlogDetail 崩溃修复 + About useHead（2026-05-18，commit `22631e4`，P1-K hotfix）：P1-K 把 useHead 写在 watch 内导致 `useHead() was called without provide context`，整个 BlogDetail 页降级为「错误/重试」，8 篇博客全部崩。改回 setup 直接 call useHead + 传 computed 响应式 source。顺手给 About 加 useHead 避免继承首页 head。备份 `/opt/dujiao-next/web/user.pre-bloghotfix-20260518-131046`。

@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`e4cc16c 52hub: fix Products.vue Store JSON-LD field (children → innerHTML)`**
+- **最新 commit：`a4b6152 52hub: P1-M home featured products use backend sort_order`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,17 @@ npm run build
 
 ## 最近任务记录
 
+- P1-M（2026-05-18，前端 commit `a4b6152` + 后端 commit `139055a`）：首页"精选推荐"接入后台 sort_order
+  - **后端**（首次涉及 backend 源码改动）：
+    - 仓库 clone 到 `/Users/Apple/52hub-source-hardening/dujiao-next-api`，本地分支 `52hub/v1.0.2-api-sortorder`（未 push，因无 fork remote）
+    - 改 `internal/dto/product.go` + `internal/http/handlers/public/public.go` 共 2 行，把 `sort_order` 暴露到公开 API
+    - 生产机 docker build 新镜像 `dujiaonext/api:v1.0.2-52hub-sortorder` + 改 docker-compose 切镜像 + `docker compose up -d api`
+    - api compose 备份：`/opt/dujiao-next/docker-compose.yml.pre-sortorder-20260518-163010`
+  - **前端**：
+    - `views/Home.vue`：loadFeaturedProducts 改为拉 50 个商品后 filter `sort_order > 0`，取前 6；fallback 4 个最新避免空白
+    - 网格 5 列 → 3 列
+    - 备份：`/opt/dujiao-next/web/user.pre-p1m-frontend-20260518-165839`
+  - **admin 后台操作**：商品编辑表已有 sort_order 数字输入（之前一直存在但前端没读），设 1+ 即上首页"精选推荐"，数字越大越靠前
 - P1-L follow-up（2026-05-18，commit `e4cc16c`）：修复 `Products.vue` Store JSON-LD 字段
   - P1-L 用 `useHead({script:[{type:'application/ld+json', children: JSON.stringify(...)}]})`，但 `@unhead/vue` 把 `children` 当 slot prop，不是 script tag 的 inline 内容；Chrome 实测 `/products` 第 3 段 JSON-LD parse 失败
   - 修复：`children` → `innerHTML`（@unhead/vue 标准字段）
