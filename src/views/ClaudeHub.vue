@@ -67,6 +67,18 @@
         </div>
       </section>
     </div>
+
+    <section class="container mx-auto px-4 pb-12 pt-6">
+      <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <li><router-link to="/blog/claude-pro-vs-max" class="theme-link-muted hover:theme-text-primary transition-colors">Claude Pro vs Max · 订阅档位怎么选 →</router-link></li>
+          <li><router-link to="/blog/claude-registration-guide" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 注册指南 →</router-link></li>
+          <li><router-link to="/blog/claude-code-getting-started" class="theme-link-muted hover:theme-text-primary transition-colors">Claude Code 上手指南 →</router-link></li>
+          <li><router-link to="/blog/claude-403-troubleshooting" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 报错 403 排查 →</router-link></li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -135,6 +147,13 @@ useHead({
       name: 'description',
       content: '52HUB Claude 资源汇总：Anthropic 官方入口、Claude.ai / Console / API 文档、桌面客户端、Claude Code、实用教程、模型对比、订阅直充入口。',
     },
+    { property: 'og:title', content: 'Claude 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB' },
+    { property: 'og:description', content: '52HUB Claude 资源汇总：Anthropic 官方入口、Claude.ai / Console / API 文档、桌面客户端、Claude Code、实用教程、模型对比、订阅直充入口。' },
+    { property: 'og:url', content: 'https://52hub.org/claude-hub' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://52hub.org/claude-hub' },
   ],
 })
 </script>

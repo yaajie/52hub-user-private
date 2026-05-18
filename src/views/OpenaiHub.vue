@@ -45,6 +45,18 @@
         </div>
       </section>
     </div>
+
+    <section class="container mx-auto px-4 pb-12 pt-6">
+      <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <li><router-link to="/blog/chatgpt-plus-china-payment-guide" class="theme-link-muted hover:theme-text-primary transition-colors">国内付款订阅 ChatGPT Plus 全方法 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-plus-vs-pro-comparison" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Plus vs Pro 对比 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-anti-ban-guide" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 防封号实战指南 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-codex-vs-claude-code" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Codex vs Claude Code →</router-link></li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -118,6 +130,13 @@ useHead({
       name: 'description',
       content: '52HUB OpenAI 全产品资源汇总：ChatGPT 订阅、Sora 视频、DALL-E 图像、API 平台、Codex 编程、Whisper 语音、订阅直充入口。',
     },
+    { property: 'og:title', content: 'OpenAI 资源中心 · ChatGPT / Sora / API / 直充入口 - 52HUB' },
+    { property: 'og:description', content: '52HUB OpenAI 全产品资源汇总：ChatGPT 订阅、Sora 视频、DALL-E 图像、API 平台、Codex 编程、Whisper 语音、订阅直充入口。' },
+    { property: 'og:url', content: 'https://52hub.org/openai-hub' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://52hub.org/openai-hub' },
   ],
 })
 </script>

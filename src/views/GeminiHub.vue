@@ -67,6 +67,18 @@
         </div>
       </section>
     </div>
+
+    <section class="container mx-auto px-4 pb-12 pt-6">
+      <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关阅读</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 资源中心 →</router-link></li>
+          <li><router-link to="/openai-hub" class="theme-link-muted hover:theme-text-primary transition-colors">OpenAI 全产品资源 →</router-link></li>
+          <li><router-link to="/blog" class="theme-link-muted hover:theme-text-primary transition-colors">AI 工具教程合集 →</router-link></li>
+          <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">订阅直充与账号商品 →</router-link></li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -142,6 +154,13 @@ useHead({
       name: 'description',
       content: '52HUB Gemini 资源汇总：Google Gemini 对话、AI Studio、Vertex AI、NotebookLM、Imagen、Veo、订阅直充入口。',
     },
+    { property: 'og:title', content: 'Gemini 资源中心 · 官方入口 / AI Studio / API / 直充 - 52HUB' },
+    { property: 'og:description', content: '52HUB Gemini 资源汇总：Google Gemini 对话、AI Studio、Vertex AI、NotebookLM、Imagen、Veo、订阅直充入口。' },
+    { property: 'og:url', content: 'https://52hub.org/gemini-hub' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://52hub.org/gemini-hub' },
   ],
 })
 </script>

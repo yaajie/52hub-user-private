@@ -128,6 +128,13 @@ useHead({
       name: 'description',
       content: '52HUB 整理的 AI 工具相关常用资源：IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道。',
     },
+    { property: 'og:title', content: '实用工具集合 · IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB' },
+    { property: 'og:description', content: '52HUB 整理的 AI 工具相关常用资源：IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道。' },
+    { property: 'og:url', content: 'https://52hub.org/tools' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://52hub.org/tools' },
   ],
 })
 </script>

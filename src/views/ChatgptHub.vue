@@ -67,6 +67,18 @@
         </div>
       </section>
     </div>
+
+    <section class="container mx-auto px-4 pb-12 pt-6">
+      <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <li><router-link to="/blog/chatgpt-plus-china-payment-guide" class="theme-link-muted hover:theme-text-primary transition-colors">国内付款订阅 ChatGPT Plus 全方法 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-plus-vs-pro-comparison" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Plus vs Pro 对比 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-anti-ban-guide" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 防封号实战指南 →</router-link></li>
+          <li><router-link to="/blog/chatgpt-codex-vs-claude-code" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Codex vs Claude Code →</router-link></li>
+        </ul>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -135,6 +147,13 @@ useHead({
       name: 'description',
       content: '52HUB ChatGPT 资源汇总：OpenAI 官方入口、客户端下载、订阅档位对比、国内付款方法、降低封号率、Codex 介绍、订阅直充入口。',
     },
+    { property: 'og:title', content: 'ChatGPT 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB' },
+    { property: 'og:description', content: '52HUB ChatGPT 资源汇总：OpenAI 官方入口、客户端下载、订阅档位对比、国内付款方法、降低封号率、Codex 介绍、订阅直充入口。' },
+    { property: 'og:url', content: 'https://52hub.org/chatgpt-hub' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [
+    { rel: 'canonical', href: 'https://52hub.org/chatgpt-hub' },
   ],
 })
 </script>

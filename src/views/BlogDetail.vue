@@ -60,6 +60,15 @@
           <div v-html="processHtmlForDisplay(getLocalizedText(post.content))"
             class="prose prose-lg max-w-none dark:prose-invert theme-prose">
           </div>
+          <div class="mt-8 pt-6 border-t theme-border">
+            <h3 class="text-base font-semibold theme-text-primary mb-3">相关资源</h3>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">→ Claude 资源中心</router-link></li>
+              <li><router-link to="/chatgpt-hub" class="theme-link-muted hover:theme-text-primary transition-colors">→ ChatGPT 资源中心</router-link></li>
+              <li><router-link to="/tools" class="theme-link-muted hover:theme-text-primary transition-colors">→ 在线工具集合</router-link></li>
+              <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">→ AI 订阅直充商品</router-link></li>
+            </ul>
+          </div>
           <QQContactCard class="mt-12" />
 
           <!-- Footer -->
@@ -97,7 +106,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
@@ -118,6 +128,14 @@ const getLocalizedText = (jsonData: any) => {
   if (!jsonData) return ''
   const locale = appStore.locale
   return jsonData[locale] || jsonData['zh-CN'] || jsonData['en-US'] || ''
+}
+
+const getSeoText = (value: any) => {
+  if (!value) return ''
+  if (typeof value === 'object') {
+    return value['zh-CN'] || Object.values(value)[0] || ''
+  }
+  return value
 }
 
 const formatDate = (dateString: string) => {
@@ -161,6 +179,23 @@ const loadPost = async () => {
 }
 
 const debouncedLoadPost = debounceAsync(loadPost, 300)
+
+watch(() => post.value, (p) => {
+  if (!p) return
+  const title = getSeoText(p.title)
+  const summary = getSeoText(p.summary)
+  useHead({
+    title: `${title} - 52HUB`,
+    meta: [
+      { name: 'description', content: summary },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: summary },
+      { property: 'og:url', content: `https://52hub.org/blog/${p.slug}` },
+      { property: 'og:type', content: 'article' },
+    ],
+    link: [{ rel: 'canonical', href: `https://52hub.org/blog/${p.slug}` }],
+  })
+}, { immediate: true })
 
 onMounted(() => {
   loadPost()

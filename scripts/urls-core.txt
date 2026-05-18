@@ -18,3 +18,8 @@ https://52hub.org/products/claude-pro
 https://52hub.org/products/claude-max-5x
 https://52hub.org/products/apple-id-us
 https://52hub.org/about
+https://52hub.org/tools
+https://52hub.org/claude-hub
+https://52hub.org/chatgpt-hub
+https://52hub.org/openai-hub
+https://52hub.org/gemini-hub
