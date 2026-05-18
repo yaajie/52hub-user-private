@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`0e8d36a 52hub: UX batch — blog grid + nav reorder + footer 4-col + drop in-content contact cards`**
+- **最新 commit：`c3db562 52hub: add v-spotlight directive — mouse-follow radial gradient on key cards`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：About 加发货/售后/隐私 3 固定 section；新建 v-spotlight directive 应用到 4 hub 卡（含 border）+ 最新教程 6 卡 + Blog 列表 + ProductCard。备份 `pre-about-content-20260519-005838`。
 - UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：Blog 缩略图 aspect-video 16:9；Navbar 顺序首页/AI 资源/工具/资讯/商品中心/关于（去公告）；首页最新教程 6 卡 + 缩略图；Footer 4 列 + 硬编码 slogan + 删后台长描述；删 Blog/BlogDetail/Notice 主区冗余 QQContactCard；Footer quickLinks 保留 notice 入口。备份 `pre-uxbatch-20260519-003722`。
 - P1-O-3（2026-05-18，commit `f486493`）：游客订单密码 localStorage `guest_order_auth` 加 24h TTL。新建 `src/utils/guestAuth.ts` 统一 4 个 view（GuestOrderDetail/GuestOrders/Payment/Checkout）。saved_at 时间戳 + 兼容旧格式自动清除。Chrome 实测三场景（新鲜/48h 过期/旧格式）通过。`userAuth.ts` user_token 长期方案需 backend session 改造，不在本批。备份 `pre-p1o3-guestauth-20260519-000325`。
 - P1-O-2（2026-05-18，commit `3d5d9a4`）：ProductDetail 核心路径类型化（11 any → 0）。`api/types.ts` 加 7 类型对应后端 dto（Product/ProductSKU/PaymentChannel/Category/PromotionRule/MemberLevelPrice/LocalizedText）。`ProductDetail.vue` ref<Product | null>, sku/channel/rule 参数全部类型化。images fallback explicit cast 保留旧后端兼容。Chrome 实测 claude-pro + apple-id-uk 正常。剩余 278 处 any 未来批次。备份 `pre-p1o2-types-20260518-235008`。

@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`0e8d36a 52hub: UX batch — blog grid + nav reorder + footer 4-col + drop in-content contact cards`**
+- **最新 commit：`c3db562 52hub: add v-spotlight directive — mouse-follow radial gradient on key cards`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,11 @@ npm run build
 
 ## 最近任务记录
 
+- About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：
+  - **About**：在站长 Jay 自述与服务内容之间插入 3 个固定 section（发货说明 2 卡 / 售后政策 5 条 / 数据与隐私 3 条），不依赖后台 about_config
+  - **Spotlight**：新建 `src/directives/spotlight.ts`（v-spotlight directive，rAF 节流）+ `.spotlight` / `.spotlight-border` 全局 CSS。应用到 ResourceHubGrid 4 卡（含 `.border` 修饰）/ Home 最新教程 6 卡 / Blog 列表 / ProductCard
+  - 备份：`/opt/dujiao-next/web/user.pre-about-content-20260519-005838`
+  - 真鼠标 hover 应可见跟随 radial gradient + （hub 卡）conic-gradient 边框；Chrome MCP 自动化 hover 不触发 :hover 状态，需用户真浏览器验收
 - UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：用户反馈 9 块视觉/导航/内链调整
   - **a1+a2** `Blog.vue` 缩略图 `h-48` → `aspect-video`（16:9 原比例），删黑色蒙层
   - **a3** `BlogDetail.vue` / `Blog.vue` 列表删主区 `<QQContactCard>` + import
