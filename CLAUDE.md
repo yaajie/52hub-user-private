@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`4aa6354 52hub: P1-L SEO header overhaul + 4 page useHead + i18n hub copy + sitemap dedupe`**
+- **最新 commit：`e4cc16c 52hub: fix Products.vue Store JSON-LD field (children → innerHTML)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,11 @@ npm run build
 
 ## 最近任务记录
 
+- P1-L follow-up（2026-05-18，commit `e4cc16c`）：修复 `Products.vue` Store JSON-LD 字段
+  - P1-L 用 `useHead({script:[{type:'application/ld+json', children: JSON.stringify(...)}]})`，但 `@unhead/vue` 把 `children` 当 slot prop，不是 script tag 的 inline 内容；Chrome 实测 `/products` 第 3 段 JSON-LD parse 失败
+  - 修复：`children` → `innerHTML`（@unhead/vue 标准字段）
+  - 验证：`/products` 3 段 schema 全 parse 成功（Organization + WebSite + Store）；`/categories/claude` 仍只 2 段 + robots noindex,follow
+  - 备份：`/opt/dujiao-next/web/user.pre-jsonld-fix-20260518-144959`
 - P1-L（2026-05-18，commit `4aa6354`）：SEO 收口 + hub 口径文案 + 4 核心页 useHead + 死 asset 清理
   - `index.html`：title/desc/OG/Twitter 改 hub-first 口径；JSON-LD 从 Store + WebSite 改为 Organization + WebSite
   - `src/i18n/index.ts`：home featured / products subtitle / About / footer 文案对齐 hub 定位；保留 `nav.products = 商品中心`

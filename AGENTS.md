@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`4aa6354 52hub: P1-L SEO header overhaul + 4 page useHead + i18n hub copy + sitemap dedupe`**
+- **最新 commit：`e4cc16c 52hub: fix Products.vue Store JSON-LD field (children → innerHTML)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- P1-L follow-up（2026-05-18，commit `e4cc16c`）：修复 `Products.vue` Store JSON-LD 字段。P1-L 用 `children: JSON.stringify(...)` 注入 schema，但 @unhead/vue 把 `children` 当 slot prop 处理，Chrome 实测 `/products` 第 3 段 JSON-LD parse 失败。改用 `innerHTML`，三段 schema 全 parse 成功；分类页仍只 2 段 + noindex,follow。备份 `/opt/dujiao-next/web/user.pre-jsonld-fix-20260518-144959`。
 - P1-L（2026-05-18，commit `4aa6354`）：SEO 收口 + hub 口径文案 + 4 核心页 useHead + 死 asset 清理。`index.html` 改 hub-first SEO 与 Organization + WebSite JSON-LD；Store schema 移到 `/products` 的 setup-level useHead；Home/Blog/Notice/Products 加 setup 顶层 useHead，分类页 `noindex,follow`；sitemap/categories URL 从 25 降到 20；删除无引用 `public/dj.svg`。备份 `/opt/dujiao-next/web/user.pre-p1l-20260518-135915`，构建产物 `dist/assets/index-CL5XHmkk.js`。
 - BlogDetail 崩溃修复 + About useHead（2026-05-18，commit `22631e4`，P1-K hotfix）：P1-K 把 useHead 写在 watch 内导致 `useHead() was called without provide context`，整个 BlogDetail 页降级为「错误/重试」，8 篇博客全部崩。改回 setup 直接 call useHead + 传 computed 响应式 source。顺手给 About 加 useHead 避免继承首页 head。备份 `/opt/dujiao-next/web/user.pre-bloghotfix-20260518-131046`。
 - P1-K（2026-05-18，commit `4f98c6c`）：SEO 收口 + 内链建设 + 死代码清理。sitemap 补 5 个新页面（25 URL）；5 个 hub/tools 扩 og+canonical；ClaudeHub/ChatgptHub/OpenaiHub 加"相关教程"，GeminiHub 加"相关阅读"；BlogDetail 加 useHead + "相关资源"；SiteHero 删顶部联系胶囊；删 HomeAnnouncement.vue + ContactStrip.vue。备份 `/opt/dujiao-next/web/user.pre-p1k-20260518-125422`。
