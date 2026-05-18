@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- Phase 4 CSP enforce（2026-05-19，**OpenResty 配置改动，无 user 仓库 commit**）：
+  - 改 `/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf` 3 处：script-src 加 `https://static.cloudflareinsights.com`、connect-src 加 `https://cloudflareinsights.com`、header name `Content-Security-Policy-Report-Only` → `Content-Security-Policy`
+  - 写入方式：Python `open('r+')` + seek/truncate（保 bind mount inode `71390929`）
+  - admin scripts 实测 0 条 → `customScripts.ts` inline 注入器无实际使用，script-src 保留 `'unsafe-inline'` 留余量
+  - 验证：nginx -t OK + reload OK + 容器 inode 一致 + 5 个关键页面（首页/products/详情/cart/login）0 CSP violation + Cloudflare beacon 持续工作
+  - 备份：`/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf.pre-csp-enforce-20260519-041342`
 - Phase 3 数据接入（2026-05-19，commit `d03ec74`）：Cloudflare Web Analytics beacon 嵌入 `index.html </head>` 之前
   - 模式：手动注入（52hub.org 灰云直连，不走 CF 代理）+ 排除欧盟访客（GDPR safe）
   - Token 公开（client-side beacon）：`e1969593a9d74947b33f79a0488377b6`

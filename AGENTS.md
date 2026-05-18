@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Phase 4 CSP enforce（2026-05-19，无 user 仓库 commit；OpenResty 配置改动）：nginx.conf 3 处改动（script-src + CF analytics 域名 + connect-src + CF insights 域名 + header name 切 enforce）。Python `open('r+')` 保 bind mount inode 71390929。5 个关键页面 0 CSP violation 实测。备份 `nginx.conf.pre-csp-enforce-20260519-041342` 可一行回滚。
 - Phase 3 数据接入（2026-05-19，commit `d03ec74`）：Cloudflare Web Analytics beacon 嵌入 index.html `</head>` 之前。手动注入模式 + 排除欧盟访客。token 公开 `e1969593...`。实测 beacon.min.js 200 + RUM POST 204。CSP enforce 需后续白名单 `static.cloudflareinsights.com` 到 script-src + `cloudflareinsights.com` 到 connect-src。备份 `pre-cf-analytics-20260519-013215`。
 - About 页重做（2026-05-19，commit `dba74a3`）：去 max-w-4xl 用标准 container；Hero 2 列（左 Jay 自述 + 右伪 macOS 终端卡，含 which-ai 命令展示 + uptime 自动计算 + 闪烁光标，AI 站技术感锚点）；3 卡横排发货/售后/隐私；底部 2 列服务内容 + 联系方式；样式内联 scoped。备份 `pre-about-redesign-20260519-011423`。
 - About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：About 加发货/售后/隐私 3 固定 section；新建 v-spotlight directive 应用到 4 hub 卡（含 border）+ 最新教程 6 卡 + Blog 列表 + ProductCard。备份 `pre-about-content-20260519-005838`。
