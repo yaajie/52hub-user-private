@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`c7cf46d 52hub: P1-N-2 wire up 4 new blogs into hubs + BlogDetail topic branches`**
+- **最新 commit：`b31655e 52hub: P1-O-1 swap vue-i18n runtime with in-house 60-line shim`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,18 @@ npm run build
 
 ## 最近任务记录
 
+- P1-O-1（2026-05-18，commits `2f04e60` + `b31655e`）：技术债清理 a11y + i18n 轻量化
+  - **aria-label**（commit `2f04e60`）：`Navbar.vue` 4 个 icon 按钮加 aria-label（AI 资源下拉 + 主题切换 + 移动汉堡 + 抽屉关闭）+ 移动抽屉容器 `role="dialog"` / `aria-modal` / `aria-label`
+  - **vue-i18n 替换**（commit `b31655e`）：
+    - 新增 `src/utils/i18n-lite.ts`（60 行：useI18n shim 含 t() 嵌套 key + `{var}` 插值 + locale ref）
+    - 新增 `src/i18n/messages-zh-cn.ts`（967 行 zh-CN data）
+    - 改 `src/i18n/index.ts`：1956 → 10 行 noop stub + `global: { t, locale }` 兼容 `client.ts` 模块顶层 `i18n.global.t()`
+    - 改 `vite.config.ts`：`resolve.alias` `'vue-i18n'` → `'./src/utils/i18n-lite.ts'`，**52 个 `from 'vue-i18n'` import 一行未改**
+    - 删 `vendor-vue-i18n` manual chunk
+    - 实际收益：vendor-vue-i18n chunk **消失**（50.35 kB gzip → 0），main bundle +21 kB（zh-CN data 内联），**净省 29 kB gzip**
+  - 验证：Chrome 实测首页 / 商品中心 / 404 + `{site}` 插值全部正常
+  - vue-i18n 仍在 `package.json` dependencies（per 红线"不主动改 lockfile"），但被 tree-shake 出 bundle
+  - 备份：aria `/opt/dujiao-next/web/user.pre-p1o-aria-20260518-232511`；i18n `/opt/dujiao-next/web/user.pre-p1o-i18nlite-20260518-233015`
 - P1-N-2（2026-05-18，commit `c7cf46d`）：4 篇新博客发布 + 内链对接
   - admin 发布 4 篇博客（id 17-20）：`gemini-pro-vs-advanced` / `apple-id-overseas-registration-guide` / `how-to-pick-ai-subscription-store` / `sora-veo-hailuo-video-subscription`
   - `BlogDetail.vue` relatedLinks 新增 4 主题分支（gemini / apple-id / sora / how-to-pick），按 slug 前缀切换
