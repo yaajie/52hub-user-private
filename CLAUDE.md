@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`dba74a3 52hub: redesign /about layout — full-width + terminal hero + 3-col grid`**
+- **最新 commit：`d03ec74 52hub: integrate Cloudflare Web Analytics beacon`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- Phase 3 数据接入（2026-05-19，commit `d03ec74`）：Cloudflare Web Analytics beacon 嵌入 `index.html </head>` 之前
+  - 模式：手动注入（52hub.org 灰云直连，不走 CF 代理）+ 排除欧盟访客（GDPR safe）
+  - Token 公开（client-side beacon）：`e1969593a9d74947b33f79a0488377b6`
+  - 实测：beacon.min.js GET 200 + cdn-cgi/rum POST 204
+  - CSP 余项：切 enforce（P1-L-2）需 OpenResty 加 `static.cloudflareinsights.com` 到 script-src + `cloudflareinsights.com` 到 connect-src
+  - 备份：`/opt/dujiao-next/web/user.pre-cf-analytics-20260519-013215`
 - About 页重做（2026-05-19，commit `dba74a3`）：用户反馈宽度与全站不一致 + 内容单薄
   - 去 `max-w-4xl`，改用标准 container（width 1536px on lg）
   - **Hero 2 列**：左 Jay 自述 / 右**伪 macOS 终端卡**（3 圆点 + `~ jay@52hub` 标题 + `which-ai claude/chatgpt/gemini` + `52hub --status` uptime + 闪烁光标），AI 工具站技术感锚点

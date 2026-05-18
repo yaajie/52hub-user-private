@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`dba74a3 52hub: redesign /about layout — full-width + terminal hero + 3-col grid`**
+- **最新 commit：`d03ec74 52hub: integrate Cloudflare Web Analytics beacon`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Phase 3 数据接入（2026-05-19，commit `d03ec74`）：Cloudflare Web Analytics beacon 嵌入 index.html `</head>` 之前。手动注入模式 + 排除欧盟访客。token 公开 `e1969593...`。实测 beacon.min.js 200 + RUM POST 204。CSP enforce 需后续白名单 `static.cloudflareinsights.com` 到 script-src + `cloudflareinsights.com` 到 connect-src。备份 `pre-cf-analytics-20260519-013215`。
 - About 页重做（2026-05-19，commit `dba74a3`）：去 max-w-4xl 用标准 container；Hero 2 列（左 Jay 自述 + 右伪 macOS 终端卡，含 which-ai 命令展示 + uptime 自动计算 + 闪烁光标，AI 站技术感锚点）；3 卡横排发货/售后/隐私；底部 2 列服务内容 + 联系方式；样式内联 scoped。备份 `pre-about-redesign-20260519-011423`。
 - About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：About 加发货/售后/隐私 3 固定 section；新建 v-spotlight directive 应用到 4 hub 卡（含 border）+ 最新教程 6 卡 + Blog 列表 + ProductCard。备份 `pre-about-content-20260519-005838`。
 - UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：Blog 缩略图 aspect-video 16:9；Navbar 顺序首页/AI 资源/工具/资讯/商品中心/关于（去公告）；首页最新教程 6 卡 + 缩略图；Footer 4 列 + 硬编码 slogan + 删后台长描述；删 Blog/BlogDetail/Notice 主区冗余 QQContactCard；Footer quickLinks 保留 notice 入口。备份 `pre-uxbatch-20260519-003722`。
