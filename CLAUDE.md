@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`211c596 52hub: redesign /tools — monitoring dashboard hero + indexed cards`**
+- **最新 commit：`e72606b 52hub: /tools hero replace mock status with live visitor IP info`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,13 @@ npm run build
 
 ## 最近任务记录
 
+- /tools hero IP 实时面板（2026-05-19，commit `e72606b`）：替换之前的 mock SERVICE STATUS
+  - 调 `https://ipapi.co/json/`（免费 30k req/月，无 API key）拉访客真实 IP / 地理 / ISP
+  - 客户端 28 keyword 判定 datacenter vs residential（含国内云：alibaba/tencent/baidu/huawei/bytedance/ucloud/qcloud 等）
+  - 实时时钟每秒 tick + 闪烁光标 + AbortController 5s 超时
+  - 终端风格 `$ curl ifconfig.me` / `$ geo.lookup` / `$ ip.type` / `$ date` 输出
+  - OpenResty CSP connect-src 加 `https://ipapi.co`（Python in-place 保 inode 71390929；备份 nginx.conf.pre-ipapi-20260519-0440）
+  - 验证：ipapi.co/json GET 200；实测识别 Oracle Cloud 为 datacenter ⚠
 - /tools 页重做（2026-05-19，commit `211c596`）：用户反馈原 /tools "丑、不像 AI 工具"
   - **Hero 2 列**：左 H1 + live badge（emerald ping 动画）+ 工具/分类计数；右 SERVICE STATUS 面板（4 条 mock 状态 + 闪烁绿点 + 链真实 status 页）
   - **6 分类 sections** 加 [01]-[06] 编号 + 6 种 accent color 左条 + 右上 tool count tag

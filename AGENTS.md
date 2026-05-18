@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`211c596 52hub: redesign /tools — monitoring dashboard hero + indexed cards`**
+- **最新 commit：`e72606b 52hub: /tools hero replace mock status with live visitor IP info`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- /tools hero IP 实时面板（2026-05-19，commit `e72606b`）：替换 mock SERVICE STATUS。ipapi.co/json 拉真实 IP / 地理 / ISP；28 keyword 判定 datacenter；实时时钟 + 闪烁光标 + AbortController 5s 超时；OpenResty CSP connect-src 加 ipapi.co（Python `open('r+')` 保 inode 71390929，备份 nginx.conf.pre-ipapi-20260519-0440）。实测 Oracle Cloud 识别为 datacenter ⚠。
 - /tools 页重做（2026-05-19，commit `211c596`）：监控仪表盘风格 hero（左 H1 + live badge 右 SERVICE STATUS 4 条 mock 状态闪烁绿点）；6 分类加 [01]-[06] 编号 + 6 种 accent color；22 工具卡含首字 favicon + monospace host + spotlight + 外链 arrow hover；底部 disclaimer 改终端代码块风格。备份 `pre-tools-redesign-20260519-042528`。
 - Phase 4 CSP enforce（2026-05-19，无 user 仓库 commit；OpenResty 配置改动）：nginx.conf 3 处改动（script-src + CF analytics 域名 + connect-src + CF insights 域名 + header name 切 enforce）。Python `open('r+')` 保 bind mount inode 71390929。5 个关键页面 0 CSP violation 实测。备份 `nginx.conf.pre-csp-enforce-20260519-041342` 可一行回滚。
 - Phase 3 数据接入（2026-05-19，commit `d03ec74`）：Cloudflare Web Analytics beacon 嵌入 index.html `</head>` 之前。手动注入模式 + 排除欧盟访客。token 公开 `e1969593...`。实测 beacon.min.js 200 + RUM POST 204。CSP enforce 需后续白名单 `static.cloudflareinsights.com` 到 script-src + `cloudflareinsights.com` 到 connect-src。备份 `pre-cf-analytics-20260519-013215`。
