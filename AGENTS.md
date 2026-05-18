@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`17df0a0 52hub: P1-N-1 dynamic blog-related links + OpenAI/ChatGPT hub dedup`**
+- **最新 commit：`c7cf46d 52hub: P1-N-2 wire up 4 new blogs into hubs + BlogDetail topic branches`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- P1-N-2（2026-05-18，commit `c7cf46d`）：admin 发 4 篇博客（id 17-20：gemini/apple-id/选店家/视频订阅）+ BlogDetail relatedLinks 加 4 主题分支（gemini/apple-id/sora/how-to-pick） + GeminiHub 加 Gemini 主题博客（解决审计 §3.3 0 篇缺口）+ ClaudeHub/ChatgptHub/OpenaiHub 加新博客 + sitemap 24 URL + urls-new-p1n2.txt 待 IndexNow 推送。备份 `/opt/dujiao-next/web/user.pre-p1n2-internlinks-20260518-211428`。
 - P1-N-1（2026-05-18，commit `17df0a0`）：BlogDetail 相关资源由 hardcoded 4 链接改为 computed 按 slug 主题切换（claude/chatgpt/codex 各 1 套 + fallback）；OpenaiHub 底部 "相关教程" 4 篇博客（和 ChatgptHub 100% 重复）→ "相关阅读" 6 个 sibling hub + 单篇 codex 博客 + tools + products + /blog。备份 `/opt/dujiao-next/web/user.pre-p1n1-20260518-190542`。
 - P1-M 视觉微调（2026-05-18，commit `f2e6229`）：桌面 `lg:grid-cols-3` → `lg:grid-cols-5`，前端 cap 6 → 5。用户实测全链路通过后反馈卡片太大。备份 `/opt/dujiao-next/web/user.pre-p1m-grid5-20260518-175701`。
 - P1-M（2026-05-18，前端 `a4b6152` + 后端 `139055a`）：首页"精选推荐"接入后台 sort_order。后端 clone `dujiao-next/dujiao-next` 到 `/Users/Apple/52hub-source-hardening/dujiao-next-api`（本地 branch `52hub/v1.0.2-api-sortorder`，未 push），改 dto + handler 各 1 行暴露 sort_order；生产 docker build 新镜像 `dujiaonext/api:v1.0.2-52hub-sortorder` 已部署，老镜像保留可回滚。前端 Home.vue 拉 50 个 filter sort_order>0 取前 6，fallback 4 个最新；网格 3 列。**admin 后台操作**：商品编辑表 sort_order 数字输入（1+ 上首页，越大越靠前）。备份：api compose `/opt/dujiao-next/docker-compose.yml.pre-sortorder-20260518-163010`，前端 `/opt/dujiao-next/web/user.pre-p1m-frontend-20260518-165839`。

@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`17df0a0 52hub: P1-N-1 dynamic blog-related links + OpenAI/ChatGPT hub dedup`**
+- **最新 commit：`c7cf46d 52hub: P1-N-2 wire up 4 new blogs into hubs + BlogDetail topic branches`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,18 @@ npm run build
 
 ## 最近任务记录
 
+- P1-N-2（2026-05-18，commit `c7cf46d`）：4 篇新博客发布 + 内链对接
+  - admin 发布 4 篇博客（id 17-20）：`gemini-pro-vs-advanced` / `apple-id-overseas-registration-guide` / `how-to-pick-ai-subscription-store` / `sora-veo-hailuo-video-subscription`
+  - `BlogDetail.vue` relatedLinks 新增 4 主题分支（gemini / apple-id / sora / how-to-pick），按 slug 前缀切换
+  - `GeminiHub.vue` "相关阅读"→"相关教程"，加首篇 Gemini 主题博客 + 视频订阅博客（解决审计 §3.3 "Gemini 0 篇主题博客" 缺口）
+  - `ClaudeHub.vue` 底部加"如何挑店家" + "Apple ID 注册攻略"
+  - `ChatgptHub.vue` 底部加 "视频订阅" + "如何挑店家" + "Apple ID 注册"
+  - `OpenaiHub.vue` "相关阅读" 加 "视频订阅" + "如何挑店家"
+  - `public/sitemap.xml` + `scripts/urls-core.txt` 加 4 条 URL（24 / 25 行）
+  - `scripts/urls-new-p1n2.txt` 新建（仅 4 个新 URL 用于增量 IndexNow + 百度推送）
+  - Chrome 实测 3 个新博客相关资源切换正确 ✅
+  - 备份：`/opt/dujiao-next/web/user.pre-p1n2-internlinks-20260518-211428`
+  - **遗留 todo**：用户手动跑 `BAIDU_PUSH_TOKEN=xxx INDEXNOW_KEY=yyy ./scripts/push-search.sh scripts/urls-new-p1n2.txt`
 - P1-N-1（2026-05-18，commit `17df0a0`）：内链动态化
   - `BlogDetail.vue` 相关资源由 hardcoded 4 链接改为 `v-for relatedLinks`，computed 按 slug 前缀切换：
     - `claude-*` slug → Claude 中心 + Claude Pro + Claude Max 5x + tools
