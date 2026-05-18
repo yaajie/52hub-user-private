@@ -391,6 +391,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { guestOrderAPI } from '../api'
 import { useAppStore } from '../stores/app'
 import { useI18n } from 'vue-i18n'
+import { loadGuestAuth, saveGuestAuth, clearGuestAuth } from '../utils/guestAuth'
 import { orderStatusClass, orderStatusLabel } from '../utils/status'
 import { fulfillmentStatusLabel, fulfillmentTypeLabel } from '../utils/fulfillment'
 import { debounceAsync } from '../utils/debounce'
@@ -505,12 +506,7 @@ const ensureProductContent = async (orderData: any) => {
 }
 
 const loadSavedAuth = () => {
-  const saved = localStorage.getItem('guest_order_auth')
-  const savedAuth = saved ? JSON.parse(saved) : {}
-  auth.value = {
-    email: savedAuth.email || '',
-    order_password: savedAuth.order_password || '',
-  }
+  auth.value = loadGuestAuth()
 }
 
 const hasAuth = computed(() => Boolean(auth.value.email && auth.value.order_password))
@@ -704,10 +700,10 @@ onMounted(() => {
 })
 
 const persistAuth = () => {
-  localStorage.setItem('guest_order_auth', JSON.stringify({
+  saveGuestAuth({
     email: auth.value.email,
     order_password: auth.value.order_password,
-  }))
+  })
 }
 
 const handleAuthSubmit = async () => {
@@ -721,7 +717,7 @@ const handleAuthSubmit = async () => {
 }
 
 const clearAuth = () => {
-  localStorage.removeItem('guest_order_auth')
+  clearGuestAuth()
   auth.value = { email: '', order_password: '' }
   order.value = null
   authError.value = t('guestOrderDetail.authRequired')

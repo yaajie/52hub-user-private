@@ -345,6 +345,7 @@ import { buildSkuDisplayText, normalizeSkuId } from '../utils/sku'
 import { refreshCartStockSnapshots } from '../utils/cartStock'
 import { getImageUrl } from '../utils/image'
 import { getAffiliateCode, getAffiliateVisitorKey } from '../utils/affiliate'
+import { saveGuestAuth } from '../utils/guestAuth'
 import ImageCaptcha from '../components/captcha/ImageCaptcha.vue'
 import TurnstileCaptcha from '../components/captcha/TurnstileCaptcha.vue'
 import CheckoutManualForm from '../components/checkout/CheckoutManualForm.vue'
@@ -1138,10 +1139,10 @@ const handleSubmit = async () => {
         order_password: guestPassword.value,
         captcha_payload: getGuestCaptchaPayload(),
       })
-      localStorage.setItem('guest_order_auth', JSON.stringify({
+      saveGuestAuth({
         email: guestEmail.value.trim(),
         order_password: guestPassword.value,
-      }))
+      })
       responseData = response.data.data
     }
 

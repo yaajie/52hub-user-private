@@ -130,6 +130,7 @@ import { debounceAsync } from '../utils/debounce'
 import { amountToCents } from '../utils/money'
 import ManualDeliveryNotice from '../components/ManualDeliveryNotice.vue'
 import QQContactCard from '../components/QQContactCard.vue'
+import { loadGuestAuth, saveGuestAuth, clearGuestAuth } from '../utils/guestAuth'
 
 const savedAuth = ref<{ email: string; order_password: string }>({ email: '', order_password: '' })
 const email = ref('')
@@ -147,12 +148,7 @@ const pagination = ref({
 const { t } = useI18n()
 
 const loadSavedAuth = () => {
-  const saved = localStorage.getItem('guest_order_auth')
-  const parsed = saved ? JSON.parse(saved) : {}
-  savedAuth.value = {
-    email: parsed.email || '',
-    order_password: parsed.order_password || '',
-  }
+  savedAuth.value = loadGuestAuth()
   email.value = savedAuth.value.email
   orderPassword.value = savedAuth.value.order_password
 }
@@ -164,12 +160,12 @@ const persistAuth = () => {
     email: email.value,
     order_password: orderPassword.value,
   }
-  localStorage.setItem('guest_order_auth', JSON.stringify(payload))
+  saveGuestAuth(payload)
   savedAuth.value = payload
 }
 
 const clearSaved = () => {
-  localStorage.removeItem('guest_order_auth')
+  clearGuestAuth()
   savedAuth.value = { email: '', order_password: '' }
   email.value = ''
   orderPassword.value = ''
