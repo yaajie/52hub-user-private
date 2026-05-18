@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`d03ec74 52hub: integrate Cloudflare Web Analytics beacon`**
+- **最新 commit：`211c596 52hub: redesign /tools — monitoring dashboard hero + indexed cards`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- /tools 页重做（2026-05-19，commit `211c596`）：用户反馈原 /tools "丑、不像 AI 工具"
+  - **Hero 2 列**：左 H1 + live badge（emerald ping 动画）+ 工具/分类计数；右 SERVICE STATUS 面板（4 条 mock 状态 + 闪烁绿点 + 链真实 status 页）
+  - **6 分类 sections** 加 [01]-[06] 编号 + 6 种 accent color 左条 + 右上 tool count tag
+  - **22 工具卡**：9x9 首字 favicon 图标（accent 色 + 半透明背景）+ name + monospace host + 描述 + 外链 arrow icon hover + v-spotlight + 左侧 2px 渐变色条 hover
+  - **底部 disclaimer** 改终端代码块风格 `$ cat disclaimer.txt`
+  - 备份：`/opt/dujiao-next/web/user.pre-tools-redesign-20260519-042528`
 - Phase 4 CSP enforce（2026-05-19，**OpenResty 配置改动，无 user 仓库 commit**）：
   - 改 `/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf` 3 处：script-src 加 `https://static.cloudflareinsights.com`、connect-src 加 `https://cloudflareinsights.com`、header name `Content-Security-Policy-Report-Only` → `Content-Security-Policy`
   - 写入方式：Python `open('r+')` + seek/truncate（保 bind mount inode `71390929`）
