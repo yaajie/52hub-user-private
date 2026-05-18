@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`b31655e 52hub: P1-O-1 swap vue-i18n runtime with in-house 60-line shim`**
+- **最新 commit：`3d5d9a4 52hub: P1-O-2 type ProductDetail.vue core paths (-11 any uses)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- P1-O-2（2026-05-18，commit `3d5d9a4`）：ProductDetail 核心路径类型化（11 any → 0）。`api/types.ts` 加 7 类型对应后端 dto（Product/ProductSKU/PaymentChannel/Category/PromotionRule/MemberLevelPrice/LocalizedText）。`ProductDetail.vue` ref<Product | null>, sku/channel/rule 参数全部类型化。images fallback explicit cast 保留旧后端兼容。Chrome 实测 claude-pro + apple-id-uk 正常。剩余 278 处 any 未来批次。备份 `pre-p1o2-types-20260518-235008`。
 - P1-O-1（2026-05-18，commits `2f04e60` + `b31655e`）：技术债清理 a11y + i18n 轻量化。Navbar 4 个 icon 按钮加 aria-label + 抽屉 role="dialog"/aria-modal。替换 vue-i18n runtime 为 60 行自实现 `src/utils/i18n-lite.ts`（vite alias 'vue-i18n' → 自实现 shim，**52 个 import 一行未改**），抽出 messages-zh-cn.ts（967 行），i18n/index.ts 1956 → 10 行。**省 29 kB gzip**（vendor-vue-i18n chunk 消失）。vue-i18n 仍在 package.json 但 tree-shake 出 bundle。备份：aria `pre-p1o-aria-20260518-232511`，i18n `pre-p1o-i18nlite-20260518-233015`。
 - P1-N-2（2026-05-18，commit `c7cf46d`）：admin 发 4 篇博客（id 17-20：gemini/apple-id/选店家/视频订阅）+ BlogDetail relatedLinks 加 4 主题分支（gemini/apple-id/sora/how-to-pick） + GeminiHub 加 Gemini 主题博客（解决审计 §3.3 0 篇缺口）+ ClaudeHub/ChatgptHub/OpenaiHub 加新博客 + sitemap 24 URL + urls-new-p1n2.txt 待 IndexNow 推送。备份 `/opt/dujiao-next/web/user.pre-p1n2-internlinks-20260518-211428`。
 - P1-N-1（2026-05-18，commit `17df0a0`）：BlogDetail 相关资源由 hardcoded 4 链接改为 computed 按 slug 主题切换（claude/chatgpt/codex 各 1 套 + fallback）；OpenaiHub 底部 "相关教程" 4 篇博客（和 ChatgptHub 100% 重复）→ "相关阅读" 6 个 sibling hub + 单篇 codex 博客 + tools + products + /blog。备份 `/opt/dujiao-next/web/user.pre-p1n1-20260518-190542`。

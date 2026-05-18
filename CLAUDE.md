@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`b31655e 52hub: P1-O-1 swap vue-i18n runtime with in-house 60-line shim`**
+- **最新 commit：`3d5d9a4 52hub: P1-O-2 type ProductDetail.vue core paths (-11 any uses)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,14 @@ npm run build
 
 ## 最近任务记录
 
+- P1-O-2（2026-05-18，commit `3d5d9a4`）：ProductDetail 核心路径类型化
+  - 根因：`src/api/types.ts` 没有 Product/SKU/PaymentChannel interface（289 处 any 的源头）
+  - `src/api/types.ts` 新增 7 类型（Product / ProductSKU / PaymentChannel / Category / PromotionRule / MemberLevelPrice / LocalizedText + 3 string union）对应后端 dto.ProductResp
+  - `src/views/ProductDetail.vue` 11 处 any → 0：ref<Product | null>，sku 参数 ProductSKU，channel PaymentChannel，rule PromotionRule
+  - images fallback 用 explicit cast 保留旧后端 `{images: string[]}` 兼容，无运行时改动
+  - 验证：Chrome 实测 /products/claude-pro + /products/apple-id-uk 全部正常 ✅
+  - 备份：`/opt/dujiao-next/web/user.pre-p1o2-types-20260518-235008`
+  - 遗留：其它 ~278 处 any 在 ProductCard / Cart / Checkout 等，未来批次渐进
 - P1-O-1（2026-05-18，commits `2f04e60` + `b31655e`）：技术债清理 a11y + i18n 轻量化
   - **aria-label**（commit `2f04e60`）：`Navbar.vue` 4 个 icon 按钮加 aria-label（AI 资源下拉 + 主题切换 + 移动汉堡 + 抽屉关闭）+ 移动抽屉容器 `role="dialog"` / `aria-modal` / `aria-label`
   - **vue-i18n 替换**（commit `b31655e`）：
