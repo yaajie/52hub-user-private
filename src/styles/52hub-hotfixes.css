@@ -222,3 +222,88 @@ footer a[href*="github.com/dujiao-next"] {
   }
 }
 
+/* =============================================================
+ * Spotlight 跟随效果 · v-spotlight directive 配套样式
+ *
+ * 用法：在 Vue 组件里加 v-spotlight 指令到卡片元素上，鼠标 hover
+ * 卡片时会出现一个跟随鼠标的 radial gradient 高光（"AI 科技感"）。
+ * 鼠标位置以 --spot-x / --spot-y CSS 变量传递（来自 directive）。
+ * 不依赖任何 JS 框架特性，纯 CSS pseudo-element + transition。
+ * ============================================================= */
+.spotlight {
+  position: relative;
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(99, 102, 241, 0.13),     /* indigo 500 @ 13% */
+    rgba(99, 102, 241, 0.04) 25%,
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* 暗色模式下加重一点，亮色模式减淡，避免亮色背景上过于明显 */
+@media (prefers-color-scheme: light) {
+  .spotlight::before {
+    background: radial-gradient(
+      600px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      rgba(59, 130, 246, 0.08),
+      rgba(59, 130, 246, 0.02) 30%,
+      transparent 50%
+    );
+  }
+}
+
+/* 确保 spotlight 卡片内部 content z-index 高于 ::before */
+.spotlight > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 渐变边框扫光（更微妙的技术感，仅当卡片悬停时显现） */
+.spotlight-border {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.45),
+    rgba(168, 85, 247, 0.25) 35%,
+    rgba(14, 165, 233, 0.35) 70%,
+    rgba(99, 102, 241, 0.45)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.spotlight-border:hover::after {
+  opacity: 1;
+}
+

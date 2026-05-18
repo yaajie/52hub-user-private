@@ -24,6 +24,7 @@
           ? 'max-w-2xl mx-auto'
           : 'grid grid-cols-1 md:grid-cols-2 gap-8'">
           <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
+            v-spotlight
             class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
             :aria-label="getLocalizedText(post.title)">
             <!-- Thumbnail · 保留上传 16:9 原始比例 -->

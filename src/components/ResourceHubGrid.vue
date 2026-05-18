@@ -5,8 +5,9 @@
       <router-link
         v-for="hub in hubs"
         :key="hub.to"
+        v-spotlight.border
         :to="hub.to"
-        class="block theme-panel border theme-border rounded-2xl p-4 sm:p-5 hover:theme-surface-strong transition-colors"
+        class="block theme-panel border theme-border rounded-2xl p-4 sm:p-5 hover:theme-surface-strong transition-all duration-300 hover:-translate-y-0.5"
       >
         <div class="flex items-center gap-2 mb-2">
           <span :class="['inline-flex w-8 h-8 items-center justify-center rounded-lg', hub.iconBg]">

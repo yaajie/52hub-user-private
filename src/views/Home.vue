@@ -188,8 +188,9 @@
         <router-link
           v-for="post in latestPosts"
           :key="post.id"
+          v-spotlight
           :to="`/blog/${post.slug}`"
-          class="group block theme-panel border theme-border rounded-2xl overflow-hidden hover:theme-surface-strong transition-colors flex flex-col"
+          class="group block theme-panel border theme-border rounded-2xl overflow-hidden hover:theme-surface-strong transition-all duration-300 hover:-translate-y-0.5 flex flex-col"
         >
           <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
             <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
