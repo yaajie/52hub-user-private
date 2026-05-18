@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`5f0a6bf 52hub: tighten Footer mobile grid (A: online tools full width)`**（docs sync 待本次后续提交）
+- **最新代码 commit：`5f0a6bf 52hub: tighten Footer mobile grid (A: online tools full width)`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
