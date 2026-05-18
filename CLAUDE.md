@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`4f98c6c 52hub: P1-K SEO + internal links + dead code + contact dedupe`**
+- **最新 commit：`22631e4 52hub: hotfix BlogDetail crash (useHead in watch) + add About useHead`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,12 @@ npm run build
 
 ## 最近任务记录
 
+- BlogDetail 崩溃修复 + About useHead（2026-05-18，commit `22631e4`，P1-K hotfix）：
+  - P1-K 把 `useHead` 写在 `watch(() => post.value, (p) => {...useHead({...})}, { immediate:true })` 内，但 `useHead` 必须在 setup 同步调用 → 在 watch callback 内 context 丢失 → 抛 `useHead() was called without provide context` → 整个 BlogDetail 页降级为「错误/重试」按钮，**8 篇博客全部受影响**
+  - 修复：单次 setup-level `useHead({...})`，title/meta/link 各传 `computed(() => ...)`，head 响应 post 加载
+  - `About.vue` 顺手加 useHead（原本 0 调用，会继承前一个路由 head 导致 `/about` 显示首页 title + canonical=`/`）
+  - 备份：`/opt/dujiao-next/web/user.pre-bloghotfix-20260518-131046`
+  - 遗留：Home / Blog 列表 / Notice / Products 仍缺 useHead，进第三轮审计
 - P1-K（2026-05-18，commit `4f98c6c`）：SEO 收口 + 内链建设 + 死代码清理
   - `public/sitemap.xml` 补 5 个新页面（tools + 4 hubs），总 25 URL
   - `scripts/urls-core.txt` 同步 5 个 URL

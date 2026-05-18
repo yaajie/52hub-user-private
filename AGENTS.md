@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`4f98c6c 52hub: P1-K SEO + internal links + dead code + contact dedupe`**
+- **最新 commit：`22631e4 52hub: hotfix BlogDetail crash (useHead in watch) + add About useHead`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- BlogDetail 崩溃修复 + About useHead（2026-05-18，commit `22631e4`，P1-K hotfix）：P1-K 把 useHead 写在 watch 内导致 `useHead() was called without provide context`，整个 BlogDetail 页降级为「错误/重试」，8 篇博客全部崩。改回 setup 直接 call useHead + 传 computed 响应式 source。顺手给 About 加 useHead 避免继承首页 head。备份 `/opt/dujiao-next/web/user.pre-bloghotfix-20260518-131046`。
 - P1-K（2026-05-18，commit `4f98c6c`）：SEO 收口 + 内链建设 + 死代码清理。sitemap 补 5 个新页面（25 URL）；5 个 hub/tools 扩 og+canonical；ClaudeHub/ChatgptHub/OpenaiHub 加"相关教程"，GeminiHub 加"相关阅读"；BlogDetail 加 useHead + "相关资源"；SiteHero 删顶部联系胶囊；删 HomeAnnouncement.vue + ContactStrip.vue。备份 `/opt/dujiao-next/web/user.pre-p1k-20260518-125422`。
 - P1-J'-fix（2026-05-18，commit `6759758`）：修复桌面 AI 资源下拉打不开。Tailwind v4 具名 group `group/aihub` 实测未编译进 stylesheet，hover 永远 `display:none`；父容器 `overflow-x:auto` 同步把 overflow-y 升级为 auto 会裁切下拉。改用 Vue ref + `<Teleport to="body">` + `position:fixed`（基于 trigger `getBoundingClientRect`）+ `watch(() => route.path)` 自动关闭。Chrome 实测 hover/click 跳转通过。备份 `/opt/dujiao-next/web/user.pre-p1jfix-20260518-041645`。
 - P1-J'（2026-05-18，commit `a766d45`）：
