@@ -73,6 +73,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { useHead } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 import QQContactCard from '../components/QQContactCard.vue'
@@ -123,6 +124,18 @@ const hasIntroduction = computed(() => introductionText.value !== '')
 const hasServices = computed(() => servicesTitle.value !== '' || serviceItems.value.length > 0)
 const hasContactLinks = computed(() => false)
 const hasContact = computed(() => contactTitle.value !== '' || contactText.value !== '' || hasContactLinks.value)
+
+useHead({
+  title: '关于 52HUB · 站长 Jay 自述 - 52HUB',
+  meta: [
+    { name: 'description', content: '52HUB 站长 Jay 自述：玩 ChatGPT / Claude 几年，把买号、订阅、IP 配置踩过的坑整理成站点，既是 AI 实用资源站，也提供官方订阅直充与账号服务。' },
+    { property: 'og:title', content: '关于 52HUB · 站长 Jay 自述 - 52HUB' },
+    { property: 'og:description', content: 'AI 工具实用资源站 + 官方订阅直充与账号服务。站长 Jay 自述创站初衷与服务范围。' },
+    { property: 'og:url', content: 'https://52hub.org/about' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://52hub.org/about' }],
+})
 
 onMounted(async () => {
   if (!appStore.config) {

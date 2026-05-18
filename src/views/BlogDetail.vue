@@ -106,7 +106,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -180,22 +180,29 @@ const loadPost = async () => {
 
 const debouncedLoadPost = debounceAsync(loadPost, 300)
 
-watch(() => post.value, (p) => {
-  if (!p) return
-  const title = getSeoText(p.title)
-  const summary = getSeoText(p.summary)
-  useHead({
-    title: `${title} - 52HUB`,
-    meta: [
+useHead({
+  title: computed(() => {
+    const p = post.value
+    return p ? `${getSeoText(p.title)} - 52HUB` : '52HUB'
+  }),
+  meta: computed(() => {
+    const p = post.value
+    if (!p) return []
+    const title = getSeoText(p.title)
+    const summary = getSeoText(p.summary)
+    return [
       { name: 'description', content: summary },
       { property: 'og:title', content: title },
       { property: 'og:description', content: summary },
       { property: 'og:url', content: `https://52hub.org/blog/${p.slug}` },
       { property: 'og:type', content: 'article' },
-    ],
-    link: [{ rel: 'canonical', href: `https://52hub.org/blog/${p.slug}` }],
-  })
-}, { immediate: true })
+    ]
+  }),
+  link: computed(() => {
+    const p = post.value
+    return p ? [{ rel: 'canonical', href: `https://52hub.org/blog/${p.slug}` }] : []
+  }),
+})
 
 onMounted(() => {
   loadPost()
