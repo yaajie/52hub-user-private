@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`22631e4 52hub: hotfix BlogDetail crash (useHead in watch) + add About useHead`**
+- **最新 commit：`4aa6354 52hub: P1-L SEO header overhaul + 4 page useHead + i18n hub copy + sitemap dedupe`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,14 @@ npm run build
 
 ## 最近任务记录
 
+- P1-L（2026-05-18，commit `4aa6354`）：SEO 收口 + hub 口径文案 + 4 核心页 useHead + 死 asset 清理
+  - `index.html`：title/desc/OG/Twitter 改 hub-first 口径；JSON-LD 从 Store + WebSite 改为 Organization + WebSite
+  - `src/i18n/index.ts`：home featured / products subtitle / About / footer 文案对齐 hub 定位；保留 `nav.products = 商品中心`
+  - `Home.vue` / `Blog.vue` / `Notice.vue` / `Products.vue`：setup 顶层同步 `useHead`，禁止 watch/onMounted 内调用；`Products.vue` 用 computed 响应 `/categories/:slug`
+  - `/products` 注入 Store JSON-LD；`/categories/:slug` 注入 `robots=noindex,follow`
+  - `public/sitemap.xml` 从 25 URL 降到 20；`scripts/urls-core.txt` 同步移除 categories URL；删除无引用 `public/dj.svg`
+  - 备份：`/opt/dujiao-next/web/user.pre-p1l-20260518-135915`
+  - 构建产物：`dist/assets/index-CL5XHmkk.js`
 - BlogDetail 崩溃修复 + About useHead（2026-05-18，commit `22631e4`，P1-K hotfix）：
   - P1-K 把 `useHead` 写在 `watch(() => post.value, (p) => {...useHead({...})}, { immediate:true })` 内，但 `useHead` 必须在 setup 同步调用 → 在 watch callback 内 context 丢失 → 抛 `useHead() was called without provide context` → 整个 BlogDetail 页降级为「错误/重试」按钮，**8 篇博客全部受影响**
   - 修复：单次 setup-level `useHead({...})`，title/meta/link 各传 `computed(() => ...)`，head 响应 post 加载
