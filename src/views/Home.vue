@@ -214,7 +214,7 @@
           </router-link>
         </div>
 
-        <div v-if="products.length > 0" class="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-3">
+        <div v-if="products.length > 0" class="grid grid-cols-2 gap-3 md:gap-4 md:grid-cols-3 lg:grid-cols-5">
           <ProductCard
             v-for="(product, idx) in products"
             :key="product.id"
@@ -360,11 +360,11 @@ const goToProduct = (slug: string) => {
 const loadFeaturedProducts = async () => {
   try {
     // 拉前 50 个商品（后端默认已按 sort_order DESC, created_at DESC 排）
-    // 前端 filter sort_order > 0 = 后台勾选"上首页"的商品；最多 6 个
+    // 前端 filter sort_order > 0 = 后台勾选"上首页"的商品；最多 5 个（桌面一行 5 列）
     // fallback：若后台暂未设任何 sort_order > 0，显示 4 个最新商品，避免空区
     const response = await productAPI.list({ page: 1, page_size: 50 })
     const all = response.data.data || []
-    const featured = all.filter((p: any) => (p.sort_order || 0) > 0).slice(0, 6)
+    const featured = all.filter((p: any) => (p.sort_order || 0) > 0).slice(0, 5)
     products.value = featured.length > 0 ? featured : all.slice(0, 4)
   } catch (error) {
     console.error('Failed to load featured products:', error)
