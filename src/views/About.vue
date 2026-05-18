@@ -19,6 +19,90 @@
           </p>
         </div>
 
+        <!-- 发货说明（前端硬编码，融合公告核心信息） -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
+            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            发货说明
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-5 theme-surface-soft rounded-xl border theme-border">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 theme-text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <h3 class="font-semibold theme-text-primary">自动发货</h3>
+              </div>
+              <p class="text-sm theme-text-secondary leading-relaxed">
+                卡密类商品（Apple ID、礼品卡、邮箱、独享号）下单付款后立即在订单页显示卡密，全程无需等待。
+              </p>
+            </div>
+            <div class="p-5 theme-surface-soft rounded-xl border theme-border">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 theme-text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <h3 class="font-semibold theme-text-primary">人工发货</h3>
+              </div>
+              <p class="text-sm theme-text-secondary leading-relaxed">
+                订阅直充类商品下单后联系客服处理，通常 30 分钟内出号；多数订阅 1 小时内可用。延迟时请通过订单查询页或 TG 客服跟进。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 售后政策（前端硬编码） -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
+            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            售后政策
+          </h2>
+          <ul class="space-y-3 text-sm theme-text-secondary leading-relaxed">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span><strong class="theme-text-primary">包首登</strong>：账号类商品（Apple ID、邮箱、独享号等）保证首次登录可用，登录失败 24 小时内可退或换号。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span><strong class="theme-text-primary">24 小时质保</strong>：从发货起 24 小时内，因卡密本身问题导致不可用，免费补发或退款。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span><strong class="theme-text-primary">虚拟商品一经出库不退换</strong>：质保期外、或用户自行操作导致的账号封禁 / 充值失败 / 误操作不在售后范围。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span><strong class="theme-text-primary">订阅直充类</strong>：成功充值入账后视为交付完成；OpenAI / Anthropic / Google 等平台的封号 / 风控由平台决定，本站不能保证账号永久可用。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span><strong class="theme-text-primary">退款渠道</strong>：原路退回到支付账户；如订单使用了余额支付，退款进余额。</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 数据与隐私（前端硬编码） -->
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
+            <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
+            数据与隐私
+          </h2>
+          <ul class="space-y-3 text-sm theme-text-secondary leading-relaxed">
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span>支付不经过本站后端：信用卡 / 支付宝 / 微信信息由对应支付网关直接处理，本站<strong class="theme-text-primary">不接触、不存储</strong>支付卡号或密码。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span>游客订单密码仅<strong class="theme-text-primary">本地浏览器 24 小时</strong>缓存便于查单，超时自动清除；公用设备建议主动点"清除"。</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-1.5 h-1.5 rounded-full theme-accent-stick mt-2 flex-shrink-0"></span>
+              <span>站点不收集面部、位置、通讯录等敏感信息；联系方式仅在你主动留单时使用。</span>
+            </li>
+          </ul>
+        </div>
+
         <div v-if="hasServices" class="mb-12">
           <h2 v-if="servicesTitle" class="text-2xl font-bold theme-text-primary mb-6 flex items-center gap-3">
             <span class="w-1.5 h-8 theme-accent-stick rounded-full"></span>
