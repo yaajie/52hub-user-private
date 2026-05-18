@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f486493 52hub: P1-O-3 add 24h TTL to guest_order_auth in localStorage`**
+- **最新 commit：`0e8d36a 52hub: UX batch — blog grid + nav reorder + footer 4-col + drop in-content contact cards`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,16 @@ npm run build
 
 ## 最近任务记录
 
+- UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：用户反馈 9 块视觉/导航/内链调整
+  - **a1+a2** `Blog.vue` 缩略图 `h-48` → `aspect-video`（16:9 原比例），删黑色蒙层
+  - **a3** `BlogDetail.vue` / `Blog.vue` 列表删主区 `<QQContactCard>` + import
+  - **a4** `Navbar.vue` 顺序：首页 / AI 资源 ▾ / 工具 / 资讯 / 商品中心 / 关于（hub 优先 + 去公告）；拆 `menuItemsLeft` + `menuItemsRight` 让 AI/工具 嵌中间；`NAV_HIDDEN_BUILTIN` 过滤 notice 桌面+移动抽屉
+  - **a5** 首页最新教程 已动态（无改动）
+  - **a6** `Home.vue` 最新教程 `page_size: 3 → 6`；卡片加 `aspect-video` 缩略图 + group-hover；md 3 列 × 2 行
+  - **a7** `Notice.vue` 删顶部 `<QQContactCard>` + import
+  - **a8** Footer quickLinks 加 `/notice` 链接（Navbar 已去）
+  - **a9** `Footer.vue` `md:grid-cols-5 → md:grid-cols-4`；删后台 site_description 渲染 → 硬编码 slogan；删 `brandDescription` computed；删社交图标占位 + WhatsApp v-if；联系 3 行 flex 替代 `<br />`
+  - 备份：`/opt/dujiao-next/web/user.pre-uxbatch-20260519-003722`
 - P1-O-3（2026-05-18，commit `f486493`）：游客订单密码 localStorage 加 24h 过期
   - 新建 `src/utils/guestAuth.ts`（统一 loadGuestAuth / saveGuestAuth / clearGuestAuth；saved_at 时间戳 + 24h TTL）
   - 改 4 个 view：`GuestOrderDetail.vue` / `GuestOrders.vue` / `Payment.vue` / `Checkout.vue` 全部直接 `localStorage.getItem/setItem/removeItem('guest_order_auth')` → util 函数

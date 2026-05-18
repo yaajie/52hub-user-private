@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f486493 52hub: P1-O-3 add 24h TTL to guest_order_auth in localStorage`**
+- **最新 commit：`0e8d36a 52hub: UX batch — blog grid + nav reorder + footer 4-col + drop in-content contact cards`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：Blog 缩略图 aspect-video 16:9；Navbar 顺序首页/AI 资源/工具/资讯/商品中心/关于（去公告）；首页最新教程 6 卡 + 缩略图；Footer 4 列 + 硬编码 slogan + 删后台长描述；删 Blog/BlogDetail/Notice 主区冗余 QQContactCard；Footer quickLinks 保留 notice 入口。备份 `pre-uxbatch-20260519-003722`。
 - P1-O-3（2026-05-18，commit `f486493`）：游客订单密码 localStorage `guest_order_auth` 加 24h TTL。新建 `src/utils/guestAuth.ts` 统一 4 个 view（GuestOrderDetail/GuestOrders/Payment/Checkout）。saved_at 时间戳 + 兼容旧格式自动清除。Chrome 实测三场景（新鲜/48h 过期/旧格式）通过。`userAuth.ts` user_token 长期方案需 backend session 改造，不在本批。备份 `pre-p1o3-guestauth-20260519-000325`。
 - P1-O-2（2026-05-18，commit `3d5d9a4`）：ProductDetail 核心路径类型化（11 any → 0）。`api/types.ts` 加 7 类型对应后端 dto（Product/ProductSKU/PaymentChannel/Category/PromotionRule/MemberLevelPrice/LocalizedText）。`ProductDetail.vue` ref<Product | null>, sku/channel/rule 参数全部类型化。images fallback explicit cast 保留旧后端兼容。Chrome 实测 claude-pro + apple-id-uk 正常。剩余 278 处 any 未来批次。备份 `pre-p1o2-types-20260518-235008`。
 - P1-O-1（2026-05-18，commits `2f04e60` + `b31655e`）：技术债清理 a11y + i18n 轻量化。Navbar 4 个 icon 按钮加 aria-label + 抽屉 role="dialog"/aria-modal。替换 vue-i18n runtime 为 60 行自实现 `src/utils/i18n-lite.ts`（vite alias 'vue-i18n' → 自实现 shim，**52 个 import 一行未改**），抽出 messages-zh-cn.ts（967 行），i18n/index.ts 1956 → 10 行。**省 29 kB gzip**（vendor-vue-i18n chunk 消失）。vue-i18n 仍在 package.json 但 tree-shake 出 bundle。备份：aria `pre-p1o-aria-20260518-232511`，i18n `pre-p1o-i18nlite-20260518-233015`。
