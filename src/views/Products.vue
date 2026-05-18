@@ -159,7 +159,7 @@ useHead({
   ]),
   script: computed(() => isCategory.value ? [] : [{
     type: 'application/ld+json',
-    children: JSON.stringify({
+    innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Store',
       name: '52HUB',
