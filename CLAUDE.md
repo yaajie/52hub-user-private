@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`3d5d9a4 52hub: P1-O-2 type ProductDetail.vue core paths (-11 any uses)`**
+- **最新 commit：`f486493 52hub: P1-O-3 add 24h TTL to guest_order_auth in localStorage`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,14 @@ npm run build
 
 ## 最近任务记录
 
+- P1-O-3（2026-05-18，commit `f486493`）：游客订单密码 localStorage 加 24h 过期
+  - 新建 `src/utils/guestAuth.ts`（统一 loadGuestAuth / saveGuestAuth / clearGuestAuth；saved_at 时间戳 + 24h TTL）
+  - 改 4 个 view：`GuestOrderDetail.vue` / `GuestOrders.vue` / `Payment.vue` / `Checkout.vue` 全部直接 `localStorage.getItem/setItem/removeItem('guest_order_auth')` → util 函数
+  - 安全收益：公用设备 48h 后回访 localStorage 已清；旧无 saved_at 格式第一次加载即被清除
+  - 用户成本：仅一次性重新填邮箱 + 订单密码
+  - 验证：Chrome 三场景实测（新鲜 / 48h 过期 / 旧格式）全部按预期 ✅
+  - 备份：`/opt/dujiao-next/web/user.pre-p1o3-guestauth-20260519-000325`
+  - 不在本批：`userAuth.ts` `user_token` 长期方案应转 HttpOnly cookie（需 backend session 改造）
 - P1-O-2（2026-05-18，commit `3d5d9a4`）：ProductDetail 核心路径类型化
   - 根因：`src/api/types.ts` 没有 Product/SKU/PaymentChannel interface（289 处 any 的源头）
   - `src/api/types.ts` 新增 7 类型（Product / ProductSKU / PaymentChannel / Category / PromotionRule / MemberLevelPrice / LocalizedText + 3 string union）对应后端 dto.ProductResp
