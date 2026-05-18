@@ -28,35 +28,106 @@
             </p>
           </div>
 
-          <!-- 右：服务状态展示卡（mock data，链到真实 status 页） -->
+          <!-- 右：访客自己的 IP 实时信息卡（ipapi.co 拉数据） -->
           <div class="status-card theme-panel border theme-border rounded-2xl overflow-hidden">
             <div class="status-titlebar flex items-center justify-between px-5 py-3 border-b theme-border">
               <div class="flex items-center gap-2">
                 <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
-                <h2 class="text-xs font-mono font-semibold theme-text-primary tracking-wider">SERVICE STATUS</h2>
+                <h2 class="text-xs font-mono font-semibold theme-text-primary tracking-wider">MY IP · WHOAMI</h2>
               </div>
-              <span class="text-xs font-mono theme-text-muted">{{ statusTimestamp }}</span>
-            </div>
-            <ul class="divide-y theme-border">
-              <li v-for="svc in serviceStatuses" :key="svc.name" class="flex items-center justify-between px-5 py-3">
-                <a :href="svc.statusUrl" target="_blank" rel="noopener noreferrer"
-                  class="flex items-center gap-3 text-sm theme-text-primary hover:theme-text-accent transition-colors">
-                  <span :class="['w-1.5 h-7 rounded-full', svc.accent]"></span>
-                  <span class="font-medium">{{ svc.name }}</span>
-                </a>
-                <span class="flex items-center gap-2 text-xs font-mono">
-                  <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  <span class="theme-text-muted">operational</span>
+              <span class="flex items-center gap-1.5 text-xs font-mono theme-text-muted">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-              </li>
-            </ul>
-            <div class="px-5 py-3 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
-              <span class="theme-text-accent">›</span> 状态指示为展示性视觉，实时状态请点击各服务名跳转官方页面
+                live
+              </span>
+            </div>
+            <div class="px-5 py-4 font-mono text-sm">
+              <!-- Loading state -->
+              <div v-if="ipLoading" class="space-y-2.5">
+                <div class="h-3.5 w-3/4 rounded theme-skeleton"></div>
+                <div class="h-3 w-1/2 rounded theme-skeleton"></div>
+                <div class="h-3 w-2/3 rounded theme-skeleton"></div>
+                <div class="h-3 w-5/12 rounded theme-skeleton"></div>
+              </div>
+              <!-- IP info -->
+              <div v-else-if="ipInfo" class="space-y-2">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">curl ifconfig.me</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="text-base sm:text-lg font-semibold theme-text-primary tracking-wider">{{ ipInfo.ip }}</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded theme-surface-soft theme-text-muted border theme-border">{{ ipInfo.version || 'IPv4' }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">geo.lookup</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ ipInfo.location }}</span>
+                </div>
+
+                <div v-if="ipInfo.org" class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">isp.org</span>
+                </div>
+                <div v-if="ipInfo.org" class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary truncate" :title="ipInfo.org">{{ ipInfo.org }}</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">ip.type</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span :class="ipInfo.isDatacenter ? 'text-amber-400' : 'text-emerald-400'">
+                    {{ ipInfo.isDatacenter ? 'datacenter ⚠' : 'residential ✓' }}
+                  </span>
+                  <span v-if="ipInfo.isDatacenter" class="text-[10px] theme-text-muted">机房 IP，注册 AI 服务可能被风控</span>
+                </div>
+
+                <div class="flex items-baseline gap-2 pt-1">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">date</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ liveClock }}</span>
+                  <span class="terminal-cursor text-indigo-400">▍</span>
+                </div>
+              </div>
+              <!-- Error fallback -->
+              <div v-else class="space-y-2">
+                <div class="flex items-baseline gap-2">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">curl ifconfig.me</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-rose-400 select-none">!</span>
+                  <span class="theme-text-secondary text-xs">查询失败，请点击下方 ping0.cc 等工具手动查 IP</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4 pt-2">
+                  <span class="text-indigo-400 select-none">$</span>
+                  <span class="theme-text-muted">date</span>
+                </div>
+                <div class="flex items-center gap-2 pl-4">
+                  <span class="text-emerald-400 select-none">›</span>
+                  <span class="theme-text-primary">{{ liveClock }}</span>
+                  <span class="terminal-cursor text-indigo-400">▍</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-5 py-2.5 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
+              <span class="theme-text-accent">›</span> 数据来自 ipapi.co · 仅用于本页展示，本站不存储
             </div>
           </div>
         </div>
@@ -129,7 +200,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
@@ -231,22 +302,7 @@ const categories: ToolCategory[] = [
   },
 ]
 
-// 顶部服务状态展示卡（mock 数据，链到真实 status 页面）
-const serviceStatuses = [
-  { name: 'Claude · API',     statusUrl: 'https://status.anthropic.com/',         accent: 'bg-orange-500' },
-  { name: 'ChatGPT · API',    statusUrl: 'https://status.openai.com/',            accent: 'bg-emerald-500' },
-  { name: 'Gemini · API',     statusUrl: 'https://status.cloud.google.com/',      accent: 'bg-sky-500' },
-  { name: 'Apple ID · iCloud',statusUrl: 'https://www.apple.com/support/systemstatus/', accent: 'bg-zinc-500' },
-]
-
 const totalTools = computed(() => categories.reduce((sum, c) => sum + c.items.length, 0))
-
-const statusTimestamp = computed(() => {
-  const now = new Date()
-  const hh = String(now.getHours()).padStart(2, '0')
-  const mm = String(now.getMinutes()).padStart(2, '0')
-  return `${hh}:${mm} sample`
-})
 
 const getHost = (url: string) => {
   try {
@@ -255,6 +311,83 @@ const getHost = (url: string) => {
     return url
   }
 }
+
+// ============================================================
+// 访客 IP 信息（ipapi.co 拉取，CSP connect-src 已加白名单）
+// ============================================================
+
+interface IpInfo {
+  ip: string
+  location: string
+  org: string
+  version: string
+  isDatacenter: boolean
+}
+
+const ipLoading = ref(true)
+const ipInfo = ref<IpInfo | null>(null)
+
+// 简单关键词匹配判断 IP 类型；不追求精确，给用户一个直观提示
+const DATACENTER_KEYWORDS = [
+  'amazon', 'aws', 'google', 'gcp', 'microsoft', 'azure',
+  'digital ocean', 'digitalocean', 'linode', 'vultr', 'oracle', 'hetzner',
+  'ovh', 'choopa', 'leaseweb', 'datacamp', 'limestone', 'm247',
+  'cogent', 'tencent', 'alibaba', 'aliyun', 'ucloud', 'qcloud',
+  'baidu', 'huawei', 'bytedance', 'cloudflare', 'fastly', 'akamai',
+  'contabo', 'kamatera', 'racknerd', 'datacenter', 'hosting', 'server',
+]
+
+function detectDatacenter(org: string): boolean {
+  const lower = org.toLowerCase()
+  return DATACENTER_KEYWORDS.some((kw) => lower.includes(kw))
+}
+
+async function loadIpInfo() {
+  try {
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), 5000)
+    const r = await fetch('https://ipapi.co/json/', { signal: ctrl.signal })
+    clearTimeout(timer)
+    if (!r.ok) throw new Error(`status ${r.status}`)
+    const j = await r.json()
+    if (j.error) throw new Error(j.reason || 'api error')
+    const parts = [j.country_name, j.region, j.city].filter(Boolean)
+    ipInfo.value = {
+      ip: j.ip || '—',
+      location: parts.length ? parts.join(' · ') : '—',
+      org: j.org || '',
+      version: j.version || 'IPv4',
+      isDatacenter: detectDatacenter(j.org || ''),
+    }
+  } catch {
+    ipInfo.value = null
+  } finally {
+    ipLoading.value = false
+  }
+}
+
+// 实时时钟（每秒 tick）
+const liveClock = ref('')
+let clockTimer: ReturnType<typeof setInterval> | null = null
+
+function tickClock() {
+  const d = new Date()
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const date = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+  const time = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+  liveClock.value = `${date} ${time} ${tz}`
+}
+
+onMounted(() => {
+  tickClock()
+  clockTimer = setInterval(tickClock, 1000)
+  loadIpInfo()
+})
+
+onUnmounted(() => {
+  if (clockTimer) clearInterval(clockTimer)
+})
 
 useHead({
   title: '实用工具集合 · IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB',
@@ -281,6 +414,16 @@ useHead({
 
 .status-titlebar {
   background: rgba(255, 255, 255, 0.03);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  animation: terminal-blink 1.1s steps(2, end) infinite;
+}
+
+@keyframes terminal-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
 }
 
 .tool-card::after {
