@@ -114,6 +114,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
 import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
@@ -122,6 +123,18 @@ import QQContactCard from '../components/QQContactCard.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()
+
+useHead({
+  title: '资讯 · AI 工具教程与实战笔记 - 52HUB',
+  meta: [
+    { name: 'description', content: '52HUB 资讯：Claude / ChatGPT / Gemini 等 AI 工具的订阅对比、注册指南、防封号、排错与编程助手实战笔记。' },
+    { property: 'og:title', content: '资讯 · AI 工具教程与实战笔记 - 52HUB' },
+    { property: 'og:description', content: 'Claude / ChatGPT / Gemini 等 AI 工具的订阅对比、注册指南、防封号、排错与编程助手实战笔记。' },
+    { property: 'og:url', content: 'https://52hub.org/blog' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://52hub.org/blog' }],
+})
 
 const loading = ref(true)
 const posts = ref<any[]>([])

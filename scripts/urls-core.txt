@@ -1,10 +1,6 @@
 https://52hub.org/
 https://52hub.org/products
 https://52hub.org/blog
-https://52hub.org/categories/chatgpt
-https://52hub.org/categories/claude
-https://52hub.org/categories/gemini
-https://52hub.org/categories/apple
 https://52hub.org/blog/claude-pro-vs-max
 https://52hub.org/blog/chatgpt-plus-china-payment-guide
 https://52hub.org/blog/chatgpt-plus-vs-pro-comparison

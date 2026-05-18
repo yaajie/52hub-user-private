@@ -105,9 +105,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
 import { useProductList } from '../composables/useProductList'
 import ProductCard from '../components/ProductCard.vue'
 import ProductQuickBuy from '../components/ProductQuickBuy.vue'
@@ -116,7 +117,57 @@ import PaginationNav from '../components/PaginationNav.vue'
 import PurchaseTerms from '../components/PurchaseTerms.vue'
 
 const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
+
+const categorySlug = computed(() => {
+  const slug = route.params.slug
+  return Array.isArray(slug) ? slug[0] : slug
+})
+const isCategory = computed(() => !!categorySlug.value)
+
+useHead({
+  title: computed(() => isCategory.value
+    ? `${categorySlug.value} 分类商品 - 52HUB`
+    : '商品中心 · Claude / ChatGPT / Gemini 直充 + Apple ID 账号 - 52HUB'),
+  meta: computed(() => {
+    const base = [
+      { property: 'og:type', content: 'website' },
+    ]
+    if (isCategory.value) {
+      return [
+        ...base,
+        { name: 'robots', content: 'noindex,follow' },
+        { property: 'og:url', content: `https://52hub.org/categories/${categorySlug.value}` },
+      ]
+    }
+    return [
+      ...base,
+      { name: 'description', content: '52HUB 商品中心 · ChatGPT Plus / Claude Pro / Gemini 官方订阅直充，美区 / 港区 Apple ID 独享账号，Claude 礼品卡兑换号。' },
+      { property: 'og:title', content: '商品中心 · 直充 + Apple ID 账号 - 52HUB' },
+      { property: 'og:description', content: 'ChatGPT / Claude / Gemini 官方订阅直充 + Apple ID 账号 + Claude 礼品卡。' },
+      { property: 'og:url', content: 'https://52hub.org/products' },
+    ]
+  }),
+  link: computed(() => [
+    {
+      rel: 'canonical',
+      href: isCategory.value
+        ? `https://52hub.org/categories/${categorySlug.value}`
+        : 'https://52hub.org/products',
+    },
+  ]),
+  script: computed(() => isCategory.value ? [] : [{
+    type: 'application/ld+json',
+    children: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Store',
+      name: '52HUB',
+      url: 'https://52hub.org/products',
+      description: '52HUB 商品中心 · ChatGPT / Claude / Gemini 官方订阅直充与 Apple ID 账号服务。',
+    }),
+  }]),
+})
 
 const {
   loading,

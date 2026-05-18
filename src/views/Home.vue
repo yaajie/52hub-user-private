@@ -252,6 +252,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
 import { postAPI, productAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { useLocalized } from '../composables/useProduct'
@@ -276,6 +277,18 @@ const appStore = useAppStore()
 const templateMode = computed(() => appStore.config?.template_mode || 'card')
 const navBuiltin = computed(() => (appStore.config?.nav_config as { builtin?: Record<string, boolean> } | undefined)?.builtin)
 const blogEnabled = computed(() => navBuiltin.value?.blog !== false)
+
+useHead({
+  title: '52HUB · Claude / ChatGPT / Gemini AI 工具资源中心 · 官方直充',
+  meta: [
+    { name: 'description', content: '52HUB · AI 工具教程、官方入口、实用资源汇总，并提供 ChatGPT / Claude / Gemini 官方订阅直充与 Apple ID 账号代办服务。' },
+    { property: 'og:title', content: '52HUB · AI 工具资源中心 + 官方直充' },
+    { property: 'og:description', content: 'AI 工具教程、官方入口、实用资源整理，并提供官方订阅直充与账号服务。' },
+    { property: 'og:url', content: 'https://52hub.org/' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://52hub.org/' }],
+})
 
 // ==================== Shared State ====================
 const products = ref<any[]>([])

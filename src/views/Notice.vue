@@ -112,6 +112,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useHead } from '@unhead/vue'
 import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
@@ -120,6 +121,18 @@ import QQContactCard from '../components/QQContactCard.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()
+
+useHead({
+  title: '公告 · 站点动态与服务变更 - 52HUB',
+  meta: [
+    { name: 'description', content: '52HUB 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
+    { property: 'og:title', content: '公告 · 站点动态与服务变更 - 52HUB' },
+    { property: 'og:description', content: '52HUB 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
+    { property: 'og:url', content: 'https://52hub.org/notice' },
+    { property: 'og:type', content: 'website' },
+  ],
+  link: [{ rel: 'canonical', href: 'https://52hub.org/notice' }],
+})
 
 const loading = ref(true)
 const notices = ref<any[]>([])
