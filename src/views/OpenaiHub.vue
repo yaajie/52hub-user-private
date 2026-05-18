@@ -48,12 +48,15 @@
 
     <section class="container mx-auto px-4 pb-12 pt-6">
       <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
-        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关阅读</h2>
+        <p class="text-sm theme-text-secondary mb-4">关于 ChatGPT 订阅本身的对比、防封、付款攻略，单独整理在 ChatGPT 资源页；Sora / DALL-E / Codex 等 OpenAI 其它产品的实战内容会随博客逐步补充。</p>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <li><router-link to="/blog/chatgpt-plus-china-payment-guide" class="theme-link-muted hover:theme-text-primary transition-colors">国内付款订阅 ChatGPT Plus 全方法 →</router-link></li>
-          <li><router-link to="/blog/chatgpt-plus-vs-pro-comparison" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Plus vs Pro 对比 →</router-link></li>
-          <li><router-link to="/blog/chatgpt-anti-ban-guide" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 防封号实战指南 →</router-link></li>
+          <li><router-link to="/chatgpt-hub" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 资源中心（订阅 / 防封 / 付款）→</router-link></li>
+          <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 资源中心 →</router-link></li>
           <li><router-link to="/blog/chatgpt-codex-vs-claude-code" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Codex vs Claude Code →</router-link></li>
+          <li><router-link to="/blog" class="theme-link-muted hover:theme-text-primary transition-colors">全部 AI 工具教程 →</router-link></li>
+          <li><router-link to="/tools" class="theme-link-muted hover:theme-text-primary transition-colors">在线工具集合 →</router-link></li>
+          <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">订阅直充与账号商品 →</router-link></li>
         </ul>
       </div>
     </section>

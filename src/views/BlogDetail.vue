@@ -63,10 +63,9 @@
           <div class="mt-8 pt-6 border-t theme-border">
             <h3 class="text-base font-semibold theme-text-primary mb-3">相关资源</h3>
             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-              <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">→ Claude 资源中心</router-link></li>
-              <li><router-link to="/chatgpt-hub" class="theme-link-muted hover:theme-text-primary transition-colors">→ ChatGPT 资源中心</router-link></li>
-              <li><router-link to="/tools" class="theme-link-muted hover:theme-text-primary transition-colors">→ 在线工具集合</router-link></li>
-              <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">→ AI 订阅直充商品</router-link></li>
+              <li v-for="link in relatedLinks" :key="link.to">
+                <router-link :to="link.to" class="theme-link-muted hover:theme-text-primary transition-colors">→ {{ link.text }}</router-link>
+              </li>
             </ul>
           </div>
           <QQContactCard class="mt-12" />
@@ -162,6 +161,43 @@ const backLink = computed(() => {
 const backText = computed(() => {
   if (!post.value) return t('blogDetail.backToBlog')
   return post.value.type === 'notice' ? t('blogDetail.backToNotice') : t('blogDetail.backToBlog')
+})
+
+// 按 slug 主题动态选 "相关资源"：Claude 主题优先推 Claude，ChatGPT 同理；
+// codex vs claude code 那篇同时关联两者；非博客（通告）/ 未匹配回 fallback 通用四项。
+const relatedLinks = computed(() => {
+  const slug = (post.value?.slug || '').toLowerCase()
+  if (slug.includes('codex')) {
+    return [
+      { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+      { to: '/claude-hub', text: 'Claude 资源中心' },
+      { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x 直充' },
+      { to: '/products/claude-max-5x', text: 'Claude Max 5x 直充' },
+    ]
+  }
+  if (slug.startsWith('claude-')) {
+    return [
+      { to: '/claude-hub', text: 'Claude 资源中心' },
+      { to: '/products/claude-pro', text: 'Claude Pro 直充月卡' },
+      { to: '/products/claude-max-5x', text: 'Claude Max 5x 直充月卡' },
+      { to: '/tools', text: '在线工具集合' },
+    ]
+  }
+  if (slug.startsWith('chatgpt-')) {
+    return [
+      { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+      { to: '/products/chatgpt-plus', text: 'ChatGPT Plus 直充月卡' },
+      { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x 直充月卡' },
+      { to: '/tools', text: '在线工具集合' },
+    ]
+  }
+  // fallback：公告、未来 Gemini 主题、或其它未匹配 slug
+  return [
+    { to: '/claude-hub', text: 'Claude 资源中心' },
+    { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+    { to: '/tools', text: '在线工具集合' },
+    { to: '/products', text: 'AI 订阅直充商品' },
+  ]
 })
 
 const loadPost = async () => {
