@@ -10,7 +10,6 @@
           {{ t('blog.subtitle') }}
         </p>
       </div>
-      <QQContactCard class="mb-8 max-w-4xl mx-auto" />
 
       <!-- Loading State -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -27,11 +26,10 @@
           <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
             class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
             :aria-label="getLocalizedText(post.title)">
-            <!-- Thumbnail -->
-            <div v-if="post.thumbnail" class="h-48 overflow-hidden relative">
+            <!-- Thumbnail · 保留上传 16:9 原始比例 -->
+            <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
               <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
-                loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-              <div class="absolute inset-0 bg-black/35"></div>
+                loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
 
             <div class="p-8 flex flex-col flex-1">
@@ -119,7 +117,6 @@ import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { debounceAsync } from '../utils/debounce'
-import QQContactCard from '../components/QQContactCard.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()

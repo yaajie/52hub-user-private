@@ -68,7 +68,6 @@
               </li>
             </ul>
           </div>
-          <QQContactCard class="mt-12" />
 
           <!-- Footer -->
           <footer class="mt-16 pt-12 border-t theme-border flex justify-center">
@@ -114,7 +113,6 @@ import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { processHtmlForDisplay } from '../utils/content'
 import { debounceAsync } from '../utils/debounce'
-import QQContactCard from '../components/QQContactCard.vue'
 
 const route = useRoute()
 const { t } = useI18n()

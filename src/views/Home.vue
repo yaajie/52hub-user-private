@@ -189,11 +189,17 @@
           v-for="post in latestPosts"
           :key="post.id"
           :to="`/blog/${post.slug}`"
-          class="block theme-panel border theme-border rounded-2xl p-5 hover:theme-surface-strong transition-colors"
+          class="group block theme-panel border theme-border rounded-2xl overflow-hidden hover:theme-surface-strong transition-colors flex flex-col"
         >
-          <h3 class="text-base font-semibold theme-text-primary line-clamp-2">{{ getLocalizedText(post.title) }}</h3>
-          <p class="mt-2 text-sm theme-text-secondary line-clamp-3">{{ getLocalizedText(post.summary) }}</p>
-          <div class="mt-3 text-xs theme-text-muted">{{ formatDate(post.published_at || post.created_at) }}</div>
+          <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
+            <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
+              loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <h3 class="text-base font-semibold theme-text-primary line-clamp-2">{{ getLocalizedText(post.title) }}</h3>
+            <p class="mt-2 text-sm theme-text-secondary line-clamp-2 flex-1">{{ getLocalizedText(post.summary) }}</p>
+            <div class="mt-3 text-xs theme-text-muted">{{ formatDate(post.published_at || post.created_at) }}</div>
+          </div>
         </router-link>
       </div>
     </section>
@@ -374,7 +380,7 @@ const loadFeaturedProducts = async () => {
 const loadLatestPosts = async () => {
   if (!blogEnabled.value) return
   try {
-    const response = await postAPI.list({ page: 1, page_size: 3, type: 'blog' })
+    const response = await postAPI.list({ page: 1, page_size: 6, type: 'blog' })
     latestPosts.value = response.data.data || []
   } catch (error) {
     console.error('Failed to load posts:', error)

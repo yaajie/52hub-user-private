@@ -10,7 +10,6 @@
           {{ t('notice.subtitle') }}
         </p>
       </div>
-      <QQContactCard class="mb-8 max-w-4xl mx-auto" />
 
       <!-- Loading State -->
       <div v-if="loading" class="space-y-4 max-w-4xl mx-auto">
@@ -117,7 +116,6 @@ import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
 import { debounceAsync } from '../utils/debounce'
-import QQContactCard from '../components/QQContactCard.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()

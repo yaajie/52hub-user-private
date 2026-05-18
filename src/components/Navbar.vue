@@ -9,10 +9,11 @@
         <span class="theme-wordmark-text">{{ brandSiteName }}</span>
       </router-link>
 
-      <!-- Desktop Menu -->
+      <!-- Desktop Menu · 顺序：首页 → AI 资源 ▾ → 工具 → 资讯 → 商品中心 → 关于 -->
       <div class="hidden lg:flex items-center space-x-1 min-w-0 overflow-x-auto scrollbar-hide">
-        <template v-for="item in menuItems" :key="item.key">
-          <router-link v-if="item.type === 'route'" :to="item.path"
+        <!-- 首页（Left） -->
+        <template v-for="item in menuItemsLeft" :key="item.key">
+          <router-link :to="item.path"
             class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0"
             active-class="theme-nav-link-active">
             <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,13 +21,6 @@
             </svg>
             <span class="relative z-10">{{ item.label.startsWith('nav.') ? t(item.label) : item.label }}</span>
           </router-link>
-          <a v-else :href="item.path" :target="item.target" rel="noopener noreferrer"
-            class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0">
-            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" :d="item.icon" />
-            </svg>
-            <span class="relative z-10">{{ item.label }}</span>
-          </a>
         </template>
         <div class="relative shrink-0"
              ref="aihubTriggerRef"
@@ -58,6 +52,24 @@
           </svg>
           <span class="relative z-10">工具</span>
         </router-link>
+        <!-- Right · 资讯 → 商品中心 → 关于 → custom -->
+        <template v-for="item in menuItemsRight" :key="item.key">
+          <router-link v-if="item.type === 'route'" :to="item.path"
+            class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0"
+            active-class="theme-nav-link-active">
+            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" :d="item.icon" />
+            </svg>
+            <span class="relative z-10">{{ item.label.startsWith('nav.') ? t(item.label) : item.label }}</span>
+          </router-link>
+          <a v-else :href="item.path" :target="item.target" rel="noopener noreferrer"
+            class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0">
+            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" :d="item.icon" />
+            </svg>
+            <span class="relative z-10">{{ item.label }}</span>
+          </a>
+        </template>
       </div>
 
       <!-- Right Side Actions -->
@@ -448,22 +460,47 @@ const buildBuiltinNavItems = (): NavItem[] => {
   return result
 }
 
-const menuItems = computed<NavItem[]>(() => {
-  const items: NavItem[] = [
-    { key: 'home', path: '/', label: 'nav.home', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1', type: 'route', target: '_self' },
-  ]
-  if (!isListMode.value) {
-    items.push({ key: 'products', path: '/products', label: 'nav.products', icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z', type: 'route', target: '_self' })
-  }
-  items.push(...buildBuiltinNavItems())
-  items.push(...buildCustomNavItems())
-  return items
+const homeItem: NavItem = {
+  key: 'home',
+  path: '/',
+  label: 'nav.home',
+  icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1',
+  type: 'route',
+  target: '_self',
+}
+
+const productsItem: NavItem = {
+  key: 'products',
+  path: '/products',
+  label: 'nav.products',
+  icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+  type: 'route',
+  target: '_self',
+}
+
+// nav 顺序：首页 ··· [AI 资源 ▾] [工具] ··· 资讯 / 商品中心 / 关于 / 自定义
+// 公告（notice）从 Navbar 屏蔽（Footer 仍可访问）。
+const NAV_HIDDEN_BUILTIN = new Set(['notice'])
+
+// 桌面：home 单独渲染在 AI 资源/工具 之前
+const menuItemsLeft = computed<NavItem[]>(() => [homeItem])
+
+// 桌面：AI 资源 ▾ + 工具 之后的项（资讯 / 商品中心 / 关于 / 自定义）
+const menuItemsRight = computed<NavItem[]>(() => {
+  const builtin = buildBuiltinNavItems().filter((it) => !NAV_HIDDEN_BUILTIN.has(it.key))
+  // blog 在前，about 在后，products 插在 blog 和 about 之间
+  const blog = builtin.filter((it) => it.key === 'blog')
+  const about = builtin.filter((it) => it.key === 'about')
+  const others = builtin.filter((it) => !['blog', 'about'].includes(it.key))
+  const productsList = isListMode.value ? [] : [productsItem]
+  return [...blog, ...productsList, ...others, ...about, ...buildCustomNavItems()]
 })
 
 // Mobile drawer only shows items NOT in the bottom nav (Home, Products, Cart, Me are in bottom nav)
+// 同样屏蔽 notice
 const mobileDrawerItems = computed<NavItem[]>(() => {
-  const items: NavItem[] = [...buildBuiltinNavItems(), ...buildCustomNavItems()]
-  return items
+  const builtin = buildBuiltinNavItems().filter((it) => !NAV_HIDDEN_BUILTIN.has(it.key))
+  return [...builtin, ...buildCustomNavItems()]
 })
 
 const languages = [
