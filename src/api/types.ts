@@ -210,3 +210,97 @@ export interface CaptchaPayload {
     captcha_code?: string
     turnstile_token?: string
 }
+
+// ============================================================
+// 公开商品 API 类型（P1-O-2 新增，对应后端 dto.ProductResp）
+// ============================================================
+
+/** 多语言文本字段，{ 'zh-CN': '...', 'en-US': '...', 'zh-TW': '...' } */
+export type LocalizedText = Record<string, string>
+
+export interface Category {
+    id: number
+    parent_id?: number
+    slug: string
+    name?: LocalizedText
+    icon?: string
+}
+
+export interface PromotionRule {
+    type?: string
+    value?: number | string
+    min_amount?: number | string
+    name?: string
+}
+
+export interface MemberLevelPrice {
+    member_level_id: number
+    sku_id: number
+    price_amount: string | number
+}
+
+export interface ProductSKU {
+    id: number
+    sku_code?: string
+    /** SKU 规格值（结构因品类而异，保留 unknown 让消费方收紧） */
+    spec_values?: Record<string, unknown>
+    price_amount: string | number
+    manual_stock_total?: number
+    manual_stock_sold?: number
+    manual_stock_locked?: number
+    auto_stock_available?: number
+    upstream_stock?: number
+    is_active: boolean
+    promotion_price_amount?: string | number | null
+    member_price_amount?: string | number | null
+}
+
+export interface PaymentChannel {
+    id: number
+    name?: string
+    code?: string
+    icon?: string
+    fee_rate?: number
+    fixed_fee?: number
+    is_active?: boolean
+}
+
+export type FulfillmentType = 'manual' | 'auto'
+export type StockStatus = 'in_stock' | 'low_stock' | 'out_of_stock'
+export type PurchaseType = 'guest' | 'member' | 'all'
+
+export interface Product {
+    id: number
+    category_id: number
+    slug: string
+    seo_meta?: Record<string, unknown>
+    title: LocalizedText
+    description: LocalizedText
+    content: LocalizedText
+    price_amount: string | number
+    images: string[]
+    tags: string[]
+    purchase_type: PurchaseType | string
+    min_purchase_quantity?: number
+    max_purchase_quantity: number
+    fulfillment_type: FulfillmentType | string
+    manual_form_schema?: Record<string, unknown>
+    manual_stock_available: number
+    auto_stock_available: number
+    stock_status: StockStatus | string
+    is_sold_out: boolean
+    /** P1-M 新增：首页精选排序权重（0 不上首页，1+ 越大越靠前） */
+    sort_order?: number
+    payment_channel_ids?: number[]
+    category?: Category
+    skus?: ProductSKU[]
+    /** 促销字段（仅商品详情接口可能填充） */
+    promotion_id?: number | null
+    promotion_name?: string
+    promotion_type?: string
+    promotion_price_amount?: string | number | null
+    promotion_rules?: PromotionRule[]
+    member_prices?: MemberLevelPrice[]
+    /** 商品详情接口可能填充关联文章 */
+    related_posts?: Array<{ id: number; slug: string; title?: LocalizedText }>
+}

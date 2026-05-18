@@ -468,6 +468,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 import { productAPI } from '../api'
+import type { Product, ProductSKU, PaymentChannel, PromotionRule } from '../api/types'
 import { getImageUrl } from '../utils/image'
 import { processHtmlForDisplay } from '../utils/content'
 import { useCartStore } from '../stores/cart'
@@ -494,7 +495,7 @@ const userAuthStore = useUserAuthStore()
 const { getLocalizedText, siteCurrency, formatPrice } = useLocalized()
 const { getPurchaseTypeLabel, getFulfillmentTypeLabel, getStockBadgeClass, getStockStatusLabel, hasPromotionPrice, getPromotionPriceAmount, getPromotionSaveAmount, hasSkuPromotionPrice, getSkuPromotionPriceAmount, getSkuPromotionSaveAmount, hasPromotionRules, getPromotionRules } = useProductLabels()
 
-const formatPromotionRule = (rule: any) => {
+const formatPromotionRule = (rule: PromotionRule) => {
   const amount = formatPrice(rule.min_amount, siteCurrency.value)
   const value = rule.type === 'percent' ? String(rule.value) : formatPrice(rule.value, siteCurrency.value)
   const hasMin = Number(rule.min_amount) > 0
@@ -511,7 +512,7 @@ const formatPromotionRule = (rule: any) => {
 }
 
 const loading = ref(true)
-const product = ref<any>(null)
+const product = ref<Product | null>(null)
 const currentImage = ref<string>('')
 const selectedSkuId = ref(0)
 const quantity = ref(1)
@@ -520,14 +521,14 @@ const purchaseActionsRef = ref<HTMLElement | null>(null)
 const showMobileBar = ref(false)
 let observer: IntersectionObserver | null = null
 
-const activeSkus = computed(() => {
-  const rows = Array.isArray(product.value?.skus) ? product.value.skus : []
-  return rows.filter((sku: any) => Boolean(sku?.is_active))
+const activeSkus = computed<ProductSKU[]>(() => {
+  const rows = Array.isArray(product.value?.skus) ? product.value!.skus! : []
+  return rows.filter((sku) => Boolean(sku?.is_active))
 })
 
-const selectedSku = computed(() => {
+const selectedSku = computed<ProductSKU | null>(() => {
   if (selectedSkuId.value <= 0) return null
-  return activeSkus.value.find((sku: any) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
+  return activeSkus.value.find((sku) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
 })
 
 // 会员价相关
@@ -581,7 +582,7 @@ const normalizeOptionalLimitNumber = (value: unknown) => {
   return integerValue
 }
 
-const shouldEnforceSkuStock = (sku: any) => {
+const shouldEnforceSkuStock = (sku: ProductSKU | null | undefined): boolean => {
   if (!sku) return false
   if (product.value?.fulfillment_type === 'auto') return true
   if (product.value?.fulfillment_type === 'upstream') return true
@@ -591,7 +592,7 @@ const shouldEnforceSkuStock = (sku: any) => {
   return true
 }
 
-const skuAvailableStock = (sku: any) => {
+const skuAvailableStock = (sku: ProductSKU | null | undefined): number | null => {
   if (!shouldEnforceSkuStock(sku)) return null
   if (product.value?.fulfillment_type === 'upstream') {
     const upstreamStock = Number(sku?.upstream_stock ?? 0)
@@ -608,20 +609,20 @@ const skuAvailableStock = (sku: any) => {
   return total
 }
 
-const isSkuPurchasable = (sku: any) => {
+const isSkuPurchasable = (sku: ProductSKU | null | undefined): boolean => {
   const available = skuAvailableStock(sku)
   if (available === null) return true
   return available > 0
 }
 
-const skuStockText = (sku: any) => {
+const skuStockText = (sku: ProductSKU): string => {
   const available = skuAvailableStock(sku)
   if (available === null) return t('productDetail.skuStockUnlimited')
   if (available <= 0) return t('productDetail.skuStockOut')
   return t('productDetail.skuStockRemaining', { count: available })
 }
 
-const skuStockBadgeClass = (sku: any) => {
+const skuStockBadgeClass = (sku: ProductSKU): string => {
   const available = skuAvailableStock(sku)
   if (available === null) return 'border-slate-200 text-slate-600 dark:border-slate-700 dark:text-slate-300'
   if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
@@ -664,12 +665,12 @@ const canPurchase = computed(() => {
   return true
 })
 
-const visiblePaymentChannels = computed(() => {
-  const all = Array.isArray(appStore.config?.payment_channels) ? appStore.config.payment_channels : []
+const visiblePaymentChannels = computed<PaymentChannel[]>(() => {
+  const all: PaymentChannel[] = Array.isArray(appStore.config?.payment_channels) ? appStore.config.payment_channels : []
   const allowed = product.value?.payment_channel_ids
   if (!Array.isArray(allowed) || allowed.length === 0) return all
   const allowedSet = new Set(allowed.map((id: unknown) => Number(id)))
-  return all.filter((channel: any) => allowedSet.has(Number(channel?.id)))
+  return all.filter((channel) => allowedSet.has(Number(channel?.id)))
 })
 const cannotPurchaseReason = computed(() => {
   if (!product.value) return ''
@@ -685,16 +686,18 @@ const categoryName = computed(() => {
 
 const images = computed(() => {
   if (!product.value?.images) return []
+  // 历史兼容：后端早期版本可能返回 { images: string[] } 对象，dto 现在统一返回 string[]
+  const rawImages = product.value.images as unknown as string[] | { images?: string[] }
   let imageArray: string[] = []
-  if (Array.isArray(product.value.images)) {
-    imageArray = product.value.images
-  } else if (product.value.images.images && Array.isArray(product.value.images.images)) {
-    imageArray = product.value.images.images
+  if (Array.isArray(rawImages)) {
+    imageArray = rawImages
+  } else if (rawImages && Array.isArray(rawImages.images)) {
+    imageArray = rawImages.images
   }
   return imageArray.map(img => getImageUrl(img))
 })
 
-const skuDisplayText = (sku: any) => {
+const skuDisplayText = (sku: ProductSKU): string => {
   return buildSkuDisplayText({
     skuCode: sku?.sku_code,
     specValues: sku?.spec_values,
@@ -713,10 +716,10 @@ const syncSelectedSku = () => {
     selectedSkuId.value = normalizeSkuId(rows[0]?.id)
     return
   }
-  if (rows.some((sku: any) => normalizeSkuId(sku?.id) === selectedSkuId.value)) {
+  if (rows.some((sku) => normalizeSkuId(sku?.id) === selectedSkuId.value)) {
     return
   }
-  const firstAvailable = rows.find((sku: any) => isSkuPurchasable(sku))
+  const firstAvailable = rows.find((sku) => isSkuPurchasable(sku))
   if (firstAvailable) {
     selectedSkuId.value = normalizeSkuId(firstAvailable?.id)
     return
