@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`a4b6152 52hub: P1-M home featured products use backend sort_order`**
+- **最新 commit：`f2e6229 52hub: P1-M tune featured grid to 5-col desktop + cap=5`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- P1-M 视觉微调（2026-05-18，commit `f2e6229`）：桌面网格 `lg:grid-cols-3` → `lg:grid-cols-5`，前端 cap 从 6 → 5；fallback 4 个最新（5 列里留一格空，可接受）。背景：用户实测 sort_order 全链路通过（1/2/3 顺序、99 跳第一、0 fallback 都正常），反馈"3 列卡片在 PC 上有点大"。备份 `/opt/dujiao-next/web/user.pre-p1m-grid5-20260518-175701`。
 - P1-M（2026-05-18，前端 commit `a4b6152` + 后端 commit `139055a`）：首页"精选推荐"接入后台 sort_order
   - **后端**（首次涉及 backend 源码改动）：
     - 仓库 clone 到 `/Users/Apple/52hub-source-hardening/dujiao-next-api`，本地分支 `52hub/v1.0.2-api-sortorder`（未 push，因无 fork remote）
