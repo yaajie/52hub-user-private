@@ -163,7 +163,7 @@ const backText = computed(() => {
   return post.value.type === 'notice' ? t('blogDetail.backToNotice') : t('blogDetail.backToBlog')
 })
 
-// 按 slug 主题动态选 "相关资源"：Claude 主题优先推 Claude，ChatGPT 同理；
+// 按 slug 主题动态选 "相关资源"：Claude/ChatGPT/Gemini/Apple/视频/选店家 各一套。
 // codex vs claude code 那篇同时关联两者；非博客（通告）/ 未匹配回 fallback 通用四项。
 const relatedLinks = computed(() => {
   const slug = (post.value?.slug || '').toLowerCase()
@@ -173,6 +173,38 @@ const relatedLinks = computed(() => {
       { to: '/claude-hub', text: 'Claude 资源中心' },
       { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x 直充' },
       { to: '/products/claude-max-5x', text: 'Claude Max 5x 直充' },
+    ]
+  }
+  if (slug.startsWith('gemini-')) {
+    return [
+      { to: '/gemini-hub', text: 'Gemini 资源中心' },
+      { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
+      { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
+      { to: '/products', text: 'AI 订阅直充商品' },
+    ]
+  }
+  if (slug.startsWith('apple-id-')) {
+    return [
+      { to: '/blog/chatgpt-plus-china-payment-guide', text: '国内付款订阅 ChatGPT Plus 全方法' },
+      { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
+      { to: '/products', text: 'Apple ID 独享带密保号商品' },
+      { to: '/tools', text: '在线工具集合（IP 检测等）' },
+    ]
+  }
+  if (slug.startsWith('sora-') || slug.includes('-video-')) {
+    return [
+      { to: '/openai-hub', text: 'OpenAI 资源中心（含 Sora）' },
+      { to: '/gemini-hub', text: 'Gemini 资源中心（含 Veo）' },
+      { to: '/blog/gemini-pro-vs-advanced', text: 'Gemini Pro vs Advanced 怎么选' },
+      { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x（含 Sora 高额度）' },
+    ]
+  }
+  if (slug.startsWith('how-to-pick-')) {
+    return [
+      { to: '/blog/apple-id-overseas-registration-guide', text: 'Apple ID 海外区注册全攻略' },
+      { to: '/blog/chatgpt-anti-ban-guide', text: 'ChatGPT 账号防封号指南' },
+      { to: '/about', text: '关于 52HUB 与站长 Jay' },
+      { to: '/products', text: '52HUB 商品中心' },
     ]
   }
   if (slug.startsWith('claude-')) {
@@ -191,7 +223,7 @@ const relatedLinks = computed(() => {
       { to: '/tools', text: '在线工具集合' },
     ]
   }
-  // fallback：公告、未来 Gemini 主题、或其它未匹配 slug
+  // fallback：公告或其它未匹配 slug
   return [
     { to: '/claude-hub', text: 'Claude 资源中心' },
     { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },

@@ -76,6 +76,9 @@
           <li><router-link to="/blog/chatgpt-plus-vs-pro-comparison" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Plus vs Pro 对比 →</router-link></li>
           <li><router-link to="/blog/chatgpt-anti-ban-guide" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 防封号实战指南 →</router-link></li>
           <li><router-link to="/blog/chatgpt-codex-vs-claude-code" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Codex vs Claude Code →</router-link></li>
+          <li><router-link to="/blog/sora-veo-hailuo-video-subscription" class="theme-link-muted hover:theme-text-primary transition-colors">Sora / Veo / Hailuo 视频订阅怎么买 →</router-link></li>
+          <li><router-link to="/blog/how-to-pick-ai-subscription-store" class="theme-link-muted hover:theme-text-primary transition-colors">如何挑靠谱的 AI 订阅店家 →</router-link></li>
+          <li><router-link to="/blog/apple-id-overseas-registration-guide" class="theme-link-muted hover:theme-text-primary transition-colors">Apple ID 海外区注册全攻略 →</router-link></li>
         </ul>
       </div>
     </section>

@@ -76,6 +76,8 @@
           <li><router-link to="/blog/claude-registration-guide" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 注册指南 →</router-link></li>
           <li><router-link to="/blog/claude-code-getting-started" class="theme-link-muted hover:theme-text-primary transition-colors">Claude Code 上手指南 →</router-link></li>
           <li><router-link to="/blog/claude-403-troubleshooting" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 报错 403 排查 →</router-link></li>
+          <li><router-link to="/blog/how-to-pick-ai-subscription-store" class="theme-link-muted hover:theme-text-primary transition-colors">如何挑靠谱的 AI 订阅店家 →</router-link></li>
+          <li><router-link to="/blog/apple-id-overseas-registration-guide" class="theme-link-muted hover:theme-text-primary transition-colors">Apple ID 海外区注册全攻略 →</router-link></li>
         </ul>
       </div>
     </section>

@@ -70,8 +70,10 @@
 
     <section class="container mx-auto px-4 pb-12 pt-6">
       <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
-        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关阅读</h2>
+        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
         <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <li><router-link to="/blog/gemini-pro-vs-advanced" class="theme-link-muted hover:theme-text-primary transition-colors">Gemini Pro vs Advanced 怎么选 →</router-link></li>
+          <li><router-link to="/blog/sora-veo-hailuo-video-subscription" class="theme-link-muted hover:theme-text-primary transition-colors">Sora / Veo / Hailuo 视频订阅怎么买 →</router-link></li>
           <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 资源中心 →</router-link></li>
           <li><router-link to="/openai-hub" class="theme-link-muted hover:theme-text-primary transition-colors">OpenAI 全产品资源 →</router-link></li>
           <li><router-link to="/blog" class="theme-link-muted hover:theme-text-primary transition-colors">AI 工具教程合集 →</router-link></li>

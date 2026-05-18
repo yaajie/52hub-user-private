@@ -54,6 +54,8 @@
           <li><router-link to="/chatgpt-hub" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT 资源中心（订阅 / 防封 / 付款）→</router-link></li>
           <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 资源中心 →</router-link></li>
           <li><router-link to="/blog/chatgpt-codex-vs-claude-code" class="theme-link-muted hover:theme-text-primary transition-colors">ChatGPT Codex vs Claude Code →</router-link></li>
+          <li><router-link to="/blog/sora-veo-hailuo-video-subscription" class="theme-link-muted hover:theme-text-primary transition-colors">Sora / Veo / Hailuo 视频订阅怎么买 →</router-link></li>
+          <li><router-link to="/blog/how-to-pick-ai-subscription-store" class="theme-link-muted hover:theme-text-primary transition-colors">如何挑靠谱的 AI 订阅店家 →</router-link></li>
           <li><router-link to="/blog" class="theme-link-muted hover:theme-text-primary transition-colors">全部 AI 工具教程 →</router-link></li>
           <li><router-link to="/tools" class="theme-link-muted hover:theme-text-primary transition-colors">在线工具集合 →</router-link></li>
           <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">订阅直充与账号商品 →</router-link></li>
