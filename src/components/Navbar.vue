@@ -33,8 +33,11 @@
              @mouseenter="openAihub"
              @mouseleave="scheduleCloseAihub">
           <button type="button"
+            aria-label="AI 资源下拉菜单"
+            :aria-expanded="aihubOpen"
+            aria-haspopup="true"
             class="theme-nav-link text-sm flex items-center gap-1.5 whitespace-nowrap">
-            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
                 d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -104,9 +107,10 @@
         </button>
         <!-- Theme Switcher -->
         <button @click="toggleTheme"
+          :aria-label="theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'"
           class="theme-nav-link p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-          <SunIcon v-if="theme === 'dark'" class="w-4 h-4" />
-          <MoonIcon v-else class="w-4 h-4" />
+          <SunIcon v-if="theme === 'dark'" class="w-4 h-4" aria-hidden="true" />
+          <MoonIcon v-else class="w-4 h-4" aria-hidden="true" />
         </button>
 
         <!-- Language Switcher (Desktop) -->
@@ -138,8 +142,11 @@
 
         <!-- Mobile Menu Button (more menu, not main nav) -->
         <button @click="toggleMobileMenu"
+          :aria-label="showMobileMenu ? '关闭菜单' : '打开菜单'"
+          :aria-expanded="showMobileMenu"
+          aria-controls="mobile-drawer"
           class="lg:hidden theme-nav-link p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="5" r="1.5" fill="currentColor" />
             <circle cx="12" cy="12" r="1.5" fill="currentColor" />
             <circle cx="12" cy="19" r="1.5" fill="currentColor" />
@@ -200,14 +207,20 @@
       leave-from-class="translate-x-0"
       leave-to-class="translate-x-full">
       <div v-if="showMobileMenu"
+        id="mobile-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="主菜单"
         class="lg:hidden fixed right-0 top-0 bottom-0 z-[70] w-72 max-w-[80vw] theme-panel-strong backdrop-blur-xl border-l theme-border overflow-y-auto"
         style="overscroll-behavior: none;">
         <div class="p-5 space-y-1">
           <!-- Header -->
           <div class="flex items-center justify-between mb-4">
             <span class="text-xs font-semibold theme-text-muted uppercase tracking-wider">{{ t('navbar.more') }}</span>
-            <button @click="showMobileMenu = false" class="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg theme-btn-neutral">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="showMobileMenu = false"
+              aria-label="关闭菜单"
+              class="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg theme-btn-neutral">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
