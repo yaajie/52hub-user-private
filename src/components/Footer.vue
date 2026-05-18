@@ -1,10 +1,10 @@
 <template>
   <footer
     class="relative theme-panel-strong theme-text-secondary border-t theme-border overflow-hidden">
-    <div class="container mx-auto px-4 py-16 relative">
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-10 mb-16">
-        <!-- Brand · xs 跨 2 列；sm/md 跨 3 列；lg+ 与其它列等宽 -->
-        <div class="col-span-2 sm:col-span-3 lg:col-span-1 space-y-5">
+    <div class="container mx-auto px-4 pt-10 pb-32 sm:py-16 relative">
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-10 mb-10 sm:mb-16">
+        <!-- Brand · mobile 只保留品牌介绍和联系方式；sm/md 跨 3 列；lg+ 与其它列等宽 -->
+        <div class="sm:col-span-3 lg:col-span-1 space-y-5">
           <div class="flex items-center space-x-3">
             <div
               class="w-8 h-8 theme-btn-primary rounded-lg flex items-center justify-center">
@@ -44,7 +44,7 @@
         </div>
 
         <!-- Links -->
-        <div>
+        <div class="hidden sm:block">
           <h4 class="theme-text-primary font-bold mb-6 tracking-wide">{{ t('footer.quickLinks') }}</h4>
           <ul class="space-y-3 text-sm">
             <li v-for="item in quickLinks" :key="item.path">
@@ -58,7 +58,7 @@
           </ul>
         </div>
 
-        <div>
+        <div class="hidden sm:block">
           <h4 class="theme-text-primary font-bold mb-6 tracking-wide">AI 资源</h4>
           <ul class="space-y-3 text-sm">
             <li>
@@ -76,7 +76,7 @@
           </ul>
         </div>
 
-        <div class="col-span-2 sm:col-span-1">
+        <div class="hidden sm:block">
           <h4 class="theme-text-primary font-bold mb-6 tracking-wide">在线工具</h4>
           <ul class="space-y-3 text-sm">
             <li>
