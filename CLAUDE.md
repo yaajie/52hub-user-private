@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`c3db562 52hub: add v-spotlight directive — mouse-follow radial gradient on key cards`**
+- **最新 commit：`dba74a3 52hub: redesign /about layout — full-width + terminal hero + 3-col grid`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,15 @@ npm run build
 
 ## 最近任务记录
 
+- About 页重做（2026-05-19，commit `dba74a3`）：用户反馈宽度与全站不一致 + 内容单薄
+  - 去 `max-w-4xl`，改用标准 container（width 1536px on lg）
+  - **Hero 2 列**：左 Jay 自述 / 右**伪 macOS 终端卡**（3 圆点 + `~ jay@52hub` 标题 + `which-ai claude/chatgpt/gemini` + `52hub --status` uptime + 闪烁光标），AI 工具站技术感锚点
+  - 终端 uptime 自动计算（按 2026-05-07 上线日）
+  - **3 卡横排**：发货说明 / 售后政策 / 数据与隐私（替代竖向堆叠）
+  - **底部 2 列**：服务内容 + 需要帮助（合并简化，去 WhatsApp 占位）
+  - 联系卡精简（TG 客服 + QQ 群 2 张）
+  - `<style scoped>` 内联伪终端配色（不污染全局）
+  - 备份：`/opt/dujiao-next/web/user.pre-about-redesign-20260519-011423`
 - About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：
   - **About**：在站长 Jay 自述与服务内容之间插入 3 个固定 section（发货说明 2 卡 / 售后政策 5 条 / 数据与隐私 3 条），不依赖后台 about_config
   - **Spotlight**：新建 `src/directives/spotlight.ts`（v-spotlight directive，rAF 节流）+ `.spotlight` / `.spotlight-border` 全局 CSS。应用到 ResourceHubGrid 4 卡（含 `.border` 修饰）/ Home 最新教程 6 卡 / Blog 列表 / ProductCard

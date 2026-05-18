@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`c3db562 52hub: add v-spotlight directive — mouse-follow radial gradient on key cards`**
+- **最新 commit：`dba74a3 52hub: redesign /about layout — full-width + terminal hero + 3-col grid`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- About 页重做（2026-05-19，commit `dba74a3`）：去 max-w-4xl 用标准 container；Hero 2 列（左 Jay 自述 + 右伪 macOS 终端卡，含 which-ai 命令展示 + uptime 自动计算 + 闪烁光标，AI 站技术感锚点）；3 卡横排发货/售后/隐私；底部 2 列服务内容 + 联系方式；样式内联 scoped。备份 `pre-about-redesign-20260519-011423`。
 - About 扩展 + Spotlight（2026-05-19，commits `b3e5357` + `c3db562`）：About 加发货/售后/隐私 3 固定 section；新建 v-spotlight directive 应用到 4 hub 卡（含 border）+ 最新教程 6 卡 + Blog 列表 + ProductCard。备份 `pre-about-content-20260519-005838`。
 - UX 批次 a1-a9（2026-05-19，commit `0e8d36a`）：Blog 缩略图 aspect-video 16:9；Navbar 顺序首页/AI 资源/工具/资讯/商品中心/关于（去公告）；首页最新教程 6 卡 + 缩略图；Footer 4 列 + 硬编码 slogan + 删后台长描述；删 Blog/BlogDetail/Notice 主区冗余 QQContactCard；Footer quickLinks 保留 notice 入口。备份 `pre-uxbatch-20260519-003722`。
 - P1-O-3（2026-05-18，commit `f486493`）：游客订单密码 localStorage `guest_order_auth` 加 24h TTL。新建 `src/utils/guestAuth.ts` 统一 4 个 view（GuestOrderDetail/GuestOrders/Payment/Checkout）。saved_at 时间戳 + 兼容旧格式自动清除。Chrome 实测三场景（新鲜/48h 过期/旧格式）通过。`userAuth.ts` user_token 长期方案需 backend session 改造，不在本批。备份 `pre-p1o3-guestauth-20260519-000325`。
