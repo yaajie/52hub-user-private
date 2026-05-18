@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`6759758 52hub: P1-J'-fix navbar AI dropdown — Vue ref + Teleport (drop named-group)`**
+- **最新 commit：`4f98c6c 52hub: P1-K SEO + internal links + dead code + contact dedupe`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,16 @@ npm run build
 
 ## 最近任务记录
 
+- P1-K（2026-05-18，commit `4f98c6c`）：SEO 收口 + 内链建设 + 死代码清理
+  - `public/sitemap.xml` 补 5 个新页面（tools + 4 hubs），总 25 URL
+  - `scripts/urls-core.txt` 同步 5 个 URL
+  - 5 个 hub/tools 页扩展 useHead 加 og:title/description/url/type + canonical
+  - ClaudeHub/ChatgptHub/OpenaiHub 底部加"相关教程"链回 blog（slug 实测存在）
+  - GeminiHub 底部加"相关阅读"（无 Gemini 主题博客，链到兄弟 hub + /blog + /products）
+  - `BlogDetail.vue` 加 useHead（watch post 数据后注入 title/og/canonical）+ 文末"相关资源"
+  - `SiteHero.vue` 删除顶部 TG/TG/QQ 联系胶囊条（Footer 已覆盖，按 memory 偏好去重）
+  - 删除 `HomeAnnouncement.vue`（P1-I 后死代码）+ `ContactStrip.vue`（创建但未在 Home 渲染）
+  - 备份：`/opt/dujiao-next/web/user.pre-p1k-20260518-125422`
 - P1-J'-fix（2026-05-18，commit `6759758`）：
   - 仅改 `src/components/Navbar.vue`
   - 桌面 AI 资源下拉之前用 Tailwind v4 具名 group (`group/aihub`) — stylesheet 实测未编译该规则，hover 永远 `display:none`
