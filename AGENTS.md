@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`5f0a6bf 52hub: tighten Footer mobile grid (A: online tools full width)`**
+- **最新代码 commit：`2befd37 52hub: simplify mobile Footer and keep links tablet-up`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- 后台 CSP unsafe-eval 修复 + mobile Footer 极简化（2026-05-19，commit `2befd37`）：生产 OpenResty `nginx.conf` line 48 `script-src` 增加 `'unsafe-eval'`，修复后台 `/login` 只显示版权、console `EvalError ... unsafe-eval is not an allowed source`；备份 `/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf.pre-admin-csp-unsafe-eval-20260519-053729`，reload `2026-05-19T05:37:44+08:00`。Footer 在 `<640px` 隐藏快速链接 / AI 资源 / 在线工具，只保留品牌介绍和联系方式；sm+ 保留导航列；user 备份 `/opt/dujiao-next/web/user.pre-mobile-footer-minimal-20260519-054048`。
 - Footer mobile 二次收口（2026-05-19，commit `5f0a6bf`）：按用户 iPhone 14 Pro Max 430×932 截图反馈复测。Chrome headless 线上量测 disclaimer bottom → footer top = 120px、→ Brand top = 185px，低于 200px，因此未动 Tools 页 bottom padding；Footer xs 改为 `grid-cols-2`，Brand `col-span-2` 全宽，快速链接 + AI 资源同行，在线工具采用 A 方案 `col-span-2 sm:col-span-1` 全宽避免孤儿；桌面 4 列断点从 `md` 提到 `lg`，确保 768px 为 Brand 全宽 + 3 列同行，1440px 仍 4 等宽。备份 `/opt/dujiao-next/web/user.pre-mobile-fix2-20260519-052226`。
 - /tools 双卡 hero + arity 补齐 + Footer 移动修复（2026-05-19，commit `f5516e2`）：Hero 重排为紧凑 banner + 双卡（IP 占 2/3 + Browser 占 1/3）；新增 Browser 卡用 navigator API 同步读取 browser/os/screen/language/connection（含 Edge/Opera/Firefox/Chrome/Safari userAgent 解析 + 中文映射）；Tools 6 分类 arity 由 5/4/4/3/3/2 补齐为 6/6/6/6/3/3（+IP-API、+Cloudflare Status、+AmIUnique、+CoverYourTracks、+DNSChecker、+VirusTotal、+BGP.he.net、+SMS-Activate）；Footer 移动端 `grid-cols-2` → `grid-cols-1 sm:grid-cols-3 md:grid-cols-4`，Brand `col-span-2` → `sm:col-span-3 md:col-span-1`，解决 mobile 下"在线工具"半行孤儿。备份 `pre-tools-browserinfo-20260519-045904`。
 - /tools hero IP 实时面板（2026-05-19，commit `e72606b`）：替换 mock SERVICE STATUS。ipapi.co/json 拉真实 IP / 地理 / ISP；28 keyword 判定 datacenter；实时时钟 + 闪烁光标 + AbortController 5s 超时；OpenResty CSP connect-src 加 ipapi.co（Python `open('r+')` 保 inode 71390929，备份 nginx.conf.pre-ipapi-20260519-0440）。实测 Oracle Cloud 识别为 datacenter ⚠。

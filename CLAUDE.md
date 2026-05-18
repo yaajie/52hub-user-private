@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`5f0a6bf 52hub: tighten Footer mobile grid (A: online tools full width)`**
+- **最新代码 commit：`2befd37 52hub: simplify mobile Footer and keep links tablet-up`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 后台 CSP unsafe-eval 修复 + mobile Footer 极简化（2026-05-19，commit `2befd37`）：
+  - 后台问题：`https://ht.52hub.org/login` 只显示版权，Chrome console 报 `EvalError ... 'unsafe-eval' is not an allowed source`。
+  - OpenResty 修复：生产 `/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf` line 48 `script-src` 加 `'unsafe-eval'`；候选先过临时容器 `openresty -t`，再 `cat candidate > nginx.conf` 保 inode `71390929`；reload 时间 `2026-05-19T05:37:44+08:00`。
+  - OpenResty 备份：`/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf.pre-admin-csp-unsafe-eval-20260519-053729`。
+  - Footer 修复：`<640px` 隐藏快速链接 / AI 资源 / 在线工具，只保留 52HUB brand、slogan、TG 客服、TG 频道、QQ 群、版权和隐私/服务条款；sm+ 保留三列导航，lg+ 仍 4 等宽。
+  - user 备份：`/opt/dujiao-next/web/user.pre-mobile-footer-minimal-20260519-054048`。
+  - 验证：后台登录页恢复用户名/密码/登录按钮且无 CSP EvalError；线上 430×932 Footer 高度 468px，仅 Brand 可见；768 和桌面布局正常。
 
 - Footer mobile 二次收口（2026-05-19，commit `5f0a6bf`）：
   - 背景：用户在 iPhone 14 Pro Max 430×932 截图反馈 Footer mobile 排序仍乱、disclaimer 与 Footer Brand 体感过空。
