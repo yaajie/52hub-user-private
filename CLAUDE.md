@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新 commit：`f2e6229 52hub: P1-M tune featured grid to 5-col desktop + cap=5`**
+- **最新 commit：`17df0a0 52hub: P1-N-1 dynamic blog-related links + OpenAI/ChatGPT hub dedup`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,14 @@ npm run build
 
 ## 最近任务记录
 
+- P1-N-1（2026-05-18，commit `17df0a0`）：内链动态化
+  - `BlogDetail.vue` 相关资源由 hardcoded 4 链接改为 `v-for relatedLinks`，computed 按 slug 前缀切换：
+    - `claude-*` slug → Claude 中心 + Claude Pro + Claude Max 5x + tools
+    - `chatgpt-*` slug → ChatGPT 中心 + ChatGPT Plus + ChatGPT Pro 5x + tools
+    - 含 `codex` 关键字（codex vs claude code 那篇）→ ChatGPT 中心 + Claude 中心 + 双方 Pro/Max
+    - fallback（公告 / 未匹配）→ 原 4 个通用链接
+  - `OpenaiHub.vue` "相关教程" 4 篇博客（和 ChatgptHub 100% 重复）→ "相关阅读" sibling hub + 1 篇 codex 博客 + /blog + /tools + /products
+  - 备份：`/opt/dujiao-next/web/user.pre-p1n1-20260518-190542`
 - P1-M 视觉微调（2026-05-18，commit `f2e6229`）：桌面网格 `lg:grid-cols-3` → `lg:grid-cols-5`，前端 cap 从 6 → 5；fallback 4 个最新（5 列里留一格空，可接受）。背景：用户实测 sort_order 全链路通过（1/2/3 顺序、99 跳第一、0 fallback 都正常），反馈"3 列卡片在 PC 上有点大"。备份 `/opt/dujiao-next/web/user.pre-p1m-grid5-20260518-175701`。
 - P1-M（2026-05-18，前端 commit `a4b6152` + 后端 commit `139055a`）：首页"精选推荐"接入后台 sort_order
   - **后端**（首次涉及 backend 源码改动）：
