@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`7b1a9e2 52hub: HubSection grid 按 item 数动态选列数（修 4 卡 3+1 孤儿）`**
+- **最新代码 commit：`66fc9f3 52hub: hub revamp Batch 2 — accent / FAQ / hero CTA / 5-卡补齐 / OpenAI 模型表`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Hub Batch 2（2026-05-19，commit `66fc9f3`）：4 hub view 应用品牌色 accent / Hero CTA / FAQ / 内容补齐。Claude `#D97757` + FAQ 5 / ChatGPT `#10A37F` + FAQ 5 / OpenAI `#404040` + FAQ 4 + 新增模型表 6 行 / Gemini `#4285F4` + 蓝紫渐变 accentGradient + FAQ 5。所有 5 卡 sections 调整为 4 或 6 卡无孤儿；Gemini 教程 1→4 卡。JSON-LD FAQPage Schema 通过 HubFaq 自动注入。备份 `user.pre-hubrevamp-batch2-20260519-140639`。
 - Hub Batch 1.5 · HubSection 动态 grid（2026-05-19，commit `7b1a9e2`）：用户反馈 4 卡 section "3+1 排序难看"。`HubSection.vue` grid class 由固定 `md:grid-cols-3` 改为按 items.length 动态计算：1 卡 `max-w-md mx-auto` 居中，2 卡 `sm:grid-cols-2`，4 卡 `sm:grid-cols-2 lg:grid-cols-4`（sm/md 2+2，lg 4 一行），3/5/6/其他默认 3 列。Chrome 桌面 1787 实测 4 卡所有 section 4 一行、1 卡居中。5 卡 section 仍 3+2，Batch 2 内容补齐时调整。备份 `user.pre-hubgrid-20260519-122818`。
 - Hub 改造 Batch 1（2026-05-19，commit `fa09864`）：新增 `src/components/hub/` 8 个共享组件（`HubLayout` / `HubHero` / `HubSection` / `HubResourceCard` / `HubCtaCard` / `HubModelTable` / `HubFaq` / `HubRelatedList`）；4 个 hub view 改为数据驱动接入，当前文案、资源链接、模型/档位表格、订阅直充卡、相关教程保持原样。Batch 1 未启用 FAQ 数据、动态商品 API、OG 图或新增 Schema。`npm run build` 通过；生产备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch1-20260519-105943`；Chrome headless 1440×900 + 430×932 实测 `/claude-hub` `/chatgpt-hub` `/openai-hub` `/gemini-hub` 均 200、无 console error、无横向溢出。
 

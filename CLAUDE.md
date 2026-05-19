@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`7b1a9e2 52hub: HubSection grid 按 item 数动态选列数（修 4 卡 3+1 孤儿）`**
+- **最新代码 commit：`66fc9f3 52hub: hub revamp Batch 2 — accent / FAQ / hero CTA / 5-卡补齐 / OpenAI 模型表`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,17 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 2 · accent / FAQ / Hero CTA / 内容补齐（2026-05-19，commit `66fc9f3`）：
+  - 4 hub view 全部应用品牌色 accent + FAQ 数据 + Hero CTA + 5 卡 sections 补齐
+  - **Claude**：accent `#D97757`（Anthropic 橙），FAQ 5 条；教程 5→4（删 ChatGPT Codex vs Claude Code）
+  - **ChatGPT**：accent `#10A37F`（OpenAI 绿），FAQ 5 条；sections 原本 4/3/4 无需调
+  - **OpenAI**：accent `#404040`（深灰中性），FAQ 4 条；官方入口 5→4（删 Sora 去重）/ 产品矩阵 5→4（删 Whisper 开发者资源）；**新增 modelTable 6 行**（GPT-5 / GPT-4o / o3 / Codex / DALL-E 3 / Sora）
+  - **Gemini**：accent `#4285F4` + accentGradient `linear-gradient(135deg, #4285F4, #9333EA)`（蓝紫渐变 Primary CTA）；FAQ 5 条；官方入口 5→4（删 Google AI）/ 教程 1→4（补 Pro vs Advanced / 视频订阅 / 选店家 / 全部教程）
+  - Hero CTA primary/secondary 已落地，所有 hub Hero 区有"看 XX 攻略 / 立即下单"双 CTA
+  - JSON-LD FAQPage Schema 自动注入 head（HubFaq 组件已在 Batch 1 实现）
+  - 验证 Chrome 桌面 1787：accent 渐变正确，FAQ 折叠正常 + Schema 注入，所有 sections arity ∈ {3, 4, 6, 8} 无孤儿
+  - 备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch2-20260519-140639`
 
 - Hub 改造 Batch 1.5 · HubSection 动态 grid（2026-05-19，commit `7b1a9e2`）：
   - 用户反馈"3+1 排序难看"（4 卡 section 在 md viewport 显示 3+1 孤儿）
