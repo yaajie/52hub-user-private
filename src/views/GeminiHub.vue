@@ -1,104 +1,24 @@
 <template>
-  <div class="gemini-hub-page min-h-screen theme-page pt-24 pb-16">
-    <div class="container mx-auto px-4">
-      <header class="mb-10">
-        <h1 class="text-3xl sm:text-4xl font-bold theme-text-primary">Gemini 资源中心</h1>
-        <p class="mt-3 text-sm sm:text-base theme-text-secondary">Gemini 官方入口、产品矩阵、开发者资源与订阅直充入口</p>
-      </header>
-
-      <section
-        v-for="section in sections"
-        :key="section.title"
-        class="mb-10"
-      >
-        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">{{ section.title }}</h2>
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <component
-            :is="isInternalLink(item.url) ? 'router-link' : 'a'"
-            v-for="item in section.items"
-            :key="`${section.title}-${item.name}`"
-            :to="isInternalLink(item.url) ? item.url : undefined"
-            :href="isInternalLink(item.url) ? undefined : item.url"
-            :target="isInternalLink(item.url) ? undefined : '_blank'"
-            :rel="isInternalLink(item.url) ? undefined : 'noopener noreferrer'"
-            class="block theme-panel border theme-border rounded-2xl p-5 transition-colors hover:theme-surface-strong"
-          >
-            <h3 class="text-base font-semibold theme-text-primary">{{ item.name }}</h3>
-            <p class="mt-1 text-xs theme-text-muted">{{ item.url }}</p>
-            <p class="mt-2 text-sm theme-text-secondary">{{ item.desc }}</p>
-          </component>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">订阅档位参考</h2>
-        <div class="mt-4 overflow-x-auto theme-panel border theme-border rounded-2xl">
-          <table class="min-w-full text-sm">
-            <thead>
-              <tr class="border-b theme-border">
-                <th class="px-4 py-3 text-left font-semibold theme-text-primary">档位</th>
-                <th class="px-4 py-3 text-left font-semibold theme-text-primary">额度</th>
-                <th class="px-4 py-3 text-left font-semibold theme-text-primary">适用场景</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="plan in planComparison" :key="plan.name" class="border-b theme-border last:border-b-0">
-                <td class="px-4 py-3 theme-text-primary">{{ plan.name }}</td>
-                <td class="px-4 py-3 theme-text-secondary">{{ plan.quota }}</td>
-                <td class="px-4 py-3 theme-text-secondary">{{ plan.use }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section>
-        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">订阅直充</h2>
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <router-link
-            v-for="card in ctaCards"
-            :key="card.name"
-            :to="card.url"
-            class="block theme-panel border theme-border rounded-2xl p-5 transition-colors hover:theme-surface-strong"
-          >
-            <h3 class="text-base font-semibold theme-text-primary">{{ card.name }}</h3>
-            <p class="mt-2 text-sm theme-text-secondary">{{ card.desc }}</p>
-          </router-link>
-        </div>
-      </section>
-    </div>
-
-    <section class="container mx-auto px-4 pb-12 pt-6">
-      <div class="theme-panel border theme-border rounded-2xl p-6 sm:p-8">
-        <h2 class="text-lg sm:text-xl font-semibold theme-text-primary mb-4">相关教程</h2>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <li><router-link to="/blog/gemini-pro-vs-advanced" class="theme-link-muted hover:theme-text-primary transition-colors">Gemini Pro vs Advanced 怎么选 →</router-link></li>
-          <li><router-link to="/blog/sora-veo-hailuo-video-subscription" class="theme-link-muted hover:theme-text-primary transition-colors">Sora / Veo / Hailuo 视频订阅怎么买 →</router-link></li>
-          <li><router-link to="/claude-hub" class="theme-link-muted hover:theme-text-primary transition-colors">Claude 资源中心 →</router-link></li>
-          <li><router-link to="/openai-hub" class="theme-link-muted hover:theme-text-primary transition-colors">OpenAI 全产品资源 →</router-link></li>
-          <li><router-link to="/blog" class="theme-link-muted hover:theme-text-primary transition-colors">AI 工具教程合集 →</router-link></li>
-          <li><router-link to="/products" class="theme-link-muted hover:theme-text-primary transition-colors">订阅直充与账号商品 →</router-link></li>
-        </ul>
-      </div>
-    </section>
-  </div>
+  <HubLayout
+    accent="#6366f1"
+    :hero="hero"
+    :sections="sections"
+    :model-table="modelTable"
+    :cta="ctaCards"
+    :related="related"
+  />
 </template>
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import HubLayout from '../components/hub/HubLayout.vue'
 
-type HubItem = {
-  name: string
-  url: string
-  desc: string
+const hero = {
+  title: 'Gemini 资源中心',
+  subtitle: 'Gemini 官方入口、产品矩阵、开发者资源与订阅直充入口',
 }
 
-type HubSection = {
-  title: string
-  items: HubItem[]
-}
-
-const sections: HubSection[] = [
+const sections = [
   {
     title: '官方入口',
     items: [
@@ -135,19 +55,33 @@ const sections: HubSection[] = [
   },
 ]
 
-const planComparison = [
-  { name: 'Gemini Free', quota: 'Flash 模型受限', use: '入门尝鲜' },
-  { name: 'Google One AI Premium', quota: 'Pro 模型 + 2TB 云存储', use: '日常 + 长文档处理' },
-  { name: 'API 付费', quota: '按 token 计费', use: '开发者 / 接入应用' },
-]
+const modelTable = {
+  title: '订阅档位参考',
+  columns: ['档位', '额度', '适用场景'],
+  rows: [
+    { cells: ['Gemini Free', 'Flash 模型受限', '入门尝鲜'] },
+    { cells: ['Google One AI Premium', 'Pro 模型 + 2TB 云存储', '日常 + 长文档处理'] },
+    { cells: ['API 付费', '按 token 计费', '开发者 / 接入应用'] },
+  ],
+}
 
 const ctaCards = [
-  { name: 'Gemini Pro Pixel', url: '/products/gemini-pro-pixel', desc: '订阅直充入口，适合 Gemini 重度用户。' },
-  { name: 'Gemini 分类', url: '/categories/gemini', desc: '浏览全部 Gemini 相关商品与服务。' },
-  { name: 'Google 全品类', url: '/categories/google', desc: '查看 Google 生态下全部可用品类。' },
+  { url: '/products/gemini-pro-pixel', fallbackName: 'Gemini Pro Pixel', fallbackDesc: '订阅直充入口，适合 Gemini 重度用户。' },
+  { url: '/categories/gemini', fallbackName: 'Gemini 分类', fallbackDesc: '浏览全部 Gemini 相关商品与服务。' },
+  { url: '/categories/google', fallbackName: 'Google 全品类', fallbackDesc: '查看 Google 生态下全部可用品类。' },
 ]
 
-const isInternalLink = (url: string) => url.startsWith('/')
+const related = {
+  title: '相关教程',
+  items: [
+    { to: '/blog/gemini-pro-vs-advanced', text: 'Gemini Pro vs Advanced 怎么选' },
+    { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
+    { to: '/claude-hub', text: 'Claude 资源中心' },
+    { to: '/openai-hub', text: 'OpenAI 全产品资源' },
+    { to: '/blog', text: 'AI 工具教程合集' },
+    { to: '/products', text: '订阅直充与账号商品' },
+  ],
+}
 
 useHead({
   title: 'Gemini 资源中心 · 官方入口 / AI Studio / API / 直充 - 52HUB',
