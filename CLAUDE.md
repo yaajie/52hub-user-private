@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`8fe0047 52hub: mobile tighten — ContactFloat / Footer padding / SiteHero CTA grid / Blog header`**
+- **最新代码 commit：`20d65bb 52hub: nav labels — PC 工具 → 工具集合 / blog → AI 资讯; BlogDetail cover 16:9`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,16 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 导航条文字 + BlogDetail 封面图比例（2026-05-19，commit `20d65bb`）：
+  - **Navbar.vue line 53**：PC 桌面 "工具" → "工具集合"（与移动端 drawer 文字一致，图标保留现有 SVG gear）
+  - **Navbar.vue line 387**：`menuItems.blog.label` 由 `'nav.blog'`（i18n key）改为字面量 `'AI 资讯'`
+    - 桌面 menuItemsRight + 移动 drawer 同时生效（两处都通过 `menuItems.blog` 渲染）
+    - **故意不改 i18n nav.blog**：Footer 快速链接、Blog 页 H1、BlogDetail 面包屑、Blog 卡片 type 标签、NotFound 仍走 i18n nav.blog = '资讯'，符合用户"只改导航条的字"要求
+  - **BlogDetail.vue line 31**：封面图容器 `h-64 md:h-96`（固定 256px / 384px）→ `aspect-video`（16:9 自适应）
+    - 修移动端封面图非 16:9 内容显示不完整问题
+    - Chrome 实测容器 ratio = 1.778 = 16:9，原图 1.777 完美贴合，object-cover 不裁切
+  - 备份 `/opt/dujiao-next/web/user.pre-navlabels-20260519-100714`
 
 - mobile UX 紧凑收尾（2026-05-19，commit `8fe0047`）：4 文件 mobile 微调
   - **ContactFloat.vue**：mobile 浮按 `bottom-24` → `bottom-36`（96→144px），sm+ 恢复 `bottom-24`，避免遮挡 Footer 顶部

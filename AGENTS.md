@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`8fe0047 52hub: mobile tighten — ContactFloat / Footer padding / SiteHero CTA grid / Blog header`**
+- **最新代码 commit：`20d65bb 52hub: nav labels — PC 工具 → 工具集合 / blog → AI 资讯; BlogDetail cover 16:9`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- 导航条文字 + BlogDetail 封面图比例（2026-05-19，commit `20d65bb`）：PC 桌面 "工具" → "工具集合"（图标保留现有 SVG）；`menuItems.blog.label` 由 i18n key `'nav.blog'` 改字面量 `'AI 资讯'`，桌面 menuItemsRight + 移动 drawer 同时生效，Footer/Blog H1/卡片标签/面包屑仍走 i18n nav.blog 显示"资讯"；BlogDetail 封面图容器 `h-64 md:h-96` → `aspect-video`，修移动端非 16:9 内容显示不完整问题，Chrome 实测容器 1.778 = 16:9。备份 `/opt/dujiao-next/web/user.pre-navlabels-20260519-100714`。
 - mobile UX 紧凑收尾（2026-05-19，commit `8fe0047`）：4 文件 mobile 微调收尾。`ContactFloat.vue` mobile 浮按 `bottom-24` → `bottom-36` 避免遮挡 Footer；`Footer.vue` 容器 padding 进一步收紧 + Brand 加 `mx-auto w-fit text-left` mobile 居中；`SiteHero.vue` 首页 3 CTA 由 `flex flex-wrap` 改为 `grid grid-cols-3` 等宽紧凑 + 字号/padding 压缩；`Blog.vue` 资讯页顶部 padding、标题字号、副标题 max-w 全部缩小。Chrome 实测 430×932 Footer 总高 420px（之前 800+px）、SiteHero 3 CTA 等宽 102px 不换行。备份 `/opt/dujiao-next/web/user.pre-mobile-tighten-20260519-091923`。
 - 后台 CSP unsafe-eval 修复 + mobile Footer 极简化（2026-05-19，commit `2befd37`）：生产 OpenResty `nginx.conf` line 48 `script-src` 增加 `'unsafe-eval'`，修复后台 `/login` 只显示版权、console `EvalError ... unsafe-eval is not an allowed source`；备份 `/opt/1panel/apps/openresty/52hub-openresty/conf/nginx.conf.pre-admin-csp-unsafe-eval-20260519-053729`，reload `2026-05-19T05:37:44+08:00`。Footer 在 `<640px` 隐藏快速链接 / AI 资源 / 在线工具，只保留品牌介绍和联系方式；sm+ 保留导航列；user 备份 `/opt/dujiao-next/web/user.pre-mobile-footer-minimal-20260519-054048`。
 - Footer mobile 二次收口（2026-05-19，commit `5f0a6bf`）：按用户 iPhone 14 Pro Max 430×932 截图反馈复测。Chrome headless 线上量测 disclaimer bottom → footer top = 120px、→ Brand top = 185px，低于 200px，因此未动 Tools 页 bottom padding；Footer xs 改为 `grid-cols-2`，Brand `col-span-2` 全宽，快速链接 + AI 资源同行，在线工具采用 A 方案 `col-span-2 sm:col-span-1` 全宽避免孤儿；桌面 4 列断点从 `md` 提到 `lg`，确保 768px 为 Brand 全宽 + 3 列同行，1440px 仍 4 等宽。备份 `/opt/dujiao-next/web/user.pre-mobile-fix2-20260519-052226`。
