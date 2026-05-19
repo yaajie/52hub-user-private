@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`fa09864 52hub: hub revamp batch1 shared components`**
+- **最新代码 commit：`7b1a9e2 52hub: HubSection grid 按 item 数动态选列数（修 4 卡 3+1 孤儿）`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,17 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 1.5 · HubSection 动态 grid（2026-05-19，commit `7b1a9e2`）：
+  - 用户反馈"3+1 排序难看"（4 卡 section 在 md viewport 显示 3+1 孤儿）
+  - 改 `src/components/hub/HubSection.vue`：grid class 由固定 `md:grid-cols-3` 改为按 items.length 动态计算
+    - 1 卡 → `max-w-md mx-auto`（居中显示）
+    - 2 卡 → `sm:grid-cols-2`
+    - 4 卡 → `sm:grid-cols-2 lg:grid-cols-4`（sm/md 2+2，lg 4 一行）
+    - 3/5/6/其他 → 默认 `md:grid-cols-3`
+  - 验证（Chrome 桌面 1787）：4 卡所有 section 改为 4 一行，1 卡居中
+  - 5 卡 section 仍 3+2，将在 Batch 2 内容补齐时调整到 4 或 6
+  - 备份 `/opt/dujiao-next/web/user.pre-hubgrid-20260519-122818`
 
 - Hub 改造 Batch 1（2026-05-19，commit `fa09864`）：
   - 新增 `src/components/hub/` 8 个共享组件：`HubLayout` / `HubHero` / `HubSection` / `HubResourceCard` / `HubCtaCard` / `HubModelTable` / `HubFaq` / `HubRelatedList`
