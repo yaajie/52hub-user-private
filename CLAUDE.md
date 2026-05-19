@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`0f9c2bd 52hub: hub revamp Batch 3 — HubCtaCard 商品 API 实时价格 / 库存 / 立即下单`**
+- **最新代码 commit：`4362517 52hub: hub revamp Batch 4 — Breadcrumb / ItemList Schema + 4 张 OG 占位 SVG`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,17 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 4 · Schema + OG 图（2026-05-19，commit `4362517`）：
+  - 新增 4 张 `public/og/{claude,chatgpt,openai,gemini}-hub.svg` 1200×630 占位图（品牌色渐变 + 标题 + 副标 + URL footer，纯 SVG 避免 npm 依赖）
+  - HubLayout 新增 useHead 注入：
+    - **BreadcrumbList Schema**：自动从 hero.title + route.path 推导（首页 → 当前 hub）
+    - **ItemList Schema**：从 cta 数组推导，**过滤只保留 `/products/:slug` 链接**（自动跳过 `/categories/*` 之类非商品链接）
+    - **og:image + twitter:image**：通过 ogImage prop 注入 + width/height meta + twitter:card=summary_large_image
+  - 4 hub view 全部加 `og-image="/og/<name>-hub.svg"` prop
+  - Chrome 实测：4 hub 各注入 5 个 JSON-LD（Organization + WebSite + BreadcrumbList + ItemList + FAQPage）；Gemini ItemList 自动过滤 categories 后剩 1 item
+  - 后续可用 Figma 出正式 PNG 替换占位 SVG
+  - 备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch4-20260519-182940`
 
 - Hub 改造 Batch 3 · HubCtaCard 商品 API 联动（2026-05-19，commit `0f9c2bd`）：
   - HubCtaCard 由静态 fallback 卡改为商品 API 实时联动

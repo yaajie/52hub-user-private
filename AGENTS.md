@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`0f9c2bd 52hub: hub revamp Batch 3 — HubCtaCard 商品 API 实时价格 / 库存 / 立即下单`**
+- **最新代码 commit：`4362517 52hub: hub revamp Batch 4 — Breadcrumb / ItemList Schema + 4 张 OG 占位 SVG`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Hub Batch 4（2026-05-19，commit `4362517`）：SEO Schema + 4 张 OG 占位图。新增 `public/og/*-hub.svg` 4 张 1200×630 品牌色 SVG；HubLayout 注入 BreadcrumbList + ItemList Schema（自动过滤非 `/products/` 链接）+ og:image + twitter:card。Chrome 实测 4 hub 各 5 个 JSON-LD（Org + WebSite + Breadcrumb + ItemList + FAQ），Gemini ItemList 自动过滤 categories 剩 1 item。占位 SVG 后续可用 Figma 出正式 PNG 替换。备份 `user.pre-hubrevamp-batch4-20260519-182940`。
 - Hub Batch 3（2026-05-19，commit `0f9c2bd`）：HubCtaCard 由静态卡改为商品 API 实时联动。onMounted 拉 `productAPI.detail(slug)`（slug 从 props 或 `/products/:slug` URL 解析）；三态：loading skeleton / 成功（实时商品名 + 发货徽章 + 库存徽章 + accent 色价格 + "立即下单" 实色按钮）/ fallback（兼容 Gemini 的 `/categories/*` 链接）。Chrome 实测 ChatGPT 3 张全部 API 成功，Gemini 1+2 fallback 工作正常。备份 `user.pre-hubrevamp-batch3-20260519-155628`。
 - Hub Batch 2（2026-05-19，commit `66fc9f3`）：4 hub view 应用品牌色 accent / Hero CTA / FAQ / 内容补齐。Claude `#D97757` + FAQ 5 / ChatGPT `#10A37F` + FAQ 5 / OpenAI `#404040` + FAQ 4 + 新增模型表 6 行 / Gemini `#4285F4` + 蓝紫渐变 accentGradient + FAQ 5。所有 5 卡 sections 调整为 4 或 6 卡无孤儿；Gemini 教程 1→4 卡。JSON-LD FAQPage Schema 通过 HubFaq 自动注入。备份 `user.pre-hubrevamp-batch2-20260519-140639`。
 - Hub Batch 1.5 · HubSection 动态 grid（2026-05-19，commit `7b1a9e2`）：用户反馈 4 卡 section "3+1 排序难看"。`HubSection.vue` grid class 由固定 `md:grid-cols-3` 改为按 items.length 动态计算：1 卡 `max-w-md mx-auto` 居中，2 卡 `sm:grid-cols-2`，4 卡 `sm:grid-cols-2 lg:grid-cols-4`（sm/md 2+2，lg 4 一行），3/5/6/其他默认 3 列。Chrome 桌面 1787 实测 4 卡所有 section 4 一行、1 卡居中。5 卡 section 仍 3+2，Batch 2 内容补齐时调整。备份 `user.pre-hubgrid-20260519-122818`。
