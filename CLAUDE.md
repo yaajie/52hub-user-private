@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`2befd37 52hub: simplify mobile Footer and keep links tablet-up`**
+- **最新代码 commit：`8fe0047 52hub: mobile tighten — ContactFloat / Footer padding / SiteHero CTA grid / Blog header`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- mobile UX 紧凑收尾（2026-05-19，commit `8fe0047`）：4 文件 mobile 微调
+  - **ContactFloat.vue**：mobile 浮按 `bottom-24` → `bottom-36`（96→144px），sm+ 恢复 `bottom-24`，避免遮挡 Footer 顶部
+  - **Footer.vue**：mobile 容器 `pt-10 pb-32` → `pt-6 pb-28`；链接区 `mb-10` → `mb-8`；Brand 块加 `mx-auto w-fit text-left`（mobile 居中显示，sm+ 恢复左对齐 col-span-3）；Copyright `pt-8` → `pt-6 sm:pt-8`
+  - **SiteHero.vue**：首页 3 CTA（看资讯 / 在线工具 / 商品中心）mobile 由 `flex flex-wrap` 改为 `grid grid-cols-3 gap-2`，等宽 102px；按钮内 `whitespace-nowrap` + padding/字号压缩；sm+ 恢复 flex 自然宽
+  - **Blog.vue**：资讯页顶部 `pt-20 pb-16` → `pt-16 pb-12`（mobile）；标题 `mb-16 mt-12` → `mb-8 mt-4`，字号 `text-4xl` → `text-3xl`；副标题 `max-w-2xl` → `max-w-xl`、`text-lg` → `text-sm`
+  - 备份 `/opt/dujiao-next/web/user.pre-mobile-tighten-20260519-091923`
+  - Chrome 实测 430×932：Footer 总高 420px（之前 800+px），3 link col 隐藏；SiteHero 3 CTA 等宽 102px 不换行
 
 - 后台 CSP unsafe-eval 修复 + mobile Footer 极简化（2026-05-19，commit `2befd37`）：
   - 后台问题：`https://ht.52hub.org/login` 只显示版权，Chrome console 报 `EvalError ... 'unsafe-eval' is not an allowed source`。
