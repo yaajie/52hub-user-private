@@ -7,7 +7,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
-    og-image="/og/claude-hub.svg"
+    og-image="/og/claude-hub.png"
   />
 </template>
 
@@ -104,15 +104,15 @@ const related = {
   ],
 }
 
+const pageTitle = 'Claude 资源中心 · Anthropic 官方入口 · Pro / Max 订阅直充 · 注册教程 - 52HUB'
+const pageDesc = '52HUB Claude 资源中心：Anthropic 官方入口（Claude.ai / Console / API 文档）、桌面客户端、Claude Code 使用指南、Pro 与 Max 5x / 20x 订阅档位对比、注册全流程、报错 403 排查、订阅直充入口与店家挑选指南，AI 工具站长一站整理。'
+
 useHead({
-  title: 'Claude 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB',
+  title: pageTitle,
   meta: [
-    {
-      name: 'description',
-      content: '52HUB Claude 资源汇总：Anthropic 官方入口、Claude.ai / Console / API 文档、桌面客户端、Claude Code、实用教程、模型对比、订阅直充入口。',
-    },
-    { property: 'og:title', content: 'Claude 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB' },
-    { property: 'og:description', content: '52HUB Claude 资源汇总：Anthropic 官方入口、Claude.ai / Console / API 文档、桌面客户端、Claude Code、实用教程、模型对比、订阅直充入口。' },
+    { name: 'description', content: pageDesc },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDesc },
     { property: 'og:url', content: 'https://52hub.org/claude-hub' },
     { property: 'og:type', content: 'website' },
   ],

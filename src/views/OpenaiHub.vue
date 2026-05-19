@@ -7,7 +7,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
-    og-image="/og/openai-hub.svg"
+    og-image="/og/openai-hub.png"
   />
 </template>
 
@@ -116,15 +116,15 @@ const related = {
   ],
 }
 
+const pageTitle = 'OpenAI 资源中心 · ChatGPT / Sora / DALL-E / Codex / API 全产品矩阵 - 52HUB'
+const pageDesc = '52HUB OpenAI 全产品资源中心：ChatGPT 订阅、Sora 视频生成、DALL-E 图像、Codex 编程助手、Whisper 语音识别、Platform API key 管理与定价，GPT-5 / 4o / o3 模型对比，开发者 Cookbook 与 Playground，订阅直充入口。'
+
 useHead({
-  title: 'OpenAI 资源中心 · ChatGPT / Sora / API / 直充入口 - 52HUB',
+  title: pageTitle,
   meta: [
-    {
-      name: 'description',
-      content: '52HUB OpenAI 全产品资源汇总：ChatGPT 订阅、Sora 视频、DALL-E 图像、API 平台、Codex 编程、订阅直充入口。',
-    },
-    { property: 'og:title', content: 'OpenAI 资源中心 · ChatGPT / Sora / API / 直充入口 - 52HUB' },
-    { property: 'og:description', content: '52HUB OpenAI 全产品资源汇总：ChatGPT 订阅、Sora 视频、DALL-E 图像、API 平台、Codex 编程、订阅直充入口。' },
+    { name: 'description', content: pageDesc },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDesc },
     { property: 'og:url', content: 'https://52hub.org/openai-hub' },
     { property: 'og:type', content: 'website' },
   ],

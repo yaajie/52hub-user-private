@@ -7,7 +7,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
-    og-image="/og/chatgpt-hub.svg"
+    og-image="/og/chatgpt-hub.png"
   />
 </template>
 
@@ -105,15 +105,15 @@ const related = {
   ],
 }
 
+const pageTitle = 'ChatGPT 资源中心 · OpenAI 官方入口 · Plus / Pro 订阅直充 · 国内付款 - 52HUB'
+const pageDesc = '52HUB ChatGPT 资源中心：OpenAI 官方入口（ChatGPT / Platform / API 文档）、桌面与 iOS 客户端、Plus 与 Pro 5x / 20x 档位对比、国内 4 种付款方法（虚拟卡 / 海外卡 / 礼品卡 / 代充）、降低封号风险攻略、Codex 介绍、订阅直充入口。'
+
 useHead({
-  title: 'ChatGPT 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB',
+  title: pageTitle,
   meta: [
-    {
-      name: 'description',
-      content: '52HUB ChatGPT 资源汇总：OpenAI 官方入口、客户端下载、订阅档位对比、国内付款方法、降低封号率、Codex 介绍、订阅直充入口。',
-    },
-    { property: 'og:title', content: 'ChatGPT 资源中心 · 官方入口 / 客户端 / 教程 / 直充 - 52HUB' },
-    { property: 'og:description', content: '52HUB ChatGPT 资源汇总：OpenAI 官方入口、客户端下载、订阅档位对比、国内付款方法、降低封号率、Codex 介绍、订阅直充入口。' },
+    { name: 'description', content: pageDesc },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDesc },
     { property: 'og:url', content: 'https://52hub.org/chatgpt-hub' },
     { property: 'og:type', content: 'website' },
   ],

@@ -8,7 +8,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
-    og-image="/og/gemini-hub.svg"
+    og-image="/og/gemini-hub.png"
   />
 </template>
 
@@ -116,15 +116,15 @@ const related = {
   ],
 }
 
+const pageTitle = 'Gemini 资源中心 · Google AI 全产品 · AI Studio · NotebookLM · Pro 直充 - 52HUB'
+const pageDesc = '52HUB Gemini 资源中心：Google Gemini 对话、AI Studio 开发者控制台、Vertex AI 企业平台、NotebookLM 研究工具、Imagen 图像、Veo 视频生成，Pro 与 Advanced 订阅档位对比，API 免费 tier 与定价，Gemini 商品订阅直充入口。'
+
 useHead({
-  title: 'Gemini 资源中心 · 官方入口 / AI Studio / API / 直充 - 52HUB',
+  title: pageTitle,
   meta: [
-    {
-      name: 'description',
-      content: '52HUB Gemini 资源汇总：Google Gemini 对话、AI Studio、Vertex AI、NotebookLM、Imagen、Veo、订阅直充入口。',
-    },
-    { property: 'og:title', content: 'Gemini 资源中心 · 官方入口 / AI Studio / API / 直充 - 52HUB' },
-    { property: 'og:description', content: '52HUB Gemini 资源汇总：Google Gemini 对话、AI Studio、Vertex AI、NotebookLM、Imagen、Veo、订阅直充入口。' },
+    { name: 'description', content: pageDesc },
+    { property: 'og:title', content: pageTitle },
+    { property: 'og:description', content: pageDesc },
     { property: 'og:url', content: 'https://52hub.org/gemini-hub' },
     { property: 'og:type', content: 'website' },
   ],
