@@ -1,9 +1,10 @@
 <template>
   <HubLayout
-    accent="#6366f1"
+    :accent="accent"
     :hero="hero"
     :sections="sections"
     :model-table="modelTable"
+    :faq="faq"
     :cta="ctaCards"
     :related="related"
   />
@@ -13,9 +14,13 @@
 import { useHead } from '@unhead/vue'
 import HubLayout from '../components/hub/HubLayout.vue'
 
+const accent = '#10A37F' // OpenAI 绿
+
 const hero = {
   title: 'ChatGPT 资源中心',
-  subtitle: 'OpenAI 官方入口、客户端、实用教程与订阅直充入口',
+  subtitle: 'OpenAI 官方入口、客户端下载、订阅档位对比、国内付款方法、降低封号率、Plus / Pro 直充入口。',
+  ctaPrimary: { label: '看国内付款方法', to: '/blog/chatgpt-plus-china-payment-guide' },
+  ctaSecondary: { label: '立即下单 Plus', to: '/products/chatgpt-plus' },
 }
 
 const sections = [
@@ -58,6 +63,29 @@ const modelTable = {
   ],
 }
 
+const faq = [
+  {
+    q: 'ChatGPT Plus 国内能直接订阅吗？',
+    a: '直接订阅不行，需要海外信用卡或海外 Apple ID + 海外礼品卡。国内有 4 种主流付款路径（虚拟卡 / 海外亲友卡 / Apple Gift Card / 充值代付），细节看《国内付款订阅 ChatGPT Plus 全方法》。',
+  },
+  {
+    q: 'Plus / Pro 5x / Pro 20x 怎么选？',
+    a: 'Plus（$20）日常聊天写作够用；Pro 5x（$200）适合每天高频用 Codex / 写长文 / 跑分析；Pro 20x（$500）面向重度自动化 / Agent 玩家。普通用户先 Plus，撞限额了再升级，不要一开始就买高档位。',
+  },
+  {
+    q: 'ChatGPT 账号会被封吗？怎么降低风险？',
+    a: '会。常见封号原因：机房 IP / 公共代理 / 多人共享账号 / 异常使用频率。降低风险要点：稳定住宅 IP、避免短时间高频请求、不用脚本批量调用、注册信息和实际 IP 国家保持一致。',
+  },
+  {
+    q: '想用 Sora 视频生成必须订阅 Pro 20x 吗？',
+    a: '不需要。Sora 现在有独立站点 sora.com，Plus 订阅就能用基础额度，Pro 订阅额度更高。如果你只是偶尔生成视频，Plus 完全够。',
+  },
+  {
+    q: 'Codex 是免费的吗，怎么开通？',
+    a: 'Codex 是 ChatGPT Pro 订阅自带的功能，不单独收费。订阅 Pro 后在 chatgpt.com/codex 直接用。Plus 用户不能用 Codex。开发者也可以用 Codex CLI 通过 API key 调用。',
+  },
+]
+
 const ctaCards = [
   { url: '/products/chatgpt-plus', fallbackName: 'ChatGPT Plus', fallbackDesc: '日常稳定使用，适合多数用户。' },
   { url: '/products/chatgpt-pro-5x', fallbackName: 'ChatGPT Pro 5x', fallbackDesc: '更高额度，适合高频工作流。' },
@@ -73,7 +101,6 @@ const related = {
     { to: '/blog/chatgpt-codex-vs-claude-code', text: 'ChatGPT Codex vs Claude Code' },
     { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
     { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
-    { to: '/blog/apple-id-overseas-registration-guide', text: 'Apple ID 海外区注册全攻略' },
   ],
 }
 

@@ -1,9 +1,10 @@
 <template>
   <HubLayout
-    accent="#6366f1"
+    :accent="accent"
     :hero="hero"
     :sections="sections"
     :model-table="modelTable"
+    :faq="faq"
     :cta="ctaCards"
     :related="related"
   />
@@ -13,9 +14,13 @@
 import { useHead } from '@unhead/vue'
 import HubLayout from '../components/hub/HubLayout.vue'
 
+const accent = '#D97757' // Anthropic 橙
+
 const hero = {
   title: 'Claude 资源中心',
-  subtitle: 'Anthropic 官方入口、客户端、实用教程与订阅直充入口',
+  subtitle: 'Anthropic 官方入口、Claude.ai / Console / API 文档、Claude Code、订阅档位攻略、Pro / Max 直充入口。',
+  ctaPrimary: { label: '看 Pro vs Max 攻略', to: '/blog/claude-pro-vs-max' },
+  ctaSecondary: { label: '立即下单 Claude Pro', to: '/products/claude-pro' },
 }
 
 const sections = [
@@ -24,7 +29,7 @@ const sections = [
     items: [
       { name: 'Claude.ai', url: 'https://claude.ai/', desc: 'Claude 官方对话界面' },
       { name: 'Anthropic Console', url: 'https://console.anthropic.com/', desc: 'API key 管理 / 用量 / 计费' },
-      { name: 'Anthropic API 文档', url: 'https://docs.anthropic.com/', desc: '开发者 API 文档' },
+      { name: 'Anthropic API 文档', url: 'https://docs.anthropic.com/', desc: '开发者 API 完整文档' },
       { name: 'Anthropic Status', url: 'https://status.anthropic.com/', desc: '服务状态实时查询' },
     ],
   },
@@ -43,7 +48,6 @@ const sections = [
       { name: 'Claude 账号注册全流程', url: '/blog/claude-registration-guide', desc: '从零开始注册 Claude，三条路径对比' },
       { name: 'Claude Code 上手指南', url: '/blog/claude-code-getting-started', desc: '判断你是否需要 Claude Code + 上手要点' },
       { name: 'Claude 报错 403 排查', url: '/blog/claude-403-troubleshooting', desc: '403 不同来源的对应方案 + 自查清单' },
-      { name: 'ChatGPT Codex vs Claude Code', url: '/blog/chatgpt-codex-vs-claude-code', desc: '两个 AI 编程助手定位对比' },
     ],
   },
 ]
@@ -57,6 +61,29 @@ const modelTable = {
     { cells: ['Claude Haiku 4.5', '极速响应 / 低成本', '批量任务、实时应用'] },
   ],
 }
+
+const faq = [
+  {
+    q: 'Claude Pro $20 一个月够用吗？',
+    a: '看你怎么用。日常聊天、写作、轻度编程 Pro 完全够。如果用 Claude Code 跑大项目或者每天写超过 50 万 token，会经常撞限额，建议直接上 Max 5x。一句话：偶尔用 Pro，每天用 Max。',
+  },
+  {
+    q: 'Claude 在中国能直接用吗？',
+    a: '不能。Anthropic 屏蔽中国大陆 IP，需要走稳定的住宅 IP 代理。机房 IP 容易被风控判定为机器人，弹验证码或直接 403。注册环节同样需要海外 IP + 海外手机号或邮箱。',
+  },
+  {
+    q: 'Pro 和 Max 5x / 20x 的差别有多大？',
+    a: '按官方说法 Max 5x 是 Pro 的 5 倍额度、Max 20x 是 20 倍。实际体验：Pro 每 5 小时大概能发 45 条 Sonnet；Max 5x 翻 5 倍，Max 20x 几乎全天无限制使用。每天频繁用 Claude Code 的人值得上 Max。',
+  },
+  {
+    q: 'Claude Code 收费吗，需要单独订阅吗？',
+    a: 'Claude Code 本身免费下载，但实际调用 Claude 模型按 token 计费——直接消耗你的 Claude Pro / Max 订阅额度，或者你的 Anthropic API key 余额。订阅 Pro 即可用，不需要单买。',
+  },
+  {
+    q: '注册时遇到 "Unable to verify" 或 403 怎么办？',
+    a: '90% 是 IP 问题。换一个干净的住宅 IP 重试；还不行换浏览器隐私窗口 + 清 cookie；手机号收不到验证码可以试邮箱注册。封号则只能重新注册，没有申诉渠道。',
+  },
+]
 
 const ctaCards = [
   { url: '/products/claude-pro', fallbackName: 'Claude Pro', fallbackDesc: '适合稳定日常使用，覆盖主流高频任务。' },
