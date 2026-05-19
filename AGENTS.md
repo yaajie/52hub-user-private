@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`20d65bb 52hub: nav labels — PC 工具 → 工具集合 / blog → AI 资讯; BlogDetail cover 16:9`**
+- **最新代码 commit：`fa09864 52hub: hub revamp batch1 shared components`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,8 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 1（2026-05-19，commit `fa09864`）：新增 `src/components/hub/` 8 个共享组件（`HubLayout` / `HubHero` / `HubSection` / `HubResourceCard` / `HubCtaCard` / `HubModelTable` / `HubFaq` / `HubRelatedList`）；4 个 hub view 改为数据驱动接入，当前文案、资源链接、模型/档位表格、订阅直充卡、相关教程保持原样。Batch 1 未启用 FAQ 数据、动态商品 API、OG 图或新增 Schema。`npm run build` 通过；生产备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch1-20260519-105943`；Chrome headless 1440×900 + 430×932 实测 `/claude-hub` `/chatgpt-hub` `/openai-hub` `/gemini-hub` 均 200、无 console error、无横向溢出。
 
 - 导航条文字 + BlogDetail 封面图比例（2026-05-19，commit `20d65bb`）：PC 桌面 "工具" → "工具集合"（图标保留现有 SVG）；`menuItems.blog.label` 由 i18n key `'nav.blog'` 改字面量 `'AI 资讯'`，桌面 menuItemsRight + 移动 drawer 同时生效，Footer/Blog H1/卡片标签/面包屑仍走 i18n nav.blog 显示"资讯"；BlogDetail 封面图容器 `h-64 md:h-96` → `aspect-video`，修移动端非 16:9 内容显示不完整问题，Chrome 实测容器 1.778 = 16:9。备份 `/opt/dujiao-next/web/user.pre-navlabels-20260519-100714`。
 - mobile UX 紧凑收尾（2026-05-19，commit `8fe0047`）：4 文件 mobile 微调收尾。`ContactFloat.vue` mobile 浮按 `bottom-24` → `bottom-36` 避免遮挡 Footer；`Footer.vue` 容器 padding 进一步收紧 + Brand 加 `mx-auto w-fit text-left` mobile 居中；`SiteHero.vue` 首页 3 CTA 由 `flex flex-wrap` 改为 `grid grid-cols-3` 等宽紧凑 + 字号/padding 压缩；`Blog.vue` 资讯页顶部 padding、标题字号、副标题 max-w 全部缩小。Chrome 实测 430×932 Footer 总高 420px（之前 800+px）、SiteHero 3 CTA 等宽 102px 不换行。备份 `/opt/dujiao-next/web/user.pre-mobile-tighten-20260519-091923`。

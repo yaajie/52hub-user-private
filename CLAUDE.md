@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`20d65bb 52hub: nav labels — PC 工具 → 工具集合 / blog → AI 资讯; BlogDetail cover 16:9`**
+- **最新代码 commit：`fa09864 52hub: hub revamp batch1 shared components`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,13 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 1（2026-05-19，commit `fa09864`）：
+  - 新增 `src/components/hub/` 8 个共享组件：`HubLayout` / `HubHero` / `HubSection` / `HubResourceCard` / `HubCtaCard` / `HubModelTable` / `HubFaq` / `HubRelatedList`
+  - 4 个 hub view 改为数据驱动接入，当前文案、资源链接、模型/档位表格、订阅直充卡、相关教程保持原样
+  - Batch 1 未启用 FAQ 数据、动态商品 API、OG 图或新增 Schema
+  - `npm run build` 通过；生产备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch1-20260519-105943`
+  - Chrome headless 1440×900 + 430×932 实测 `/claude-hub` `/chatgpt-hub` `/openai-hub` `/gemini-hub` 均 200、无 console error、无横向溢出
 
 - 导航条文字 + BlogDetail 封面图比例（2026-05-19，commit `20d65bb`）：
   - **Navbar.vue line 53**：PC 桌面 "工具" → "工具集合"（与移动端 drawer 文字一致，图标保留现有 SVG gear）
