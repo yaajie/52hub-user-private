@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`66fc9f3 52hub: hub revamp Batch 2 — accent / FAQ / hero CTA / 5-卡补齐 / OpenAI 模型表`**
+- **最新代码 commit：`0f9c2bd 52hub: hub revamp Batch 3 — HubCtaCard 商品 API 实时价格 / 库存 / 立即下单`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,17 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub 改造 Batch 3 · HubCtaCard 商品 API 联动（2026-05-19，commit `0f9c2bd`）：
+  - HubCtaCard 由静态 fallback 卡改为商品 API 实时联动
+  - onMounted 拉 `productAPI.detail(slug)`，slug 优先 props.slug，否则从 `/products/:slug` URL 末尾解析
+  - 三态渲染：loading (4 段 skeleton) / 成功 (实时商品标题 + 发货徽章 ⚡/💬 + 库存徽章 + 价格 accent 色加粗 + "立即下单" 实色按钮) / fallback (静态 name+desc + "查看商品 →")
+  - 已售罄商品按钮文案 "已售罄 · 查看详情"
+  - 复用 `useLocalized` / `useProductLabels` composable，displayName / stockLabel / isSoldOut 全部 computed
+  - targetUrl 优先 product.slug，无 product 时回退 props.url（兼容 Gemini 的 `/categories/*` 非 product 链接）
+  - 卡顶部加 1px accent 渐变装饰条
+  - Chrome 实测：ChatGPT 3 张全部 API 成功，Gemini 1 张 API + 2 张 fallback
+  - 备份 `/opt/dujiao-next/web/user.pre-hubrevamp-batch3-20260519-155628`
 
 - Hub 改造 Batch 2 · accent / FAQ / Hero CTA / 内容补齐（2026-05-19，commit `66fc9f3`）：
   - 4 hub view 全部应用品牌色 accent + FAQ 数据 + Hero CTA + 5 卡 sections 补齐
