@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`4362517 52hub: hub revamp Batch 4 — Breadcrumb / ItemList Schema + 4 张 OG 占位 SVG`**
+- **最新代码 commit：`13be4e6 52hub: hub OG SVG → PNG + 扩长 og:title / og:description`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -67,6 +67,12 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Hub OG SVG → PNG + 扩长 og:title/description（2026-05-19，commit `13be4e6`）：
+  - 修 opengraph.xyz 检测出的 2 个问题
+  - **SVG → PNG**：Facebook / WhatsApp / X 等 OG scraper 不识别 SVG（截图显示分享预览为黑色）。用 macOS headless Chrome 渲染 4 SVG → 1200×630 PNG（每张 270-400KB），命令：`Google Chrome --headless --disable-gpu --window-size=1200,630 --screenshot file://.../X.svg`。4 hub view `og-image` prop 从 `.svg` 改 `.png`。保留 SVG 作源文件
+  - **扩 og:title / description**：原 24 / 45 字符过短（opengraph 建议 50-60 / 110-160）。重写 4 hub useHead，抽出 pageTitle / pageDesc const 避免重复。Claude title 60 / desc 154、ChatGPT title 56 / desc 155、OpenAI title 57 / desc 145、Gemini title 56 / desc 150，全部在推荐范围
+  - 备份 `/opt/dujiao-next/web/user.pre-og-png-20260519-203425`
 
 - Hub 改造 Batch 4 · Schema + OG 图（2026-05-19，commit `4362517`）：
   - 新增 4 张 `public/og/{claude,chatgpt,openai,gemini}-hub.svg` 1200×630 占位图（品牌色渐变 + 标题 + 副标 + URL footer，纯 SVG 避免 npm 依赖）

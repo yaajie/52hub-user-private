@@ -31,7 +31,7 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`4362517 52hub: hub revamp Batch 4 — Breadcrumb / ItemList Schema + 4 张 OG 占位 SVG`**
+- **最新代码 commit：`13be4e6 52hub: hub OG SVG → PNG + 扩长 og:title / og:description`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
 - working tree：clean
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Hub OG SVG → PNG + 扩长 og:title/description（2026-05-19，commit `13be4e6`）：用 macOS headless Chrome 把 4 张 SVG 渲染为 1200×630 PNG（每张 270-400KB），4 hub `og-image` prop 从 `.svg` 改 `.png`；同时把 og:title / description 从 24 / 45 字符扩到 50-60 / 110-160 推荐长度（抽出 pageTitle / pageDesc const）。修 opengraph.xyz 检测出的 OG 图渲染为黑色 + 文案过短问题。备份 `user.pre-og-png-20260519-203425`。
 - Hub Batch 4（2026-05-19，commit `4362517`）：SEO Schema + 4 张 OG 占位图。新增 `public/og/*-hub.svg` 4 张 1200×630 品牌色 SVG；HubLayout 注入 BreadcrumbList + ItemList Schema（自动过滤非 `/products/` 链接）+ og:image + twitter:card。Chrome 实测 4 hub 各 5 个 JSON-LD（Org + WebSite + Breadcrumb + ItemList + FAQ），Gemini ItemList 自动过滤 categories 剩 1 item。占位 SVG 后续可用 Figma 出正式 PNG 替换。备份 `user.pre-hubrevamp-batch4-20260519-182940`。
 - Hub Batch 3（2026-05-19，commit `0f9c2bd`）：HubCtaCard 由静态卡改为商品 API 实时联动。onMounted 拉 `productAPI.detail(slug)`（slug 从 props 或 `/products/:slug` URL 解析）；三态：loading skeleton / 成功（实时商品名 + 发货徽章 + 库存徽章 + accent 色价格 + "立即下单" 实色按钮）/ fallback（兼容 Gemini 的 `/categories/*` 链接）。Chrome 实测 ChatGPT 3 张全部 API 成功，Gemini 1+2 fallback 工作正常。备份 `user.pre-hubrevamp-batch3-20260519-155628`。
 - Hub Batch 2（2026-05-19，commit `66fc9f3`）：4 hub view 应用品牌色 accent / Hero CTA / FAQ / 内容补齐。Claude `#D97757` + FAQ 5 / ChatGPT `#10A37F` + FAQ 5 / OpenAI `#404040` + FAQ 4 + 新增模型表 6 行 / Gemini `#4285F4` + 蓝紫渐变 accentGradient + FAQ 5。所有 5 卡 sections 调整为 4 或 6 卡无孤儿；Gemini 教程 1→4 卡。JSON-LD FAQPage Schema 通过 HubFaq 自动注入。备份 `user.pre-hubrevamp-batch2-20260519-140639`。
