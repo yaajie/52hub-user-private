@@ -1,10 +1,10 @@
 <template>
   <footer
     class="relative theme-panel-strong theme-text-secondary border-t theme-border overflow-hidden">
-    <div class="container mx-auto px-4 pt-10 pb-32 sm:py-16 relative">
-      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-10 mb-10 sm:mb-16">
+    <div class="container mx-auto px-4 pt-6 pb-28 sm:py-16 relative">
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-10 mb-8 sm:mb-16">
         <!-- Brand · mobile 只保留品牌介绍和联系方式；sm/md 跨 3 列；lg+ 与其它列等宽 -->
-        <div class="sm:col-span-3 lg:col-span-1 space-y-5">
+        <div class="mx-auto w-fit space-y-5 text-left sm:col-span-3 sm:mx-0 sm:w-auto lg:col-span-1">
           <div class="flex items-center space-x-3">
             <div
               class="w-8 h-8 theme-btn-primary rounded-lg flex items-center justify-center">
@@ -96,7 +96,7 @@
 
       <!-- Copyright -->
       <div
-        class="border-t theme-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs theme-text-muted">
+        class="border-t theme-border pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs theme-text-muted">
         <div class="space-y-1 text-center md:text-left">
           <p>&copy; {{ currentYear }} {{ brandSiteName }}. {{ t('footer.rights') }}</p>
         </div>

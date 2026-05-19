@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed bottom-24 right-4 z-40 lg:bottom-6 lg:right-6">
+  <div class="fixed bottom-36 right-4 z-40 sm:bottom-24 lg:bottom-6 lg:right-6">
     <div
       v-if="open"
       id="contact-float-panel"

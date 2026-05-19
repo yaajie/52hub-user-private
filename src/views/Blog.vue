@@ -1,12 +1,12 @@
 <template>
   <div
-    class="blog-page min-h-screen theme-page pt-20 pb-16 relative overflow-hidden">
+    class="blog-page min-h-screen theme-page pt-16 pb-12 sm:pt-20 sm:pb-16 relative overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
       <!-- Page Header -->
-      <div class="mb-16 mt-12 text-center">
-        <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight theme-text-primary">{{ t('nav.blog') }}</h1>
+      <div class="mb-8 mt-4 text-center sm:mb-16 sm:mt-12">
+        <h1 class="mb-3 text-3xl font-black tracking-tight theme-text-primary sm:mb-6 sm:text-4xl md:text-6xl">{{ t('nav.blog') }}</h1>
         <p
-          class="theme-text-secondary max-w-2xl mx-auto text-lg leading-relaxed border-b theme-border pb-8">
+          class="theme-text-secondary mx-auto max-w-xl border-b theme-border pb-4 text-sm leading-relaxed sm:max-w-2xl sm:pb-8 sm:text-lg">
           {{ t('blog.subtitle') }}
         </p>
       </div>
