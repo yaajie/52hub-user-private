@@ -7,6 +7,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
+    og-image="/og/claude-hub.svg"
   />
 </template>
 

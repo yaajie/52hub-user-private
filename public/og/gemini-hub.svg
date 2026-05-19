@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285F4"/>
+      <stop offset="100%" stop-color="#9333EA"/>
+    </linearGradient>
+    <linearGradient id="vignette" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="black" stop-opacity="0"/>
+      <stop offset="100%" stop-color="black" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#vignette)"/>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif" fill="white">
+    <text x="80" y="200" font-size="28" font-weight="600" opacity="0.85" letter-spacing="2">52HUB · AI HUB</text>
+    <text x="80" y="350" font-size="108" font-weight="800" letter-spacing="-2">Gemini 资源中心</text>
+    <text x="80" y="425" font-size="38" font-weight="500" opacity="0.9">AI Studio · Vertex AI · NotebookLM · 订阅直充</text>
+    <text x="80" y="560" font-size="24" font-weight="500" opacity="0.75" font-family="ui-monospace, 'SF Mono', Menlo, monospace">52hub.org/gemini-hub</text>
+  </g>
+  <rect x="1080" y="540" width="60" height="60" rx="14" fill="white" fill-opacity="0.18"/>
+  <text x="1110" y="582" font-family="-apple-system, sans-serif" font-size="32" font-weight="900" fill="white" text-anchor="middle">G</text>
+</svg>

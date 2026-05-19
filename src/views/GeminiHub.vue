@@ -8,6 +8,7 @@
     :faq="faq"
     :cta="ctaCards"
     :related="related"
+    og-image="/og/gemini-hub.svg"
   />
 </template>
 
