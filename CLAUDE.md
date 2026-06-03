@@ -31,20 +31,20 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`13be4e6 52hub: hub OG SVG → PNG + 扩长 og:title / og:description`**
+- **最新代码 commit：`fa80422 52hub: launch frontend visual refresh and Codex Auth tool`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
-- working tree：clean
+- working tree：clean（代码 commit `fa80422` 已上线；交接文档已同步）
 
 ---
 
 ## ⚠️ 任务完成后——强制清单，全部勾完才算完成
 
-- [ ] `git add` 相关文件，`git commit`，`git push private 52hub/v1.0.2-user-hardening`
-- [ ] `/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md`：新增改动条目（改了什么 / 是否上线 / commit hash / 备份路径）
-- [ ] `/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md`：更新「当前 Git 快照」commit hash + 「最近改动速查」表
-- [ ] `/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md`：更新相关状态描述
-- [ ] 本文件（`CLAUDE.md`）：更新「当前仓库快照」中的 commit hash
-- [ ] `AGENTS.md`（同目录）：更新「当前仓库快照」中的 commit hash
+- [x] `git add` 相关文件，`git commit`，`git push private 52hub/v1.0.2-user-hardening`
+- [x] `/Users/Apple/52hub-source-hardening/52HUB-CHANGELOG.md`：新增改动条目（改了什么 / 是否上线 / commit hash / 备份路径）
+- [x] `/Users/Apple/52hub-source-hardening/52HUB-AGENT-BOOTSTRAP.md`：更新「当前 Git 快照」commit hash + 「最近改动速查」表
+- [x] `/Users/Apple/52hub-source-hardening/52HUB-PROJECT-STATUS.md`：更新相关状态描述
+- [x] 本文件（`CLAUDE.md`）：更新「当前仓库快照」中的 commit hash
+- [x] `AGENTS.md`（同目录）：更新「当前仓库快照」中的 commit hash
 
 **以上清单未完成 = 任务未完成。下一个 agent 将读到错误状态。**
 
@@ -67,6 +67,12 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 前台视觉与 Codex Auth 上线（2026-06-04，commit `fa80422`）：
+  - 首页浅色模式重做、`/tools` 信息架构收口、`/tools/codex-auth` 本地生成器上线、浅/深色右侧黑块收口、移动端隐藏纯视觉屏、购物车入口隐藏、动态富文本白名单净化、sitemap 扩到 `<loc>`=37、P2 chunk 拆分和图片解码属性落地
+  - 生产备份：`/opt/dujiao-next/web/user.pre-frontend-visual-tools-20260604-052825`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、生产 API/page smoke、Chrome 桌面/移动渲染 smoke 全通过，console error 0、购物车文字/链接 0、无横向溢出
 
 - Hub OG SVG → PNG + 扩长 og:title/description（2026-05-19，commit `13be4e6`）：
   - 修 opengraph.xyz 检测出的 2 个问题
