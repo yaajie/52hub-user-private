@@ -1,5 +1,10 @@
 <template>
-  <div class="fixed bottom-36 right-4 z-40 sm:bottom-24 lg:bottom-6 lg:right-6">
+  <div
+    :class="[
+      'fixed right-4 z-40 sm:bottom-24 lg:bottom-6 lg:right-6',
+      hideOnMobileToolPage ? 'hidden sm:block' : 'bottom-36',
+    ]"
+  >
     <div
       v-if="open"
       id="contact-float-panel"
@@ -78,6 +83,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import {
   ArrowTopRightOnSquareIcon,
   ChatBubbleLeftRightIcon,
@@ -89,9 +95,11 @@ import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
 
 const appStore = useAppStore()
+const route = useRoute()
 
 const open = ref(false)
 const copied = ref(false)
+const hideOnMobileToolPage = computed(() => route.path === '/tools/codex-auth')
 
 const telegramServiceUrl = computed(() => {
   const value = appStore.config?.contact?.telegram

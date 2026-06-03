@@ -33,10 +33,6 @@
           {{ t('productDetail.loginToBuy') }}
         </button>
         <template v-else>
-          <button @click="$emit('addToCart')" :disabled="!canPurchase"
-            class="px-4 py-3 border theme-btn-secondary font-bold rounded-xl text-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px]">
-            {{ t('productDetail.addToCart') }}
-          </button>
           <button @click="$emit('buyNow')" :disabled="!canPurchase"
             class="px-5 py-3 theme-btn-primary font-bold rounded-xl text-sm cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px]">
             {{ t('productDetail.buyNow') }}
@@ -68,7 +64,6 @@ defineProps<{
 }>()
 
 defineEmits<{
-  addToCart: []
   buyNow: []
   goLogin: []
 }>()

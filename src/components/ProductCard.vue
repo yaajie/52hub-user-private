@@ -11,11 +11,11 @@
     <div class="aspect-square overflow-hidden theme-surface-muted relative shrink-0">
       <div class="absolute inset-0 bg-black/15 z-10"></div>
       <img v-if="product.images && getFirstImageUrl(product.images)" :src="getFirstImageUrl(product.images)"
-        :alt="getLocalizedText(product.title)" loading="lazy"
+        :alt="getLocalizedText(product.title)" loading="lazy" decoding="async"
         class="w-full h-full object-cover transform transition-transform duration-700 ease-out"
         :class="isSoldOut(product) ? 'grayscale brightness-75' : 'group-hover:scale-110'" />
       <img v-else-if="product.category?.icon" :src="getImageUrl(product.category.icon)"
-        :alt="getLocalizedText(product.category?.name)" loading="lazy"
+        :alt="getLocalizedText(product.category?.name)" loading="lazy" decoding="async"
         class="w-full h-full object-cover transform transition-transform duration-700 ease-out"
         :class="isSoldOut(product) ? 'grayscale brightness-75' : 'group-hover:scale-110'" />
       <div v-else class="w-full h-full flex items-center justify-center theme-text-muted">
@@ -113,7 +113,7 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <!-- Quick buy cart button -->
+          <!-- Quick buy button -->
           <button
             type="button"
             class="relative flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-lg border transition-all"
@@ -124,7 +124,7 @@
             @click.stop="$emit('quickBuy', product)"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" />
             </svg>
           </button>
           <!-- Desktop: view details -->

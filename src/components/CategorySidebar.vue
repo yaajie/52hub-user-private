@@ -86,7 +86,7 @@
                     : 'border-transparent theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5'">
                   <img v-if="group.icon" :src="getImageUrl(group.icon)"
                     :alt="getLocalizedText(group.name)"
-                    loading="lazy" class="h-5 w-5 rounded object-cover" />
+                    loading="lazy" decoding="async" class="h-5 w-5 rounded object-cover" />
                   <span class="truncate">{{ getLocalizedText(group.name) }}</span>
                 </button>
                 <button
@@ -112,7 +112,7 @@
                       : 'border-transparent theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5'">
                     <img v-if="child.icon" :src="getImageUrl(child.icon)"
                       :alt="getLocalizedText(child.name)"
-                      loading="lazy" class="h-5 w-5 rounded object-cover" />
+                      loading="lazy" decoding="async" class="h-5 w-5 rounded object-cover" />
                     <span class="truncate">{{ getLocalizedText(child.name) }}</span>
                   </button>
                 </li>
@@ -175,7 +175,7 @@
                 ]">
                 <img v-if="group.icon" :src="getImageUrl(group.icon)"
                   :alt="getLocalizedText(group.name)"
-                  loading="lazy" :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
+                  loading="lazy" decoding="async" :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
                   class="rounded object-cover" />
                 <span class="truncate">{{ getLocalizedText(group.name) }}</span>
               </button>
@@ -212,7 +212,7 @@
                   ]">
                   <img v-if="child.icon" :src="getImageUrl(child.icon)"
                     :alt="getLocalizedText(child.name)"
-                    loading="lazy" :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
+                    loading="lazy" decoding="async" :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
                     class="rounded object-cover" />
                   <span class="truncate">{{ getLocalizedText(child.name) }}</span>
                 </button>

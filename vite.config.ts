@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
+          'vendor-vue-core': ['vue', 'vue-router', 'pinia', '@unhead/vue'],
           'vendor-qrcode': ['qrcode'],
           // 'vendor-vue-i18n' chunk removed: aliased to in-house shim, no longer a vendor dep
         },

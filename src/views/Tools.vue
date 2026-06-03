@@ -3,205 +3,178 @@
     <div class="container mx-auto px-4">
 
       <!-- ============================================================
-        Hero · 顶部紧凑 banner + 下方双卡（IP 占 2/3 主视觉 + Browser 占 1/3）
+        Hero · 聚焦入口 + 低亮度技术视觉
       ============================================================ -->
-      <header class="mb-14">
-        <!-- Banner: badge + 大标题 + counts，一行紧凑 -->
-        <div class="mb-6 flex flex-wrap items-end gap-x-6 gap-y-3">
-          <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full theme-surface-soft border theme-border mb-3">
+      <header class="mb-10 sm:mb-12">
+        <div class="tools-hero grid items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.88fr)]">
+          <div class="tools-hero-copy theme-panel border theme-border rounded-2xl p-5 sm:p-7">
+            <div class="inline-flex items-center gap-2 rounded-full theme-surface-soft border theme-border px-3 py-1">
               <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span class="text-xs font-mono theme-text-muted tracking-tight">tools.52hub · live</span>
+              <span class="text-xs font-mono theme-text-muted">tools.52hub · live</span>
             </div>
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight theme-text-primary leading-tight">
+            <h1 class="mt-5 text-3xl sm:text-4xl md:text-5xl font-black theme-text-primary leading-tight">
               AI 工具集合
             </h1>
-          </div>
-          <div class="flex flex-col gap-1">
-            <p class="text-sm sm:text-base theme-text-secondary leading-relaxed">
-              <span class="font-mono theme-text-primary">{{ totalTools }}</span> 个工具 · <span class="font-mono theme-text-primary">{{ categories.length }}</span> 大分类 · 站长精选
+            <p class="mt-4 max-w-2xl text-sm sm:text-base theme-text-secondary leading-relaxed">
+              先解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；再把网络诊断、服务状态、DNS 隐私、礼品卡和接码入口集中到一个页面。
             </p>
-            <p class="text-xs theme-text-muted">IP 检测 / 服务状态 / DNS 泄露 / 域名查询 / 礼品卡 / 接码</p>
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="tools-stat-chip">
+                <span class="font-mono theme-text-primary">{{ totalTools }}</span> 个工具
+              </span>
+              <span class="tools-stat-chip">
+                <span class="font-mono theme-text-primary">{{ categories.length }}</span> 大分类
+              </span>
+              <span class="tools-stat-chip">站长精选</span>
+            </div>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+              <router-link
+                to="/tools/codex-auth"
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-400"
+              >
+                解决 Codex 手机号码验证
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </router-link>
+              <a
+                href="#tool-section-0"
+                class="inline-flex items-center justify-center rounded-lg theme-surface-soft border theme-border px-4 py-2.5 text-sm font-semibold theme-text-primary transition hover:theme-surface-strong"
+              >
+                查看网络检测
+              </a>
+            </div>
           </div>
+
+          <router-link
+            to="/tools/codex-auth"
+            class="tools-hero-visual group relative hidden min-h-[240px] overflow-hidden rounded-2xl border theme-border theme-panel sm:block"
+          >
+            <img
+              src="/images/tools/tools-hero-network-v1.webp"
+              alt="AI 工具集合技术视觉"
+              fetchpriority="high"
+              decoding="async"
+              class="tools-hero-image absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+            />
+            <div class="tools-hero-shade absolute inset-0"></div>
+            <div class="tools-feature-card absolute inset-x-4 bottom-4 rounded-xl p-4 backdrop-blur-md">
+              <span class="tools-feature-eyebrow font-mono text-[0.68rem] uppercase">featured local tool</span>
+              <strong class="mt-1 block text-base">解决登录 Codex 时卡在海外手机号码验证的问题</strong>
+              <small class="mt-1 block text-xs leading-relaxed">用已登录 ChatGPT session 生成 Codex CLI auth.json，减少找接码、等验证码的麻烦；本地生成，不上传。</small>
+            </div>
+          </router-link>
         </div>
 
-        <!-- 双卡：IP (md 占 2/3) + Browser (md 占 1/3) -->
-        <div class="grid md:grid-cols-3 gap-4 md:gap-5">
-          <!-- IP 卡（占 2 列） -->
-          <div class="status-card md:col-span-2 theme-panel border theme-border rounded-2xl overflow-hidden">
-            <div class="status-titlebar flex items-center justify-between px-5 py-3 border-b theme-border">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <h2 class="text-xs font-mono font-semibold theme-text-primary tracking-wider">MY IP · WHOAMI</h2>
-              </div>
-              <span class="flex items-center gap-1.5 text-xs font-mono theme-text-muted">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        <div class="diagnostic-strip mt-5 theme-panel border theme-border rounded-2xl p-4 sm:p-5">
+          <div class="grid gap-4">
+            <div>
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="font-mono text-[0.68rem] uppercase theme-text-muted">network signal</span>
+                <span class="inline-flex items-center gap-1.5 rounded-full theme-surface-soft border theme-border px-2.5 py-1 text-[11px] font-mono theme-text-muted">
+                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                  live
                 </span>
-                live
+              </div>
+
+              <div v-if="ipLoading" class="mt-3 grid gap-2 sm:grid-cols-3">
+                <div class="h-10 rounded-lg theme-skeleton"></div>
+                <div class="h-10 rounded-lg theme-skeleton"></div>
+                <div class="h-10 rounded-lg theme-skeleton"></div>
+              </div>
+
+              <div v-else-if="ipInfo" class="mt-3 grid gap-2 sm:grid-cols-3">
+                <div class="diagnostic-pill">
+                  <span>当前 IP</span>
+                  <strong>{{ ipInfo.ip }}</strong>
+                </div>
+                <div class="diagnostic-pill">
+                  <span>位置 / 运营商</span>
+                  <strong class="truncate" :title="`${ipInfo.location} · ${ipInfo.org || '未知'}`">{{ ipInfo.location }}</strong>
+                </div>
+                <div class="diagnostic-pill">
+                  <span>AI 注册风险</span>
+                  <strong :class="ipInfo.isDatacenter ? 'text-amber-400' : 'text-emerald-400'">
+                    {{ ipInfo.isDatacenter ? '机房 IP，谨慎使用' : '普通出口，风险较低' }}
+                  </strong>
+                </div>
+              </div>
+
+              <div v-else class="mt-3 rounded-lg border theme-border theme-surface-soft px-3 py-2 text-sm theme-text-secondary">
+                IP 自动查询失败，可使用下方 ping0.cc / IPInfo 手动检测。
+              </div>
+            </div>
+
+            <div class="browser-chip-grid hidden gap-2 sm:grid sm:grid-cols-4">
+              <span class="browser-chip">
+                <small>浏览器</small>
+                <strong>{{ browserInfo?.browser || '检测中' }}</strong>
+              </span>
+              <span class="browser-chip">
+                <small>系统</small>
+                <strong>{{ browserInfo?.os || '检测中' }}</strong>
+              </span>
+              <span class="browser-chip">
+                <small>语言</small>
+                <strong>{{ browserInfo?.language || '检测中' }}</strong>
+              </span>
+              <span class="browser-chip">
+                <small>时间</small>
+                <strong>{{ liveClock || '—' }}</strong>
               </span>
             </div>
-            <div class="px-5 py-4 font-mono text-sm">
-              <!-- Loading state -->
-              <div v-if="ipLoading" class="space-y-2.5">
-                <div class="h-3.5 w-3/4 rounded theme-skeleton"></div>
-                <div class="h-3 w-1/2 rounded theme-skeleton"></div>
-                <div class="h-3 w-2/3 rounded theme-skeleton"></div>
-                <div class="h-3 w-5/12 rounded theme-skeleton"></div>
-              </div>
-              <!-- IP info -->
-              <div v-else-if="ipInfo" class="space-y-2">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">curl ifconfig.me</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="text-base sm:text-lg font-semibold theme-text-primary tracking-wider">{{ ipInfo.ip }}</span>
-                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded theme-surface-soft theme-text-muted border theme-border">{{ ipInfo.version || 'IPv4' }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">geo.lookup</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ ipInfo.location }}</span>
-                </div>
-
-                <div v-if="ipInfo.org" class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">isp.org</span>
-                </div>
-                <div v-if="ipInfo.org" class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary truncate" :title="ipInfo.org">{{ ipInfo.org }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">ip.type</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span :class="ipInfo.isDatacenter ? 'text-amber-400' : 'text-emerald-400'">
-                    {{ ipInfo.isDatacenter ? 'datacenter ⚠' : 'residential ✓' }}
-                  </span>
-                  <span v-if="ipInfo.isDatacenter" class="text-[10px] theme-text-muted">机房 IP，注册 AI 服务可能被风控</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">date</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ liveClock }}</span>
-                  <span class="terminal-cursor text-indigo-400">▍</span>
-                </div>
-              </div>
-              <!-- Error fallback -->
-              <div v-else class="space-y-2">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">curl ifconfig.me</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-rose-400 select-none">!</span>
-                  <span class="theme-text-secondary text-xs">查询失败，请点击下方 ping0.cc 等工具手动查 IP</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4 pt-2">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">date</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ liveClock }}</span>
-                  <span class="terminal-cursor text-indigo-400">▍</span>
-                </div>
-              </div>
-            </div>
-            <div class="px-5 py-2.5 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
-              <span class="theme-text-accent">›</span> 数据来自 ipapi.co · 仅用于本页展示，本站不存储
-            </div>
           </div>
 
-          <!-- Browser 卡（占 1 列） -->
-          <div class="status-card md:col-span-1 theme-panel border theme-border rounded-2xl overflow-hidden">
-            <div class="status-titlebar flex items-center justify-between px-5 py-3 border-b theme-border">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-                <h2 class="text-xs font-mono font-semibold theme-text-primary tracking-wider">MY BROWSER · UA</h2>
+          <details class="diagnostic-details mt-4 hidden sm:block">
+            <summary class="cursor-pointer select-none font-mono text-xs theme-text-accent">查看完整本地诊断</summary>
+            <div class="mt-4 grid gap-4 md:grid-cols-2">
+              <div class="diagnostic-detail-card">
+                <h2 class="text-xs font-mono font-semibold theme-text-primary">IP 详情</h2>
+                <dl class="mt-3 space-y-2 text-xs">
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">IP</dt>
+                    <dd class="font-mono theme-text-primary">{{ ipInfo?.ip || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">位置</dt>
+                    <dd class="text-right theme-text-primary">{{ ipInfo?.location || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">运营商</dt>
+                    <dd class="text-right theme-text-primary">{{ ipInfo?.org || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">来源</dt>
+                    <dd class="theme-text-primary">ipapi.co · 本页不存储</dd>
+                  </div>
+                </dl>
               </div>
-              <span class="text-xs font-mono theme-text-muted">{{ browserInfo?.platform || '—' }}</span>
-            </div>
-            <div class="px-5 py-4 font-mono text-sm space-y-2">
-              <div v-if="!browserInfo" class="space-y-2.5">
-                <div class="h-3 w-2/3 rounded theme-skeleton"></div>
-                <div class="h-3 w-1/2 rounded theme-skeleton"></div>
-                <div class="h-3 w-3/4 rounded theme-skeleton"></div>
-                <div class="h-3 w-1/3 rounded theme-skeleton"></div>
+              <div class="diagnostic-detail-card">
+                <h2 class="text-xs font-mono font-semibold theme-text-primary">浏览器详情</h2>
+                <dl class="mt-3 space-y-2 text-xs">
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">屏幕</dt>
+                    <dd class="font-mono theme-text-primary">{{ browserInfo?.screen || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">网络</dt>
+                    <dd class="text-right theme-text-primary">{{ browserInfo?.connection || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">设备</dt>
+                    <dd class="font-mono theme-text-primary">{{ browserInfo?.platform || '—' }}</dd>
+                  </div>
+                  <div class="flex justify-between gap-4">
+                    <dt class="theme-text-muted">读取方式</dt>
+                    <dd class="theme-text-primary">navigator API · 不上传</dd>
+                  </div>
+                </dl>
               </div>
-              <template v-else>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">browser</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ browserInfo.browser }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">os.name</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ browserInfo.os }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">screen</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ browserInfo.screen }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">language</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ browserInfo.language }}</span>
-                </div>
-
-                <div class="flex items-baseline gap-2 pt-1">
-                  <span class="text-indigo-400 select-none">$</span>
-                  <span class="theme-text-muted">net.type</span>
-                </div>
-                <div class="flex items-center gap-2 pl-4">
-                  <span class="text-emerald-400 select-none">›</span>
-                  <span class="theme-text-primary">{{ browserInfo.connection }}</span>
-                </div>
-              </template>
             </div>
-            <div class="px-5 py-2.5 text-[11px] font-mono theme-text-muted border-t theme-border bg-black/5 dark:bg-white/[0.02]">
-              <span class="theme-text-accent">›</span> 来自浏览器 navigator API · 本地读取不上传
-            </div>
-          </div>
+          </details>
         </div>
       </header>
 
@@ -211,7 +184,8 @@
       <section
         v-for="(category, idx) in categories"
         :key="category.name"
-        class="mb-12"
+        :id="`tool-section-${idx}`"
+        class="mb-12 scroll-mt-28"
       >
         <div class="flex items-center gap-3 mb-5">
           <span class="font-mono text-xs theme-text-muted">{{ String(idx + 1).padStart(2, '0') }}</span>
@@ -279,6 +253,10 @@ import { CONTACTS } from '../constants/contact'
 
 const appStore = useAppStore()
 const telegramServiceUrl = computed(() => appStore.config?.contact?.telegram || CONTACTS.telegramService)
+
+const localTools = [
+  { name: 'Codex Auth JSON 生成器', url: '/tools/codex-auth', desc: '解决登录 Codex 时卡在海外手机号码验证的问题；浏览器本地生成，不上传、不保存。' },
+]
 
 type ToolItem = {
   name: string
@@ -382,7 +360,7 @@ const categories: ToolCategory[] = [
   },
 ]
 
-const totalTools = computed(() => categories.reduce((sum, c) => sum + c.items.length, 0))
+const totalTools = computed(() => localTools.length + categories.reduce((sum, c) => sum + c.items.length, 0))
 
 const getHost = (url: string) => {
   try {
@@ -594,14 +572,14 @@ onUnmounted(() => {
 })
 
 useHead({
-  title: '实用工具集合 · IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB',
+  title: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB',
   meta: [
     {
       name: 'description',
-      content: '52HUB 整理的 AI 工具相关常用资源：IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道、海外接码平台。',
+      content: '52HUB 整理的 AI 工具相关常用资源：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；同时提供 IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道、海外接码平台。',
     },
-    { property: 'og:title', content: '实用工具集合 · IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB' },
-    { property: 'og:description', content: '52HUB 整理的 AI 工具相关常用资源：IP 检测、服务状态、DNS 泄露、域名查询、礼品卡渠道、接码平台。' },
+    { property: 'og:title', content: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS - 52HUB' },
+    { property: 'og:description', content: '52HUB 整理的 AI 工具入口：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦，同时提供 IP 检测、服务状态、DNS 泄露、礼品卡和接码入口。' },
     { property: 'og:url', content: 'https://52hub.org/tools' },
     { property: 'og:type', content: 'website' },
   ],
@@ -612,22 +590,162 @@ useHead({
 </script>
 
 <style scoped>
-.status-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.0) 100%);
+.tools-hero-copy {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.13), transparent 34%),
+    linear-gradient(135deg, rgba(16, 185, 129, 0.08), transparent 48%);
 }
 
-.status-titlebar {
-  background: rgba(255, 255, 255, 0.03);
+.tools-hero-copy::after {
+  content: '';
+  position: absolute;
+  inset: auto -10% -45%;
+  height: 70%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.12), transparent 64%);
 }
 
-.terminal-cursor {
-  display: inline-block;
-  animation: terminal-blink 1.1s steps(2, end) infinite;
+.tools-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  padding: 0.42rem 0.75rem;
+  color: var(--ui-text-secondary);
+  background: color-mix(in srgb, var(--ui-bg-soft) 70%, transparent);
+  font-size: 0.78rem;
 }
 
-@keyframes terminal-blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+.tools-hero-visual {
+  background:
+    linear-gradient(135deg, rgba(240, 249, 255, 0.9), rgba(248, 250, 252, 0.76)),
+    radial-gradient(circle at 86% 18%, rgba(14, 165, 233, 0.16), transparent 18rem);
+  box-shadow: 0 28px 80px rgba(2, 132, 199, 0.1);
+}
+
+.tools-hero-image {
+  opacity: 0.62;
+  filter: saturate(0.78) contrast(0.86) brightness(1.12) grayscale(0.04);
+}
+
+.tools-hero-shade {
+  background:
+    linear-gradient(90deg, rgba(248, 250, 252, 0.1), rgba(248, 250, 252, 0.34) 58%, rgba(248, 250, 252, 0.08)),
+    linear-gradient(180deg, rgba(248, 250, 252, 0.04), rgba(248, 250, 252, 0.26));
+}
+
+.tools-feature-card {
+  border: 1px solid rgba(14, 165, 233, 0.18);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+  color: #334155;
+}
+
+.tools-feature-eyebrow {
+  color: #0f766e;
+}
+
+.tools-feature-card small {
+  color: #64748b;
+}
+
+:global(.dark .tools-hero-visual) {
+  background: #070b12;
+  box-shadow: 0 28px 80px rgba(2, 132, 199, 0.13);
+}
+
+:global(.dark .tools-hero-image) {
+  opacity: 0.9;
+  filter: saturate(0.92) contrast(0.92) brightness(0.74);
+}
+
+:global(.dark .tools-hero-shade) {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0.34)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.72));
+}
+
+:global(.dark .tools-feature-card) {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(2, 6, 23, 0.56);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.36);
+  color: #f8fafc;
+}
+
+:global(.dark .tools-feature-eyebrow) {
+  color: #a5f3fc;
+}
+
+:global(.dark .tools-feature-card small) {
+  color: #cbd5e1;
+}
+
+.diagnostic-strip {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.06), transparent 46%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+}
+
+.diagnostic-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, rgb(14, 165, 233), rgb(16, 185, 129));
+}
+
+.diagnostic-pill,
+.browser-chip,
+.diagnostic-detail-card {
+  border: 1px solid var(--ui-border);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--ui-bg-soft) 64%, transparent);
+}
+
+.diagnostic-pill {
+  min-width: 0;
+  padding: 0.7rem 0.8rem;
+}
+
+.diagnostic-pill span,
+.browser-chip small {
+  display: block;
+  color: var(--ui-text-muted);
+  font-size: 0.68rem;
+}
+
+.diagnostic-pill strong,
+.browser-chip strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ui-text-primary);
+  font-size: 0.82rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.browser-chip {
+  min-width: 0;
+  padding: 0.62rem 0.7rem;
+}
+
+.browser-chip strong {
+  font-size: 0.74rem;
+}
+
+.diagnostic-detail-card {
+  padding: 0.95rem;
+}
+
+.diagnostic-details summary::-webkit-details-marker {
+  display: none;
 }
 
 .tool-card::after {

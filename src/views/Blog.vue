@@ -30,7 +30,7 @@
             <!-- Thumbnail · 保留上传 16:9 原始比例 -->
             <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
               <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
-                loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
 
             <div class="p-8 flex flex-col flex-1">

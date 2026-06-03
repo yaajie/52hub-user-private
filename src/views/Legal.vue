@@ -37,6 +37,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
+import { processHtmlForDisplay } from '../utils/content'
 
 const { t } = useI18n()
 
@@ -61,9 +62,9 @@ const content = computed(() => {
   const lang = locale.value
 
   if (props.type === 'terms' && legal.terms) {
-    return legal.terms[lang] || ''
+    return processHtmlForDisplay(legal.terms[lang] || '')
   } else if (props.type === 'privacy' && legal.privacy) {
-    return legal.privacy[lang] || ''
+    return processHtmlForDisplay(legal.privacy[lang] || '')
   }
   return ''
 })

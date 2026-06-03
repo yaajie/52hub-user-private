@@ -1,6 +1,11 @@
 <template>
-  <div class="min-h-screen theme-page pt-24 pb-16">
-    <div class="container mx-auto px-4">
+  <div class="hub-layout-page relative min-h-screen overflow-hidden theme-page pt-24 pb-16" :style="hubVisualStyle">
+    <div class="hub-backdrop" aria-hidden="true">
+      <div class="hub-grid-layer"></div>
+      <div class="hub-scan-layer"></div>
+    </div>
+
+    <div class="container relative z-10 mx-auto px-4">
       <HubHero
         :accent="accent"
         :accent-gradient="accentGradient"
@@ -43,11 +48,13 @@
       </section>
     </div>
 
-    <HubRelatedList
-      :title="related.title"
-      :desc="related.desc"
-      :items="related.items"
-    />
+    <div class="relative z-10">
+      <HubRelatedList
+        :title="related.title"
+        :desc="related.desc"
+        :items="related.items"
+      />
+    </div>
   </div>
 </template>
 
@@ -100,6 +107,10 @@ const props = withDefaults(defineProps<{
 
 const route = useRoute()
 const SITE_ORIGIN = 'https://52hub.org'
+const hubVisualStyle = computed(() => ({
+  '--hub-accent': props.accent,
+  '--hub-gradient': props.accentGradient || `linear-gradient(135deg, ${props.accent}, rgba(14, 165, 233, 0.55))`,
+}))
 
 // Breadcrumb Schema：首页 → 当前 hub
 const breadcrumbSchema = computed(() => ({
@@ -162,3 +173,38 @@ useHead({
   meta: ogImageMeta,
 })
 </script>
+
+<style scoped>
+.hub-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hub-grid-layer {
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--hub-accent) 11%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--hub-accent) 9%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.22;
+  mask-image: linear-gradient(180deg, black 0%, transparent 46%);
+}
+
+.hub-scan-layer {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(720px, 90vw);
+  height: 320px;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at center top, color-mix(in srgb, var(--hub-accent) 20%, transparent), transparent 64%),
+    var(--hub-gradient);
+  opacity: 0.11;
+  filter: blur(18px);
+  mask-image: linear-gradient(180deg, black 0%, transparent 82%);
+}
+</style>

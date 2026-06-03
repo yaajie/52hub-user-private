@@ -219,7 +219,7 @@
                     :key="ch.id"
                     class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg theme-surface-soft"
                   >
-                    <img v-if="ch.icon" :src="getImageUrl(ch.icon)" :alt="ch.name" class="w-4 h-4 object-contain" loading="lazy" />
+                    <img v-if="ch.icon" :src="getImageUrl(ch.icon)" :alt="ch.name" class="w-4 h-4 object-contain" loading="lazy" decoding="async" />
                     <span>{{ ch.name }}</span>
                   </span>
                 </div>
@@ -368,13 +368,9 @@
                     class="w-full px-6 py-4 theme-btn-primary font-bold rounded-xl transition-colors min-h-[48px]">
                     {{ t('productDetail.loginToBuy') }}
                   </button>
-                  <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button @click="addToCart" :disabled="!canPurchase"
-                      class="px-6 py-4 border theme-btn-secondary font-bold rounded-xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 min-h-[48px]">
-                      {{ t('productDetail.addToCart') }}
-                    </button>
+                  <div v-else>
                     <button @click="buyNow" :disabled="!canPurchase"
-                      class="px-6 py-4 theme-btn-primary font-bold rounded-xl transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 min-h-[48px]">
+                      class="w-full px-6 py-4 theme-btn-primary font-bold rounded-xl transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 min-h-[48px]">
                       {{ t('productDetail.buyNow') }}
                     </button>
                   </div>
@@ -425,7 +421,6 @@
           :show-product-promotion-price="mobileBarShowProductPromotionPrice"
           :product-promotion-price-display="mobileBarProductPromotionPriceDisplay"
           :product-price-display="mobileBarProductPriceDisplay"
-          @add-to-cart="addToCart"
           @buy-now="buyNow"
           @go-login="goLogin"
         />
@@ -471,7 +466,6 @@ import { productAPI } from '../api'
 import type { Product, ProductSKU, PaymentChannel, PromotionRule } from '../api/types'
 import { getImageUrl } from '../utils/image'
 import { processHtmlForDisplay } from '../utils/content'
-import { useCartStore } from '../stores/cart'
 import { useBuyNowStore } from '../stores/buyNow'
 import { useUserAuthStore } from '../stores/userAuth'
 import { debounceAsync } from '../utils/debounce'
@@ -479,7 +473,6 @@ import { useHead } from '@unhead/vue'
 // centsToAmount used internally by composable
 import { buildSkuDisplayText, normalizeSkuId } from '../utils/sku'
 import { useLocalized, useProductLabels } from '../composables/useProduct'
-import { toast } from '../composables/useToast'
 import ProductImageGallery from '../components/product/ProductImageGallery.vue'
 import ProductMobileBar from '../components/product/ProductMobileBar.vue'
 import PurchaseTerms from '../components/PurchaseTerms.vue'
@@ -488,7 +481,6 @@ const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
 const appStore = useAppStore()
-const cartStore = useCartStore()
 const buyNowStore = useBuyNowStore()
 const userAuthStore = useUserAuthStore()
 
@@ -725,71 +717,6 @@ const syncSelectedSku = () => {
     return
   }
   selectedSkuId.value = normalizeSkuId(rows[0]?.id)
-}
-
-const selectedCartQuantity = () => {
-  if (!product.value || !selectedSku.value) return 0
-  const productId = Number(product.value.id || 0)
-  const skuId = normalizeSkuId(selectedSku.value?.id)
-  if (productId <= 0 || skuId <= 0) return 0
-  const matched = cartStore.items.find((item) => item.productId === productId && normalizeSkuId(item.skuId) === skuId)
-  return Number(matched?.quantity || 0)
-}
-
-const addToCart = () => {
-  if (!product.value) return
-  if (!canPurchase.value) return
-  purchaseWarning.value = ''
-  if (requiresLogin.value) {
-    router.push(`/auth/login?redirect=${encodeURIComponent(route.fullPath)}`)
-    return
-  }
-  const sku = selectedSku.value
-  const available = skuAvailableStock(sku)
-  const cartQty = selectedCartQuantity()
-  const nextQuantity = cartQty + quantity.value
-  const productLimit = normalizeOptionalLimitNumber(product.value?.max_purchase_quantity)
-  let effectiveLimit: number | null = productLimit
-  if (available !== null) {
-    effectiveLimit = effectiveLimit === null ? available : Math.min(effectiveLimit, available)
-  }
-  if (effectiveLimit !== null && nextQuantity > effectiveLimit) {
-    if (available !== null && effectiveLimit === available && (productLimit === null || available <= productLimit)) {
-      purchaseWarning.value = available > 0
-        ? (cartQty > 0
-            ? t('productDetail.addCartStockExceededWithCart', { count: available, cartCount: cartQty })
-            : t('productDetail.addCartStockExceeded', { count: available }))
-        : t('productDetail.stockUnavailable')
-      return
-    }
-    purchaseWarning.value = cartQty > 0
-      ? t('productDetail.addCartLimitExceededWithCart', { count: effectiveLimit, cartCount: cartQty })
-      : t('productDetail.addCartLimitExceeded', { count: effectiveLimit })
-    return
-  }
-  cartStore.addItem({
-    productId: product.value.id,
-    skuId: normalizeSkuId(sku?.id),
-    skuCode: String(sku?.sku_code || ''),
-    skuSpecValues: (sku?.spec_values && typeof sku.spec_values === 'object') ? sku.spec_values : undefined,
-    skuManualStockTotal: normalizeManualStockTotal(sku?.manual_stock_total),
-    skuManualStockLocked: normalizeStockNumber(sku?.manual_stock_locked),
-    skuManualStockSold: normalizeStockNumber(sku?.manual_stock_sold),
-    skuAutoStockAvailable: normalizeStockNumber(sku?.auto_stock_available),
-    skuUpstreamStock: normalizeManualStockTotal(sku?.upstream_stock),
-    skuStockEnforced: shouldEnforceSkuStock(sku),
-    slug: product.value.slug,
-    title: product.value.title,
-    priceAmount: String(sku?.price_amount || product.value.price_amount || '0.00'),
-    image: images.value[0],
-    maxPurchaseQuantity: normalizeOptionalLimitNumber(product.value.max_purchase_quantity) ?? undefined,
-    purchaseType: product.value.purchase_type,
-    fulfillmentType: product.value.fulfillment_type,
-    manualFormSchema: product.value.manual_form_schema || {},
-    paymentChannelIds: Array.isArray(product.value.payment_channel_ids) && product.value.payment_channel_ids.length > 0 ? product.value.payment_channel_ids : undefined,
-    quantity: quantity.value,
-  }, quantity.value)
-  toast.success(t('toast.addedToCart'))
 }
 
 const buyNow = () => {

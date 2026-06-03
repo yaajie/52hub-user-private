@@ -78,6 +78,7 @@
                   v-if="productImage"
                   :src="productImage"
                   :alt="productTitle"
+                  decoding="async"
                   class="w-full h-full object-cover"
                 />
                 <div v-else class="w-full h-full flex items-center justify-center theme-surface-muted">
@@ -283,21 +284,11 @@
                 {{ t('quickBuy.viewDetail') }}
               </button>
             </div>
-            <div v-else class="flex gap-3">
-              <button
-                @click="handleAddToCart"
-                :disabled="!canPurchase"
-                class="flex-1 py-3 border theme-btn-secondary font-semibold rounded-xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 min-h-[44px] text-sm flex items-center justify-center gap-1.5"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
-                </svg>
-                {{ t('quickBuy.addToCart') }}
-              </button>
+            <div v-else>
               <button
                 @click="handleBuyNow"
                 :disabled="!canPurchase"
-                class="flex-1 py-3 theme-btn-primary font-semibold rounded-xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 min-h-[44px] text-sm"
+                class="w-full py-3 theme-btn-primary font-semibold rounded-xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-40 min-h-[44px] text-sm"
               >
                 {{ t('quickBuy.buyNow') }}
               </button>
@@ -315,13 +306,11 @@ import { ref, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
-import { useCartStore } from '../stores/cart'
 import { useBuyNowStore } from '../stores/buyNow'
 import { useUserAuthStore } from '../stores/userAuth'
 import { getFirstImageUrl, getImageUrl } from '../utils/image'
 import { normalizeSkuId, buildSkuDisplayText } from '../utils/sku'
 import { useLocalized, useProductLabels } from '../composables/useProduct'
-import { toast } from '../composables/useToast'
 
 const props = defineProps<{
   product: any
@@ -336,7 +325,6 @@ const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
 const appStore = useAppStore()
-const cartStore = useCartStore()
 const buyNowStore = useBuyNowStore()
 const userAuthStore = useUserAuthStore()
 
@@ -514,15 +502,6 @@ const canPurchase = computed(() => {
   return true
 })
 
-const selectedCartQuantity = () => {
-  if (!props.product || !selectedSku.value) return 0
-  const productId = Number(props.product.id || 0)
-  const skuId = normalizeSkuId(selectedSku.value?.id)
-  if (productId <= 0 || skuId <= 0) return 0
-  const matched = cartStore.items.find((item) => item.productId === productId && normalizeSkuId(item.skuId) === skuId)
-  return Number(matched?.quantity || 0)
-}
-
 const effectiveLimit = computed(() => {
   const sku = selectedSku.value
   const available = skuAvailableStock(sku)
@@ -553,61 +532,6 @@ const handleQuantityInput = (event: Event) => {
 
 const close = () => {
   emit('update:visible', false)
-}
-
-const handleAddToCart = () => {
-  if (!props.product || !canPurchase.value) return
-  purchaseWarning.value = ''
-
-  const sku = selectedSku.value
-  const available = skuAvailableStock(sku)
-  const cartQty = selectedCartQuantity()
-  const nextQuantity = cartQty + quantity.value
-  const productLimit = normalizeOptionalLimitNumber(props.product?.max_purchase_quantity)
-  let limit: number | null = productLimit
-  if (available !== null) {
-    limit = limit === null ? available : Math.min(limit, available)
-  }
-  if (limit !== null && nextQuantity > limit) {
-    if (available !== null && limit === available && (productLimit === null || available <= productLimit)) {
-      purchaseWarning.value = available > 0
-        ? (cartQty > 0
-            ? t('productDetail.addCartStockExceededWithCart', { count: available, cartCount: cartQty })
-            : t('productDetail.addCartStockExceeded', { count: available }))
-        : t('productDetail.stockUnavailable')
-      return
-    }
-    purchaseWarning.value = cartQty > 0
-      ? t('productDetail.addCartLimitExceededWithCart', { count: limit, cartCount: cartQty })
-      : t('productDetail.addCartLimitExceeded', { count: limit })
-    return
-  }
-
-  const images = getProductImages()
-  cartStore.addItem({
-    productId: props.product.id,
-    skuId: normalizeSkuId(sku?.id),
-    skuCode: String(sku?.sku_code || ''),
-    skuSpecValues: (sku?.spec_values && typeof sku.spec_values === 'object') ? sku.spec_values : undefined,
-    skuManualStockTotal: normalizeManualStockTotal(sku?.manual_stock_total),
-    skuManualStockLocked: normalizeStockNumber(sku?.manual_stock_locked),
-    skuManualStockSold: normalizeStockNumber(sku?.manual_stock_sold),
-    skuAutoStockAvailable: normalizeStockNumber(sku?.auto_stock_available),
-    skuUpstreamStock: normalizeManualStockTotal(sku?.upstream_stock),
-    skuStockEnforced: shouldEnforceSkuStock(sku),
-    slug: props.product.slug,
-    title: props.product.title,
-    priceAmount: String(sku?.price_amount || props.product.price_amount || '0.00'),
-    image: images[0] || '',
-    maxPurchaseQuantity: normalizeOptionalLimitNumber(props.product.max_purchase_quantity) ?? undefined,
-    purchaseType: props.product.purchase_type,
-    fulfillmentType: props.product.fulfillment_type,
-    manualFormSchema: props.product.manual_form_schema || {},
-    paymentChannelIds: Array.isArray(props.product.payment_channel_ids) && props.product.payment_channel_ids.length > 0 ? props.product.payment_channel_ids : undefined,
-    quantity: 1,
-  }, quantity.value)
-  toast.success(t('toast.addedToCart'))
-  close()
 }
 
 const handleBuyNow = () => {

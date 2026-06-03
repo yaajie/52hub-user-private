@@ -15,6 +15,23 @@
   <url><loc>https://52hub.org/chatgpt-hub</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://52hub.org/openai-hub</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://52hub.org/gemini-hub</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/tools/codex-auth</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- 商品详情页 -->
+  <url><loc>https://52hub.org/products/chatgpt-plus</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/products/chatgpt-pro-5x</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/products/chatgpt-pro-20x</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/products/claude-pro</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/products/claude-max-5x</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://52hub.org/products/claude-gift-card</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://52hub.org/products/gemini-pro-pixel</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://52hub.org/products/apple-id-us</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- 公告详情页 -->
+  <url><loc>https://52hub.org/notice/announcement-channel</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://52hub.org/notice/support-contact-info</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://52hub.org/notice/order-delivery-info</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://52hub.org/notice/about-52hub</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- 博客文章 -->
   <url><loc>https://52hub.org/blog/claude-pro-vs-max</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>

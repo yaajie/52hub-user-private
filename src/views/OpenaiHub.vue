@@ -44,6 +44,13 @@ const sections = [
     ],
   },
   {
+    title: 'Codex 工具',
+    items: [
+      { name: 'Codex Auth JSON 生成器', url: '/tools/codex-auth', desc: 'ChatGPT session 转 Codex CLI auth.json，浏览器本地生成' },
+      { name: 'Codex vs Claude Code', url: '/blog/chatgpt-codex-vs-claude-code', desc: '两个 AI 编程助手的定位、订阅门槛和使用方式对比' },
+    ],
+  },
+  {
     title: '开发者资源',
     items: [
       { name: 'API 文档', url: 'https://platform.openai.com/docs', desc: '完整 API 文档与教程' },
@@ -107,6 +114,7 @@ const related = {
   items: [
     { to: '/chatgpt-hub', text: 'ChatGPT 资源中心（订阅 / 防封 / 付款）' },
     { to: '/claude-hub', text: 'Claude 资源中心' },
+    { to: '/tools/codex-auth', text: 'Codex Auth JSON 本地生成器' },
     { to: '/blog/chatgpt-codex-vs-claude-code', text: 'ChatGPT Codex vs Claude Code' },
     { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
     { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
@@ -117,7 +125,7 @@ const related = {
 }
 
 const pageTitle = 'OpenAI 资源中心 · ChatGPT / Sora / DALL-E / Codex / API 全产品矩阵 - 52HUB'
-const pageDesc = '52HUB OpenAI 全产品资源中心：ChatGPT 订阅、Sora 视频生成、DALL-E 图像、Codex 编程助手、Whisper 语音识别、Platform API key 管理与定价，GPT-5 / 4o / o3 模型对比，开发者 Cookbook 与 Playground，订阅直充入口。'
+const pageDesc = '52HUB OpenAI 全产品资源中心：ChatGPT 订阅、Sora 视频生成、DALL-E 图像、Codex 编程助手、Codex Auth JSON 本地生成器、Platform API key 管理与定价，GPT-5 / 4o / o3 模型对比，开发者 Cookbook 与 Playground，订阅直充入口。'
 
 useHead({
   title: pageTitle,

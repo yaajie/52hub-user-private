@@ -3,44 +3,43 @@
     <div class="container mx-auto px-4">
 
       <!-- ============================================================
-        Hero · 2 列 grid（桌面）：左侧站长自述 + 右侧伪终端卡
+        Hero · 通栏品牌说明区，避免浅色模式大黑块抢视觉焦点
       ============================================================ -->
-      <section class="grid md:grid-cols-2 gap-8 md:gap-12 items-center mb-16 mt-8">
-        <div>
-          <h1 class="text-4xl md:text-5xl font-black mb-5 tracking-tight theme-text-primary leading-tight">
+      <section class="about-hero relative mb-10 mt-8 overflow-hidden rounded-3xl border theme-border p-6 sm:p-8 lg:p-10">
+        <div class="about-hero-grid absolute inset-0" aria-hidden="true"></div>
+        <div class="relative max-w-4xl">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-md dark:bg-white/8 dark:text-slate-200">
+            <span class="h-2 w-2 rounded-full bg-sky-500 shadow-[0_0_18px_rgba(14,165,233,0.65)]"></span>
+            52HUB RESOURCE DESK
+          </div>
+
+          <h1 class="max-w-3xl text-4xl font-black leading-tight tracking-tight theme-text-primary md:text-5xl">
             {{ heroTitle }}
           </h1>
-          <p class="theme-text-secondary text-base md:text-lg leading-relaxed mb-6">
+          <p class="mt-5 max-w-3xl text-base leading-8 theme-text-secondary md:text-lg">
             {{ heroSubtitle }}
           </p>
-          <div v-if="hasIntroduction" class="theme-text-secondary text-sm md:text-base leading-relaxed whitespace-pre-line">
+          <div v-if="hasIntroduction" class="mt-5 max-w-3xl whitespace-pre-line text-sm leading-7 theme-text-secondary md:text-base">
             {{ introductionText }}
           </div>
         </div>
 
-        <!-- 伪终端卡：macOS 窗口风格，展示伪命令 + 输出，体现"AI 工具站长"技术感 -->
-        <div class="terminal-card rounded-2xl border theme-border overflow-hidden shadow-2xl">
-          <!-- 标题栏 -->
-          <div class="terminal-titlebar flex items-center gap-2 px-4 py-2.5 border-b theme-border">
-            <span class="w-3 h-3 rounded-full bg-rose-500/85"></span>
-            <span class="w-3 h-3 rounded-full bg-amber-400/85"></span>
-            <span class="w-3 h-3 rounded-full bg-emerald-500/85"></span>
-            <span class="ml-3 text-xs font-mono theme-text-muted tracking-tight">~ jay@52hub</span>
+        <div class="relative mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="about-hero-tile">
+            <span>AI 资源</span>
+            <strong>入口 / 教程 / 排坑</strong>
+            <small>把 ChatGPT、Claude、Gemini、Codex 常用路径集中整理</small>
           </div>
-          <!-- 内容区 -->
-          <pre class="terminal-body font-mono text-[12.5px] leading-relaxed px-4 py-4 m-0 whitespace-pre overflow-x-auto"><span class="terminal-prompt">$</span> <span class="terminal-cmd">which-ai</span> claude
-<span class="terminal-ok">✓</span> Claude Sonnet 4.7   <span class="terminal-comment"># 长上下文 + 写代码主力</span>
-<span class="terminal-ok">✓</span> Claude Opus 4.7     <span class="terminal-comment"># 深度推理 + 长文档分析</span>
-
-<span class="terminal-prompt">$</span> <span class="terminal-cmd">which-ai</span> chatgpt
-<span class="terminal-ok">✓</span> ChatGPT Plus        <span class="terminal-comment"># 日常通用 · 价格门槛低</span>
-<span class="terminal-ok">✓</span> ChatGPT Pro 5x/20x  <span class="terminal-comment"># Codex + 大额度任务</span>
-
-<span class="terminal-prompt">$</span> <span class="terminal-cmd">which-ai</span> gemini
-<span class="terminal-ok">✓</span> Gemini AI Pro       <span class="terminal-comment"># NotebookLM + Veo 视频</span>
-
-<span class="terminal-prompt">$</span> <span class="terminal-cmd">52hub --status</span>
-<span class="terminal-info">{{ uptimeText }}</span><span class="terminal-cursor">▍</span></pre>
+          <div class="about-hero-tile">
+            <span>订阅服务</span>
+            <strong>直充 / 成品号 / 礼品卡</strong>
+            <small>优先说明交付边界，避免把虚拟商品说成永久稳定</small>
+          </div>
+          <div class="about-hero-tile">
+            <span>站点原则</span>
+            <strong>少承诺，多验证</strong>
+            <small>本地工具不上传，支付信息不经本站后端存储</small>
+          </div>
         </div>
       </section>
 
@@ -204,13 +203,6 @@ const hasIntroduction = computed(() => introductionText.value !== '')
 const hasServices = computed(() => servicesTitle.value !== '' || serviceItems.value.length > 0)
 const hasContact = computed(() => contactTitle.value !== '' || contactText.value !== '')
 
-// 伪终端：站点运行时长（按 2026-05-07 上线日算）+ 博客数（硬编码 12，更新博客时手动改）
-const uptimeText = computed(() => {
-  const start = new Date('2026-05-07T00:00:00Z').getTime()
-  const days = Math.max(1, Math.floor((Date.now() - start) / 86400000))
-  return `storefront up · ${days} days · 12 tutorials live · zero downtime`
-})
-
 useHead({
   title: '关于 52HUB · 站长 Jay 自述 - 52HUB',
   meta: [
@@ -231,49 +223,73 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.terminal-card {
-  background: linear-gradient(180deg, #0d0d12 0%, #0a0a0f 100%);
-  font-feature-settings: 'liga' 0;
+.about-hero {
+  background:
+    radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.16), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(16, 185, 129, 0.11), transparent 24rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.7));
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
 }
 
-.terminal-titlebar {
-  background: rgba(255, 255, 255, 0.03);
+.about-hero-grid {
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.24) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.2) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: linear-gradient(135deg, #000, transparent 76%);
 }
 
-.terminal-body {
-  color: #d4d4d8;
-  background: transparent;
+.about-hero-tile {
+  border: 1px solid rgba(14, 165, 233, 0.16);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.66);
+  padding: 1rem;
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(14px);
 }
 
-.terminal-prompt {
-  color: #818cf8; /* indigo-400 */
+.about-hero-tile span {
+  display: block;
+  color: #0f766e;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
 }
 
-.terminal-cmd {
-  color: #5eead4; /* teal-300 */
+.about-hero-tile strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--ui-text-primary);
+  font-size: 1rem;
 }
 
-.terminal-ok {
-  color: #4ade80; /* green-400 */
+.about-hero-tile small {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--ui-text-secondary);
+  line-height: 1.65;
 }
 
-.terminal-comment {
-  color: #71717a; /* zinc-500 */
-  font-style: italic;
+:global(.dark .about-hero) {
+  background:
+    radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.12), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(16, 185, 129, 0.08), transparent 24rem),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.58));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
 }
 
-.terminal-info {
-  color: #fbbf24; /* amber-400 */
+:global(.dark .about-hero-grid) {
+  opacity: 0.13;
 }
 
-.terminal-cursor {
-  display: inline-block;
-  color: #818cf8;
-  animation: terminal-blink 1.1s steps(2, end) infinite;
+:global(.dark .about-hero-tile) {
+  border-color: rgba(125, 211, 252, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: none;
 }
 
-@keyframes terminal-blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+:global(.dark .about-hero-tile span) {
+  color: #67e8f9;
 }
 </style>

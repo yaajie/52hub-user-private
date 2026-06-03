@@ -292,7 +292,7 @@
                   class="text-left border rounded-lg p-2.5 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                   :class="selectedChannelId === channel.id && !isChannelDisabledForAmount(channel) ? 'theme-selected-surface' : 'theme-interactive-surface'">
                   <div class="flex items-center gap-2">
-                    <img v-if="channel.icon" :src="getImageUrl(channel.icon)" loading="lazy" class="h-5 w-5 rounded object-contain shrink-0" />
+                    <img v-if="channel.icon" :src="getImageUrl(channel.icon)" loading="lazy" decoding="async" class="h-5 w-5 rounded object-contain shrink-0" />
                     <div class="text-sm theme-text-primary font-medium truncate">
                       <span>{{ channel.name }}</span>
                       <span v-if="Number(channel.fee_rate) > 0" class="text-xs theme-text-muted ml-2">· 含 {{ Number(channel.fee_rate) }}% 手续费</span>

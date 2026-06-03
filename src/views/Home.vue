@@ -10,7 +10,15 @@
             @touchstart="onBannerTouchStart"
             @touchend="onBannerTouchEnd">
             <Transition name="banner-fade" mode="out-in">
-              <img v-if="!bannerLoading && heroImage" :src="heroImage" :key="heroImage" class="absolute inset-0 h-full w-full object-cover" />
+              <img
+                v-if="!bannerLoading && heroImage"
+                :key="heroImage"
+                :src="heroImage"
+                alt=""
+                fetchpriority="high"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
             </Transition>
             <div class="absolute inset-0 bg-black/50"></div>
             <div v-if="bannerLoading" class="relative flex min-h-[200px] flex-col justify-between p-5 sm:min-h-[240px] sm:p-6 md:min-h-[320px] md:p-10">
@@ -134,7 +142,7 @@
                   <div class="flex items-center gap-2 mb-3 px-0.5">
                     <span class="w-1 h-5 rounded-full theme-accent-stick flex-shrink-0"></span>
                     <img v-if="group.categoryIcon" :src="getImageUrl(group.categoryIcon)"
-                      :alt="group.categoryName" loading="lazy" class="h-5 w-5 rounded object-cover flex-shrink-0" />
+                      :alt="group.categoryName" loading="lazy" decoding="async" class="h-5 w-5 rounded object-cover flex-shrink-0" />
                     <span class="text-sm font-semibold theme-text-primary truncate">{{ group.categoryName }}</span>
                     <span class="text-xs theme-text-muted">({{ group.products.length }})</span>
                   </div>
@@ -194,7 +202,7 @@
         >
           <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
             <img :src="getImageUrl(post.thumbnail)" :alt="getLocalizedText(post.title)"
-              loading="lazy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
           </div>
           <div class="p-5 flex flex-col flex-1">
             <h3 class="text-base font-semibold theme-text-primary line-clamp-2">{{ getLocalizedText(post.title) }}</h3>

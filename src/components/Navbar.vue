@@ -74,21 +74,6 @@
 
       <!-- Right Side Actions -->
       <div class="flex items-center shrink-0 space-x-2 lg:space-x-4">
-        <!-- Cart (desktop only, mobile has bottom nav) -->
-        <router-link to="/cart"
-          class="hidden lg:flex theme-nav-link relative gap-2 px-3 min-w-[44px] min-h-[44px] items-center justify-center whitespace-nowrap">
-          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.3 2.6a1 1 0 00.9 1.4H19M7 13l.4 2M10 21a1 1 0 100-2 1 1 0 000 2zm8 1a1 1 0 100-2 1 1 0 000 2z" />
-          </svg>
-          <span class="text-xs font-medium">{{ t('navbar.cart') }}</span>
-          <span v-if="cartCount > 0"
-            class="theme-nav-badge absolute -top-1 -right-1"
-            :class="{ 'theme-bounce-in': cartBounce }">
-            {{ cartCount }}
-          </span>
-        </router-link>
-
         <router-link v-if="!userAuthStore.isAuthenticated" to="/guest/orders"
           class="hidden lg:inline-flex theme-nav-link items-center gap-1.5 whitespace-nowrap">
           <svg class="w-4 h-4 shrink-0 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -332,7 +317,6 @@ import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '../stores/app'
-import { useCartStore } from '../stores/cart'
 import { useUserAuthStore } from '../stores/userAuth'
 import { useTheme } from '../utils/theme'
 import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
@@ -340,7 +324,6 @@ import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
 const { t, locale } = useI18n()
 const route = useRoute()
 const appStore = useAppStore()
-const cartStore = useCartStore()
 const userAuthStore = useUserAuthStore()
 const { theme, toggleTheme } = useTheme()
 
@@ -378,7 +361,6 @@ function scheduleCloseAihub() {
 }
 
 watch(() => route.path, () => { aihubOpen.value = false })
-const cartBounce = ref(false)
 
 const isListMode = computed(() => appStore.config?.template_mode === 'list')
 
@@ -497,8 +479,7 @@ const menuItemsRight = computed<NavItem[]>(() => {
   return [...blog, ...productsList, ...others, ...about, ...buildCustomNavItems()]
 })
 
-// Mobile drawer only shows items NOT in the bottom nav (Home, Products, Cart, Me are in bottom nav)
-// 同样屏蔽 notice
+// Mobile drawer keeps the secondary nav items; cart is intentionally hidden from primary navigation.
 const mobileDrawerItems = computed<NavItem[]>(() => {
   const builtin = buildBuiltinNavItems().filter((it) => !NAV_HIDDEN_BUILTIN.has(it.key))
   return [...builtin, ...buildCustomNavItems()]
@@ -514,8 +495,6 @@ const currentLocale = computed(() => {
   if (!lang) return 'CN'
   return lang.code === 'en-US' ? 'EN' : '简'
 })
-
-const cartCount = computed(() => cartStore.totalItems)
 
 const brandSiteName = computed(() => {
   const text = String(appStore.config?.brand?.site_name || '').trim()
@@ -548,14 +527,6 @@ const handleClickOutside = (event: MouseEvent) => {
     showLangMenu.value = false
   }
 }
-
-// Cart badge bounce animation on count change
-watch(cartCount, (newVal, oldVal) => {
-  if (newVal > oldVal) {
-    cartBounce.value = true
-    setTimeout(() => { cartBounce.value = false }, 400)
-  }
-})
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)

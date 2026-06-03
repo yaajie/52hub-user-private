@@ -84,7 +84,7 @@
               <div v-if="showQRCode"
                 class="theme-surface-soft border rounded-2xl p-6 flex flex-col items-center justify-center text-center">
                 <div class="text-sm theme-text-muted mb-4">{{ paymentGuideTitle }}</div>
-                <img :src="qrImageUrl" alt="QR Code" class="w-56 h-56 object-contain" />
+                <img :src="qrImageUrl" alt="QR Code" decoding="async" class="w-56 h-56 object-contain" />
                 <div v-if="qrUsingPayLinkFallback" class="mt-3 text-xs theme-text-muted">
                   {{ t('payment.qrFallbackHint') }}
                 </div>
@@ -362,7 +362,7 @@
             <div v-if="showQRCode" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
               <div
                 class="theme-surface-soft border rounded-xl p-4 flex items-center justify-center">
-                <img :src="qrImageUrl" alt="QR Code" class="w-48 h-48 object-contain" />
+                <img :src="qrImageUrl" alt="QR Code" decoding="async" class="w-48 h-48 object-contain" />
               </div>
               <div class="text-sm theme-text-secondary space-y-3">
                 <div class="theme-text-primary font-semibold">{{ paymentGuideTitle }}</div>

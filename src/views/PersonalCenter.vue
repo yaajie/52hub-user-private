@@ -15,7 +15,7 @@
             <div class="rounded-2xl border theme-surface-soft px-4 py-3">
               <p class="text-[11px] uppercase tracking-[0.16em] text-gray-400">{{ t('personalCenter.memberLevel.currentLevel') }}</p>
               <p class="mt-2 flex items-center gap-1.5 text-sm font-semibold theme-text-secondary">
-                <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-4 w-4 object-contain" alt="" />
+                <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-4 w-4 object-contain" alt="" decoding="async" />
                 <span v-else-if="userProfileStore.currentLevel?.icon">{{ userProfileStore.currentLevel.icon }}</span>
                 <span>{{ levelName(userProfileStore.currentLevel) }}</span>
               </p>
@@ -120,7 +120,7 @@
               <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div class="flex items-center gap-3.5">
                   <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl theme-selected-surface text-xl">
-                    <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-7 w-7 object-contain" alt="" />
+                    <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-7 w-7 object-contain" alt="" decoding="async" />
                     <span v-else>{{ userProfileStore.currentLevel?.icon || '👤' }}</span>
                   </div>
                   <div class="min-w-0">
@@ -151,7 +151,7 @@
                   <!-- Next level info -->
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg theme-surface-muted text-base opacity-60">
-                      <img v-if="isImagePath(userProfileStore.nextLevel.icon)" :src="getImageUrl(userProfileStore.nextLevel.icon)" class="h-6 w-6 object-contain" alt="" />
+                      <img v-if="isImagePath(userProfileStore.nextLevel.icon)" :src="getImageUrl(userProfileStore.nextLevel.icon)" class="h-6 w-6 object-contain" alt="" decoding="async" />
                       <span v-else>{{ userProfileStore.nextLevel.icon || '⭐' }}</span>
                     </div>
                     <div class="min-w-0">

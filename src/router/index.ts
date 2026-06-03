@@ -16,6 +16,7 @@ const blogViewLoader: RouteComponentLoader = () => import('../views/Blog.vue')
 const noticeViewLoader: RouteComponentLoader = () => import('../views/Notice.vue')
 const loginViewLoader: RouteComponentLoader = () => import('../views/auth/Login.vue')
 const toolsViewLoader: RouteComponentLoader = () => import('../views/Tools.vue')
+const codexAuthViewLoader: RouteComponentLoader = () => import('../views/CodexAuth.vue')
 const claudeHubViewLoader: RouteComponentLoader = () => import('../views/ClaudeHub.vue')
 const chatgptHubViewLoader: RouteComponentLoader = () => import('../views/ChatgptHub.vue')
 const openaiHubViewLoader: RouteComponentLoader = () => import('../views/OpenaiHub.vue')
@@ -31,6 +32,7 @@ const routeWarmupLoaders: RouteComponentLoader[] = [
     noticeViewLoader,
     loginViewLoader,
     toolsViewLoader,
+    codexAuthViewLoader,
     claudeHubViewLoader,
     chatgptHubViewLoader,
     openaiHubViewLoader,
@@ -253,6 +255,11 @@ const router = createRouter({
             path: '/tools',
             name: 'tools',
             component: toolsViewLoader,
+        },
+        {
+            path: '/tools/codex-auth',
+            name: 'codex-auth',
+            component: codexAuthViewLoader,
         },
         {
             path: '/claude-hub',

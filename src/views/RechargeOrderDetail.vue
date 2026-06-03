@@ -100,7 +100,7 @@
             <div v-if="showQRCode" class="rounded-xl border theme-surface-soft p-4">
               <div class="mb-3 text-sm font-semibold theme-text-primary">{{ t('payment.qrTitle') }}</div>
               <div class="flex items-center justify-center">
-                <img :src="qrImageUrl" alt="Recharge QR" class="h-52 w-52 object-contain" />
+                <img :src="qrImageUrl" alt="Recharge QR" decoding="async" class="h-52 w-52 object-contain" />
               </div>
               <div v-if="qrUsingPayLinkFallback" class="mt-3 text-xs theme-text-muted">
                 {{ t('payment.qrFallbackHint') }}
