@@ -1,14 +1,14 @@
 <template>
   <div class="codex-auth-page min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
-      <header class="mb-8 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <section class="hero-copy-panel interactive-panel relative overflow-hidden rounded-2xl border theme-border theme-panel p-5 sm:p-7">
+      <header class="mb-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="hero-copy-panel interactive-panel relative overflow-hidden rounded-2xl border theme-border theme-panel p-6 sm:p-8">
           <div class="hero-runtime-badge mb-5 inline-flex items-center gap-2 rounded-full border theme-border theme-surface-soft px-3 py-1">
             <span class="relative flex h-2 w-2">
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
             </span>
-            <span class="font-mono text-xs theme-text-muted">52hub.tools/codex-auth · local runtime</span>
+            <span class="font-mono text-xs theme-text-muted">52hub.tools/codex-auth · 本地运行</span>
           </div>
 
           <h1 class="codex-title max-w-3xl text-3xl font-black leading-tight theme-text-primary sm:text-4xl">
@@ -20,17 +20,17 @@
 
           <div class="metric-grid mt-6 grid gap-3 sm:grid-cols-3">
             <div class="metric-tile">
-              <span class="metric-k">IO</span>
+              <span class="metric-k">本地</span>
               <strong>0 上传</strong>
               <small>无后端接收</small>
             </div>
             <div class="metric-tile">
-              <span class="metric-k">FS</span>
+              <span class="metric-k">文件</span>
               <strong>Blob 下载</strong>
               <small>浏览器本地文件</small>
             </div>
             <div class="metric-tile">
-              <span class="metric-k">TTL</span>
+              <span class="metric-k">有效期</span>
               <strong>不承诺长期</strong>
               <small>取决于 session 状态</small>
             </div>
@@ -120,7 +120,7 @@
 
       <section
         :class="[
-          'boundary-note mb-5 rounded-2xl border border-amber-300/70 bg-amber-50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100',
+          'boundary-note mb-5 rounded-2xl border border-amber-300/70 bg-amber-50 px-5 py-4 text-[0.95rem] leading-7 text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100',
           { 'boundary-note-dark': isDarkTheme },
         ]"
       >
@@ -128,12 +128,12 @@
         本工具仅本地生成，不保证长期有效。仅在浏览器本地把 ChatGPT session JSON 转成 Codex auth.json，本站不上传、不保存、不代管凭据。生成结果是否可用取决于 OpenAI session 状态和 Codex 客户端格式。
       </section>
 
-      <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] xl:items-start">
-        <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden xl:self-start">
-          <div class="flex flex-col gap-4 border-b theme-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.5fr)] xl:items-stretch">
+        <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
+          <div class="flex flex-col gap-5 border-b theme-border px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
             <div class="min-w-0">
-              <h2 class="text-xl font-bold theme-text-primary">粘贴 ChatGPT session JSON</h2>
-              <p class="mt-1 text-sm theme-text-muted">先在同一浏览器打开 session 端点，复制返回的 JSON 后粘贴到这里。</p>
+              <h2 class="text-xl font-bold theme-text-primary sm:text-2xl">粘贴 ChatGPT session JSON</h2>
+              <p class="mt-1 text-[0.95rem] theme-text-muted">先在同一浏览器打开 session 端点，复制返回的 JSON 后粘贴到这里。</p>
               <div class="mt-3 flex flex-wrap gap-2">
                 <span
                   v-for="signal in credentialSignals"
@@ -170,12 +170,12 @@
             </div>
           </div>
 
-          <div class="p-5">
+          <div class="p-5 sm:p-6">
             <textarea
               v-model="sessionRaw"
               spellcheck="false"
               autocomplete="off"
-              class="min-h-[310px] w-full resize-y rounded-xl border theme-border theme-panel-soft p-4 font-mono text-sm leading-6 theme-text-primary outline-none transition focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20"
+              class="min-h-[340px] w-full resize-y rounded-xl border theme-border theme-panel-soft p-5 font-mono text-[0.95rem] leading-7 theme-text-primary outline-none transition focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20"
               placeholder="在此粘贴 ChatGPT session JSON..."
               @input="scheduleParse"
             ></textarea>
@@ -204,18 +204,18 @@
           </div>
         </section>
 
-        <aside class="space-y-5 xl:self-start">
-          <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
-            <div class="flex items-center justify-between border-b theme-border px-5 py-4">
+        <aside class="space-y-5 xl:h-full">
+          <section class="interactive-panel flex h-full flex-col rounded-2xl border theme-border theme-panel overflow-hidden">
+            <div class="flex items-center justify-between gap-4 border-b theme-border px-5 py-5 sm:px-6">
               <div>
-                <h2 class="text-xl font-bold theme-text-primary">账号识别</h2>
-                <p class="mt-1 text-sm theme-text-muted">仅展示 session 中可识别的非密钥摘要。</p>
+                <h2 class="text-xl font-bold theme-text-primary sm:text-2xl">账号识别</h2>
+                <p class="mt-1 text-[0.95rem] theme-text-muted">仅展示 session 中可识别的非密钥摘要。</p>
               </div>
               <span class="rounded-full border theme-border theme-surface-soft px-3 py-1 font-mono text-xs theme-text-muted">
-                parse.report
+                本地识别
               </span>
             </div>
-            <div class="grid gap-3 p-5 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+            <div class="account-summary-grid grid flex-1 gap-3 p-5 sm:grid-cols-2 sm:p-6 xl:grid-cols-1 2xl:grid-cols-2">
               <div class="summary-cell">
                 <span>名称</span>
                 <strong>{{ displayValue(profile?.name) }}</strong>
@@ -237,13 +237,41 @@
         </aside>
       </div>
 
+      <section class="mt-5 rounded-2xl border theme-border theme-panel overflow-hidden">
+        <div class="flex flex-col gap-4 border-b theme-border px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 class="text-xl font-bold theme-text-primary sm:text-2xl">生成结果</h2>
+            <p class="mt-1 text-[0.95rem] theme-text-muted">auth.json 会在下方实时生成，可复制或下载。</p>
+          </div>
+          <div class="flex flex-col gap-2 sm:flex-row">
+            <button class="action-button secondary" type="button" :disabled="!currentAuthJson" @click="copyAuthJson">
+              <ClipboardDocumentCheckIcon class="h-4 w-4" aria-hidden="true" />
+              复制 auth.json
+            </button>
+            <button class="action-button primary" type="button" :disabled="!currentAuthJson" @click="downloadAuthJson">
+              <ArrowDownTrayIcon class="h-4 w-4" aria-hidden="true" />
+              下载 auth.json
+            </button>
+          </div>
+        </div>
+
+        <div v-if="currentAuthJson" class="command-strip mx-5 mt-5">
+          <span>下一步</span>
+          <code>下载 auth.json 后，按下方“放置路径”复制对应系统路径或命令，把文件放到 Codex 配置目录。</code>
+        </div>
+        <pre class="json-output whitespace-pre-wrap break-all px-5 py-5 font-mono text-sm leading-7 theme-text-primary sm:px-6">{{ authOutput }}</pre>
+        <p v-if="copyStatus" :class="['border-t theme-border px-5 py-3 text-sm', copyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']">
+          {{ copyStatus }}
+        </p>
+      </section>
+
       <section class="placement-panel interactive-panel mt-5 rounded-2xl border theme-border theme-panel overflow-hidden">
-        <div class="placement-head border-b theme-border px-5 py-4">
+        <div class="placement-head border-b theme-border px-5 py-5 sm:px-6">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <span class="placement-kicker">保存到 Codex 配置目录</span>
-              <h2 class="mt-1 text-xl font-bold theme-text-primary">放置路径</h2>
-              <p class="mt-1 text-sm theme-text-muted">
+              <h2 class="mt-2 text-xl font-bold theme-text-primary sm:text-2xl">放置路径</h2>
+              <p class="mt-1 text-[0.95rem] theme-text-muted">
                 下载后文件名必须保持 <strong class="theme-text-primary">auth.json</strong>，放到对应系统目录后 Codex 才能读取。
               </p>
             </div>
@@ -251,7 +279,7 @@
           </div>
         </div>
 
-        <div class="space-y-4 p-5">
+        <div class="space-y-5 p-5 sm:p-6">
           <div class="placement-note">
             <strong>隐藏目录提示：</strong>
             macOS 的 <code>.codex</code> 默认不在 Finder 里显示；Windows 可把路径粘贴到资源管理器地址栏，或直接复制下面命令打开目录。
@@ -261,9 +289,17 @@
             <article v-for="guide in placementGuides" :key="guide.key" class="placement-card">
               <div class="placement-card-head">
                 <div class="placement-platform-heading">
-                  <span :class="['placement-platform-icon', `placement-platform-${guide.key}`]" aria-hidden="true"></span>
-                  <div>
+                  <span :class="['placement-platform-icon', `placement-platform-${guide.key}`]" aria-hidden="true">
+                    <svg v-if="guide.key === 'macos'" viewBox="0 0 24 24" focusable="false">
+                      <path d="M16.73 12.03c-.02-2.23 1.82-3.32 1.91-3.37-1.04-1.52-2.66-1.73-3.23-1.75-1.38-.14-2.69.81-3.39.81-.71 0-1.79-.79-2.94-.77-1.52.02-2.92.88-3.7 2.24-1.58 2.74-.4 6.8 1.13 9.02.75 1.09 1.65 2.32 2.83 2.27 1.13-.04 1.56-.73 2.93-.73 1.36 0 1.75.73 2.94.71 1.22-.02 1.99-1.11 2.74-2.2.86-1.26 1.21-2.48 1.23-2.54-.03-.01-2.36-.9-2.45-3.69ZM14.5 5.46c.62-.75 1.04-1.79.93-2.83-.9.04-1.99.6-2.64 1.35-.58.67-1.09 1.73-.95 2.75 1 .08 2.03-.51 2.66-1.27Z" />
+                    </svg>
+                    <svg v-else viewBox="0 0 24 24" focusable="false">
+                      <path d="M3 4.5 10.9 3.4v8H3V4.5Zm9.1-1.3L21 2v9.4h-8.9V3.2ZM3 12.6h7.9v8L3 19.5v-6.9Zm9.1 0H21V22l-8.9-1.2v-8.2Z" />
+                    </svg>
+                  </span>
+                  <div class="placement-platform-copy">
                     <span class="placement-os">{{ guide.os }}</span>
+                    <span class="placement-title-divider">·</span>
                     <h3>{{ guide.title }}</h3>
                   </div>
                 </div>
@@ -271,7 +307,17 @@
               </div>
 
               <div class="placement-path-box">
-                <span>{{ guide.pathLabel }}</span>
+                <div class="placement-path-meta">
+                  <span>{{ guide.pathLabel }}</span>
+                  <button
+                    type="button"
+                    class="placement-copy-button placement-path-copy"
+                    @click="copyPlacementCommand(guide.path, `${guide.os} 路径`)"
+                  >
+                    <ClipboardDocumentIcon class="h-4 w-4" aria-hidden="true" />
+                    复制路径
+                  </button>
+                </div>
                 <code>{{ guide.path }}</code>
               </div>
               <div v-if="guide.secondaryPath" class="placement-path-box secondary">
@@ -308,34 +354,6 @@
             {{ placementCopyStatus }}
           </p>
         </div>
-      </section>
-
-      <section class="mt-5 rounded-2xl border theme-border theme-panel overflow-hidden">
-        <div class="flex flex-col gap-4 border-b theme-border px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 class="text-xl font-bold theme-text-primary">生成结果</h2>
-            <p class="mt-1 text-sm theme-text-muted">auth.json 会在下方实时生成，可复制或下载。</p>
-          </div>
-          <div class="flex flex-col gap-2 sm:flex-row">
-            <button class="action-button secondary" type="button" :disabled="!currentAuthJson" @click="copyAuthJson">
-              <ClipboardDocumentCheckIcon class="h-4 w-4" aria-hidden="true" />
-              复制 auth.json
-            </button>
-            <button class="action-button primary" type="button" :disabled="!currentAuthJson" @click="downloadAuthJson">
-              <ArrowDownTrayIcon class="h-4 w-4" aria-hidden="true" />
-              下载 auth.json
-            </button>
-          </div>
-        </div>
-
-        <div v-if="currentAuthJson" class="command-strip mx-5 mt-5">
-          <span>下一步</span>
-          <code>下载 auth.json 后，按上方“放置路径”复制对应系统命令，把文件放到 Codex 配置目录。</code>
-        </div>
-        <pre class="json-output whitespace-pre-wrap break-all px-5 py-5 font-mono text-xs leading-6 theme-text-primary">{{ authOutput }}</pre>
-        <p v-if="copyStatus" :class="['border-t theme-border px-5 py-3 text-sm', copyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']">
-          {{ copyStatus }}
-        </p>
       </section>
     </div>
   </div>
@@ -415,6 +433,10 @@ const placementGuides = [
       {
         label: '复制下载文件',
         value: 'mkdir -p ~/.codex && cp ~/Downloads/auth.json ~/.codex/auth.json',
+      },
+      {
+        label: '检查文件',
+        value: 'ls -la ~/.codex/auth.json',
       },
     ],
   },
@@ -823,7 +845,7 @@ function clearInput() {
 async function copyPlacementCommand(command: string, label: string) {
   try {
     await navigator.clipboard.writeText(command)
-    placementCopyStatus.value = `已复制 ${label} 命令。`
+    placementCopyStatus.value = `已复制 ${label}。`
     placementCopyStatusType.value = 'ok'
   } catch {
     placementCopyStatus.value = '复制失败，请手动选中命令复制。'
@@ -1386,9 +1408,21 @@ useHead({
   border-radius: 0.875rem;
 }
 
+.summary-cell {
+  display: flex;
+  height: 100%;
+  min-height: 6.4rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.account-summary-grid {
+  grid-auto-rows: minmax(0, 1fr);
+}
+
 .metric-tile {
   min-width: 0;
-  padding: 1rem;
+  padding: 1.08rem;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
@@ -1404,11 +1438,15 @@ useHead({
   display: block;
   margin-top: 0.35rem;
   color: var(--ui-text-primary);
+  font-size: 1.04rem;
+  line-height: 1.35;
 }
 
 .metric-tile small,
 .summary-cell span {
   color: var(--ui-text-muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
 .metric-k {
@@ -1418,20 +1456,21 @@ useHead({
   border: 1px solid color-mix(in oklab, var(--ui-accent) 36%, transparent);
   padding: 0.1rem 0.45rem;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.76rem;
+  font-weight: 900;
   color: var(--ui-accent);
 }
 
 .field-chip {
   display: inline-flex;
-  min-height: 1.85rem;
+  min-height: 2rem;
   align-items: center;
   gap: 0.42rem;
   border: 1px solid var(--ui-border);
   border-radius: 999px;
   background: color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
-  padding: 0.28rem 0.58rem;
-  font-size: 0.72rem;
+  padding: 0.34rem 0.68rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--ui-text-secondary);
 }
@@ -1474,14 +1513,14 @@ useHead({
 }
 
 .summary-cell {
-  padding: 0.9rem 1rem;
+  padding: 1.05rem 1.1rem;
 }
 
 .session-action-stack {
   display: flex;
   flex: 1 1 18rem;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.75rem;
   width: min(100%, 24rem);
   max-width: 24rem;
 }
@@ -1492,9 +1531,9 @@ useHead({
   background:
     linear-gradient(135deg, color-mix(in oklab, var(--ui-warning-soft) 72%, transparent), transparent),
     color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
-  padding: 0.55rem 0.75rem;
+  padding: 0.68rem 0.82rem;
   color: var(--ui-text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   font-weight: 800;
   line-height: 1.55;
 }
@@ -1590,9 +1629,9 @@ useHead({
   border: 1px solid color-mix(in oklab, var(--ui-success) 36%, var(--ui-border));
   border-radius: 999px;
   background: color-mix(in oklab, var(--ui-success-soft) 72%, var(--ui-bg-elevated));
-  padding: 0.35rem 0.7rem;
+  padding: 0.42rem 0.78rem;
   color: var(--ui-success);
-  font-size: 0.76rem;
+  font-size: 0.86rem;
   font-weight: 900;
 }
 
@@ -1602,10 +1641,10 @@ useHead({
   background:
     linear-gradient(135deg, color-mix(in oklab, var(--ui-warning-soft) 72%, transparent), transparent),
     color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
-  padding: 0.85rem 0.95rem;
+  padding: 1rem 1.1rem;
   color: var(--ui-text-secondary);
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: 0.94rem;
+  line-height: 1.75;
 }
 
 .placement-note strong {
@@ -1618,20 +1657,25 @@ useHead({
   padding: 0.05rem 0.28rem;
   color: var(--ui-warning);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
 }
 
 .placement-guide-grid {
   display: grid;
-  gap: 0.9rem;
+  gap: 1.1rem;
+  align-items: stretch;
 }
 
 .placement-card {
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  flex-direction: column;
   border: 1px solid color-mix(in oklab, var(--ui-accent) 20%, var(--ui-border));
-  border-radius: 1rem;
+  border-radius: 1.15rem;
   background:
     linear-gradient(180deg, color-mix(in oklab, var(--ui-bg-elevated) 90%, transparent), color-mix(in oklab, var(--ui-bg-soft) 72%, transparent));
-  padding: 0.95rem;
+  padding: 1.2rem;
   box-shadow: 0 18px 48px color-mix(in oklab, var(--ui-accent) 8%, transparent);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
@@ -1644,28 +1688,28 @@ useHead({
 
 .placement-card-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 
 .placement-platform-heading {
   display: flex;
   min-width: 0;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1.1rem;
 }
 
 .placement-platform-icon {
   position: relative;
   display: inline-flex;
-  height: 2.65rem;
-  width: 2.65rem;
+  height: 3.9rem;
+  width: 3.9rem;
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   border: 1px solid color-mix(in oklab, var(--ui-accent) 34%, var(--ui-border));
-  border-radius: 0.85rem;
+  border-radius: 1.15rem;
   background:
     linear-gradient(135deg, color-mix(in oklab, var(--ui-accent-soft) 84%, transparent), transparent),
     color-mix(in oklab, var(--ui-accent-soft) 68%, var(--ui-bg-elevated));
@@ -1673,38 +1717,37 @@ useHead({
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
 }
 
-.placement-platform-macos::before {
-  content: "⌘";
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 1.35rem;
-  font-weight: 900;
-  line-height: 1;
+.placement-platform-icon svg {
+  height: 2.18rem;
+  width: 2.18rem;
+  fill: currentColor;
 }
 
-.placement-platform-windows::before {
-  content: "";
-  height: 0.45rem;
-  width: 0.45rem;
-  background: currentColor;
-  box-shadow:
-    0.58rem 0 0 currentColor,
-    0 0.58rem 0 currentColor,
-    0.58rem 0.58rem 0 currentColor;
+.placement-platform-copy {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
 }
 
 .placement-os {
   color: var(--ui-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
+.placement-title-divider {
+  color: var(--ui-text-muted);
+  font-weight: 900;
+}
+
 .placement-card h3 {
-  margin-top: 0.15rem;
   color: var(--ui-text-primary);
-  font-size: 1rem;
+  font-size: 1.14rem;
   font-weight: 900;
 }
 
@@ -1713,10 +1756,10 @@ useHead({
   border: 1px solid color-mix(in oklab, var(--ui-accent) 30%, var(--ui-border));
   border-radius: 999px;
   background: color-mix(in oklab, var(--ui-accent-soft) 52%, var(--ui-bg-elevated));
-  padding: 0.2rem 0.48rem;
+  padding: 0.25rem 0.55rem;
   color: var(--ui-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   font-weight: 900;
 }
 
@@ -1724,12 +1767,19 @@ useHead({
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 0.35rem;
-  margin-top: 0.85rem;
+  gap: 0.55rem;
+  margin-top: 1rem;
   border: 1px solid var(--ui-border);
-  border-radius: 0.875rem;
+  border-radius: 1rem;
   background: color-mix(in oklab, var(--ui-bg-soft) 86%, transparent);
-  padding: 0.8rem 0.9rem;
+  padding: 0.95rem 1rem;
+}
+
+.placement-path-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
 }
 
 .placement-path-box.secondary {
@@ -1737,9 +1787,10 @@ useHead({
   background: color-mix(in oklab, var(--ui-bg-soft) 68%, transparent);
 }
 
-.placement-path-box span {
+.placement-path-box span,
+.placement-path-meta span {
   color: var(--ui-text-muted);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 800;
 }
 
@@ -1750,26 +1801,41 @@ useHead({
   overflow-wrap: anywhere;
 }
 
+.placement-path-box code {
+  font-size: 1.04rem;
+  line-height: 1.6;
+}
+
+.placement-command code {
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.placement-path-copy {
+  flex: 0 0 auto;
+}
+
 .placement-help {
-  margin-top: 0.75rem;
+  margin-top: 0.9rem;
   color: var(--ui-text-secondary);
-  font-size: 0.8rem;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
 .placement-command-list {
   display: grid;
-  gap: 0.65rem;
-  margin-top: 0.8rem;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .placement-command {
   border: 1px solid color-mix(in oklab, var(--ui-accent) 18%, var(--ui-border));
-  border-radius: 0.875rem;
+  border-radius: 1rem;
   background:
     linear-gradient(90deg, color-mix(in oklab, var(--ui-accent-soft) 32%, transparent), transparent),
     color-mix(in oklab, var(--ui-bg-elevated) 84%, transparent);
-  padding: 0.75rem;
+  padding: 0.9rem;
 }
 
 .placement-command-meta {
@@ -1782,7 +1848,7 @@ useHead({
 
 .placement-command-meta span {
   color: var(--ui-text-secondary);
-  font-size: 0.75rem;
+  font-size: 0.84rem;
   font-weight: 900;
 }
 
@@ -1791,13 +1857,13 @@ useHead({
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  min-height: 2rem;
+  min-height: 2.25rem;
   border: 1px solid color-mix(in oklab, var(--ui-accent) 34%, var(--ui-border));
   border-radius: 0.65rem;
   background: color-mix(in oklab, var(--ui-accent-soft) 58%, var(--ui-bg-elevated));
-  padding: 0.35rem 0.6rem;
+  padding: 0.42rem 0.68rem;
   color: var(--ui-accent);
-  font-size: 0.76rem;
+  font-size: 0.84rem;
   font-weight: 900;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
@@ -1811,8 +1877,8 @@ useHead({
 .placement-copy-status {
   border-radius: 0.75rem;
   background: color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
-  padding: 0.65rem 0.85rem;
-  font-size: 0.82rem;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.92rem;
   font-weight: 800;
 }
 
@@ -1929,7 +1995,7 @@ useHead({
 }
 
 .json-output {
-  min-height: 260px;
+  min-height: 240px;
   max-height: 520px;
   overflow: auto;
   background:
@@ -1945,19 +2011,19 @@ useHead({
   border: 1px solid color-mix(in oklab, var(--ui-accent) 32%, var(--ui-border));
   border-radius: 0.9rem;
   background: color-mix(in oklab, var(--ui-accent-soft) 52%, var(--ui-bg-elevated));
-  padding: 0.75rem 0.9rem;
+  padding: 0.85rem 1rem;
 }
 
 .command-strip span {
   color: var(--ui-text-muted);
-  font-size: 0.75rem;
+  font-size: 0.84rem;
   font-weight: 800;
 }
 
 .command-strip code {
   color: var(--ui-text-primary);
   overflow-wrap: anywhere;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 
 @keyframes codex-auth-blink {
@@ -2028,7 +2094,7 @@ useHead({
 @media (min-width: 1280px) {
   .placement-guide-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: stretch;
   }
 }
 
@@ -2075,12 +2141,12 @@ useHead({
 
   .metric-grid .metric-k {
     padding-inline: 0.36rem;
-    font-size: 0.6rem;
+    font-size: 0.72rem;
   }
 
   .metric-grid strong {
     margin-top: 0.28rem;
-    font-size: 0.8rem;
+    font-size: 0.94rem;
     line-height: 1.25;
     overflow-wrap: anywhere;
   }
@@ -2129,8 +2195,8 @@ useHead({
   }
 
   .boundary-note {
-    font-size: 0.82rem;
-    line-height: 1.68;
+    font-size: 0.9rem;
+    line-height: 1.72;
   }
 
   .session-action-stack {
@@ -2156,19 +2222,44 @@ useHead({
 
   .placement-note,
   .placement-card {
-    padding: 0.8rem;
+    padding: 1rem;
   }
 
   .placement-card-head {
-    gap: 0.7rem;
+    align-items: flex-start;
+    gap: 0.85rem;
   }
 
   .placement-path-box {
-    padding: 0.7rem;
+    padding: 0.9rem;
+  }
+
+  .placement-path-meta {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .placement-platform-icon {
+    height: 3.4rem;
+    width: 3.4rem;
+  }
+
+  .placement-platform-icon svg {
+    height: 1.9rem;
+    width: 1.9rem;
+  }
+
+  .placement-os {
+    font-size: 0.96rem;
+  }
+
+  .placement-card h3 {
+    font-size: 1rem;
   }
 
   .placement-command {
-    padding: 0.7rem;
+    padding: 0.85rem;
   }
 
   .placement-command-meta {
@@ -2182,8 +2273,8 @@ useHead({
   }
 
   .placement-command code {
-    font-size: 0.72rem;
-    line-height: 1.58;
+    font-size: 0.82rem;
+    line-height: 1.62;
   }
 }
 </style>
