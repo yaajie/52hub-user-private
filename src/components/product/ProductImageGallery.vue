@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 md:p-8 theme-surface-soft border-r theme-border">
-    <div class="mb-4 md:mb-6 relative group"
+  <div class="self-start h-fit p-4 md:p-6 lg:p-8 theme-surface-soft border-b lg:border-b-0 lg:border-r theme-border">
+    <div class="mb-4 md:mb-5 relative group"
       @touchstart="onImageTouchStart"
       @touchend="onImageTouchEnd">
       <img v-if="currentImage" :src="currentImage" :alt="productTitle"

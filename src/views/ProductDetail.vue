@@ -48,7 +48,7 @@
         <!-- Main Info Card -->
         <div
           class="theme-panel backdrop-blur-xl border rounded-3xl overflow-hidden mb-8 shadow-2xl">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+          <div class="grid grid-cols-1 gap-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
             <!-- Product Images (Left) -->
             <ProductImageGallery
               :images="images"
@@ -58,27 +58,13 @@
             />
 
             <!-- Product Info (Right) -->
-            <div class="p-6 md:p-8 lg:p-12 flex flex-col justify-center">
-              <div class="mb-6">
-                <div v-if="categoryName" class="mb-3 text-xs uppercase tracking-wider theme-text-muted">
-                  {{ t('productDetail.categoryLabel') }} · {{ categoryName }}
-                </div>
-
-                <div v-if="product.tags && product.tags.length > 0" class="mb-4 flex flex-wrap gap-2">
-                  <span
-                    v-for="(tag, index) in product.tags"
-                    :key="index"
-                    class="theme-badge theme-badge-neutral px-3 py-1 text-xs"
-                  >
-                    {{ tag }}
-                  </span>
-                </div>
-
-                <h1 class="mb-4 text-2xl md:text-3xl lg:text-5xl font-black leading-tight theme-text-primary">
+            <div class="p-6 md:p-8 lg:p-10 flex flex-col justify-start">
+              <div class="mb-5">
+                <h1 class="mb-3 text-2xl md:text-3xl lg:text-4xl font-black leading-tight theme-text-primary">
                   {{ getLocalizedText(product.title) }}
                 </h1>
 
-                <div class="mb-6 flex flex-wrap items-center gap-2">
+                <div class="mb-5 flex flex-wrap items-center gap-2">
                   <span
                     class="theme-badge"
                     :class="product.purchase_type === 'guest'
@@ -120,8 +106,8 @@
                   </span>
                 </div>
 
-                <div class="mb-8 border-b theme-border pb-8" ref="priceSection">
-                  <div class="mb-3 flex flex-wrap items-center gap-2">
+                <div class="mb-5 border-b theme-border pb-5" ref="priceSection">
+                  <div class="mb-2 flex flex-wrap items-center gap-2">
                     <span class="text-sm theme-text-muted">{{ t('products.price') }}</span>
                     <span v-if="(selectedSku && hasSkuPromotionPrice(selectedSku)) || (!selectedSku && hasPromotionPrice(product))" class="theme-badge theme-badge-danger">
                       {{ t('products.promotionTag') }}
@@ -212,7 +198,7 @@
                   </div>
                 </div>
 
-                <div v-if="visiblePaymentChannels.length" class="mt-3 mb-8 flex flex-wrap items-center gap-2 text-sm theme-text-secondary">
+                <div v-if="visiblePaymentChannels.length" class="mb-4 flex flex-wrap items-center gap-2 text-sm theme-text-secondary">
                   <span class="theme-text-muted">支持支付：</span>
                   <span
                     v-for="ch in visiblePaymentChannels"
@@ -224,7 +210,7 @@
                   </span>
                 </div>
 
-                <div class="mt-4 mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm theme-text-secondary">
+                <div class="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm theme-text-secondary">
                   <span class="inline-flex items-center gap-1.5">
                     <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" />
@@ -245,13 +231,6 @@
                     <span>直充即开</span>
                   </span>
                   <span class="inline-flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18M5 7l1 12h12l1-12M9 11v4m6-4v4" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 7V5a3 3 0 016 0v2" />
-                    </svg>
-                    <span>余额可提现</span>
-                  </span>
-                  <span class="inline-flex items-center gap-1.5">
                     <svg class="w-4 h-4 theme-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 3h8l5 5v13H3V3h5z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 3v5h8V3M8 12h8M8 16h5" />
@@ -261,7 +240,7 @@
                 </div>
 
                 <!-- 活动规则展示 -->
-                <div v-if="hasPromotionRules(product)" class="mb-8 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
+                <div v-if="hasPromotionRules(product)" class="mb-5 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
                   <h2 class="mb-2 text-sm font-bold text-orange-700 dark:text-orange-300 flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
@@ -276,8 +255,8 @@
                   </ul>
                 </div>
 
-                <div v-if="visibleSkus.length" class="mb-8">
-                  <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
+                <div v-if="visibleSkus.length" class="mb-6">
+                  <h2 class="mb-2 text-sm font-bold uppercase tracking-widest theme-text-muted">
                     {{ t('productDetail.skuTitle') }}
                   </h2>
                   <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -307,19 +286,11 @@
                   </p>
                 </div>
 
-                <div class="mb-8">
-                  <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
-                    {{ t('productDetail.description') }}
-                  </h2>
-                  <p class="text-lg leading-relaxed theme-text-secondary whitespace-pre-line">
-                    {{ getLocalizedText(product.description) }}
-                  </p>
-                </div>
               </div>
 
               <!-- Quantity Selector -->
-                <div class="mb-8">
-                  <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
+                <div class="mb-6">
+                  <h2 class="mb-2 text-sm font-bold uppercase tracking-widest theme-text-muted">
                     {{ t('productDetail.quantity') }}
                   </h2>
                   <div class="flex items-center rounded-lg border theme-border overflow-hidden w-fit">
@@ -355,7 +326,7 @@
                 </div>
 
               <!-- Purchase Actions (Desktop + original position) -->
-              <div ref="purchaseActionsRef" class="mt-auto space-y-6">
+              <div ref="purchaseActionsRef" class="space-y-4">
                 <p v-if="cannotPurchaseReason" class="rounded-xl border theme-alert-danger px-4 py-3 text-sm font-semibold">
                   {{ cannotPurchaseReason }}
                 </p>
@@ -673,11 +644,6 @@ const cannotPurchaseReason = computed(() => {
   if (canPurchase.value) return ''
   return t('productDetail.stockUnavailable')
 })
-const categoryName = computed(() => {
-  const category = product.value?.category?.name
-  return category ? getLocalizedText(category) : ''
-})
-
 const images = computed(() => {
   if (!product.value?.images) return []
   // 历史兼容：后端早期版本可能返回 { images: string[] } 对象，dto 现在统一返回 string[]
@@ -857,7 +823,8 @@ useHead({
     if (!product.value) return []
     const seoMeta = product.value.seo_meta || {}
     const seoKeywords = getLocalizedText(seoMeta.keywords) || (typeof seoMeta.keywords === 'string' ? seoMeta.keywords : '')
-    const seoDescription = getLocalizedText(seoMeta.description) || (typeof seoMeta.description === 'string' ? seoMeta.description : '')
+    const productDescription = getLocalizedText(product.value.description)
+    const seoDescription = getLocalizedText(seoMeta.description) || (typeof seoMeta.description === 'string' ? seoMeta.description : '') || productDescription
     const tags = []
 
     if (seoKeywords) tags.push({ name: 'keywords', content: seoKeywords })
@@ -894,7 +861,8 @@ useHead({
     if (!product.value) return []
     const title = getLocalizedText(product.value.title)
     const seoMeta = product.value.seo_meta || {}
-    const description = getLocalizedText(seoMeta.description) || (typeof seoMeta.description === 'string' ? seoMeta.description : '')
+    const productDescription = getLocalizedText(product.value.description)
+    const description = getLocalizedText(seoMeta.description) || (typeof seoMeta.description === 'string' ? seoMeta.description : '') || productDescription
     const priceAmount = product.value.price_amount || '0'
     const currency = siteCurrency.value || 'CNY'
 
