@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`9a36fdb Improve SKU visibility and delivery instructions`**
+- **最新代码 commit：`a39439a Improve product detail hero layout`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `9a36fdb` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `a39439a` 已上线；交接文档已同步）
 
 ---
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 商品详情页首屏压缩与余额提现文案下线（2026-06-04，commit `a39439a`）：
+  - 商品图区域改 `self-start h-fit`，减少左侧商品图下方空白
+  - 首屏移除不可点击分类/标签与简单描述，SEO meta/JSON-LD 仍用商品描述兜底
+  - 信任带移除“余额可提现”；钱包余额经代码核查不支持提现，推广返佣提现功能未动
+  - 生产备份：`/opt/dujiao-next/web/user.pre-product-detail-hero-20260604-140554`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、生产路由 smoke、生产静态 chunk 扫描、Chrome 生产商品页截图
 
 - 前台隐藏售罄 SKU + 订单交付说明展示（2026-06-04，commit `9a36fdb`）：
   - 商品详情页与快速购买弹窗只展示 `visibleSkus`（active + 可购买），隐藏库存 0 的已启用 SKU，修 `chatgpt-plus` 中“只保到账”显示为已售罄的问题
@@ -371,7 +379,7 @@ npm run build
   - 线上验证：`https://52hub.org/sitemap.xml` 的 `<loc>` 计数为 `20`，`content-type: text/xml`
 - P1-F（2026-05-17）：
   - `ProductCard.vue` 价格下新增信任徽章（自动/人工发货、库存分级、已售）
-  - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、余额可提现、售后见说明）
+  - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、售后见说明；“余额可提现”已在 `a39439a` 下线）
 - P1-E（2026-05-17）：
   - 商品 description 支持 `whitespace-pre-line` 多行渲染（卡片 `line-clamp-5`，详情页全量展示）
   - 新增 `src/components/PurchaseTerms.vue`

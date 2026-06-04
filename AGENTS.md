@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`9a36fdb Improve SKU visibility and delivery instructions`**
+- **最新代码 commit：`a39439a Improve product detail hero layout`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `9a36fdb` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `a39439a` 已上线；交接文档已同步）
 
 ---
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- 商品详情页首屏压缩与余额提现文案下线（2026-06-04，commit `a39439a`）：商品图区域改 `self-start h-fit` 减少左侧空白；首屏移除不可点击分类/标签与简单描述，SEO meta/JSON-LD 仍用商品描述兜底；信任带移除“余额可提现”，推广返佣提现功能未动。生产备份 `/opt/dujiao-next/web/user.pre-product-detail-hero-20260604-140554`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、生产静态 chunk 扫描、Chrome 生产商品页截图。
 - 前台隐藏售罄 SKU + 订单交付说明展示（2026-06-04，commit `9a36fdb`）：商品详情页与快速购买弹窗只展示 `visibleSkus`（active + 可购买），隐藏库存 0 的已启用 SKU，修 `chatgpt-plus` 中“只保到账”显示为已售罄的问题；订单详情/游客订单详情展示商品级固定交付说明。生产备份 `/opt/dujiao-next/web/user.pre-sku-instructions-20260604-130847`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、浏览器商品页 DOM、console error 0。
 - 前台视觉与 Codex Auth 上线（2026-06-04，commit `fa80422`）：首页浅色模式重做、`/tools` 信息架构收口、`/tools/codex-auth` 本地生成器上线、浅/深色右侧黑块收口、移动端隐藏纯视觉屏、购物车入口隐藏、动态富文本白名单净化、sitemap 扩到 `<loc>`=37、P2 chunk 拆分和图片解码属性落地。生产备份 `/opt/dujiao-next/web/user.pre-frontend-visual-tools-20260604-052825`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产 API/page smoke、Chrome 桌面/移动渲染 smoke 全通过，console error 0、购物车文字/链接 0、无横向溢出。
 - Hub OG SVG → PNG + 扩长 og:title/description（2026-05-19，commit `13be4e6`）：用 macOS headless Chrome 把 4 张 SVG 渲染为 1200×630 PNG（每张 270-400KB），4 hub `og-image` prop 从 `.svg` 改 `.png`；同时把 og:title / description 从 24 / 45 字符扩到 50-60 / 110-160 推荐长度（抽出 pageTitle / pageDesc const）。修 opengraph.xyz 检测出的 OG 图渲染为黑色 + 文案过短问题。备份 `user.pre-og-png-20260519-203425`。
@@ -121,7 +122,7 @@ npm run build
   - 线上验证：`https://52hub.org/sitemap.xml` 的 `<loc>` 计数为 `20`，`content-type: text/xml`
 - P1-F（2026-05-17）：
   - `ProductCard.vue` 价格下新增信任徽章（自动/人工发货、库存分级、已售）
-  - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、余额可提现、售后见说明）
+  - `ProductDetail.vue` 在价格区后新增信任带（平台担保、人工客服、自动商品直充即开、售后见说明；“余额可提现”已在 `a39439a` 下线）
 - P1-E（2026-05-17）：
   - 商品 description 支持 `whitespace-pre-line` 多行渲染（卡片 `line-clamp-5`，详情页全量展示）
   - 新增 `src/components/PurchaseTerms.vue`
