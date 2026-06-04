@@ -131,7 +131,7 @@
       <div class="grid gap-5 xl:grid-cols-[1fr_0.9fr]">
         <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
           <div class="flex flex-col gap-4 border-b theme-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
+            <div class="min-w-0">
               <h2 class="text-xl font-bold theme-text-primary">粘贴 ChatGPT session JSON</h2>
               <p class="mt-1 text-sm theme-text-muted">先在同一浏览器打开 session 端点，复制返回的 JSON 后粘贴到这里。</p>
               <div class="mt-3 flex flex-wrap gap-2">
@@ -145,15 +145,29 @@
                 </span>
               </div>
             </div>
-            <a
-              href="https://chatgpt.com/api/auth/session"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center gap-2 rounded-xl border border-sky-300 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-700 transition hover:bg-sky-100 dark:border-sky-500/40 dark:bg-sky-500/10 dark:text-sky-200 dark:hover:bg-sky-500/15"
-            >
-              <ArrowTopRightOnSquareIcon class="h-4 w-4" aria-hidden="true" />
-              获取 session JSON
-            </a>
+            <div class="session-action-stack">
+              <p class="session-login-hint">先在同一浏览器登录 ChatGPT 账号，再获取 session JSON。</p>
+              <div class="session-action-row">
+                <a
+                  href="https://chatgpt.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="session-link-button secondary"
+                >
+                  <ArrowTopRightOnSquareIcon class="h-4 w-4" aria-hidden="true" />
+                  先登录 ChatGPT
+                </a>
+                <a
+                  href="https://chatgpt.com/api/auth/session"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="session-link-button primary"
+                >
+                  <ArrowTopRightOnSquareIcon class="h-4 w-4" aria-hidden="true" />
+                  获取 session JSON
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="p-5">
@@ -1460,6 +1474,75 @@ useHead({
   padding: 0.9rem 1rem;
 }
 
+.session-action-stack {
+  display: flex;
+  flex: 1 1 18rem;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: min(100%, 24rem);
+  max-width: 24rem;
+}
+
+.session-login-hint {
+  border: 1px solid color-mix(in oklab, var(--ui-warning) 30%, var(--ui-border));
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--ui-warning-soft) 72%, transparent), transparent),
+    color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
+  padding: 0.55rem 0.75rem;
+  color: var(--ui-text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.session-action-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.session-link-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: 0.875rem;
+  padding: 0.65rem 0.9rem;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 900;
+  line-height: 1.25;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.session-link-button svg {
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+.session-link-button:hover {
+  box-shadow: 0 12px 30px color-mix(in oklab, var(--ui-accent) 13%, transparent);
+  transform: translateY(-1px);
+}
+
+.session-link-button:hover svg {
+  transform: translateX(1px) scale(1.04);
+}
+
+.session-link-button.primary {
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 50%, var(--ui-border));
+  background: color-mix(in oklab, var(--ui-accent-soft) 70%, var(--ui-bg-elevated));
+  color: var(--ui-accent);
+}
+
+.session-link-button.secondary {
+  border: 1px solid color-mix(in oklab, var(--ui-success) 36%, var(--ui-border));
+  background: color-mix(in oklab, var(--ui-success-soft) 72%, var(--ui-bg-elevated));
+  color: var(--ui-success);
+}
+
 .placement-panel {
   position: relative;
   isolation: isolate;
@@ -1878,6 +1961,7 @@ useHead({
   .metric-tile:hover,
   .flow-step:hover,
   .boundary-note:hover,
+  .session-link-button:hover,
   .placement-card:hover,
   .placement-copy-button:hover {
     box-shadow: none;
@@ -1886,6 +1970,12 @@ useHead({
 
   .signal-row:hover {
     transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .session-action-row {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1988,6 +2078,19 @@ useHead({
   .boundary-note {
     font-size: 0.82rem;
     line-height: 1.68;
+  }
+
+  .session-action-stack {
+    width: 100%;
+    max-width: none;
+  }
+
+  .session-action-row {
+    grid-template-columns: 1fr;
+  }
+
+  .session-link-button {
+    width: 100%;
   }
 
   .placement-head {
