@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`f9209bd Refine product detail conversion badges`**
+- **最新代码 commit：`22622fd Use 5x4 product card images`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `f9209bd` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `22622fd` 已上线；交接文档已同步）
 
 ---
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- 首页精选与商品中心主图改为 5:4（2026-06-04，commit `22622fd`）：`ProductCard.vue` 商品卡主图从 `aspect-square` 改为 `aspect-[5/4]`，覆盖首页精选商品和 `/products` 商品中心网格；`Products.vue` 加载骨架同步改为 `aspect-[5/4]`；紧凑列表 `ProductListItem.vue` 小缩略图未动，避免列表行被撑高。生产备份 `/opt/dujiao-next/web/user.pre-products-home-5x4-20260604-160715`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地临时 dev server + 生产只读 API 视觉验收、生产路由 smoke、生产静态扫描、Playwright 生产量测截图。
 - 商品详情页支付方式同行 + 真实销量门槛展示（2026-06-04，commit `f9209bd`）：`ProductDetail.vue` 将“支持支付：支付宝 / 微信”移动到价格同行并与价格底部对齐；`ProductCard.vue` 已售徽章只在真实销量 `>= 10` 显示；详情顶部只读真实 `manual_stock_sold + auto_stock_sold`，`50-99` 显示 `已售 xx`，`>=100` 显示 `近期热卖`，低于 50 不显示；`api/types.ts` 补充 `manual_stock_sold?` / `auto_stock_sold?` 类型字段。生产备份 `/opt/dujiao-next/web/user.pre-sales-badge-payment-inline-20260604-152047`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、生产 chunk 扫描、Playwright 生产商品页截图。
 - 商品详情页主图改为 5:4（2026-06-04，commit `8f2423b`）：`ProductImageGallery.vue` 主图和空占位从 `aspect-square` 改为 `aspect-[5/4]`；商品列表卡片和缩略图仍保持 `1:1`。生产备份 `/opt/dujiao-next/web/user.pre-product-image-5x4-20260604-144807`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、生产 chunk 扫描、Chrome 生产商品页截图。
 - 商品详情页首屏压缩与余额提现文案下线（2026-06-04，commit `a39439a`）：商品图区域改 `self-start h-fit` 减少左侧空白；首屏移除不可点击分类/标签与简单描述，SEO meta/JSON-LD 仍用商品描述兜底；信任带移除“余额可提现”，推广返佣提现功能未动。生产备份 `/opt/dujiao-next/web/user.pre-product-detail-hero-20260604-140554`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、生产静态 chunk 扫描、Chrome 生产商品页截图。
