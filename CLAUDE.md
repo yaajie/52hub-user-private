@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`fa80422 52hub: launch frontend visual refresh and Codex Auth tool`**
-- private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
-- working tree：clean（代码 commit `fa80422` 已上线；交接文档已同步）
+- **最新代码 commit：`9a36fdb Improve SKU visibility and delivery instructions`**
+- private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
+- working tree：clean（代码 commit `9a36fdb` 已上线；交接文档已同步）
 
 ---
 
@@ -67,6 +67,13 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 前台隐藏售罄 SKU + 订单交付说明展示（2026-06-04，commit `9a36fdb`）：
+  - 商品详情页与快速购买弹窗只展示 `visibleSkus`（active + 可购买），隐藏库存 0 的已启用 SKU，修 `chatgpt-plus` 中“只保到账”显示为已售罄的问题
+  - 订单详情/游客订单详情展示商品级固定交付说明，用于在卡密外补充充值入口、注意事项等说明
+  - 生产备份：`/opt/dujiao-next/web/user.pre-sku-instructions-20260604-130847`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、生产路由 smoke、浏览器商品页 DOM、console error 0
 
 - 前台视觉与 Codex Auth 上线（2026-06-04，commit `fa80422`）：
   - 首页浅色模式重做、`/tools` 信息架构收口、`/tools/codex-auth` 本地生成器上线、浅/深色右侧黑块收口、移动端隐藏纯视觉屏、购物车入口隐藏、动态富文本白名单净化、sitemap 扩到 `<loc>`=37、P2 chunk 拆分和图片解码属性落地

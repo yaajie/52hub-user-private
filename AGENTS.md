@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`fa80422 52hub: launch frontend visual refresh and Codex Auth tool`**
-- private remote：`https://github.com/yaajie/52hub-user-private`（已同步）
-- working tree：clean（代码 commit `fa80422` 已上线；交接文档已同步）
+- **最新代码 commit：`9a36fdb Improve SKU visibility and delivery instructions`**
+- private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
+- working tree：clean（代码 commit `9a36fdb` 已上线；交接文档已同步）
 
 ---
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- 前台隐藏售罄 SKU + 订单交付说明展示（2026-06-04，commit `9a36fdb`）：商品详情页与快速购买弹窗只展示 `visibleSkus`（active + 可购买），隐藏库存 0 的已启用 SKU，修 `chatgpt-plus` 中“只保到账”显示为已售罄的问题；订单详情/游客订单详情展示商品级固定交付说明。生产备份 `/opt/dujiao-next/web/user.pre-sku-instructions-20260604-130847`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产路由 smoke、浏览器商品页 DOM、console error 0。
 - 前台视觉与 Codex Auth 上线（2026-06-04，commit `fa80422`）：首页浅色模式重做、`/tools` 信息架构收口、`/tools/codex-auth` 本地生成器上线、浅/深色右侧黑块收口、移动端隐藏纯视觉屏、购物车入口隐藏、动态富文本白名单净化、sitemap 扩到 `<loc>`=37、P2 chunk 拆分和图片解码属性落地。生产备份 `/opt/dujiao-next/web/user.pre-frontend-visual-tools-20260604-052825`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、生产 API/page smoke、Chrome 桌面/移动渲染 smoke 全通过，console error 0、购物车文字/链接 0、无横向溢出。
 - Hub OG SVG → PNG + 扩长 og:title/description（2026-05-19，commit `13be4e6`）：用 macOS headless Chrome 把 4 张 SVG 渲染为 1200×630 PNG（每张 270-400KB），4 hub `og-image` prop 从 `.svg` 改 `.png`；同时把 og:title / description 从 24 / 45 字符扩到 50-60 / 110-160 推荐长度（抽出 pageTitle / pageDesc const）。修 opengraph.xyz 检测出的 OG 图渲染为黑色 + 文案过短问题。备份 `user.pre-og-png-20260519-203425`。
 - Hub Batch 4（2026-05-19，commit `4362517`）：SEO Schema + 4 张 OG 占位图。新增 `public/og/*-hub.svg` 4 张 1200×630 品牌色 SVG；HubLayout 注入 BreadcrumbList + ItemList Schema（自动过滤非 `/products/` 链接）+ og:image + twitter:card。Chrome 实测 4 hub 各 5 个 JSON-LD（Org + WebSite + Breadcrumb + ItemList + FAQ），Gemini ItemList 自动过滤 categories 剩 1 item。占位 SVG 后续可用 Figma 出正式 PNG 替换。备份 `user.pre-hubrevamp-batch4-20260519-182940`。
