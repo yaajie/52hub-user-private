@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`22622fd Use 5x4 product card images`**
+- **最新代码 commit：`3ba3403 Refine Codex Auth placement layout`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `22622fd` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `3ba3403` 已上线；交接文档已同步）
 
 ---
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Codex Auth 路径说明图标化 + 布局收口（2026-06-04，commit `3ba3403`）：
+  - `/tools/codex-auth` 将“放置路径”改为独立整宽面板，桌面 macOS / Windows 双列、移动端单列
+  - macOS/Windows 加系统识别图标；Windows 可见路径改为 `C:\Users\你的用户名\.codex\auth.json`，并说明 `%USERPROFILE% = C:\Users\你的用户名`
+  - “粘贴 ChatGPT session JSON”和“账号识别”桌面同排对齐，减少左侧空白和右侧拥挤
+  - 生产备份：`/opt/dujiao-next/web/user.pre-codex-auth-layout-icons-20260604-185350`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0
 
 - Codex Auth 放置路径重构 + ChatGPT 登录提示（2026-06-04，commits `32a805f` + `1ee8aef`）：
   - `CodexAuth.vue` 将“放置路径”前置为操作面板，macOS / Windows 都展示目标路径、打开目录命令、复制下载文件命令和复制按钮
