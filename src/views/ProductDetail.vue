@@ -104,6 +104,13 @@
                   >
                     {{ getStockStatusLabel(product) }}
                   </span>
+
+                  <span
+                    v-if="detailSalesBadgeText"
+                    class="theme-badge theme-badge-neutral"
+                  >
+                    {{ detailSalesBadgeText }}
+                  </span>
                 </div>
 
                 <div class="mb-5 border-b theme-border pb-5" ref="priceSection">
@@ -116,98 +123,102 @@
                       {{ t('products.memberPriceTag') }}
                     </span>
                   </div>
-                  <!-- 选中 SKU 且有促销价 -->
-                  <div v-if="selectedSku && hasSkuPromotionPrice(selectedSku)" class="space-y-2">
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                      <span v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="theme-price-lg text-amber-600 dark:text-amber-300">
-                        {{ formatPrice(selectedSkuMemberPrice!, siteCurrency) }}
-                      </span>
-                      <span v-else class="theme-price-lg text-rose-600 dark:text-rose-300">
-                        {{ formatPrice(getSkuPromotionPriceAmount(selectedSku), siteCurrency) }}
-                      </span>
-                      <span class="theme-price-original">
-                        {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
-                      </span>
-                      <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                        <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        人工发货 · 联系客服
-                      </span>
+                  <div class="flex flex-wrap items-end gap-x-5 gap-y-2">
+                    <div class="min-w-0">
+                      <!-- 选中 SKU 且有促销价 -->
+                      <div v-if="selectedSku && hasSkuPromotionPrice(selectedSku)" class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                          <span v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="theme-price-lg text-amber-600 dark:text-amber-300">
+                            {{ formatPrice(selectedSkuMemberPrice!, siteCurrency) }}
+                          </span>
+                          <span v-else class="theme-price-lg text-rose-600 dark:text-rose-300">
+                            {{ formatPrice(getSkuPromotionPriceAmount(selectedSku), siteCurrency) }}
+                          </span>
+                          <span class="theme-price-original">
+                            {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
+                          </span>
+                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
+                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            人工发货 · 联系客服
+                          </span>
+                        </div>
+                        <p v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="text-sm font-medium text-amber-600 dark:text-amber-300">
+                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
+                        </p>
+                        <p v-else class="text-sm font-medium text-rose-500 dark:text-rose-300">
+                          {{ t('products.saveAmount') }} {{ formatPrice(getSkuPromotionSaveAmount(selectedSku), siteCurrency) }}
+                        </p>
+                      </div>
+                      <!-- 选中 SKU 有会员价但无促销价 -->
+                      <div v-else-if="selectedSku && hasMemberPrice" class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                          <span class="theme-price-lg text-amber-600 dark:text-amber-300">
+                            {{ formatPrice(selectedSkuMemberPrice!, siteCurrency) }}
+                          </span>
+                          <span class="theme-price-original">
+                            {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
+                          </span>
+                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
+                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            人工发货 · 联系客服
+                          </span>
+                        </div>
+                        <p class="text-sm font-medium text-amber-600 dark:text-amber-300">
+                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
+                        </p>
+                      </div>
+                      <!-- 选中 SKU 但无促销价也无会员价 -->
+                      <div v-else-if="selectedSku" class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                        <span class="theme-price-lg theme-text-accent">
+                          {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
+                        </span>
+                        <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
+                          <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          人工发货 · 联系客服
+                        </span>
+                      </div>
+                      <!-- 未选 SKU，产品级有促销价 -->
+                      <div v-else-if="hasPromotionPrice(product)" class="space-y-2">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                          <span class="theme-price-lg text-rose-600 dark:text-rose-300">
+                            {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
+                          </span>
+                          <span class="theme-price-original">
+                            {{ formatPrice(product.price_amount, siteCurrency) }}
+                          </span>
+                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
+                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            人工发货 · 联系客服
+                          </span>
+                        </div>
+                        <p class="text-sm font-medium text-rose-500 dark:text-rose-300">
+                          {{ t('products.saveAmount') }} {{ formatPrice(getPromotionSaveAmount(product), siteCurrency) }}
+                        </p>
+                      </div>
+                      <!-- 未选 SKU，无促销 -->
+                      <div v-else class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                        <span class="theme-price-lg theme-text-accent">
+                          {{ formatPrice(product.price_amount, siteCurrency) }}
+                        </span>
+                        <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
+                          <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          人工发货 · 联系客服
+                        </span>
+                      </div>
                     </div>
-                    <p v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="text-sm font-medium text-amber-600 dark:text-amber-300">
-                      {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
-                    </p>
-                    <p v-else class="text-sm font-medium text-rose-500 dark:text-rose-300">
-                      {{ t('products.saveAmount') }} {{ formatPrice(getSkuPromotionSaveAmount(selectedSku), siteCurrency) }}
-                    </p>
-                  </div>
-                  <!-- 选中 SKU 有会员价但无促销价 -->
-                  <div v-else-if="selectedSku && hasMemberPrice" class="space-y-2">
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                      <span class="theme-price-lg text-amber-600 dark:text-amber-300">
-                        {{ formatPrice(selectedSkuMemberPrice!, siteCurrency) }}
-                      </span>
-                      <span class="theme-price-original">
-                        {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
-                      </span>
-                      <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                        <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        人工发货 · 联系客服
-                      </span>
-                    </div>
-                    <p class="text-sm font-medium text-amber-600 dark:text-amber-300">
-                      {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
-                    </p>
-                  </div>
-                  <!-- 选中 SKU 但无促销价也无会员价 -->
-                  <div v-else-if="selectedSku" class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span class="theme-price-lg theme-text-accent">
-                      {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
-                    </span>
-                    <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                      <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      人工发货 · 联系客服
-                    </span>
-                  </div>
-                  <!-- 未选 SKU，产品级有促销价 -->
-                  <div v-else-if="hasPromotionPrice(product)" class="space-y-2">
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                      <span class="theme-price-lg text-rose-600 dark:text-rose-300">
-                        {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
-                      </span>
-                      <span class="theme-price-original">
-                        {{ formatPrice(product.price_amount, siteCurrency) }}
-                      </span>
-                      <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                        <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        人工发货 · 联系客服
-                      </span>
-                    </div>
-                    <p class="text-sm font-medium text-rose-500 dark:text-rose-300">
-                      {{ t('products.saveAmount') }} {{ formatPrice(getPromotionSaveAmount(product), siteCurrency) }}
-                    </p>
-                  </div>
-                  <!-- 未选 SKU，无促销 -->
-                  <div v-else class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span class="theme-price-lg theme-text-accent">
-                      {{ formatPrice(product.price_amount, siteCurrency) }}
-                    </span>
-                    <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                      <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      人工发货 · 联系客服
-                    </span>
-                  </div>
-                </div>
 
-                <div v-if="visiblePaymentChannels.length" class="mb-4 flex flex-wrap items-center gap-2 text-sm theme-text-secondary">
-                  <span class="theme-text-muted">支持支付：</span>
-                  <span
-                    v-for="ch in visiblePaymentChannels"
-                    :key="ch.id"
-                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg theme-surface-soft"
-                  >
-                    <img v-if="ch.icon" :src="getImageUrl(ch.icon)" :alt="ch.name" class="w-4 h-4 object-contain" loading="lazy" decoding="async" />
-                    <span>{{ ch.name }}</span>
-                  </span>
+                    <div v-if="visiblePaymentChannels.length" class="mb-1 flex flex-wrap items-center gap-2 text-sm theme-text-secondary">
+                      <span class="theme-text-muted">支持支付：</span>
+                      <span
+                        v-for="ch in visiblePaymentChannels"
+                        :key="ch.id"
+                        class="inline-flex items-center gap-1.5 rounded-lg theme-surface-soft px-2 py-0.5"
+                      >
+                        <img v-if="ch.icon" :src="getImageUrl(ch.icon)" :alt="ch.name" class="h-4 w-4 object-contain" loading="lazy" decoding="async" />
+                        <span>{{ ch.name }}</span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm theme-text-secondary">
@@ -637,6 +648,18 @@ const visiblePaymentChannels = computed<PaymentChannel[]>(() => {
   const allowedSet = new Set(allowed.map((id: unknown) => Number(id)))
   return all.filter((channel) => allowedSet.has(Number(channel?.id)))
 })
+
+const soldCount = computed(() => {
+  if (!product.value) return 0
+  return normalizeStockNumber(product.value.manual_stock_sold) + normalizeStockNumber(product.value.auto_stock_sold)
+})
+
+const detailSalesBadgeText = computed(() => {
+  if (soldCount.value >= 100) return '近期热卖'
+  if (soldCount.value >= 50) return `已售 ${soldCount.value}`
+  return ''
+})
+
 const cannotPurchaseReason = computed(() => {
   if (!product.value) return ''
   if (requiresLogin.value) return ''

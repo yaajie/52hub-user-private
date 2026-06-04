@@ -154,7 +154,7 @@
           {{ stockBadgeText }}
         </span>
         <span
-          v-if="soldCount > 0"
+          v-if="soldCount >= 10"
           class="inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft theme-text-muted"
         >
           ★ 已售 {{ soldCount }}

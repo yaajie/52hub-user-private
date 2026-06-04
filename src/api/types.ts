@@ -286,7 +286,9 @@ export interface Product {
     fulfillment_type: FulfillmentType | string
     manual_form_schema?: Record<string, unknown>
     manual_stock_available: number
+    manual_stock_sold?: number
     auto_stock_available: number
+    auto_stock_sold?: number
     stock_status: StockStatus | string
     is_sold_out: boolean
     /** P1-M 新增：首页精选排序权重（0 不上首页，1+ 越大越靠前） */
