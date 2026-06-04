@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`a39439a Improve product detail hero layout`**
+- **最新代码 commit：`8f2423b Adjust product detail image ratio`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `a39439a` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `8f2423b` 已上线；交接文档已同步）
 
 ---
 
@@ -67,6 +67,14 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 商品详情页主图改为 5:4（2026-06-04，commit `8f2423b`）：
+  - `ProductImageGallery.vue` 主图和空占位从 `aspect-square` 改为 `aspect-[5/4]`
+  - 商品列表卡片和缩略图仍保持 `1:1`
+  - 当前仍使用 `object-cover`，方图会轻微上下裁切；本轮先看实际视觉效果
+  - 生产备份：`/opt/dujiao-next/web/user.pre-product-image-5x4-20260604-144807`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、生产路由 smoke、生产 chunk 扫描、Chrome 生产商品页截图
 
 - 商品详情页首屏压缩与余额提现文案下线（2026-06-04，commit `a39439a`）：
   - 商品图区域改 `self-start h-fit`，减少左侧商品图下方空白
