@@ -191,6 +191,76 @@
         </section>
 
         <aside class="space-y-5">
+          <section class="placement-panel interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
+            <div class="placement-head border-b theme-border px-5 py-4">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <span class="placement-kicker">保存到 Codex 配置目录</span>
+                  <h2 class="mt-1 text-xl font-bold theme-text-primary">放置路径</h2>
+                  <p class="mt-1 text-sm theme-text-muted">
+                    下载后文件名必须保持 <strong class="theme-text-primary">auth.json</strong>，放到对应系统目录后 Codex 才能读取。
+                  </p>
+                </div>
+                <span class="placement-file-badge font-mono">auth.json</span>
+              </div>
+            </div>
+
+            <div class="space-y-4 p-5">
+              <div class="placement-note">
+                <strong>隐藏目录提示：</strong>
+                macOS 的 <code>.codex</code> 默认不在 Finder 里显示；Windows 可把路径粘贴到资源管理器地址栏，或直接复制下面命令打开目录。
+              </div>
+
+              <div class="placement-guide-grid">
+                <article v-for="guide in placementGuides" :key="guide.key" class="placement-card">
+                  <div class="placement-card-head">
+                    <div>
+                      <span class="placement-os">{{ guide.os }}</span>
+                      <h3>{{ guide.title }}</h3>
+                    </div>
+                    <span class="placement-step">{{ guide.step }}</span>
+                  </div>
+
+                  <div class="placement-path-box">
+                    <span>{{ guide.pathLabel }}</span>
+                    <code>{{ guide.path }}</code>
+                  </div>
+                  <div v-if="guide.secondaryPath" class="placement-path-box secondary">
+                    <span>{{ guide.secondaryPathLabel }}</span>
+                    <code>{{ guide.secondaryPath }}</code>
+                  </div>
+
+                  <p class="placement-help">{{ guide.help }}</p>
+
+                  <div class="placement-command-list">
+                    <div v-for="command in guide.commands" :key="command.label" class="placement-command">
+                      <div class="placement-command-meta">
+                        <span>{{ command.label }}</span>
+                        <button
+                          type="button"
+                          class="placement-copy-button"
+                          @click="copyPlacementCommand(command.value, `${guide.os} ${command.label}`)"
+                        >
+                          <ClipboardDocumentIcon class="h-4 w-4" aria-hidden="true" />
+                          复制
+                        </button>
+                      </div>
+                      <code>{{ command.value }}</code>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <p
+                v-if="placementCopyStatus"
+                :class="['placement-copy-status', placementCopyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']"
+                aria-live="polite"
+              >
+                {{ placementCopyStatus }}
+              </p>
+            </div>
+          </section>
+
           <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
             <div class="flex items-center justify-between border-b theme-border px-5 py-4">
               <div>
@@ -220,23 +290,6 @@
               </div>
             </div>
           </section>
-
-        <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
-            <div class="border-b theme-border px-5 py-4">
-              <h2 class="text-xl font-bold theme-text-primary">放置路径</h2>
-              <p class="mt-1 text-sm theme-text-muted">下载后文件名保持 auth.json。</p>
-            </div>
-            <div class="space-y-3 p-5 font-mono text-sm">
-              <div class="path-row">
-                <span>macOS</span>
-                <code>~/.codex/auth.json</code>
-              </div>
-              <div class="path-row">
-                <span>Windows</span>
-                <code>%USERPROFILE%\\.codex\\auth.json</code>
-              </div>
-            </div>
-          </section>
         </aside>
       </div>
 
@@ -259,8 +312,8 @@
         </div>
 
         <div v-if="currentAuthJson" class="command-strip mx-5 mt-5">
-          <span>推荐放置</span>
-          <code>mkdir -p ~/.codex && mv auth.json ~/.codex/auth.json</code>
+          <span>下一步</span>
+          <code>下载 auth.json 后，按上方“放置路径”复制对应系统命令，把文件放到 Codex 配置目录。</code>
         </div>
         <pre class="json-output whitespace-pre-wrap break-all px-5 py-5 font-mono text-xs leading-6 theme-text-primary">{{ authOutput }}</pre>
         <p v-if="copyStatus" :class="['border-t theme-border px-5 py-3 text-sm', copyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']">
@@ -307,6 +360,8 @@ const parseMessage = ref('粘贴 session JSON 后会自动生成 auth.json。')
 const statusType = ref<'idle' | 'ok' | 'warn' | 'error'>('idle')
 const copyStatus = ref('')
 const copyStatusType = ref<'ok' | 'error'>('ok')
+const placementCopyStatus = ref('')
+const placementCopyStatusType = ref<'ok' | 'error'>('ok')
 const parseTimer = ref<number | null>(null)
 const { theme } = useTheme()
 
@@ -323,6 +378,55 @@ const heroPointerStyle = computed(() => ({
   '--hero-pointer-y': `${heroPointerY.value}%`,
   '--hero-pointer-alpha': heroPointerActive.value ? '1' : '0.58',
 }))
+
+const placementGuides = [
+  {
+    key: 'macos',
+    os: 'macOS',
+    step: '01',
+    title: 'Finder / Terminal',
+    pathLabel: '最终文件路径',
+    path: '~/.codex/auth.json',
+    secondaryPathLabel: '',
+    secondaryPath: '',
+    help: '如果没有 .codex 文件夹，下面命令会自动创建，并在 Finder 里直接打开该隐藏目录。',
+    commands: [
+      {
+        label: '打开目录',
+        value: 'mkdir -p ~/.codex && open ~/.codex',
+      },
+      {
+        label: '复制下载文件',
+        value: 'mkdir -p ~/.codex && cp ~/Downloads/auth.json ~/.codex/auth.json',
+      },
+    ],
+  },
+  {
+    key: 'windows',
+    os: 'Windows',
+    step: '02',
+    title: 'PowerShell / Explorer',
+    pathLabel: '资源管理器路径',
+    path: '%USERPROFILE%\\.codex\\auth.json',
+    secondaryPathLabel: 'PowerShell 写法',
+    secondaryPath: '$env:USERPROFILE\\.codex\\auth.json',
+    help: '推荐用 PowerShell 命令打开目录；如果 auth.json 在下载目录，可直接运行复制命令放到 Codex 配置目录。',
+    commands: [
+      {
+        label: '打开目录',
+        value: 'New-Item -ItemType Directory -Force "$env:USERPROFILE\\.codex" | Out-Null; explorer "$env:USERPROFILE\\.codex"',
+      },
+      {
+        label: '复制下载文件',
+        value: 'New-Item -ItemType Directory -Force "$env:USERPROFILE\\.codex" | Out-Null; Copy-Item -Force "$env:USERPROFILE\\Downloads\\auth.json" "$env:USERPROFILE\\.codex\\auth.json"',
+      },
+      {
+        label: 'CMD 打开目录',
+        value: 'mkdir "%USERPROFILE%\\.codex" 2>nul & explorer "%USERPROFILE%\\.codex"',
+      },
+    ],
+  },
+] as const
 
 const credentialSignals = computed(() => {
   const rawReady = rawLength.value > 0
@@ -697,6 +801,17 @@ function loadSampleSession() {
 function clearInput() {
   sessionRaw.value = ''
   resetState()
+}
+
+async function copyPlacementCommand(command: string, label: string) {
+  try {
+    await navigator.clipboard.writeText(command)
+    placementCopyStatus.value = `已复制 ${label} 命令。`
+    placementCopyStatusType.value = 'ok'
+  } catch {
+    placementCopyStatus.value = '复制失败，请手动选中命令复制。'
+    placementCopyStatusType.value = 'error'
+  }
 }
 
 async function copyAuthJson() {
@@ -1248,8 +1363,7 @@ useHead({
 }
 
 .metric-tile,
-.summary-cell,
-.path-row {
+.summary-cell {
   border: 1px solid var(--ui-border);
   background: color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
   border-radius: 0.875rem;
@@ -1346,20 +1460,231 @@ useHead({
   padding: 0.9rem 1rem;
 }
 
-.path-row {
+.placement-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.placement-panel::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--ui-accent) 13%, transparent), transparent 42%),
+    linear-gradient(180deg, transparent, color-mix(in oklab, var(--ui-accent-soft) 34%, transparent));
+}
+
+.placement-head {
+  background:
+    linear-gradient(90deg, color-mix(in oklab, var(--ui-accent-soft) 64%, transparent), transparent 76%),
+    color-mix(in oklab, var(--ui-bg-elevated) 82%, transparent);
+}
+
+.placement-kicker {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 32%, var(--ui-border));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ui-accent-soft) 58%, var(--ui-bg-soft));
+  padding: 0.18rem 0.55rem;
+  color: var(--ui-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.placement-file-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  border: 1px solid color-mix(in oklab, var(--ui-success) 36%, var(--ui-border));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ui-success-soft) 72%, var(--ui-bg-elevated));
+  padding: 0.35rem 0.7rem;
+  color: var(--ui-success);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.placement-note {
+  border: 1px solid color-mix(in oklab, var(--ui-warning) 34%, var(--ui-border));
+  border-radius: 0.875rem;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--ui-warning-soft) 72%, transparent), transparent),
+    color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
+  padding: 0.85rem 0.95rem;
+  color: var(--ui-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.placement-note strong {
+  color: var(--ui-text-primary);
+}
+
+.placement-note code {
+  border-radius: 0.35rem;
+  background: color-mix(in oklab, var(--ui-warning-soft) 78%, var(--ui-bg-elevated));
+  padding: 0.05rem 0.28rem;
+  color: var(--ui-warning);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+}
+
+.placement-guide-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.placement-card {
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 20%, var(--ui-border));
+  border-radius: 1rem;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--ui-bg-elevated) 90%, transparent), color-mix(in oklab, var(--ui-bg-soft) 72%, transparent));
+  padding: 0.95rem;
+  box-shadow: 0 18px 48px color-mix(in oklab, var(--ui-accent) 8%, transparent);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.placement-card:hover {
+  border-color: color-mix(in oklab, var(--ui-accent) 42%, var(--ui-border));
+  box-shadow: 0 22px 60px color-mix(in oklab, var(--ui-accent) 13%, transparent);
+  transform: translateY(-1px);
+}
+
+.placement-card-head {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.placement-os {
+  color: var(--ui-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.placement-card h3 {
+  margin-top: 0.15rem;
+  color: var(--ui-text-primary);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.placement-step {
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 30%, var(--ui-border));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ui-accent-soft) 52%, var(--ui-bg-elevated));
+  padding: 0.2rem 0.48rem;
+  color: var(--ui-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.placement-path-box {
+  display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 0.35rem;
-  padding: 0.9rem 1rem;
+  margin-top: 0.85rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 0.875rem;
+  background: color-mix(in oklab, var(--ui-bg-soft) 86%, transparent);
+  padding: 0.8rem 0.9rem;
 }
 
-.path-row span {
+.placement-path-box.secondary {
+  margin-top: 0.55rem;
+  background: color-mix(in oklab, var(--ui-bg-soft) 68%, transparent);
+}
+
+.placement-path-box span {
   color: var(--ui-text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
-.path-row code {
+.placement-path-box code,
+.placement-command code {
   color: var(--ui-text-primary);
-  word-break: break-all;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  overflow-wrap: anywhere;
+}
+
+.placement-help {
+  margin-top: 0.75rem;
+  color: var(--ui-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.placement-command-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.placement-command {
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 18%, var(--ui-border));
+  border-radius: 0.875rem;
+  background:
+    linear-gradient(90deg, color-mix(in oklab, var(--ui-accent-soft) 32%, transparent), transparent),
+    color-mix(in oklab, var(--ui-bg-elevated) 84%, transparent);
+  padding: 0.75rem;
+}
+
+.placement-command-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.placement-command-meta span {
+  color: var(--ui-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.placement-copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 34%, var(--ui-border));
+  border-radius: 0.65rem;
+  background: color-mix(in oklab, var(--ui-accent-soft) 58%, var(--ui-bg-elevated));
+  padding: 0.35rem 0.6rem;
+  color: var(--ui-accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.placement-copy-button:hover {
+  border-color: color-mix(in oklab, var(--ui-accent) 58%, var(--ui-border));
+  background: color-mix(in oklab, var(--ui-accent-soft) 84%, var(--ui-bg-elevated));
+  transform: translateY(-1px);
+}
+
+.placement-copy-status {
+  border-radius: 0.75rem;
+  background: color-mix(in oklab, var(--ui-bg-soft) 72%, transparent);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .action-button {
@@ -1552,7 +1877,9 @@ useHead({
   .interactive-panel:hover,
   .metric-tile:hover,
   .flow-step:hover,
-  .boundary-note:hover {
+  .boundary-note:hover,
+  .placement-card:hover,
+  .placement-copy-button:hover {
     box-shadow: none;
     transform: none;
   }
@@ -1661,6 +1988,46 @@ useHead({
   .boundary-note {
     font-size: 0.82rem;
     line-height: 1.68;
+  }
+
+  .placement-head {
+    padding: 1rem;
+  }
+
+  .placement-file-badge {
+    align-self: stretch;
+  }
+
+  .placement-note,
+  .placement-card {
+    padding: 0.8rem;
+  }
+
+  .placement-card-head {
+    gap: 0.7rem;
+  }
+
+  .placement-path-box {
+    padding: 0.7rem;
+  }
+
+  .placement-command {
+    padding: 0.7rem;
+  }
+
+  .placement-command-meta {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .placement-copy-button {
+    width: 100%;
+  }
+
+  .placement-command code {
+    font-size: 0.72rem;
+    line-height: 1.58;
   }
 }
 </style>
