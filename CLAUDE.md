@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`3ba3403 Refine Codex Auth placement layout`**
+- **最新代码 commit：`4aa7ba7 Polish Codex Auth tool layout`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `3ba3403` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `4aa7ba7` 已上线；交接文档已同步）
 
 ---
 
@@ -67,6 +67,16 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- Codex Auth 工具页大屏化与路径复制体验（2026-06-04，commit `4aa7ba7`）：
+  - `/tools/codex-auth` 将“生成结果”移动到“放置路径”上方，生成、复制、下载和放置路径按真实使用顺序组织
+  - “粘贴 ChatGPT session JSON”和“账号识别”桌面同高同顶对齐，账号识别徽章从 `parse.report` 改为“本地识别”
+  - 全页提高标题、说明、路径和命令字号，扩大输入区、结果区和路径说明区间距，减少测试页感
+  - macOS/Windows 放置路径卡片改为大号 SVG 系统图标 + 单行系统/工具标题，桌面双列等高，移动端单列
+  - `~/.codex/auth.json` 和 `C:\Users\你的用户名\.codex\auth.json` 增加一键复制路径按钮；macOS 增加 `ls -la ~/.codex/auth.json` 检查文件命令
+  - 生产备份：`/opt/dujiao-next/web/user.pre-codex-auth-premium-layout-20260604-193001`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0 / warning 0
 
 - Codex Auth 路径说明图标化 + 布局收口（2026-06-04，commit `3ba3403`）：
   - `/tools/codex-auth` 将“放置路径”改为独立整宽面板，桌面 macOS / Windows 双列、移动端单列

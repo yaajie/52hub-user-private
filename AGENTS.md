@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`3ba3403 Refine Codex Auth placement layout`**
+- **最新代码 commit：`4aa7ba7 Polish Codex Auth tool layout`**
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `3ba3403` 已上线；交接文档已同步）
+- working tree：clean（代码 commit `4aa7ba7` 已上线；交接文档已同步）
 
 ---
 
@@ -68,6 +68,7 @@ npm run build
 
 ## 最近任务记录
 
+- Codex Auth 工具页大屏化与路径复制体验（2026-06-04，commit `4aa7ba7`）：`/tools/codex-auth` 将“生成结果”移动到“放置路径”上方；“粘贴 ChatGPT session JSON”和“账号识别”桌面同高同顶对齐；全页提高标题、说明、路径和命令字号；macOS/Windows 放置路径卡片改为大号 SVG 系统图标 + 单行标题，桌面双列等高、移动端单列；`~/.codex/auth.json` 和 `C:\Users\你的用户名\.codex\auth.json` 增加一键复制路径按钮；macOS 增加 `ls -la ~/.codex/auth.json` 检查文件命令。生产备份 `/opt/dujiao-next/web/user.pre-codex-auth-premium-layout-20260604-193001`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0 / warning 0。
 - Codex Auth 路径说明图标化 + 布局收口（2026-06-04，commit `3ba3403`）：`/tools/codex-auth` 将“放置路径”改为独立整宽面板，桌面 macOS / Windows 双列、移动端单列；macOS/Windows 加系统识别图标；Windows 可见路径改为 `C:\Users\你的用户名\.codex\auth.json`，并说明 `%USERPROFILE% = C:\Users\你的用户名`；“粘贴 ChatGPT session JSON”和“账号识别”桌面同排对齐，减少左侧空白和右侧拥挤。生产备份 `/opt/dujiao-next/web/user.pre-codex-auth-layout-icons-20260604-185350`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0。
 - Codex Auth 放置路径重构 + ChatGPT 登录提示（2026-06-04，commits `32a805f` + `1ee8aef`）：`CodexAuth.vue` 将“放置路径”前置为操作面板，macOS / Windows 都展示目标路径、打开目录命令、复制下载文件命令和复制按钮；Windows 可见路径修正为 `%USERPROFILE%\.codex\auth.json`；在“获取 session JSON”旁边新增提示和 `先登录 ChatGPT` 按钮，直达 `https://chatgpt.com/`。生产备份 `/opt/dujiao-next/web/user.pre-codex-auth-placement-login-20260604-181702`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地浅/深色和移动端 Playwright 截图、生产路由 smoke、生产静态扫描、生产 Playwright 截图，console error 0。
 - 首页精选与商品中心主图改为 5:4（2026-06-04，commit `22622fd`）：`ProductCard.vue` 商品卡主图从 `aspect-square` 改为 `aspect-[5/4]`，覆盖首页精选商品和 `/products` 商品中心网格；`Products.vue` 加载骨架同步改为 `aspect-[5/4]`；紧凑列表 `ProductListItem.vue` 小缩略图未动，避免列表行被撑高。生产备份 `/opt/dujiao-next/web/user.pre-products-home-5x4-20260604-160715`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地临时 dev server + 生产只读 API 视觉验收、生产路由 smoke、生产静态扫描、Playwright 生产量测截图。
