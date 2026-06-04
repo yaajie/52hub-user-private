@@ -183,13 +183,13 @@
             </div>
 
             <!-- SKU Selection -->
-            <div v-if="activeSkus.length > 1" class="mb-4">
+            <div v-if="visibleSkus.length > 1" class="mb-4">
               <div class="mb-2 text-xs font-medium theme-text-muted">
                 {{ t('quickBuy.selectSku') }}
               </div>
               <div class="flex flex-wrap gap-2">
                 <button
-                  v-for="sku in activeSkus"
+                  v-for="sku in visibleSkus"
                   :key="sku.id"
                   type="button"
                   class="rounded-lg border px-3 py-1.5 text-[13px] transition-all"
@@ -381,11 +381,6 @@ const activeSkus = computed(() => {
   return rows.filter((sku: any) => Boolean(sku?.is_active))
 })
 
-const selectedSku = computed(() => {
-  if (selectedSkuId.value <= 0) return null
-  return activeSkus.value.find((sku: any) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
-})
-
 // Stock helpers (same logic as ProductDetail)
 const normalizeStockNumber = (value: unknown) => {
   const n = Number(value)
@@ -441,12 +436,17 @@ const isSkuPurchasable = (sku: any) => {
   return available > 0
 }
 
+const visibleSkus = computed(() => activeSkus.value.filter((sku: any) => isSkuPurchasable(sku)))
+
+const selectedSku = computed(() => {
+  if (selectedSkuId.value <= 0) return null
+  return visibleSkus.value.find((sku: any) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
+})
+
 const syncSelectedSku = () => {
-  const rows = activeSkus.value
+  const rows = visibleSkus.value
   if (rows.length === 0) { selectedSkuId.value = 0; return }
-  if (rows.length === 1) { selectedSkuId.value = normalizeSkuId(rows[0]?.id); return }
-  const firstAvailable = rows.find((sku: any) => isSkuPurchasable(sku))
-  if (firstAvailable) { selectedSkuId.value = normalizeSkuId(firstAvailable?.id); return }
+  if (rows.some((sku: any) => normalizeSkuId(sku?.id) === selectedSkuId.value)) return
   selectedSkuId.value = normalizeSkuId(rows[0]?.id)
 }
 
@@ -491,10 +491,10 @@ const skuDisplayText = (sku: any) => buildSkuDisplayText({
 
 const purchaseType = computed(() => props.product?.purchase_type || 'member')
 const requiresLogin = computed(() => purchaseType.value === 'member' && !userAuthStore.isAuthenticated)
-const requiresSKUSelection = computed(() => activeSkus.value.length > 1 && !selectedSku.value)
+const requiresSKUSelection = computed(() => visibleSkus.value.length > 1 && !selectedSku.value)
 const canPurchase = computed(() => {
   if (!props.product) return false
-  if (activeSkus.value.length === 0) return false
+  if (visibleSkus.value.length === 0) return false
   if (props.product.is_sold_out) return false
   if (requiresSKUSelection.value) return false
   if (props.product.stock_status === 'out_of_stock') return false

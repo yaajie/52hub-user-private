@@ -381,6 +381,25 @@
             {{ order.fulfillment.payload }}
           </div>
         </div>
+
+        <section v-if="deliveryInstructionSections.length" class="theme-panel border theme-border rounded-2xl p-5 sm:p-6">
+          <h3 class="text-base font-semibold theme-text-primary mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 theme-text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 6.75v10.5m5.25-5.25H6.75M4.5 5.25A2.25 2.25 0 0 1 6.75 3h10.5a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 17.25 21H6.75a2.25 2.25 0 0 1-2.25-2.25V5.25Z" />
+            </svg>
+            <span>交付使用说明</span>
+          </h3>
+          <div class="space-y-4">
+            <article
+              v-for="section in deliveryInstructionSections"
+              :key="section.key"
+              class="rounded-xl border theme-border theme-surface-soft p-4"
+            >
+              <h4 v-if="deliveryInstructionSections.length > 1" class="mb-2 text-sm font-semibold theme-text-primary">{{ section.title }}</h4>
+              <div class="prose prose-sm dark:prose-invert max-w-none theme-text-secondary" v-html="section.html"></div>
+            </article>
+          </div>
+        </section>
       </div>
     </div>
   </div>
@@ -468,6 +487,34 @@ const productContent = computed(() => {
 
   if (fetchedProductContent.value) return processHtmlForDisplay(fetchedProductContent.value)
   return ''
+})
+
+const deliveryInstructionSections = computed(() => {
+  if (!order.value) return []
+
+  const sections: Array<{ key: string; title: string; html: string }> = []
+  const seen = new Set<string>()
+  const collect = (items: any[], scope: string) => {
+    items.forEach((item, index) => {
+      const raw = getLocalizedText(item?.instructions).trim()
+      if (!raw || seen.has(raw)) return
+      const html = processHtmlForDisplay(raw)
+      if (!html.trim()) return
+      seen.add(raw)
+      sections.push({
+        key: `${scope}-${index}`,
+        title: getLocalizedText(item?.title) || '商品',
+        html,
+      })
+    })
+  }
+
+  collect(Array.isArray(order.value.items) ? order.value.items : [], 'parent')
+  ;(Array.isArray(order.value.children) ? order.value.children : []).forEach((child: any, childIndex: number) => {
+    collect(Array.isArray(child?.items) ? child.items : [], `child-${childIndex}`)
+  })
+
+  return sections
 })
 
 const resolveOrderProductSlug = (orderData: any) => {

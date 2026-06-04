@@ -276,13 +276,13 @@
                   </ul>
                 </div>
 
-                <div v-if="activeSkus.length" class="mb-8">
+                <div v-if="visibleSkus.length" class="mb-8">
                   <h2 class="mb-3 text-sm font-bold uppercase tracking-widest theme-text-muted">
                     {{ t('productDetail.skuTitle') }}
                   </h2>
                   <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     <button
-                      v-for="sku in activeSkus"
+                      v-for="sku in visibleSkus"
                       :key="sku.id"
                       type="button"
                       class="flex flex-col items-start rounded-xl border px-3 py-2 text-sm transition-all min-h-[44px]"
@@ -518,11 +518,6 @@ const activeSkus = computed<ProductSKU[]>(() => {
   return rows.filter((sku) => Boolean(sku?.is_active))
 })
 
-const selectedSku = computed<ProductSKU | null>(() => {
-  if (selectedSkuId.value <= 0) return null
-  return activeSkus.value.find((sku) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
-})
-
 // 会员价相关
 const userMemberLevelId = computed(() => {
   return Number(userAuthStore.user?.member_level_id || 0)
@@ -539,18 +534,6 @@ const getMemberPriceForSku = (skuId: number): number | null => {
   if (productPrice) return Number(productPrice.price_amount)
   return null
 }
-
-const selectedSkuMemberPrice = computed(() => {
-  if (!selectedSku.value) return null
-  const skuId = normalizeSkuId(selectedSku.value.id)
-  return getMemberPriceForSku(skuId)
-})
-
-const hasMemberPrice = computed(() => {
-  if (!selectedSkuMemberPrice.value) return false
-  const basePrice = Number(selectedSku.value?.price_amount || 0)
-  return selectedSkuMemberPrice.value < basePrice
-})
 
 const normalizeStockNumber = (value: unknown) => {
   const numberValue = Number(value)
@@ -607,6 +590,25 @@ const isSkuPurchasable = (sku: ProductSKU | null | undefined): boolean => {
   return available > 0
 }
 
+const visibleSkus = computed<ProductSKU[]>(() => activeSkus.value.filter((sku) => isSkuPurchasable(sku)))
+
+const selectedSku = computed<ProductSKU | null>(() => {
+  if (selectedSkuId.value <= 0) return null
+  return visibleSkus.value.find((sku) => normalizeSkuId(sku?.id) === selectedSkuId.value) || null
+})
+
+const selectedSkuMemberPrice = computed(() => {
+  if (!selectedSku.value) return null
+  const skuId = normalizeSkuId(selectedSku.value.id)
+  return getMemberPriceForSku(skuId)
+})
+
+const hasMemberPrice = computed(() => {
+  if (!selectedSkuMemberPrice.value) return false
+  const basePrice = Number(selectedSku.value?.price_amount || 0)
+  return selectedSkuMemberPrice.value < basePrice
+})
+
 const skuStockText = (sku: ProductSKU): string => {
   const available = skuAvailableStock(sku)
   if (available === null) return t('productDetail.skuStockUnlimited')
@@ -646,10 +648,10 @@ const handleQuantityInput = (event: Event) => {
 
 const purchaseType = computed(() => product.value?.purchase_type || 'member')
 const requiresLogin = computed(() => purchaseType.value === 'member' && !userAuthStore.isAuthenticated)
-const requiresSKUSelection = computed(() => activeSkus.value.length > 1 && !selectedSku.value)
+const requiresSKUSelection = computed(() => visibleSkus.value.length > 1 && !selectedSku.value)
 const canPurchase = computed(() => {
   if (!product.value) return false
-  if (activeSkus.value.length === 0) return false
+  if (visibleSkus.value.length === 0) return false
   if (product.value.is_sold_out) return false
   if (requiresSKUSelection.value) return false
   if (product.value.stock_status === 'out_of_stock') return false
@@ -699,21 +701,12 @@ const skuDisplayText = (sku: ProductSKU): string => {
 }
 
 const syncSelectedSku = () => {
-  const rows = activeSkus.value
+  const rows = visibleSkus.value
   if (rows.length === 0) {
     selectedSkuId.value = 0
     return
   }
-  if (rows.length === 1) {
-    selectedSkuId.value = normalizeSkuId(rows[0]?.id)
-    return
-  }
   if (rows.some((sku) => normalizeSkuId(sku?.id) === selectedSkuId.value)) {
-    return
-  }
-  const firstAvailable = rows.find((sku) => isSkuPurchasable(sku))
-  if (firstAvailable) {
-    selectedSkuId.value = normalizeSkuId(firstAvailable?.id)
     return
   }
   selectedSkuId.value = normalizeSkuId(rows[0]?.id)
