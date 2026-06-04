@@ -68,6 +68,14 @@ npm run build
 
 ## 最近任务记录
 
+- Codex Auth 放置路径重构 + ChatGPT 登录提示（2026-06-04，commits `32a805f` + `1ee8aef`）：
+  - `CodexAuth.vue` 将“放置路径”前置为操作面板，macOS / Windows 都展示目标路径、打开目录命令、复制下载文件命令和复制按钮
+  - Windows 可见路径修正为 `%USERPROFILE%\.codex\auth.json`
+  - 在“获取 session JSON”旁边新增提示和 `先登录 ChatGPT` 按钮，直达 `https://chatgpt.com/`
+  - 生产备份：`/opt/dujiao-next/web/user.pre-codex-auth-placement-login-20260604-181702`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API/数据库/OpenResty/容器
+  - 验证：`git diff --check`、`npm run build`、本地浅/深色和移动端 Playwright 截图、生产路由 smoke、生产静态扫描、生产 Playwright 截图，console error 0
+
 - 首页精选与商品中心主图改为 5:4（2026-06-04，commit `22622fd`）：
   - `ProductCard.vue` 商品卡主图从 `aspect-square` 改为 `aspect-[5/4]`
   - 覆盖首页精选商品和 `/products` 商品中心网格
