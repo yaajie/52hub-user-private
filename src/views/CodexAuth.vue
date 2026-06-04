@@ -128,8 +128,8 @@
         本工具仅本地生成，不保证长期有效。仅在浏览器本地把 ChatGPT session JSON 转成 Codex auth.json，本站不上传、不保存、不代管凭据。生成结果是否可用取决于 OpenAI session 状态和 Codex 客户端格式。
       </section>
 
-      <div class="grid gap-5 xl:grid-cols-[1fr_0.9fr]">
-        <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
+      <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] xl:items-start">
+        <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden xl:self-start">
           <div class="flex flex-col gap-4 border-b theme-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
             <div class="min-w-0">
               <h2 class="text-xl font-bold theme-text-primary">粘贴 ChatGPT session JSON</h2>
@@ -204,77 +204,7 @@
           </div>
         </section>
 
-        <aside class="space-y-5">
-          <section class="placement-panel interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
-            <div class="placement-head border-b theme-border px-5 py-4">
-              <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <span class="placement-kicker">保存到 Codex 配置目录</span>
-                  <h2 class="mt-1 text-xl font-bold theme-text-primary">放置路径</h2>
-                  <p class="mt-1 text-sm theme-text-muted">
-                    下载后文件名必须保持 <strong class="theme-text-primary">auth.json</strong>，放到对应系统目录后 Codex 才能读取。
-                  </p>
-                </div>
-                <span class="placement-file-badge font-mono">auth.json</span>
-              </div>
-            </div>
-
-            <div class="space-y-4 p-5">
-              <div class="placement-note">
-                <strong>隐藏目录提示：</strong>
-                macOS 的 <code>.codex</code> 默认不在 Finder 里显示；Windows 可把路径粘贴到资源管理器地址栏，或直接复制下面命令打开目录。
-              </div>
-
-              <div class="placement-guide-grid">
-                <article v-for="guide in placementGuides" :key="guide.key" class="placement-card">
-                  <div class="placement-card-head">
-                    <div>
-                      <span class="placement-os">{{ guide.os }}</span>
-                      <h3>{{ guide.title }}</h3>
-                    </div>
-                    <span class="placement-step">{{ guide.step }}</span>
-                  </div>
-
-                  <div class="placement-path-box">
-                    <span>{{ guide.pathLabel }}</span>
-                    <code>{{ guide.path }}</code>
-                  </div>
-                  <div v-if="guide.secondaryPath" class="placement-path-box secondary">
-                    <span>{{ guide.secondaryPathLabel }}</span>
-                    <code>{{ guide.secondaryPath }}</code>
-                  </div>
-
-                  <p class="placement-help">{{ guide.help }}</p>
-
-                  <div class="placement-command-list">
-                    <div v-for="command in guide.commands" :key="command.label" class="placement-command">
-                      <div class="placement-command-meta">
-                        <span>{{ command.label }}</span>
-                        <button
-                          type="button"
-                          class="placement-copy-button"
-                          @click="copyPlacementCommand(command.value, `${guide.os} ${command.label}`)"
-                        >
-                          <ClipboardDocumentIcon class="h-4 w-4" aria-hidden="true" />
-                          复制
-                        </button>
-                      </div>
-                      <code>{{ command.value }}</code>
-                    </div>
-                  </div>
-                </article>
-              </div>
-
-              <p
-                v-if="placementCopyStatus"
-                :class="['placement-copy-status', placementCopyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']"
-                aria-live="polite"
-              >
-                {{ placementCopyStatus }}
-              </p>
-            </div>
-          </section>
-
+        <aside class="space-y-5 xl:self-start">
           <section class="interactive-panel rounded-2xl border theme-border theme-panel overflow-hidden">
             <div class="flex items-center justify-between border-b theme-border px-5 py-4">
               <div>
@@ -306,6 +236,79 @@
           </section>
         </aside>
       </div>
+
+      <section class="placement-panel interactive-panel mt-5 rounded-2xl border theme-border theme-panel overflow-hidden">
+        <div class="placement-head border-b theme-border px-5 py-4">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <span class="placement-kicker">保存到 Codex 配置目录</span>
+              <h2 class="mt-1 text-xl font-bold theme-text-primary">放置路径</h2>
+              <p class="mt-1 text-sm theme-text-muted">
+                下载后文件名必须保持 <strong class="theme-text-primary">auth.json</strong>，放到对应系统目录后 Codex 才能读取。
+              </p>
+            </div>
+            <span class="placement-file-badge font-mono">auth.json</span>
+          </div>
+        </div>
+
+        <div class="space-y-4 p-5">
+          <div class="placement-note">
+            <strong>隐藏目录提示：</strong>
+            macOS 的 <code>.codex</code> 默认不在 Finder 里显示；Windows 可把路径粘贴到资源管理器地址栏，或直接复制下面命令打开目录。
+          </div>
+
+          <div class="placement-guide-grid">
+            <article v-for="guide in placementGuides" :key="guide.key" class="placement-card">
+              <div class="placement-card-head">
+                <div class="placement-platform-heading">
+                  <span :class="['placement-platform-icon', `placement-platform-${guide.key}`]" aria-hidden="true"></span>
+                  <div>
+                    <span class="placement-os">{{ guide.os }}</span>
+                    <h3>{{ guide.title }}</h3>
+                  </div>
+                </div>
+                <span class="placement-step">{{ guide.step }}</span>
+              </div>
+
+              <div class="placement-path-box">
+                <span>{{ guide.pathLabel }}</span>
+                <code>{{ guide.path }}</code>
+              </div>
+              <div v-if="guide.secondaryPath" class="placement-path-box secondary">
+                <span>{{ guide.secondaryPathLabel }}</span>
+                <code>{{ guide.secondaryPath }}</code>
+              </div>
+
+              <p class="placement-help">{{ guide.help }}</p>
+
+              <div class="placement-command-list">
+                <div v-for="command in guide.commands" :key="command.label" class="placement-command">
+                  <div class="placement-command-meta">
+                    <span>{{ command.label }}</span>
+                    <button
+                      type="button"
+                      class="placement-copy-button"
+                      @click="copyPlacementCommand(command.value, `${guide.os} ${command.label}`)"
+                    >
+                      <ClipboardDocumentIcon class="h-4 w-4" aria-hidden="true" />
+                      复制
+                    </button>
+                  </div>
+                  <code>{{ command.value }}</code>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <p
+            v-if="placementCopyStatus"
+            :class="['placement-copy-status', placementCopyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']"
+            aria-live="polite"
+          >
+            {{ placementCopyStatus }}
+          </p>
+        </div>
+      </section>
 
       <section class="mt-5 rounded-2xl border theme-border theme-panel overflow-hidden">
         <div class="flex flex-col gap-4 border-b theme-border px-5 py-4 lg:flex-row lg:items-center lg:justify-between">
@@ -398,12 +401,12 @@ const placementGuides = [
     key: 'macos',
     os: 'macOS',
     step: '01',
-    title: 'Finder / Terminal',
+    title: 'Finder / 终端',
     pathLabel: '最终文件路径',
     path: '~/.codex/auth.json',
-    secondaryPathLabel: '',
-    secondaryPath: '',
-    help: '如果没有 .codex 文件夹，下面命令会自动创建，并在 Finder 里直接打开该隐藏目录。',
+    secondaryPathLabel: '小白理解',
+    secondaryPath: 'Mac 用户目录/.codex/auth.json',
+    help: '开头的 ~ 代表你的 Mac 用户目录。如果没有 .codex 文件夹，下面命令会自动创建，并在 Finder 里直接打开该隐藏目录。',
     commands: [
       {
         label: '打开目录',
@@ -419,12 +422,12 @@ const placementGuides = [
     key: 'windows',
     os: 'Windows',
     step: '02',
-    title: 'PowerShell / Explorer',
-    pathLabel: '资源管理器路径',
-    path: '%USERPROFILE%\\.codex\\auth.json',
-    secondaryPathLabel: 'PowerShell 写法',
-    secondaryPath: '$env:USERPROFILE\\.codex\\auth.json',
-    help: '推荐用 PowerShell 命令打开目录；如果 auth.json 在下载目录，可直接运行复制命令放到 Codex 配置目录。',
+    title: 'PowerShell / 文件资源管理器',
+    pathLabel: '资源管理器里看到的路径',
+    path: 'C:\\Users\\你的用户名\\.codex\\auth.json',
+    secondaryPathLabel: '命令里的变量含义',
+    secondaryPath: '%USERPROFILE% = C:\\Users\\你的用户名',
+    help: '不用手动把命令里的 $env:USERPROFILE 或 %USERPROFILE% 改成用户名；Windows 会自动识别你的用户目录。',
     commands: [
       {
         label: '打开目录',
@@ -1646,6 +1649,49 @@ useHead({
   gap: 1rem;
 }
 
+.placement-platform-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.placement-platform-icon {
+  position: relative;
+  display: inline-flex;
+  height: 2.65rem;
+  width: 2.65rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in oklab, var(--ui-accent) 34%, var(--ui-border));
+  border-radius: 0.85rem;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--ui-accent-soft) 84%, transparent), transparent),
+    color-mix(in oklab, var(--ui-accent-soft) 68%, var(--ui-bg-elevated));
+  color: var(--ui-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.placement-platform-macos::before {
+  content: "⌘";
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.placement-platform-windows::before {
+  content: "";
+  height: 0.45rem;
+  width: 0.45rem;
+  background: currentColor;
+  box-shadow:
+    0.58rem 0 0 currentColor,
+    0 0.58rem 0 currentColor,
+    0.58rem 0.58rem 0 currentColor;
+}
+
 .placement-os {
   color: var(--ui-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -1976,6 +2022,13 @@ useHead({
 @media (max-width: 900px) {
   .session-action-row {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1280px) {
+  .placement-guide-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 }
 
