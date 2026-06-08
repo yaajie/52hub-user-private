@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`c500b2b 52hub: 服务口径放宽——不写死只有代订阅（导航/文案/About/SEO）`**（其下 `67e91c1` 定位对齐上线、`7b786cc` audit、`f0001c5` 防回潮 lint）
+- **最新代码 commit：`2ea7914 52hub: 收尾补漏 3 处残留「商品中心」→「AI 服务」`**（其下 `c500b2b` 服务口径放宽、`67e91c1` 定位对齐上线、`7b786cc` audit）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（已上线并 push，远端 = 本地 HEAD `c500b2b`；线上 user 包 `index-BiCFv5zi.js`，生产备份 `web/user.pre-deploy-20260608-162917`）
+- working tree：clean（已上线并 push，远端 = 本地 HEAD `2ea7914`；线上 user 包 `index-D-GphaV3.js`，生产备份 `web/user.pre-deploy-20260608-165905`）
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
 ---
