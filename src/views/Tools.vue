@@ -19,7 +19,7 @@
               AI 工具集合
             </h1>
             <p class="mt-4 max-w-2xl text-sm sm:text-base theme-text-secondary leading-relaxed">
-              先解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；再把网络诊断、服务状态、DNS 隐私、礼品卡和接码入口集中到一个页面。
+              先检测 ChatGPT、Claude Code、Gemini、Codex 的当前 IP 环境，再处理 Codex 登录辅助、服务状态、DNS 隐私、礼品卡和接码入口。
             </p>
             <div class="mt-5 flex flex-wrap gap-2">
               <span class="tools-stat-chip">
@@ -32,41 +32,26 @@
             </div>
             <div class="mt-6 flex flex-col gap-3 sm:flex-row">
               <router-link
-                to="/tools/codex-auth"
+                to="/tools/ip"
                 class="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-400"
               >
-                解决 Codex 手机号码验证
+                AI IP 环境检测
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
               </router-link>
-              <a
-                href="#tool-section-0"
+              <router-link
+                to="/tools/codex-auth"
                 class="inline-flex items-center justify-center rounded-lg theme-surface-soft border theme-border px-4 py-2.5 text-sm font-semibold theme-text-primary transition hover:theme-surface-strong"
               >
-                查看网络检测
-              </a>
+                解决 Codex 登录验证
+              </router-link>
             </div>
           </div>
 
-          <router-link
-            to="/tools/codex-auth"
-            class="tools-hero-visual group relative hidden min-h-[240px] overflow-hidden rounded-2xl border theme-border theme-panel sm:block"
-          >
-            <img
-              src="/images/tools/tools-hero-network-v1.webp"
-              alt="AI 工具集合技术视觉"
-              fetchpriority="high"
-              decoding="async"
-              class="tools-hero-image absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-            />
-            <div class="tools-hero-shade absolute inset-0"></div>
-            <div class="tools-feature-card absolute inset-x-4 bottom-4 rounded-xl p-4 backdrop-blur-md">
-              <span class="tools-feature-eyebrow font-mono text-[0.68rem] uppercase">featured local tool</span>
-              <strong class="mt-1 block text-base">解决登录 Codex 时卡在海外手机号码验证的问题</strong>
-              <small class="mt-1 block text-xs leading-relaxed">用已登录 ChatGPT session 生成 Codex CLI auth.json，减少找接码、等验证码的麻烦；本地生成，不上传。</small>
-            </div>
-          </router-link>
+          <div class="tools-hero-owned hidden sm:flex">
+            <OwnedToolsPanel />
+          </div>
         </div>
 
         <div class="diagnostic-strip mt-5 theme-panel border theme-border rounded-2xl p-4 sm:p-5">
@@ -250,11 +235,13 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
+import OwnedToolsPanel from '../components/OwnedToolsPanel.vue'
 
 const appStore = useAppStore()
 const telegramServiceUrl = computed(() => appStore.config?.contact?.telegram || CONTACTS.telegramService)
 
 const localTools = [
+  { name: 'AI IP 环境检测', url: '/tools/ip', desc: '按 ChatGPT / Claude / Codex 等 AI 使用场景判断 IP，不把机房 IP 一刀切判死。' },
   { name: 'Codex Auth JSON 生成器', url: '/tools/codex-auth', desc: '解决登录 Codex 时卡在海外手机号码验证的问题；浏览器本地生成，不上传、不保存。' },
 ]
 
@@ -281,12 +268,12 @@ const categories: ToolCategory[] = [
     iconBg: 'bg-indigo-500/10',
     iconText: 'text-indigo-400',
     items: [
+      { name: 'AI IP 环境检测', url: '/tools/ip', desc: '站内工具：按 AI 日常登录 / 开发 API / 新号注册分场景判断 IP' },
       { name: 'ping0.cc', url: 'https://ping0.cc/', desc: 'IP 类型（住宅 / 机房）+ 风险值评分，最常用' },
       { name: 'IPInfo', url: 'https://ipinfo.io/', desc: 'IP 归属地 / ISP / ASN 详情' },
       { name: 'WhatIsMyIPAddress', url: 'https://whatismyipaddress.com/', desc: '基础 IP 信息 + 黑名单查询' },
       { name: 'Scamalytics', url: 'https://scamalytics.com/', desc: 'IP 欺诈值评分（低于 30 算干净）' },
       { name: 'BrowserLeaks IP', url: 'https://browserleaks.com/ip', desc: 'IP + WebRTC + 浏览器指纹综合检测' },
-      { name: 'IP-API', url: 'https://ip-api.com/', desc: 'IP 地理 / ISP 详情 + 免费 JSON API' },
     ],
   },
   {
@@ -620,68 +607,10 @@ useHead({
   font-size: 0.78rem;
 }
 
-.tools-hero-visual {
-  background:
-    linear-gradient(135deg, rgba(240, 249, 255, 0.9), rgba(248, 250, 252, 0.76)),
-    radial-gradient(circle at 86% 18%, rgba(14, 165, 233, 0.16), transparent 18rem);
-  box-shadow: 0 28px 80px rgba(2, 132, 199, 0.1);
-}
-
-.tools-hero-image {
-  opacity: 0.62;
-  filter: saturate(0.78) contrast(0.86) brightness(1.12) grayscale(0.04);
-}
-
-.tools-hero-shade {
-  background:
-    linear-gradient(90deg, rgba(248, 250, 252, 0.1), rgba(248, 250, 252, 0.34) 58%, rgba(248, 250, 252, 0.08)),
-    linear-gradient(180deg, rgba(248, 250, 252, 0.04), rgba(248, 250, 252, 0.26));
-}
-
-.tools-feature-card {
-  border: 1px solid rgba(14, 165, 233, 0.18);
-  background: rgba(255, 255, 255, 0.68);
-  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
-  color: #334155;
-}
-
-.tools-feature-eyebrow {
-  color: #0f766e;
-}
-
-.tools-feature-card small {
-  color: #64748b;
-}
-
-:global(.dark .tools-hero-visual) {
-  background: #070b12;
-  box-shadow: 0 28px 80px rgba(2, 132, 199, 0.13);
-}
-
-:global(.dark .tools-hero-image) {
-  opacity: 0.9;
-  filter: saturate(0.92) contrast(0.92) brightness(0.74);
-}
-
-:global(.dark .tools-hero-shade) {
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0.34)),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.72));
-}
-
-:global(.dark .tools-feature-card) {
-  border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(2, 6, 23, 0.56);
-  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.36);
-  color: #f8fafc;
-}
-
-:global(.dark .tools-feature-eyebrow) {
-  color: #a5f3fc;
-}
-
-:global(.dark .tools-feature-card small) {
-  color: #cbd5e1;
+.tools-hero-owned {
+  align-items: stretch;
+  justify-content: flex-end;
+  min-height: 100%;
 }
 
 .diagnostic-strip {

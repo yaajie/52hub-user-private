@@ -11,7 +11,7 @@
             t('payment.backToOrders') }}</router-link>
       </div>
 
-      <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
+      <div class="mb-8 rounded-2xl border theme-panel-soft p-4 backdrop-blur">
         <div class="grid grid-cols-3 gap-3">
           <div
             v-for="step in flowSteps"
@@ -222,7 +222,7 @@
                   <span class="font-medium theme-text-primary">{{ expectedOnlinePayDisplay }}</span>
                 </div>
               </div>
-              <div class="mt-4 border-t border-gray-100 pt-3 text-xs dark:border-white/5">
+              <div class="mt-4 border-t theme-border pt-3 text-xs">
                 <div class="flex items-center justify-between gap-4">
                   <span class="theme-text-muted">{{ t('payment.orderStatus') }}</span>
                   <span class="font-medium theme-text-primary">{{ statusLabel(order.status) }}</span>
@@ -266,7 +266,7 @@
             <h2 class="text-lg font-bold mb-4 theme-text-primary">{{ t('payment.itemsTitle') }}</h2>
             <div class="space-y-3 text-sm theme-text-muted">
               <div v-for="(item, idx) in orderItems" :key="idx"
-                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b border-gray-100 dark:border-white/5 pb-3">
+                class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-b theme-border pb-3">
                 <div>
                   <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
                   <div class="text-xs theme-text-muted mt-1">
@@ -467,6 +467,7 @@ import { copyText } from '../utils/clipboard'
 import { amountToCents, basisPointsToPercent, calculateFeeCents, centsToAmount, rateToBasisPoints } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { loadGuestAuth, saveGuestAuth } from '../utils/guestAuth'
+import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
 import PaymentAmountBreakdown from '../components/payment/PaymentAmountBreakdown.vue'
 import PaymentChannelSelector from '../components/payment/PaymentChannelSelector.vue'
 import QRCode from 'qrcode'
@@ -577,21 +578,14 @@ const flowSteps = computed(() => ([
 
 const filterChannelsByOrder = (list: any[]) => {
   if (!Array.isArray(list)) return []
-  let filtered = list.filter((channel: any) => {
-    const providerType = String(channel?.provider_type || '').toLowerCase()
-    const channelType = String(channel?.channel_type || '').toLowerCase()
-    if (providerType === 'epay') {
-      return ['wechat', 'wxpay', 'alipay', 'qqpay'].includes(channelType)
-    }
-    return true
-  })
+  let filtered = filterPaymentChannelsForDevice(list)
   // 按订单中商品允许的支付渠道过滤
   const allowedIds = order.value?.allowed_payment_channel_ids
   if (Array.isArray(allowedIds) && allowedIds.length > 0) {
     const allowedSet = new Set(allowedIds.map(Number))
     filtered = filtered.filter((ch: any) => allowedSet.has(Number(ch?.id)))
   }
-  return filtered
+  return filterPaymentChannelsForDevice(filtered)
 }
 
 const configReady = computed(() => !appStore.loading && (!!appStore.config || (!isGuest.value && orderPaymentChannelsLoaded.value)))
@@ -632,12 +626,13 @@ const interactionLabel = computed(() => {
 })
 
 const interactionMode = computed(() => String(paymentResult.value?.interaction_mode || '').toLowerCase())
-const paymentResultTitle = computed(() => interactionMode.value === 'redirect' ? t('payment.resultRedirectTitle') : t('payment.resultTitle'))
-const paymentGuideTitle = computed(() => interactionMode.value === 'redirect' ? t('payment.redirectTitle') : t('payment.qrTitle'))
-const paymentGuideTip = computed(() => interactionMode.value === 'redirect' ? t('payment.redirectTip') : t('payment.qrTip'))
+const isPayLinkInteractionMode = (mode?: unknown) => ['redirect', 'page', 'wap'].includes(String(mode || '').toLowerCase())
+const paymentResultTitle = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.resultRedirectTitle') : t('payment.resultTitle'))
+const paymentGuideTitle = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.redirectTitle') : t('payment.qrTitle'))
+const paymentGuideTip = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.redirectTip') : t('payment.qrTip'))
 
 const showPayLink = computed(() => {
-  return interactionMode.value === 'redirect' || Boolean(payLink.value)
+  return isPayLinkInteractionMode(interactionMode.value) || Boolean(payLink.value)
 })
 const isTelegramMiniApp = computed(() => telegramMiniAppStore.isMiniApp && telegramMiniAppStore.isReady)
 const showTelegramPayHint = computed(() => isTelegramMiniApp.value && Boolean(payLink.value))
@@ -1095,14 +1090,21 @@ const handleCopyPayLink = async () => {
   }
 }
 
-const openPayLinkInCompatibleWindow = () => {
+const openPayLinkInCompatibleWindow = (replaceCurrentPage = false) => {
   if (!payLink.value) return
   if (isTelegramMiniApp.value) {
     telegramMiniAppStore.openLink(payLink.value)
+  } else if (replaceCurrentPage) {
+    window.location.assign(payLink.value)
   } else {
     window.open(payLink.value, '_blank', 'noopener')
   }
   openedPayWindow.value = true
+}
+
+const autoOpenPayLink = (mode?: unknown) => {
+  if (!payLink.value || !isPayLinkInteractionMode(mode)) return
+  openPayLinkInCompatibleWindow(true)
 }
 
 const handleOpenPayLink = () => {
@@ -1133,11 +1135,9 @@ const loadLatestPayment = async () => {
       selectedChannelId.value = data.channel_id || null
       startPolling()
       startCountdown()
-      // 对 redirect 模式自动打开支付链接
+      // 对跳转类支付自动进入网关；page/wap 用当前页跳转，避免新窗口被拦截。
       const mode = String(data.interaction_mode || '').toLowerCase()
-      if (mode === 'redirect' && data.pay_url) {
-        openPayLinkInCompatibleWindow()
-      }
+      autoOpenPayLink(mode)
     }
   } catch (err) {
     // 没有历史支付记录时忽略错误
@@ -1364,9 +1364,7 @@ const performPayment = async () => {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
     const mode = String(paymentResult.value?.interaction_mode || '').toLowerCase()
-    if (mode === 'redirect' && payLink.value) {
-      openPayLinkInCompatibleWindow()
-    }
+    autoOpenPayLink(mode)
   } catch (err: any) {
     error.value = err.message || t('payment.createFailed')
   } finally {

@@ -16,6 +16,7 @@ const blogViewLoader: RouteComponentLoader = () => import('../views/Blog.vue')
 const noticeViewLoader: RouteComponentLoader = () => import('../views/Notice.vue')
 const loginViewLoader: RouteComponentLoader = () => import('../views/auth/Login.vue')
 const toolsViewLoader: RouteComponentLoader = () => import('../views/Tools.vue')
+const aiIpCheckViewLoader: RouteComponentLoader = () => import('../views/AiIpCheck.vue')
 const codexAuthViewLoader: RouteComponentLoader = () => import('../views/CodexAuth.vue')
 const claudeHubViewLoader: RouteComponentLoader = () => import('../views/ClaudeHub.vue')
 const chatgptHubViewLoader: RouteComponentLoader = () => import('../views/ChatgptHub.vue')
@@ -32,6 +33,7 @@ const routeWarmupLoaders: RouteComponentLoader[] = [
     noticeViewLoader,
     loginViewLoader,
     toolsViewLoader,
+    aiIpCheckViewLoader,
     codexAuthViewLoader,
     claudeHubViewLoader,
     chatgptHubViewLoader,
@@ -255,6 +257,11 @@ const router = createRouter({
             path: '/tools',
             name: 'tools',
             component: toolsViewLoader,
+        },
+        {
+            path: '/tools/ip',
+            name: 'ai-ip-check',
+            component: aiIpCheckViewLoader,
         },
         {
             path: '/tools/codex-auth',

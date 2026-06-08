@@ -137,10 +137,6 @@
                           <span class="theme-price-original">
                             {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
                           </span>
-                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            人工发货 · 联系客服
-                          </span>
                         </div>
                         <p v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="text-sm font-medium text-amber-600 dark:text-amber-300">
                           {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
@@ -158,10 +154,6 @@
                           <span class="theme-price-original">
                             {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
                           </span>
-                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            人工发货 · 联系客服
-                          </span>
                         </div>
                         <p class="text-sm font-medium text-amber-600 dark:text-amber-300">
                           {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
@@ -171,10 +163,6 @@
                       <div v-else-if="selectedSku" class="flex flex-wrap items-center gap-x-4 gap-y-1">
                         <span class="theme-price-lg theme-text-accent">
                           {{ formatPrice(selectedSku.price_amount, siteCurrency) }}
-                        </span>
-                        <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                          <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                          人工发货 · 联系客服
                         </span>
                       </div>
                       <!-- 未选 SKU，产品级有促销价 -->
@@ -186,10 +174,6 @@
                           <span class="theme-price-original">
                             {{ formatPrice(product.price_amount, siteCurrency) }}
                           </span>
-                          <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                            <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            人工发货 · 联系客服
-                          </span>
                         </div>
                         <p class="text-sm font-medium text-rose-500 dark:text-rose-300">
                           {{ t('products.saveAmount') }} {{ formatPrice(getPromotionSaveAmount(product), siteCurrency) }}
@@ -199,10 +183,6 @@
                       <div v-else class="flex flex-wrap items-center gap-x-4 gap-y-1">
                         <span class="theme-price-lg theme-text-accent">
                           {{ formatPrice(product.price_amount, siteCurrency) }}
-                        </span>
-                        <span v-if="product.fulfillment_type !== 'auto'" class="inline-flex items-center gap-1 text-sm text-amber-500 dark:text-amber-400">
-                          <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                          人工发货 · 联系客服
                         </span>
                       </div>
                     </div>
@@ -249,6 +229,22 @@
                     <span>售后详情见商品说明</span>
                   </span>
                 </div>
+
+                <router-link
+                  to="/tools/ip"
+                  class="mb-5 flex items-start gap-3 rounded-xl border theme-border theme-surface-soft px-4 py-3 text-sm transition hover:theme-surface-strong"
+                >
+                  <span class="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-500/12 text-sky-500">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-2.8 7.8-7 9-4.2-1.2-7-4.5-7-9V7l7-4z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.5 12l1.6 1.6L15 9.8" />
+                    </svg>
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-semibold theme-text-primary">购买前先做 AI IP 环境检测</span>
+                    <span class="mt-1 block leading-relaxed theme-text-secondary">适合 ChatGPT、Claude Code、Gemini 登录和订阅的出口，通常比单纯看地区更重要。</span>
+                  </span>
+                </router-link>
 
                 <!-- 活动规则展示 -->
                 <div v-if="hasPromotionRules(product)" class="mb-5 rounded-xl border border-orange-200 dark:border-orange-800/50 bg-orange-50/50 dark:bg-orange-950/20 px-4 py-3">
@@ -307,7 +303,7 @@
                   <div class="flex items-center rounded-lg border theme-border overflow-hidden w-fit">
                     <button
                       type="button"
-                      class="w-10 h-10 flex items-center justify-center theme-text-secondary hover:bg-gray-50 dark:hover:bg-white/5 transition-colors disabled:opacity-30"
+                      class="w-10 h-10 flex items-center justify-center theme-text-secondary hover:bg-[var(--ui-bg-soft)] transition-colors disabled:opacity-30"
                       :disabled="quantity <= 1"
                       @click="quantity = Math.max(1, quantity - 1)"
                     >
@@ -325,7 +321,7 @@
                     />
                     <button
                       type="button"
-                      class="w-10 h-10 flex items-center justify-center theme-text-secondary hover:bg-gray-50 dark:hover:bg-white/5 transition-colors disabled:opacity-30"
+                      class="w-10 h-10 flex items-center justify-center theme-text-secondary hover:bg-[var(--ui-bg-soft)] transition-colors disabled:opacity-30"
                       :disabled="quantityEffectiveLimit !== null && quantity >= quantityEffectiveLimit"
                       @click="quantity = quantity + 1"
                     >
@@ -451,6 +447,7 @@ import { processHtmlForDisplay } from '../utils/content'
 import { useBuyNowStore } from '../stores/buyNow'
 import { useUserAuthStore } from '../stores/userAuth'
 import { debounceAsync } from '../utils/debounce'
+import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
 import { useHead } from '@unhead/vue'
 // centsToAmount used internally by composable
 import { buildSkuDisplayText, normalizeSkuId } from '../utils/sku'
@@ -600,7 +597,7 @@ const skuStockText = (sku: ProductSKU): string => {
 
 const skuStockBadgeClass = (sku: ProductSKU): string => {
   const available = skuAvailableStock(sku)
-  if (available === null) return 'border-slate-200 text-slate-600 dark:border-slate-700 dark:text-slate-300'
+  if (available === null) return 'theme-border theme-text-secondary'
   if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
   if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
   return 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300'
@@ -644,9 +641,9 @@ const canPurchase = computed(() => {
 const visiblePaymentChannels = computed<PaymentChannel[]>(() => {
   const all: PaymentChannel[] = Array.isArray(appStore.config?.payment_channels) ? appStore.config.payment_channels : []
   const allowed = product.value?.payment_channel_ids
-  if (!Array.isArray(allowed) || allowed.length === 0) return all
+  if (!Array.isArray(allowed) || allowed.length === 0) return filterPaymentChannelsForDevice(all)
   const allowedSet = new Set(allowed.map((id: unknown) => Number(id)))
-  return all.filter((channel) => allowedSet.has(Number(channel?.id)))
+  return filterPaymentChannelsForDevice(all.filter((channel) => allowedSet.has(Number(channel?.id))))
 })
 
 const soldCount = computed(() => {

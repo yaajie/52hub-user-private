@@ -75,11 +75,11 @@ defineExpose({
         v-if="imageBase64"
         :src="imageBase64"
         alt="captcha"
-        class="h-10 rounded-md border border-gray-200 bg-gray-50 dark:border-white/10 dark:bg-white/5"
+        class="h-10 rounded-md border theme-border bg-[var(--ui-bg-soft)]"
       />
       <button
         type="button"
-        class="text-xs text-gray-500 underline underline-offset-2 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+        class="text-xs theme-text-muted underline underline-offset-2 hover:text-[var(--ui-text-secondary)]"
         :disabled="disabled || loading"
         @click="refresh()"
       >
@@ -89,7 +89,7 @@ defineExpose({
     <input
       v-model="captchaCode"
       type="text"
-      class="h-10 w-full rounded-xl border border-gray-200 bg-white px-3 text-sm text-gray-700 dark:border-white/10 dark:bg-black/20 dark:text-gray-100"
+      class="h-10 w-full rounded-xl border theme-border bg-[var(--ui-bg-elevated)] px-3 text-sm theme-text-primary"
       placeholder="请输入图片验证码"
       :disabled="disabled"
       autocomplete="off"

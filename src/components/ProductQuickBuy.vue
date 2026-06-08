@@ -48,7 +48,7 @@
         >
           <!-- Mobile drag handle -->
           <div class="md:hidden flex justify-center pt-2.5 pb-1 shrink-0">
-            <div class="w-8 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
+            <div class="w-8 h-1 rounded-full bg-[var(--ui-bg-muted)]" />
           </div>
 
           <!-- Desktop header bar -->
@@ -56,7 +56,7 @@
             <h2 class="text-sm font-semibold theme-text-primary">{{ t('quickBuy.title') }}</h2>
             <button
               type="button"
-              class="p-1.5 -mr-1 rounded-lg theme-text-muted hover:bg-gray-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+              class="p-1.5 -mr-1 rounded-lg theme-text-muted hover:bg-[var(--ui-bg-soft)] transition-colors cursor-pointer"
               @click="close"
             >
               <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -92,7 +92,7 @@
               <!-- Info -->
               <div class="flex-1 min-w-0 flex flex-col">
                 <h3
-                  class="text-sm md:text-[15px] font-semibold theme-text-primary line-clamp-2 leading-snug cursor-pointer hover:underline decoration-gray-300 dark:decoration-gray-600 underline-offset-2"
+                  class="text-sm md:text-[15px] font-semibold theme-text-primary line-clamp-2 leading-snug cursor-pointer hover:underline decoration-[var(--ui-border)] underline-offset-2"
                   @click="goToDetail"
                 >
                   {{ productTitle }}
@@ -147,7 +147,7 @@
               <!-- Mobile close -->
               <button
                 type="button"
-                class="md:hidden self-start -mr-1 p-1.5 rounded-lg theme-text-muted hover:bg-gray-100 dark:hover:bg-white/10 transition-colors cursor-pointer"
+                class="md:hidden self-start -mr-1 p-1.5 rounded-lg theme-text-muted hover:bg-[var(--ui-bg-soft)] transition-colors cursor-pointer"
                 @click="close"
               >
                 <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -157,7 +157,7 @@
             </div>
 
             <!-- Divider -->
-            <div class="h-px bg-gray-100 dark:bg-white/[0.06] -mx-4 md:-mx-5 mb-4" />
+            <div class="h-px bg-[var(--ui-border)] -mx-4 md:-mx-5 mb-4" />
 
             <!-- Product description -->
             <p v-if="productDescription" class="mb-4 text-xs leading-relaxed theme-text-secondary line-clamp-3">
@@ -232,7 +232,7 @@
               <div class="flex items-center rounded-lg border theme-border overflow-hidden">
                 <button
                   type="button"
-                  class="w-9 h-9 flex items-center justify-center theme-text-secondary hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
+                  class="w-9 h-9 flex items-center justify-center theme-text-secondary hover:bg-[var(--ui-bg-soft)] transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
                   :disabled="quantity <= 1"
                   @click="quantity = Math.max(1, quantity - 1)"
                 >
@@ -250,7 +250,7 @@
                 />
                 <button
                   type="button"
-                  class="w-9 h-9 flex items-center justify-center theme-text-secondary hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
+                  class="w-9 h-9 flex items-center justify-center theme-text-secondary hover:bg-[var(--ui-bg-soft)] transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
                   :disabled="effectiveLimit !== null && quantity >= effectiveLimit"
                   @click="quantity = quantity + 1"
                 >
@@ -468,7 +468,7 @@ const skuStockText = (sku: any) => {
 
 const skuStockBadgeClass = (sku: any) => {
   const available = skuAvailableStock(sku)
-  if (available === null) return 'border-slate-200 text-slate-600 dark:border-slate-700 dark:text-slate-300'
+  if (available === null) return 'theme-border theme-text-secondary'
   if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
   if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
   return 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300'
@@ -476,7 +476,7 @@ const skuStockBadgeClass = (sku: any) => {
 
 const skuStockDotClass = (sku: any) => {
   const available = skuAvailableStock(sku)
-  if (available === null) return 'bg-slate-400 dark:bg-slate-500'
+  if (available === null) return 'bg-[var(--ui-text-muted)]'
   if (available <= 0) return 'bg-rose-500 dark:bg-rose-400'
   if (available <= 5) return 'bg-amber-500 dark:bg-amber-400'
   return 'bg-emerald-500 dark:bg-emerald-400'

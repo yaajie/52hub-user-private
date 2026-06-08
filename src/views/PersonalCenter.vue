@@ -13,7 +13,7 @@
 
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:w-auto">
             <div class="rounded-2xl border theme-surface-soft px-4 py-3">
-              <p class="text-[11px] uppercase tracking-[0.16em] text-gray-400">{{ t('personalCenter.memberLevel.currentLevel') }}</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] theme-text-muted">{{ t('personalCenter.memberLevel.currentLevel') }}</p>
               <p class="mt-2 flex items-center gap-1.5 text-sm font-semibold theme-text-secondary">
                 <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-4 w-4 object-contain" alt="" decoding="async" />
                 <span v-else-if="userProfileStore.currentLevel?.icon">{{ userProfileStore.currentLevel.icon }}</span>
@@ -21,13 +21,13 @@
               </p>
             </div>
             <div class="rounded-2xl border theme-surface-soft px-4 py-3">
-              <p class="text-[11px] uppercase tracking-[0.16em] text-gray-400">{{ t('personalCenter.tabs.orders') }}</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] theme-text-muted">{{ t('personalCenter.tabs.orders') }}</p>
               <p class="mt-2 text-sm font-semibold theme-text-secondary">
                 {{ userProfileStore.loadingOrders ? '-' : userProfileStore.recentOrders.length }}
               </p>
             </div>
             <div class="rounded-2xl border theme-surface-soft px-4 py-3">
-              <p class="text-[11px] uppercase tracking-[0.16em] text-gray-400">{{ t('personalCenter.overview.accountLabel') }}</p>
+              <p class="text-[11px] uppercase tracking-[0.16em] theme-text-muted">{{ t('personalCenter.overview.accountLabel') }}</p>
               <span class="mt-2 theme-badge px-2.5 py-1 text-xs font-semibold" :class="emailVerifiedClass">
                 {{ emailVerifiedLabel }}
               </span>
@@ -57,7 +57,7 @@
                   </span>
                   <span
                     class="h-1.5 w-1.5 rounded-full transition-colors"
-                    :class="currentSection === item.key ? 'theme-accent-stick' : 'bg-gray-300 dark:bg-gray-600 group-hover:bg-gray-400 dark:group-hover:bg-gray-500'"
+                    :class="currentSection === item.key ? 'theme-accent-stick' : 'bg-[var(--ui-bg-muted)] group-hover:bg-[var(--ui-text-muted)]'"
                   ></span>
                 </span>
               </button>
@@ -103,7 +103,7 @@
                     {{ displayInitial }}
                   </div>
                   <div>
-                    <p class="text-xs uppercase tracking-[0.18em] text-gray-500">{{ t('personalCenter.overview.accountLabel') }}</p>
+                    <p class="text-xs uppercase tracking-[0.18em] theme-text-muted">{{ t('personalCenter.overview.accountLabel') }}</p>
                     <h2 class="mt-1 text-xl font-black theme-text-primary">{{ userProfileStore.displayName }}</h2>
                     <p class="mt-1 text-sm theme-text-muted">{{ userProfileStore.profile?.email || '-' }}</p>
                   </div>

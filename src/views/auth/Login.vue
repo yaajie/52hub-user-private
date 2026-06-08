@@ -144,9 +144,9 @@
 
           <div v-if="showTelegramWidget" class="space-y-3 pt-1">
             <div class="flex items-center gap-3 text-[11px] uppercase tracking-[0.12em] theme-text-muted">
-              <span class="h-px flex-1 border-t border-gray-200/80 dark:border-white/10"></span>
+              <span class="h-px flex-1 border-t theme-border"></span>
               <span>{{ t('auth.login.telegramOr') }}</span>
-              <span class="h-px flex-1 border-t border-gray-200/80 dark:border-white/10"></span>
+              <span class="h-px flex-1 border-t theme-border"></span>
             </div>
             <div ref="telegramWidgetRef" class="flex justify-center"></div>
             <p class="text-center text-xs theme-text-muted">
@@ -167,9 +167,9 @@
           </div>
           <div v-else-if="showMiniAppLoginHint" class="space-y-3 pt-1">
             <div class="flex items-center gap-3 text-[11px] uppercase tracking-[0.12em] theme-text-muted">
-              <span class="h-px flex-1 border-t border-gray-200/80 dark:border-white/10"></span>
+              <span class="h-px flex-1 border-t theme-border"></span>
               <span>{{ t('auth.login.telegramOr') }}</span>
-              <span class="h-px flex-1 border-t border-gray-200/80 dark:border-white/10"></span>
+              <span class="h-px flex-1 border-t theme-border"></span>
             </div>
             <p class="text-center text-xs theme-text-muted">
               {{ attemptingMiniAppLogin ? t('auth.login.telegramMiniAppLoggingIn') : t('auth.login.telegramMiniAppHint') }}

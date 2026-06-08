@@ -37,7 +37,7 @@
         </a>
       </div>
 
-      <div class="rounded-xl border border-gray-200 bg-gray-50/90 p-3 dark:border-white/10 dark:bg-white/5">
+      <div class="rounded-xl border theme-border bg-[var(--ui-bg-soft)] p-3">
         <div class="flex items-start gap-2">
           <IconQQ class="mt-0.5 h-5 w-5 shrink-0 text-[#1AB6FF]" />
           <div class="min-w-0">
@@ -47,7 +47,7 @@
         </div>
         <button
           type="button"
-          class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gray-700 px-3 py-2 text-sm font-semibold text-white transition hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-500"
+          class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg theme-btn-neutral px-3 py-2 text-sm font-semibold transition"
           @click="copyGroupNumber"
         >
           <ClipboardDocumentIcon class="h-4 w-4" />

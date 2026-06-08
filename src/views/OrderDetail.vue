@@ -128,9 +128,9 @@
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.itemsTitle') }}</h2>
           <div v-if="order.items && order.items.length > 0" class="space-y-4">
             <div v-for="(item, idx) in order.items" :key="idx"
-              class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b border-gray-100 pb-3 dark:border-white/5">
+              class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3">
               <div class="flex min-w-0 items-start gap-3">
-                <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm dark:border-white/10 dark:bg-black/30 sm:h-16 sm:w-16">
+                <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-16 sm:w-16">
                   <img
                     v-if="orderItemImage(item)"
                     :src="orderItemImage(item)"
@@ -139,7 +139,7 @@
                     decoding="async"
                     class="h-full w-full object-cover"
                   />
-                  <div v-else class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-500">
+                  <div v-else class="flex h-full w-full items-center justify-center theme-text-muted">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         stroke-linecap="round"
@@ -164,7 +164,7 @@
                     </span>
                   </div>
                   <div v-if="manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot).length"
-                    class="mt-3 rounded-xl border border-gray-200 bg-white p-3 text-xs text-gray-600 dark:border-white/10 dark:bg-black/30 dark:text-gray-300">
+                    class="mt-3 rounded-xl border theme-panel p-3 text-xs theme-text-secondary">
                     <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
                     <div v-for="row in manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot)" :key="row.key" class="mb-1 last:mb-0">
                       <span class="theme-text-primary">{{ row.label }}</span>：{{ row.value }}
@@ -225,9 +225,9 @@
                   }}</h3>
                 <div v-if="child.items && child.items.length" class="space-y-3">
                   <div v-for="(item, cidx) in child.items" :key="cidx"
-                    class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b border-gray-100 pb-3 text-sm theme-text-muted dark:border-white/5">
+                    class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3 text-sm theme-text-muted">
                     <div class="flex min-w-0 items-start gap-3">
-                      <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm dark:border-white/10 dark:bg-black/30 sm:h-16 sm:w-16">
+                      <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-16 sm:w-16">
                         <img
                           v-if="orderItemImage(item)"
                           :src="orderItemImage(item)"
@@ -236,7 +236,7 @@
                           decoding="async"
                           class="h-full w-full object-cover"
                         />
-                        <div v-else class="flex h-full w-full items-center justify-center text-gray-400 dark:text-gray-500">
+                        <div v-else class="flex h-full w-full items-center justify-center theme-text-muted">
                           <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path
                               stroke-linecap="round"
@@ -261,7 +261,7 @@
                           </span>
                         </div>
                         <div v-if="manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot).length"
-                          class="mt-3 rounded-xl border border-gray-200 bg-white p-3 text-xs text-gray-600 dark:border-white/10 dark:bg-black/30 dark:text-gray-300">
+                          class="mt-3 rounded-xl border theme-panel p-3 text-xs theme-text-secondary">
                           <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
                           <div v-for="row in manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot)" :key="row.key" class="mb-1 last:mb-0">
                             <span class="theme-text-primary">{{ row.label }}</span>：{{ row.value }}

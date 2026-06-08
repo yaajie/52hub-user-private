@@ -5,13 +5,6 @@
         <p class="font-mono text-xs uppercase tracking-[0.18em] theme-text-muted">52hub resource matrix</p>
         <h2 class="mt-1 text-xl font-semibold theme-text-primary sm:text-2xl">AI 资源 &amp; 工具</h2>
       </div>
-      <router-link
-        to="/tools/codex-auth"
-        class="inline-flex w-fit items-center gap-2 rounded-full border theme-border theme-surface-soft px-3 py-1.5 text-xs font-semibold theme-text-secondary transition hover:theme-surface-strong hover:theme-text-primary"
-      >
-        <CommandLineIcon class="h-4 w-4 text-sky-500" />
-        Codex Auth
-      </router-link>
     </div>
 
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
@@ -45,7 +38,6 @@
 import type { Component } from 'vue'
 import {
   BoltIcon,
-  CommandLineIcon,
   CpuChipIcon,
   SparklesIcon,
   WrenchScrewdriverIcon,
@@ -65,7 +57,7 @@ const hubs = [
   { to: '/claude-hub', code: 'ANT', icon: BoltIcon, accent: '#D97757', accentSoft: 'rgba(217, 119, 87, 0.15)', title: 'Claude 资源', desc: '官方入口、Claude Code、注册教程和订阅档位集中整理。' },
   { to: '/openai-hub', code: 'OAI', icon: CpuChipIcon, accent: '#10A37F', accentSoft: 'rgba(16, 163, 127, 0.16)', title: 'OpenAI 全产品', desc: 'ChatGPT、Sora、DALL-E、API、Codex 的入口与用法。' },
   { to: '/gemini-hub', code: 'GMI', icon: SparklesIcon, accent: '#4285F4', accentSoft: 'rgba(66, 133, 244, 0.16)', title: 'Gemini 资源', desc: 'AI Studio、Vertex、NotebookLM、Veo 和订阅选择。' },
-  { to: '/tools', code: 'TLS', icon: WrenchScrewdriverIcon, accent: '#8B5CF6', accentSoft: 'rgba(139, 92, 246, 0.16)', title: '在线工具', desc: 'Codex Auth、IP 检测、服务状态、DNS 隐私与接码入口。' },
+  { to: '/tools', code: 'TLS', icon: WrenchScrewdriverIcon, accent: '#8B5CF6', accentSoft: 'rgba(139, 92, 246, 0.16)', title: '在线工具', desc: 'AI IP 环境检测、Codex Auth、服务状态、DNS 隐私与接码入口。' },
 ] satisfies HubCard[]
 </script>
 

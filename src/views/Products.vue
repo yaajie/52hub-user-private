@@ -1,5 +1,5 @@
 <template>
-  <div class="products-page min-h-screen theme-page pt-20 pb-16">
+  <div class="products-page min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
       <!-- Page Header -->
       <div class="mb-12 mt-12 text-center">
@@ -8,6 +8,27 @@
           {{ t('products.subtitle') }}
         </p>
       </div>
+
+      <router-link
+        to="/tools/ip"
+        class="mb-8 flex flex-col gap-3 rounded-2xl border theme-border theme-panel p-4 transition hover:-translate-y-0.5 hover:theme-surface-strong sm:flex-row sm:items-center sm:justify-between sm:p-5"
+      >
+        <span class="flex min-w-0 items-start gap-3">
+          <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500/12 text-sky-500">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-2.8 7.8-7 9-4.2-1.2-7-4.5-7-9V7l7-4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.5 12l1.6 1.6L15 9.8" />
+            </svg>
+          </span>
+          <span class="min-w-0">
+            <span class="block text-sm font-bold theme-text-primary">购买前先做 AI IP 环境检测</span>
+            <span class="mt-1 block text-sm leading-relaxed theme-text-secondary">按 ChatGPT / Claude Code / Gemini 使用场景判断当前出口，减少订阅后才发现环境不适合的情况。</span>
+          </span>
+        </span>
+        <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-sky-500 px-3 py-2 text-sm font-semibold text-white">
+          去检测
+        </span>
+      </router-link>
 
       <div class="flex flex-col lg:flex-row gap-8">
         <CategorySidebar

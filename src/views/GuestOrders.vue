@@ -20,7 +20,7 @@
           class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-xs theme-text-muted theme-surface-soft border rounded-xl px-4 py-3">
           <span>{{ t('guestOrders.savedHint', { email: savedAuth.email || '-' }) }}</span>
           <button type="button" @click="clearSaved"
-            class="theme-link-muted text-xs underline decoration-gray-300 dark:decoration-white/20">
+            class="theme-link-muted text-xs underline decoration-[var(--ui-border)]">
             {{ t('guestOrders.clearSaved') }}
           </button>
         </div>

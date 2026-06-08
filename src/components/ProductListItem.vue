@@ -103,8 +103,8 @@
         type="button"
         class="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg border transition-all flex-shrink-0"
         :class="isSoldOut(product)
-          ? 'opacity-40 cursor-not-allowed border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-600'
-          : 'border-gray-200 dark:border-gray-700 text-gray-500 hover:text-gray-900 hover:border-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:border-gray-500 dark:hover:bg-gray-800'"
+          ? 'opacity-40 cursor-not-allowed theme-border theme-text-muted'
+          : 'theme-border theme-text-muted hover:text-[var(--ui-text-primary)] hover:border-[var(--ui-border-strong)] hover:bg-[var(--ui-bg-soft)]'"
         :disabled="isSoldOut(product)"
         @click.stop="$emit('quickBuy', product)"
       >
@@ -115,7 +115,7 @@
 
       <!-- Arrow -->
       <svg class="hidden sm:block w-4 h-4 flex-shrink-0 transition-transform theme-text-muted"
-        :class="isSoldOut(product) ? '' : 'group-hover:translate-x-0.5 group-hover:text-gray-900 dark:group-hover:text-white'"
+        :class="isSoldOut(product) ? '' : 'group-hover:translate-x-0.5 group-hover:text-[var(--ui-text-primary)]'"
         fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>

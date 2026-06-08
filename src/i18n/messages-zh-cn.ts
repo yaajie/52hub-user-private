@@ -185,6 +185,7 @@ const messages =
         },
         bottomNav: {
             home: '首页',
+            tools: '工具',
             products: '商品',
             cart: '购物车',
             me: '我的',

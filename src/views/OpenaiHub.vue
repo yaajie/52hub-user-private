@@ -46,6 +46,7 @@ const sections = [
   {
     title: 'Codex 工具',
     items: [
+      { name: 'AI IP 环境检测', url: '/tools/ip', desc: '登录 ChatGPT / Codex 或调用 OpenAI API 前先检测当前出口' },
       { name: 'Codex Auth JSON 生成器', url: '/tools/codex-auth', desc: 'ChatGPT session 转 Codex CLI auth.json，浏览器本地生成' },
       { name: 'Codex vs Claude Code', url: '/blog/chatgpt-codex-vs-claude-code', desc: '两个 AI 编程助手的定位、订阅门槛和使用方式对比' },
     ],
@@ -114,6 +115,7 @@ const related = {
   items: [
     { to: '/chatgpt-hub', text: 'ChatGPT 资源中心（订阅 / 防封 / 付款）' },
     { to: '/claude-hub', text: 'Claude 资源中心' },
+    { to: '/tools/ip', text: 'AI IP 环境检测' },
     { to: '/tools/codex-auth', text: 'Codex Auth JSON 本地生成器' },
     { to: '/blog/chatgpt-codex-vs-claude-code', text: 'ChatGPT Codex vs Claude Code' },
     { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },

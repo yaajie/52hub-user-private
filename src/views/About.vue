@@ -1,5 +1,5 @@
 <template>
-  <div class="about-page min-h-screen theme-page pt-20 pb-16">
+  <div class="about-page min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
 
       <!-- ============================================================
@@ -8,7 +8,7 @@
       <section class="about-hero relative mb-10 mt-8 overflow-hidden rounded-3xl border theme-border p-6 sm:p-8 lg:p-10">
         <div class="about-hero-grid absolute inset-0" aria-hidden="true"></div>
         <div class="relative max-w-4xl">
-          <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-md dark:bg-white/8 dark:text-slate-200">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
             <span class="h-2 w-2 rounded-full bg-sky-500 shadow-[0_0_18px_rgba(14,165,233,0.65)]"></span>
             52HUB RESOURCE DESK
           </div>

@@ -8,14 +8,14 @@
     <div
       v-if="open"
       id="contact-float-panel"
-      class="mb-3 w-64 sm:w-72 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl shadow-gray-900/15 dark:border-white/10 dark:bg-gray-950"
+      class="mb-3 w-64 sm:w-72 overflow-hidden rounded-2xl border theme-panel shadow-2xl"
     >
-      <div class="border-b border-gray-100 px-4 py-3 dark:border-white/10">
+      <div class="border-b theme-border px-4 py-3">
         <div class="flex items-center justify-between gap-3">
           <p class="text-sm font-bold theme-text-primary">联系我们</p>
           <button
             type="button"
-            class="rounded-lg p-1.5 theme-text-muted transition hover:bg-gray-100 dark:hover:bg-white/10"
+            class="rounded-lg p-1.5 theme-text-muted transition hover:bg-[var(--ui-bg-soft)]"
             aria-label="关闭"
             @click="open = false"
           >
@@ -45,12 +45,12 @@
           <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
         </a>
 
-        <div class="rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+        <div class="rounded-xl border theme-border px-3 py-2.5">
           <div class="flex items-center justify-between gap-2">
             <span class="text-sm font-medium theme-text-primary"><IconQQ class="inline-block h-4 w-4 mr-1 text-[#1AB6FF] align-text-bottom" />QQ 群 {{ CONTACTS.qqGroup }}</span>
             <button
               type="button"
-              class="rounded-md px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-200 dark:hover:bg-white/15"
+              class="rounded-md px-2 py-1 text-xs font-medium bg-[var(--ui-bg-soft)] theme-text-secondary transition hover:bg-[var(--ui-bg-muted)]"
               @click="copyQQ"
             >{{ copied ? '已复制' : '复制' }}</button>
           </div>
@@ -60,7 +60,7 @@
         <a
           v-if="supportEmail"
           :href="`mailto:${supportEmail}`"
-          class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 text-sm transition hover:bg-gray-50 dark:border-white/10 dark:hover:bg-white/5"
+          class="flex items-center justify-between rounded-xl border theme-border px-3 py-2.5 text-sm transition hover:bg-[var(--ui-bg-soft)]"
         >
           <span class="text-sm font-medium theme-text-primary truncate">{{ supportEmail }}</span>
           <EnvelopeIcon class="h-4 w-4 flex-shrink-0 theme-text-muted" />

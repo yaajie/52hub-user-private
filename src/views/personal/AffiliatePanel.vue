@@ -137,9 +137,9 @@
       <div v-else-if="commissions.length === 0" class="rounded-xl border border-dashed theme-surface-soft px-4 py-6 text-sm theme-text-muted">
         {{ t('personalCenter.affiliate.commissionEmpty') }}
       </div>
-      <div v-else class="overflow-x-auto rounded-xl border border-gray-200/70 dark:border-white/10">
-        <table class="min-w-full divide-y divide-gray-200 text-left text-sm dark:divide-white/10">
-          <thead class="bg-gray-50/80 text-xs uppercase tracking-wide text-gray-500 dark:bg-white/5 dark:text-gray-400">
+      <div v-else class="overflow-x-auto rounded-xl border theme-border">
+        <table class="min-w-full divide-y divide-[var(--ui-border)] text-left text-sm">
+          <thead class="bg-[var(--ui-bg-soft)] text-xs uppercase tracking-wide theme-text-muted">
             <tr>
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.table.orderNo') }}</th>
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.table.amount') }}</th>
@@ -147,7 +147,7 @@
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.table.createdAt') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-white/10">
+          <tbody class="divide-y divide-[var(--ui-border)]">
             <tr v-for="item in commissions" :key="item.id">
               <td class="px-4 py-3 font-mono text-xs theme-text-primary">-</td>
               <td class="px-4 py-3 font-mono text-xs theme-text-primary">{{ item.commission_amount }}</td>
@@ -201,9 +201,9 @@
       <div v-else-if="withdraws.length === 0" class="rounded-xl border border-dashed theme-surface-soft px-4 py-6 text-sm theme-text-muted">
         {{ t('personalCenter.affiliate.withdrawEmpty') }}
       </div>
-      <div v-else class="overflow-x-auto rounded-xl border border-gray-200/70 dark:border-white/10">
-        <table class="min-w-full divide-y divide-gray-200 text-left text-sm dark:divide-white/10">
-          <thead class="bg-gray-50/80 text-xs uppercase tracking-wide text-gray-500 dark:bg-white/5 dark:text-gray-400">
+      <div v-else class="overflow-x-auto rounded-xl border theme-border">
+        <table class="min-w-full divide-y divide-[var(--ui-border)] text-left text-sm">
+          <thead class="bg-[var(--ui-bg-soft)] text-xs uppercase tracking-wide theme-text-muted">
             <tr>
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.withdrawTable.amount') }}</th>
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.withdrawTable.channel') }}</th>
@@ -211,7 +211,7 @@
               <th class="px-4 py-3 font-semibold">{{ t('personalCenter.affiliate.withdrawTable.createdAt') }}</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-white/10">
+          <tbody class="divide-y divide-[var(--ui-border)]">
             <tr v-for="item in withdraws" :key="item.id">
               <td class="px-4 py-3 font-mono text-xs theme-text-primary">{{ item.amount }}</td>
               <td class="px-4 py-3 text-xs theme-text-secondary">{{ item.channel }}</td>

@@ -260,6 +260,9 @@ export interface PaymentChannel {
     name?: string
     code?: string
     icon?: string
+    provider_type?: string
+    channel_type?: string
+    interaction_mode?: string
     fee_rate?: number
     fixed_fee?: number
     is_active?: boolean

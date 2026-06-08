@@ -17,16 +17,16 @@
     <form class="space-y-6" @submit.prevent="handleSaveProfile">
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div class="md:col-span-2">
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.profile.emailLabel') }}</label>
+          <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.profile.emailLabel') }}</label>
           <input
             :value="userProfileStore.profile?.email || ''"
             disabled
-            class="w-full rounded-xl border border-gray-200 bg-gray-100 px-4 py-3 text-gray-500 dark:border-white/10 dark:bg-white/5"
+            class="w-full rounded-xl border theme-border bg-[var(--ui-bg-soft)] px-4 py-3 theme-text-muted"
           />
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.profile.nicknameLabel') }}</label>
+          <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.profile.nicknameLabel') }}</label>
           <input
             v-model="profileForm.nickname"
             :placeholder="t('personalCenter.profile.nicknamePlaceholder')"
@@ -35,7 +35,7 @@
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.profile.localeLabel') }}</label>
+          <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.profile.localeLabel') }}</label>
           <select
             v-model="profileForm.locale"
             class="w-full form-input-lg"
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-3 border-t border-gray-200/70 pt-5 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-col gap-3 border-t theme-border pt-5 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-xs theme-text-muted">{{ t('personalCenter.profile.subtitle') }}</p>
         <button
           type="submit"

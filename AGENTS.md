@@ -31,9 +31,10 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`4aa7ba7 Polish Codex Auth tool layout`**
+- **最新代码 commit：`ae3bd35 docs: sync Codex Auth premium layout deployment`**（其上 `4aa7ba7`）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（代码 commit `4aa7ba7` 已上线；交接文档已同步）
+- working tree：dirty（60 处未提交：官方支付宝设备分流 + 详情页人工发货提示隐藏 + 提交订单页手续费换行 + 2026-06-08 整站 token 统一/IP 收敛/阶段3 导航与顶距/阶段0 grep 守卫/stylelint 工具链；未跟踪含 `.stylelintrc.json`、`scripts/check-theme-tokens.sh`、`package*.pre-stylelint-20260608-115236`；视觉改动 dist 已上线、源码均未 commit/push）
+- 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
 ---
 
@@ -67,6 +68,30 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 提交订单页支付方式手续费文案换行/左对齐（2026-06-06，未提交）：
+  - `Checkout.vue` 将支付渠道名和“含 x% 手续费”拆成上下两行，避免手续费文案被 `truncate` 截断
+  - 将“手续费：¥x.xx”和固定手续费行移动到图标右侧同一文字列，与“含 x% 手续费”左对齐
+  - 生产备份：`/opt/dujiao-next/web/user.pre-checkout-payment-fee-layout-20260606-170508`、`/opt/dujiao-next/web/user.pre-checkout-fee-align-20260606-171047`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API 代码、数据库、OpenResty、容器
+  - 验证：`git diff --check`、`npm run build`、生产路由 smoke、服务器 chunk 核对、生产静态扫描
+
+- 商品详情页隐藏价格行人工发货提示（2026-06-06，未提交）：
+  - `ProductDetail.vue` 删除价格行内重复“人工发货 · 联系客服”提示，避免挤占后续微信/支付宝支付方式区域
+  - 保留标题下方“人工交付”徽章和信任带“人工客服”
+  - 生产备份：`/opt/dujiao-next/web/user.pre-product-manual-hint-hide-20260606-165945`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API 代码、数据库、OpenResty、容器
+  - 验证：`git diff --check`、`npm run build`、生产路由 smoke、服务器 chunk 核对、Chrome 生产 DOM 验证
+
+- 官方支付宝电脑/手机网站支付分流 + 自动跳转修复（2026-06-06，未提交）：
+  - 后台支付渠道保留微信易支付 `#2 epay/wechat/redirect`，禁用旧支付宝易支付 `#1 epay/alipay/redirect`
+  - 官方支付宝启用 `#3 official/alipay/page` 和 `#4 official/alipay/wap`，费率均为 `0.00`
+  - `src/utils/paymentChannels.ts` 按设备过滤官方支付宝渠道：桌面保留 `page`，手机保留 `wap`
+  - `Checkout.vue`、`Payment.vue`、`ProductDetail.vue` 接入同一过滤工具，避免同一设备出现两个“支付宝”入口
+  - `Payment.vue` 对 `page/wap` 使用当前页自动跳转支付宝网关，避免用户必须手动打开支付链接
+  - 生产备份：`/opt/dujiao-next/web/user.pre-alipay-device-routing-20260606-153933`、`/opt/dujiao-next/web/user.pre-alipay-autoredirect-20260606-160443`
+  - 部署边界：只同步 `dist/` 到 `/opt/dujiao-next/web/user/`；未动 admin/API 代码、数据库、OpenResty、容器
+  - 验证：`git diff --check`、`npm run build`、公网配置接口、设备过滤逻辑、生产商品页 Chrome smoke、服务器 chunk 核对、生产静态扫描 `Payment-JA90s-m3.js`
 
 - Codex Auth 工具页大屏化与路径复制体验（2026-06-04，commit `4aa7ba7`）：`/tools/codex-auth` 将“生成结果”移动到“放置路径”上方；“粘贴 ChatGPT session JSON”和“账号识别”桌面同高同顶对齐；全页提高标题、说明、路径和命令字号；macOS/Windows 放置路径卡片改为大号 SVG 系统图标 + 单行标题，桌面双列等高、移动端单列；`~/.codex/auth.json` 和 `C:\Users\你的用户名\.codex\auth.json` 增加一键复制路径按钮；macOS 增加 `ls -la ~/.codex/auth.json` 检查文件命令。生产备份 `/opt/dujiao-next/web/user.pre-codex-auth-premium-layout-20260604-193001`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0 / warning 0。
 - Codex Auth 路径说明图标化 + 布局收口（2026-06-04，commit `3ba3403`）：`/tools/codex-auth` 将“放置路径”改为独立整宽面板，桌面 macOS / Windows 双列、移动端单列；macOS/Windows 加系统识别图标；Windows 可见路径改为 `C:\Users\你的用户名\.codex\auth.json`，并说明 `%USERPROFILE% = C:\Users\你的用户名`；“粘贴 ChatGPT session JSON”和“账号识别”桌面同排对齐，减少左侧空白和右侧拥挤。生产备份 `/opt/dujiao-next/web/user.pre-codex-auth-layout-icons-20260604-185350`；只同步 `dist/` 到 `/opt/dujiao-next/web/user/`，未动 admin/API/数据库/OpenResty/容器。验证：`git diff --check`、`npm run build`、本地四视口 Playwright、生产路由 smoke、生产四视口 Playwright 截图，console error 0。

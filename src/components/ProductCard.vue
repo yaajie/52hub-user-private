@@ -118,8 +118,8 @@
             type="button"
             class="relative flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-lg border transition-all"
             :class="isSoldOut(product)
-              ? 'opacity-40 cursor-not-allowed border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-600'
-              : 'border-gray-200 dark:border-gray-700 text-gray-500 hover:text-gray-900 hover:border-gray-400 hover:bg-gray-100 dark:hover:text-white dark:hover:border-gray-500 dark:hover:bg-gray-800'"
+              ? 'opacity-40 cursor-not-allowed theme-border theme-text-muted'
+              : 'theme-border theme-text-muted hover:text-[var(--ui-text-primary)] hover:border-[var(--ui-border-strong)] hover:bg-[var(--ui-bg-soft)]'"
             :disabled="isSoldOut(product)"
             @click.stop="$emit('quickBuy', product)"
           >
@@ -132,7 +132,7 @@
             class="hidden md:flex text-xs uppercase font-bold transition-colors items-center gap-1"
             :class="isSoldOut(product)
               ? 'text-rose-500/90 dark:text-rose-300/90'
-              : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white'">
+              : 'theme-text-muted group-hover:text-[var(--ui-text-primary)]'">
             <svg class="w-4 h-4 transition-transform" :class="isSoldOut(product) ? '' : 'group-hover:translate-x-1'" fill="none"
               stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

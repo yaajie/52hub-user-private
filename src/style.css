@@ -381,7 +381,7 @@ html[data-telegram-mini-app="true"] body {
 
   .theme-nav-link {
     @apply inline-flex items-center rounded-lg border border-transparent px-3 py-2 text-xs font-medium;
-    color: var(--ui-text-muted);
+    color: var(--ui-text-secondary);
     transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
   }
 

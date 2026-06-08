@@ -37,6 +37,7 @@ const sections = [
   {
     title: '客户端 & 工具',
     items: [
+      { name: 'AI IP 环境检测', url: '/tools/ip', desc: '登录 Claude / Claude Code 或调用 API 前先检测当前出口环境' },
       { name: 'Claude 桌面客户端', url: 'https://claude.ai/download', desc: 'macOS / Windows 官方客户端' },
       { name: 'Claude Code', url: 'https://github.com/anthropics/claude-code', desc: '命令行编程助手，GitHub 仓库' },
       { name: 'Anthropic Cookbook', url: 'https://github.com/anthropics/anthropic-cookbook', desc: '官方示例代码集' },
@@ -99,6 +100,7 @@ const related = {
     { to: '/blog/claude-registration-guide', text: 'Claude 注册指南' },
     { to: '/blog/claude-code-getting-started', text: 'Claude Code 上手指南' },
     { to: '/blog/claude-403-troubleshooting', text: 'Claude 报错 403 排查' },
+    { to: '/tools/ip', text: 'AI IP 环境检测' },
     { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
     { to: '/blog/apple-id-overseas-registration-guide', text: 'Apple ID 海外区注册全攻略' },
   ],

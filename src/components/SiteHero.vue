@@ -15,7 +15,7 @@
       <div class="container relative mx-auto px-4">
         <div class="grid min-h-[470px] items-center gap-8 py-10 sm:min-h-[500px] sm:py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.72fr)] lg:py-14">
           <div class="site-hero-copy max-w-3xl">
-            <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/78 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-md dark:bg-white/8 dark:text-slate-200">
+            <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/78 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
               <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.75)]"></span>
               52HUB AI RESOURCE OPS
             </div>
@@ -28,9 +28,13 @@
             </p>
 
             <div class="site-hero-actions mt-7 grid gap-3 sm:flex sm:flex-wrap">
-              <router-link to="/tools/codex-auth" class="site-hero-primary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5">
-                <CommandLineIcon class="h-5 w-5 shrink-0" />
-                <span>解决 Codex 手机号码验证</span>
+              <router-link to="/tools/ip" class="site-hero-primary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5">
+                <ShieldCheckIcon class="h-5 w-5 shrink-0" />
+                <span>AI IP 环境检测</span>
+              </router-link>
+              <router-link to="/tools/codex-auth" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
+                <CommandLineIcon class="h-5 w-5 shrink-0 text-sky-500" />
+                <span>Codex 登录辅助</span>
               </router-link>
               <router-link to="/blog" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
                 <BookOpenIcon class="h-5 w-5 shrink-0 text-sky-500" />
@@ -54,31 +58,8 @@
             </div>
           </div>
 
-          <div class="site-hero-console hidden lg:block">
-            <div class="site-console-panel rounded-2xl p-4 backdrop-blur-xl">
-              <div class="mb-4 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-amber-300"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
-                </div>
-                <span class="site-console-eyebrow font-mono text-[0.68rem] uppercase tracking-[0.22em]">local tools</span>
-              </div>
-              <div class="space-y-3 font-mono text-xs">
-                <div class="site-console-row flex items-center justify-between rounded-lg px-3 py-2">
-                  <span>Codex Auth</span>
-                  <span class="site-console-status">browser only</span>
-                </div>
-                <div class="site-console-row flex items-center justify-between rounded-lg px-3 py-2">
-                  <span>IP / DNS check</span>
-                  <span class="site-console-status">ready</span>
-                </div>
-                <div class="site-console-row flex items-center justify-between rounded-lg px-3 py-2">
-                  <span>Claude / GPT</span>
-                  <span class="site-console-status">resources</span>
-                </div>
-              </div>
-            </div>
+          <div class="site-hero-tools hidden lg:flex">
+            <OwnedToolsPanel />
           </div>
         </div>
       </div>
@@ -95,6 +76,7 @@ import {
   ShieldCheckIcon,
   ShoppingBagIcon,
 } from '@heroicons/vue/24/outline'
+import OwnedToolsPanel from './OwnedToolsPanel.vue'
 
 type Signal = {
   code: string
@@ -187,35 +169,11 @@ const signals = [
   transform: translateY(-2px);
 }
 
-.site-hero-console {
+.site-hero-tools {
   align-self: end;
   justify-self: end;
-  width: min(100%, 430px);
+  width: min(100%, 460px);
   padding-bottom: 1rem;
-}
-
-.site-console-panel {
-  border: 1px solid rgba(14, 165, 233, 0.18);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(241, 245, 249, 0.5)),
-    radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.12), transparent 16rem);
-  box-shadow: 0 22px 70px rgba(15, 23, 42, 0.14);
-  color: #334155;
-  transform: translateY(1.4rem);
-}
-
-.site-console-eyebrow {
-  color: #0f766e;
-}
-
-.site-console-row {
-  border: 1px solid rgba(14, 165, 233, 0.14);
-  background: rgba(255, 255, 255, 0.58);
-  color: #475569;
-}
-
-.site-console-status {
-  color: #0f766e;
 }
 
 :global(.dark .site-hero-image) {
@@ -236,27 +194,6 @@ const signals = [
 
 :global(.dark .site-hero-secondary) {
   background: rgba(255, 255, 255, 0.08);
-}
-
-:global(.dark .site-console-panel) {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(15, 23, 42, 0.68);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-  color: #f8fafc;
-}
-
-:global(.dark .site-console-eyebrow) {
-  color: rgba(165, 243, 252, 0.82);
-}
-
-:global(.dark .site-console-row) {
-  border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
-}
-
-:global(.dark .site-console-status) {
-  color: #67e8f9;
 }
 
 @media (max-width: 1023px) {

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="notice-page min-h-screen theme-page pt-20 pb-16">
+    class="notice-page min-h-screen theme-page pt-24 pb-16">
     <div class="container mx-auto px-4">
       <!-- Page Header -->
       <div class="mb-16 mt-12 text-center">
@@ -58,7 +58,7 @@
 
           <!-- Arrow -->
           <div
-            class="flex-shrink-0 theme-text-muted group-hover:text-gray-900 dark:group-hover:text-white transition-colors group-hover:translate-x-1 duration-300">
+            class="flex-shrink-0 theme-text-muted group-hover:text-[var(--ui-text-primary)] transition-colors group-hover:translate-x-1 duration-300">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>

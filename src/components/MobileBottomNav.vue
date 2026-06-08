@@ -18,6 +18,11 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
         </svg>
+        <!-- Tools -->
+        <svg v-else-if="item.icon === 'tools'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10.5 6h9M10.5 12h9M10.5 18h9M4.5 6h.01M4.5 12h.01M4.5 18h.01" />
+        </svg>
         <!-- Me -->
         <svg v-else-if="item.icon === 'me'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -46,6 +51,7 @@ const isListMode = computed(() => appStore.config?.template_mode === 'list')
 const navItems = computed(() => {
   const items = [
     { path: '/', icon: 'home', label: 'bottomNav.home' },
+    { path: '/tools', icon: 'tools', label: 'bottomNav.tools' },
     ...(!isListMode.value ? [{ path: '/products', icon: 'products', label: 'bottomNav.products' }] : []),
     { path: userAuthStore.isAuthenticated ? '/me' : '/auth/login', icon: 'me', label: 'bottomNav.me' },
   ]

@@ -4,7 +4,7 @@
     <p class="mt-1 text-sm theme-text-muted">{{ t('personalCenter.wallet.rechargeSubtitle') }}</p>
     <form class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr_2fr_auto]" @submit.prevent="$emit('submit')">
       <div>
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.wallet.amountLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.wallet.amountLabel') }}</label>
         <input
           :value="amount"
           @input="$emit('update:amount', ($event.target as HTMLInputElement).value.trim())"
@@ -15,7 +15,7 @@
         />
       </div>
       <div>
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.wallet.channelLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.wallet.channelLabel') }}</label>
         <select
           :value="channelId"
           @change="$emit('update:channelId', Number(($event.target as HTMLSelectElement).value))"
@@ -29,7 +29,7 @@
         </select>
       </div>
       <div>
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.wallet.remarkLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.wallet.remarkLabel') }}</label>
         <input
           :value="remark"
           @input="$emit('update:remark', ($event.target as HTMLInputElement).value.trim())"

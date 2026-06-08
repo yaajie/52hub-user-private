@@ -37,6 +37,7 @@ const sections = [
   {
     title: '客户端 & 工具',
     items: [
+      { name: 'AI IP 环境检测', url: '/tools/ip', desc: '登录、订阅或调用前先检测当前出口是否适合 ChatGPT / Codex' },
       { name: 'ChatGPT 桌面客户端', url: 'https://openai.com/chatgpt/download/', desc: 'macOS / Windows 官方客户端' },
       { name: 'ChatGPT iOS App', url: 'https://apps.apple.com/app/openai-chatgpt/id6448311069', desc: 'iOS App Store（需外区 Apple ID）' },
       { name: 'OpenAI Cookbook', url: 'https://github.com/openai/openai-cookbook', desc: 'API 用法示例集' },
@@ -100,6 +101,7 @@ const related = {
     { to: '/blog/chatgpt-plus-vs-pro-comparison', text: 'ChatGPT Plus vs Pro 对比' },
     { to: '/blog/chatgpt-anti-ban-guide', text: 'ChatGPT 防封号实战指南' },
     { to: '/blog/chatgpt-codex-vs-claude-code', text: 'ChatGPT Codex vs Claude Code' },
+    { to: '/tools/ip', text: 'AI IP 环境检测' },
     { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
     { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
   ],

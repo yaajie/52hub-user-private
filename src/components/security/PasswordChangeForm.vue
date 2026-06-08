@@ -9,7 +9,7 @@
 
     <form class="mt-6 space-y-6" @submit.prevent="$emit('submit')">
       <div v-if="requiresOldPassword">
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.currentPasswordLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.currentPasswordLabel') }}</label>
         <input
           :value="oldPassword"
           @input="$emit('update:oldPassword', ($event.target as HTMLInputElement).value)"
@@ -21,7 +21,7 @@
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newPasswordLabel') }}</label>
+          <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.newPasswordLabel') }}</label>
           <input
             :value="newPassword"
             @input="$emit('update:newPassword', ($event.target as HTMLInputElement).value)"
@@ -32,7 +32,7 @@
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.confirmPasswordLabel') }}</label>
+          <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.confirmPasswordLabel') }}</label>
           <input
             :value="confirmPassword"
             @input="$emit('update:confirmPassword', ($event.target as HTMLInputElement).value)"
@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="border-t border-gray-200/70 pt-5 dark:border-white/10">
+      <div class="border-t theme-border pt-5">
         <button
           type="submit"
           :disabled="changingPassword"

@@ -1,11 +1,11 @@
 <template>
   <form class="space-y-6" @submit.prevent="$emit('submit')">
     <div>
-      <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.currentEmailLabel') }}</label>
+      <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.currentEmailLabel') }}</label>
       <input
         :value="currentEmailDisplay"
         disabled
-        class="w-full rounded-xl border border-gray-200 bg-gray-100 px-4 py-3 text-gray-500 dark:border-white/10 dark:bg-white/5"
+        class="w-full rounded-xl border theme-border bg-[var(--ui-bg-soft)] px-4 py-3 theme-text-muted"
       />
       <p v-if="!requiresOldEmailCode" class="mt-2 text-xs theme-text-muted">
         {{ t('personalCenter.security.bindOnlyTip') }}
@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newEmailLabel') }}</label>
+      <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.newEmailLabel') }}</label>
       <input
         :value="newEmail"
         @input="$emit('update:newEmail', ($event.target as HTMLInputElement).value)"
@@ -25,7 +25,7 @@
 
     <div class="grid grid-cols-1 gap-4" :class="requiresOldEmailCode ? 'lg:grid-cols-2' : ''">
       <div v-if="requiresOldEmailCode">
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.oldCodeLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.oldCodeLabel') }}</label>
         <div class="flex flex-col gap-2 sm:flex-row">
           <input
             :value="oldCode"
@@ -45,7 +45,7 @@
       </div>
 
       <div>
-        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">{{ t('personalCenter.security.newCodeLabel') }}</label>
+        <label class="mb-2 block text-sm font-medium theme-text-secondary">{{ t('personalCenter.security.newCodeLabel') }}</label>
         <div class="flex flex-col gap-2 sm:flex-row">
           <input
             :value="newCode"
@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <div class="border-t border-gray-200/70 pt-5 dark:border-white/10">
+    <div class="border-t theme-border pt-5">
       <button
         type="submit"
         :disabled="changingEmail"

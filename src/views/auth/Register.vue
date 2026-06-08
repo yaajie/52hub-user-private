@@ -90,8 +90,8 @@
             <div v-if="password && !formValidation.hasError('password')" class="mt-2 flex items-center gap-2">
               <div class="flex flex-1 gap-1">
                 <div class="h-1 flex-1 rounded-full transition-colors" :class="passwordStrength === 'weak' ? 'bg-red-400' : passwordStrength === 'medium' ? 'bg-yellow-400' : 'bg-green-400'" />
-                <div class="h-1 flex-1 rounded-full transition-colors" :class="passwordStrength === 'medium' ? 'bg-yellow-400' : passwordStrength === 'strong' ? 'bg-green-400' : 'bg-gray-200 dark:bg-gray-700'" />
-                <div class="h-1 flex-1 rounded-full transition-colors" :class="passwordStrength === 'strong' ? 'bg-green-400' : 'bg-gray-200 dark:bg-gray-700'" />
+                <div class="h-1 flex-1 rounded-full transition-colors" :class="passwordStrength === 'medium' ? 'bg-yellow-400' : passwordStrength === 'strong' ? 'bg-green-400' : 'bg-[var(--ui-bg-muted)]'" />
+                <div class="h-1 flex-1 rounded-full transition-colors" :class="passwordStrength === 'strong' ? 'bg-green-400' : 'bg-[var(--ui-bg-muted)]'" />
               </div>
               <span class="text-[11px] font-medium" :class="passwordStrength === 'weak' ? 'text-red-500' : passwordStrength === 'medium' ? 'text-yellow-500' : 'text-green-500'">
                 {{ t(`formValidation.passwordStrength.${passwordStrength}`) }}
@@ -151,7 +151,7 @@
             <input
               v-model="agreed"
               type="checkbox"
-              class="mt-0.5 h-4 w-4 rounded border-gray-300 theme-accent-checkbox dark:border-white/20 dark:bg-black/20"
+              class="mt-0.5 h-4 w-4 rounded border theme-border theme-accent-checkbox"
             />
             <span class="leading-6">
               {{ t('auth.register.agreementPrefix') }}

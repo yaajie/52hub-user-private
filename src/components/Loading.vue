@@ -15,7 +15,7 @@
             </div>
           </div>
           <div
-            class="absolute inset-[-8px] rounded-full border border-transparent border-b-gray-300 dark:border-b-white/20 animate-spin-reverse">
+            class="absolute inset-[-8px] rounded-full border border-transparent border-b-[var(--ui-border-strong)] animate-spin-reverse">
           </div>
         </div>
 

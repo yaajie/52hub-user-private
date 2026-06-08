@@ -124,11 +124,11 @@
           <!-- Dropdown -->
           <div v-if="showLangMenu"
             class="absolute right-0 mt-2 w-40 theme-panel-strong border rounded-xl shadow-2xl py-2 z-50 overflow-hidden backdrop-blur-xl">
-            <div class="px-2 pb-2 mb-2 border-b border-gray-100 dark:border-white/5">
+            <div class="px-2 pb-2 mb-2 border-b theme-border">
               <span class="text-xs theme-text-muted font-mono px-2">{{ t('navbar.selectLanguage') }}</span>
             </div>
             <button v-for="lang in languages" :key="lang.code" @click="changeLanguage(lang.code)"
-              class="w-full text-left px-4 py-2.5 text-sm theme-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between group/item"
+              class="w-full text-left px-4 py-2.5 text-sm theme-text-secondary hover:text-[var(--ui-text-primary)] hover:bg-[var(--ui-bg-soft)] transition-colors flex items-center justify-between group/item"
               :class="{ 'theme-text-accent': appStore.locale === lang.code }">
               {{ lang.name }}
               <span v-if="appStore.locale === lang.code"

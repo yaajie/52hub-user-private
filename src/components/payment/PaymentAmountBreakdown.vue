@@ -28,7 +28,7 @@
         <span class="font-medium theme-text-primary">{{ onlinePayDisplay }}</span>
       </div>
     </div>
-    <div v-if="showCountdown || pollingActive" class="mt-4 border-t border-gray-100 pt-3 text-xs dark:border-white/5">
+    <div v-if="showCountdown || pollingActive" class="mt-4 border-t theme-border pt-3 text-xs">
       <div v-if="showCountdown" class="flex items-center justify-between gap-4">
         <span class="theme-text-muted">{{ t('payment.countdownLabel') }}</span>
         <span class="font-mono font-medium theme-text-primary">{{ countdownText }}</span>

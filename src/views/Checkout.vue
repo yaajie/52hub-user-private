@@ -16,7 +16,7 @@
                 <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-colors"
                   :class="step.active
                     ? 'theme-btn-primary border-transparent'
-                    : 'border-gray-300 dark:border-gray-600 theme-text-muted'">
+                    : 'theme-border theme-text-muted'">
                   {{ idx + 1 }}
                 </span>
                 <span class="text-sm font-medium hidden sm:inline"
@@ -53,11 +53,11 @@
                 class="rounded-xl border p-4"
                 :class="itemStockExceeded(item)
                   ? 'border-amber-200 bg-amber-50/60 dark:border-amber-700 dark:bg-amber-950/20'
-                  : 'border-gray-100 bg-gray-50 dark:border-white/10 dark:bg-black/20'"
+                  : 'theme-border bg-[var(--ui-bg-soft)]'"
               >
                 <div class="flex items-start justify-between gap-4">
                   <div class="flex min-w-0 items-start gap-3">
-                    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm dark:border-white/10 dark:bg-black/30 sm:h-20 sm:w-20">
+                    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-20 sm:w-20">
                       <img
                         v-if="checkoutItemImage(item)"
                         :src="checkoutItemImage(item)"
@@ -291,16 +291,18 @@
                   @click="handleSelectChannel(channel)"
                   class="text-left border rounded-lg p-2.5 transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                   :class="selectedChannelId === channel.id && !isChannelDisabledForAmount(channel) ? 'theme-selected-surface' : 'theme-interactive-surface'">
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-start gap-2">
                     <img v-if="channel.icon" :src="getImageUrl(channel.icon)" loading="lazy" decoding="async" class="h-5 w-5 rounded object-contain shrink-0" />
-                    <div class="text-sm theme-text-primary font-medium truncate">
-                      <span>{{ channel.name }}</span>
-                      <span v-if="Number(channel.fee_rate) > 0" class="text-xs theme-text-muted ml-2">· 含 {{ Number(channel.fee_rate) }}% 手续费</span>
+                    <div class="min-w-0 flex-1">
+                      <div class="truncate text-sm font-medium theme-text-primary">{{ channel.name }}</div>
+                      <div v-if="Number(channel.fee_rate) > 0" class="mt-0.5 text-xs leading-snug theme-text-muted">
+                        含 {{ Number(channel.fee_rate) }}% 手续费
+                      </div>
+                      <div class="mt-1 space-y-0.5 text-xs theme-text-muted">
+                        <div v-if="Number(channel.fee_rate) > 0">{{ t('payment.feeLabel') }}：{{ formatChannelFeeRate(channel) }}</div>
+                        <div v-if="Number(channel.fixed_fee) > 0">{{ t('payment.fixedFeeLabel') }}：{{ formatChannelFixedFee(channel) }}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="mt-1 space-y-0.5 text-xs theme-text-muted">
-                    <div v-if="Number(channel.fee_rate) > 0">{{ t('payment.feeLabel') }}：{{ formatChannelFeeRate(channel) }}</div>
-                    <div v-if="Number(channel.fixed_fee) > 0">{{ t('payment.fixedFeeLabel') }}：{{ formatChannelFixedFee(channel) }}</div>
                   </div>
                   <div v-if="isChannelDisabledForAmount(channel)" class="mt-1 text-xs text-amber-600">
                     {{ channelAmountLimitHint(channel) }}
@@ -346,6 +348,7 @@ import { refreshCartStockSnapshots } from '../utils/cartStock'
 import { getImageUrl } from '../utils/image'
 import { getAffiliateCode, getAffiliateVisitorKey } from '../utils/affiliate'
 import { saveGuestAuth } from '../utils/guestAuth'
+import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
 import ImageCaptcha from '../components/captcha/ImageCaptcha.vue'
 import TurnstileCaptcha from '../components/captcha/TurnstileCaptcha.vue'
 import CheckoutManualForm from '../components/checkout/CheckoutManualForm.vue'
@@ -394,14 +397,7 @@ const paymentChannels = computed(() => {
     ? orderPaymentChannels.value
     : appStore.config?.payment_channels
   if (!Array.isArray(list)) return []
-  let filtered = list.filter((channel: any) => {
-    const providerType = String(channel?.provider_type || '').toLowerCase()
-    const channelType = String(channel?.channel_type || '').toLowerCase()
-    if (providerType === 'epay') {
-      return ['wechat', 'wxpay', 'alipay', 'qqpay'].includes(channelType)
-    }
-    return true
-  })
+  let filtered = filterPaymentChannelsForDevice(list)
   // 按购物车中商品允许的支付渠道交集过滤
   const items = cartItems.value
   if (items.length > 0) {
@@ -423,7 +419,7 @@ const paymentChannels = computed(() => {
       filtered = []
     }
   }
-  return filtered
+  return filterPaymentChannelsForDevice(filtered)
 })
 
 const walletOnlyPayment = computed(() => !!appStore.config?.wallet_only_payment)

@@ -53,7 +53,7 @@
                 <h1 class="max-w-4xl text-xl font-semibold tracking-[-0.02em] text-white sm:text-2xl md:text-3xl">
                   {{ heroTitle }}
                 </h1>
-                <p class="max-w-3xl text-xs leading-relaxed text-gray-100 sm:text-sm">
+                <p class="max-w-3xl text-xs leading-relaxed text-white/85 sm:text-sm">
                   {{ heroSubtitle }}
                 </p>
               </div>

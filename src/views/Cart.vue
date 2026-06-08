@@ -11,7 +11,7 @@
       </div>
 
       <!-- Step Indicator with numbers and connecting lines -->
-      <div class="mb-8 rounded-2xl border border-gray-200 theme-panel-soft p-4 backdrop-blur">
+      <div class="mb-8 rounded-2xl border theme-panel-soft p-4 backdrop-blur">
         <div class="flex items-center">
           <template v-for="(step, idx) in flowSteps" :key="step.key">
             <div class="flex items-center gap-2" :class="idx === 0 ? '' : 'flex-1'">
@@ -23,7 +23,7 @@
                 <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-colors"
                   :class="step.active
                     ? 'theme-btn-primary border-transparent'
-                    : 'border-gray-300 dark:border-gray-600 theme-text-muted'">
+                    : 'theme-border theme-text-muted'">
                   {{ idx + 1 }}
                 </span>
                 <span class="text-sm font-medium hidden sm:inline"
@@ -63,7 +63,7 @@
           >
             <div class="flex gap-4 md:gap-5">
               <div
-                class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm dark:border-white/10 dark:bg-black/30"
+                class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
               >
                 <img
                   v-if="cartItemImage(item)"
@@ -127,7 +127,7 @@
                   </button>
                 </div>
 
-                <div class="mt-3 md:mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-3 md:pt-4 dark:border-white/5">
+                <div class="mt-3 md:mt-4 flex flex-wrap items-center justify-between gap-3 border-t theme-border pt-3 md:pt-4">
                   <div class="flex items-center gap-2">
                     <button
                       @click="updateQty(item, item.quantity - 1)"

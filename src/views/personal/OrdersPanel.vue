@@ -70,7 +70,7 @@
               v-model.trim="orderFilters.orderNo"
               type="text"
               :placeholder="t('orders.filters.orderNoPlaceholder')"
-              class="h-11 w-full rounded-xl px-4 theme-input placeholder:text-gray-400"
+              class="h-11 w-full rounded-xl px-4 theme-input placeholder:text-[var(--ui-text-muted)]"
               @input="handleOrderNoInput"
               @keyup.enter="applyOrderFilters"
             />
@@ -222,7 +222,7 @@
               v-model.trim="rechargeFilters.rechargeNo"
               type="text"
               :placeholder="t('orders.rechargeFilters.rechargeNoPlaceholder')"
-              class="h-11 w-full rounded-xl px-4 theme-input placeholder:text-gray-400"
+              class="h-11 w-full rounded-xl px-4 theme-input placeholder:text-[var(--ui-text-muted)]"
               @input="handleRechargeNoInput"
               @keyup.enter="applyRechargeFilters"
             />

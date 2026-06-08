@@ -193,7 +193,7 @@
                     type="button"
                     :disabled="submitting"
                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
-                    :class="credential.is_active ? 'bg-emerald-500' : 'bg-gray-300 dark:bg-gray-600'"
+                    :class="credential.is_active ? 'bg-emerald-500' : 'bg-[var(--ui-bg-muted)]'"
                     role="switch"
                     :aria-checked="credential.is_active"
                     @click="handleToggleStatus"

@@ -48,6 +48,7 @@ const sections = [
   {
     title: '开发者资源',
     items: [
+      { name: 'AI IP 环境检测', url: '/tools/ip', desc: '使用 Gemini / AI Studio / API 前先检测当前出口环境' },
       { name: 'Gemini API 文档', url: 'https://ai.google.dev/gemini-api/docs', desc: '完整 API 文档' },
       { name: 'Cookbook', url: 'https://github.com/google-gemini/cookbook', desc: '示例代码集（GitHub）' },
       { name: 'API 定价', url: 'https://ai.google.dev/gemini-api/docs/pricing', desc: '免费 tier + 付费定价' },
@@ -111,6 +112,7 @@ const related = {
     { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
     { to: '/claude-hub', text: 'Claude 资源中心' },
     { to: '/openai-hub', text: 'OpenAI 全产品资源' },
+    { to: '/tools/ip', text: 'AI IP 环境检测' },
     { to: '/blog', text: 'AI 工具教程合集' },
     { to: '/products', text: '订阅直充与账号商品' },
   ],

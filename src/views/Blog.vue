@@ -1,6 +1,6 @@
 <template>
   <div
-    class="blog-page min-h-screen theme-page pt-16 pb-12 sm:pt-20 sm:pb-16 relative overflow-hidden">
+    class="blog-page min-h-screen theme-page pt-24 pb-16 relative overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
       <!-- Page Header -->
       <div class="mb-8 mt-4 text-center sm:mb-16 sm:mt-12">
@@ -25,7 +25,7 @@
           : 'grid grid-cols-1 md:grid-cols-2 gap-8'">
           <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
             v-spotlight
-            class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
+            class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-[var(--ui-bg-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
             :aria-label="getLocalizedText(post.title)">
             <!-- Thumbnail · 保留上传 16:9 原始比例 -->
             <div v-if="post.thumbnail" class="aspect-video overflow-hidden">
@@ -56,7 +56,7 @@
               </p>
 
               <div
-                class="flex items-center text-sm font-medium theme-text-muted group-hover:text-gray-900 dark:group-hover:text-white transition-colors mt-auto pt-6 border-t theme-border">
+                class="flex items-center text-sm font-medium theme-text-muted group-hover:text-[var(--ui-text-primary)] transition-colors mt-auto pt-6 border-t theme-border">
                 {{ t('blog.readMore') }}
                 <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-2" fill="none"
                   stroke="currentColor" viewBox="0 0 24 24">
