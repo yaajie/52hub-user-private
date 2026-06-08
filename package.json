@@ -5,6 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "lint:theme": "bash scripts/check-theme-tokens.sh",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint": "npm run lint:theme && npm run lint:css",
+    "prebuild": "npm run lint:theme && npm run lint:css",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview"
   },
@@ -26,6 +30,8 @@
     "@vue/tsconfig": "^0.8.1",
     "autoprefixer": "^10.4.23",
     "postcss": "^8.5.6",
+    "stylelint": "^17.13.0",
+    "stylelint-config-standard": "^40.0.0",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "vite": "^7.2.4",
