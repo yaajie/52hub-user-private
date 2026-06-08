@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`7b786cc 52hub: npm audit fix 清零 5 条依赖告警（仅 lockfile，产物不变）`**（其下 `f0001c5` 防回潮 lint、`3d0637f` 整站 token 统一/IP 收敛/阶段3）
+- **最新代码 commit：`67e91c1 52hub: 定位对齐上线——Hub 重组 + 去商城化文案 + 导航/品牌收口`**（其下 `7b786cc` audit、`f0001c5` 防回潮 lint、`3d0637f` token 统一/IP 收敛/阶段3）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：完全 clean（2026-06-08 多轮已上线改动已固化并 push；npm audit 已 5→0；本地备份产物已清）。已 push 到 private remote `yaajie/52hub-user-private`，远端 = 本地 HEAD `7b786cc`
+- working tree：clean（定位对齐已上线并 push，远端 = 本地 HEAD `67e91c1`；线上 user 包 `index-C2jfzbwi.js`，生产备份 `web/user.pre-deploy-20260608-140704`）
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
 ---
