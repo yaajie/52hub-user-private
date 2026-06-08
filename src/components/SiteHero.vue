@@ -42,7 +42,7 @@
               </router-link>
               <router-link to="/products" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
                 <ShoppingBagIcon class="h-5 w-5 shrink-0 text-emerald-500" />
-                <span>商品中心</span>
+                <span>AI 服务</span>
               </router-link>
             </div>
 

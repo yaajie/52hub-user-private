@@ -202,7 +202,7 @@ const relatedLinks = computed(() => {
       { to: '/blog/apple-id-overseas-registration-guide', text: 'Apple ID 海外区注册全攻略' },
       { to: '/blog/chatgpt-anti-ban-guide', text: 'ChatGPT 账号防封号指南' },
       { to: '/about', text: '关于 52HUB 与站长 Jay' },
-      { to: '/products', text: '52HUB 商品中心' },
+      { to: '/products', text: '52HUB AI 服务' },
     ]
   }
   if (slug.startsWith('claude-')) {

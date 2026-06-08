@@ -9,7 +9,7 @@
         <span class="theme-wordmark-text">{{ brandSiteName }}</span>
       </router-link>
 
-      <!-- Desktop Menu · 顺序：首页 → AI 资源 ▾ → 工具 → 资讯 → 商品中心 → 关于 -->
+      <!-- Desktop Menu · 顺序：首页 → AI 资源 ▾ → 工具 → 资讯 → AI 服务 → 关于 -->
       <div class="hidden lg:flex items-center space-x-1 min-w-0 overflow-x-auto scrollbar-hide">
         <!-- 首页（Left） -->
         <template v-for="item in menuItemsLeft" :key="item.key">
@@ -52,7 +52,7 @@
           </svg>
           <span class="relative z-10">工具集合</span>
         </router-link>
-        <!-- Right · 资讯 → 商品中心 → 关于 → custom -->
+        <!-- Right · 资讯 → AI 服务 → 关于 → custom -->
         <template v-for="item in menuItemsRight" :key="item.key">
           <router-link v-if="item.type === 'route'" :to="item.path"
             class="theme-nav-link text-sm relative group overflow-hidden flex items-center gap-1.5 whitespace-nowrap shrink-0"
@@ -462,14 +462,14 @@ const productsItem: NavItem = {
   target: '_self',
 }
 
-// nav 顺序：首页 ··· [AI 资源 ▾] [工具] ··· 资讯 / 商品中心 / 关于 / 自定义
+// nav 顺序：首页 ··· [AI 资源 ▾] [工具] ··· 资讯 / AI 服务 / 关于 / 自定义
 // 公告（notice）从 Navbar 屏蔽（Footer 仍可访问）。
 const NAV_HIDDEN_BUILTIN = new Set(['notice'])
 
 // 桌面：home 单独渲染在 AI 资源/工具 之前
 const menuItemsLeft = computed<NavItem[]>(() => [homeItem])
 
-// 桌面：AI 资源 ▾ + 工具 之后的项（资讯 / 商品中心 / 关于 / 自定义）
+// 桌面：AI 资源 ▾ + 工具 之后的项（资讯 / AI 服务 / 关于 / 自定义）
 const menuItemsRight = computed<NavItem[]>(() => {
   const builtin = buildBuiltinNavItems().filter((it) => !NAV_HIDDEN_BUILTIN.has(it.key))
   // blog 在前，about 在后，products 插在 blog 和 about 之间
