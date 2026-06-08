@@ -3,6 +3,8 @@
     :accent="accent"
     :accent-gradient="accentGradient"
     :hero="hero"
+    :showcase="showcase"
+    :features="features"
     :sections="sections"
     :model-table="modelTable"
     :faq="faq"
@@ -14,7 +16,11 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import {
+  BookOpenIcon, SparklesIcon, AcademicCapIcon, Squares2X2Icon, PhotoIcon, FilmIcon,
+} from '@heroicons/vue/24/outline'
 import HubLayout from '../components/hub/HubLayout.vue'
+import geminiLogo from '../assets/ai-products/google-gemini.svg'
 
 const accent = '#4285F4' // Google 蓝
 const accentGradient = 'linear-gradient(135deg, #4285F4, #9333EA)' // 蓝紫渐变
@@ -22,8 +28,42 @@ const accentGradient = 'linear-gradient(135deg, #4285F4, #9333EA)' // 蓝紫渐�
 const hero = {
   title: 'Gemini 资源中心',
   subtitle: 'Google Gemini 对话、AI Studio、Vertex AI、NotebookLM、Imagen、Veo 全产品矩阵与订阅直充入口。',
+  logo: geminiLogo,
   ctaPrimary: { label: '看 Pro vs Advanced', to: '/blog/gemini-pro-vs-advanced' },
   ctaSecondary: { label: '查看 Gemini 商品', to: '/categories/gemini' },
+}
+
+const showcase = {
+  title: '看 Gemini 啃下一整本资料',
+  desc: '1M+ token 超长上下文，整本书 / 整个代码库 / 几十份文档一次喂进去，直接问它要结论。下面是它处理一份长资料的过程示意。',
+  points: [
+    '1M+ token 上下文，长文档 / 整本书一次读完',
+    '原生多模态：图像 / 音频 / 视频 / PDF 直接理解',
+    '免费版可用 Flash；Google One AI Premium 解锁 Pro 模型 + 2TB',
+  ],
+  mockup: {
+    title: 'gemini · 1M context',
+    prompt: '把这份 300 页年报读完，提炼营收结构与风险点',
+    steps: [
+      { text: '载入 300 页 PDF', meta: '≈18 万 token' },
+      { text: '定位营收 / 成本 / 现金流章节' },
+      { text: '提炼分部营收与同比变化' },
+      { text: '输出摘要 + 风险清单', done: true },
+    ],
+  },
+}
+
+const features = {
+  title: 'Gemini 能做什么',
+  desc: 'Gemini 是 Google 的旗舰 AI——超长上下文、原生多模态、深度集成 Google 生态，擅长长资料研究与多模态分析。',
+  items: [
+    { title: '百万级超长上下文', desc: '1M+ token 上下文窗口，整本书 / 整个代码库 / 几十份文档一次喂进去，适合长资料研究与分析。', icon: BookOpenIcon },
+    { title: '原生多模态', desc: '图像、音频、视频、PDF 直接理解，看长视频提炼要点、读扫描件、分析图表都行。', icon: SparklesIcon },
+    { title: 'NotebookLM 研究', desc: 'Gemini 驱动的研究笔记工具，把资料喂进去就能问答、生成摘要，甚至生成音频概述。', icon: AcademicCapIcon },
+    { title: 'Workspace 深度集成', desc: '集成进 Gmail / Docs / Sheets / Meet，在你日常用的 Google 办公套件里直接调用。', icon: Squares2X2Icon },
+    { title: 'Imagen 图像生成', desc: 'Google 的图像生成模型，在 AI Studio / Gemini 内生成高质量图片。', icon: PhotoIcon },
+    { title: 'Veo 视频生成', desc: 'Google 的视频生成模型，Gemini Advanced（Premium）订阅含每月限额，性价比高于 Sora Pro。', icon: FilmIcon },
+  ],
 }
 
 const sections = [

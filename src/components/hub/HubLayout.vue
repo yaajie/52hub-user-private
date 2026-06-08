@@ -201,6 +201,20 @@ const itemListSchema = computed(() => {
   }
 })
 
+// FAQPage Schema：FAQ 富摘要（faq 内容此前只渲染显示、未结构化输出）
+const faqSchema = computed(() => {
+  if (!props.faq || !props.faq.length) return null
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: props.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  }
+})
+
 // 注入 Schema 脚本
 const schemaScripts = computed(() => {
   const arr: Array<{ type: string; innerHTML: string }> = [
@@ -208,6 +222,9 @@ const schemaScripts = computed(() => {
   ]
   if (itemListSchema.value) {
     arr.push({ type: 'application/ld+json', innerHTML: JSON.stringify(itemListSchema.value) })
+  }
+  if (faqSchema.value) {
+    arr.push({ type: 'application/ld+json', innerHTML: JSON.stringify(faqSchema.value) })
   }
   return arr
 })

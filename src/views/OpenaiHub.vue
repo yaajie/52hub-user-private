@@ -2,6 +2,8 @@
   <HubLayout
     :accent="accent"
     :hero="hero"
+    :showcase="showcase"
+    :features="features"
     :sections="sections"
     :model-table="modelTable"
     :faq="faq"
@@ -13,15 +15,53 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import {
+  CpuChipIcon, SparklesIcon, MagnifyingGlassIcon, PhotoIcon, FilmIcon, Squares2X2Icon,
+} from '@heroicons/vue/24/outline'
 import HubLayout from '../components/hub/HubLayout.vue'
+import openaiLogo from '../assets/ai-products/openai.svg'
 
 const accent = '#10A37F' // OpenAI 绿
 
 const hero = {
   title: 'OpenAI / ChatGPT 资源中心',
   subtitle: 'OpenAI 官方入口、ChatGPT 订阅档位与国内付款、Sora / DALL-E / API 产品导航。Codex 专题单独见 Codex 资源中心。',
+  logo: openaiLogo,
   ctaPrimary: { label: '看国内付款方法', to: '/blog/chatgpt-plus-china-payment-guide' },
   ctaSecondary: { label: '立即下单 ChatGPT Plus', to: '/products/chatgpt-plus' },
+}
+
+const showcase = {
+  title: '看 ChatGPT 跑一次深度研究',
+  desc: '你给一个研究问题，ChatGPT 会自己联网搜索、读多个来源、交叉核对，再输出带引用的报告。下面是它处理一个真实问题的过程示意。',
+  points: [
+    'GPT-5 旗舰推理 + 联网搜索 + 多模态（图 / 语音 / 视频）',
+    'Plus / Pro 订阅含，按档位享更高用量与更强模型',
+    '桌面 / iOS / 安卓 / 网页，跨端同步对话与记忆',
+  ],
+  mockup: {
+    title: 'chatgpt · deep research',
+    prompt: '对比三款 2 千价位扫地机器人，给带来源的选购建议',
+    steps: [
+      { text: '联网检索 20+ 来源' },
+      { text: '提取规格 / 价格 / 真实评测', meta: '3 款' },
+      { text: '交叉核对参数与口碑' },
+      { text: '输出对比表 + 选购建议', done: true },
+    ],
+  },
+}
+
+const features = {
+  title: 'ChatGPT 能做什么',
+  desc: 'ChatGPT 是 OpenAI 的旗舰 AI 助手——对话、写作、编程、看图、联网研究、生成图像与视频，一个入口覆盖日常到专业场景。',
+  items: [
+    { title: 'GPT-5 旗舰推理', desc: '当前一代旗舰对话与推理模型，日常问答、写作、编程一把抓；o 系列推理模型处理数学与长链条思考。', icon: CpuChipIcon },
+    { title: '原生多模态', desc: '看图说话、语音对话、读文档、分析截图，文字 / 图像 / 语音 / 视频在一个对话里自由切换。', icon: SparklesIcon },
+    { title: '深度研究 / Agent', desc: '给一个研究问题，自己联网搜索、读多源、交叉核对，输出带引用的结构化报告；Agent 模式可代你完成多步任务。', icon: MagnifyingGlassIcon },
+    { title: 'DALL·E 图像生成', desc: '在 ChatGPT 里用自然语言生成与编辑图片，Plus 及以上集成可用，做配图 / 海报 / 概念图。', icon: PhotoIcon },
+    { title: 'Sora 视频生成', desc: '文本到视频模型，在 sora.com 独立站按订阅档位享额度生成短视频。', icon: FilmIcon },
+    { title: '跨端 + 自定义 GPTs', desc: '桌面 / iOS / 安卓 / 网页对话与记忆同步；可自建或调用 GPTs，把常用流程固化成专属助手。', icon: Squares2X2Icon },
+  ],
 }
 
 const sections = [
