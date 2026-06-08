@@ -171,12 +171,13 @@
         <div class="min-w-[180px] theme-panel-strong border theme-border rounded-xl shadow-lg py-2 backdrop-blur-xl">
           <router-link to="/claude-hub" @click="aihubOpen = false"
             class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Claude 资源</router-link>
-          <router-link to="/chatgpt-hub" @click="aihubOpen = false"
-            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">ChatGPT 资源</router-link>
+          <router-link to="/codex-hub" @click="aihubOpen = false"
+            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Codex 资源</router-link>
+          <div class="my-1 border-t theme-border"></div>
           <router-link to="/openai-hub" @click="aihubOpen = false"
-            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">OpenAI 全产品</router-link>
+            class="block px-4 py-2 text-sm theme-text-muted hover:theme-text-primary hover:theme-surface-soft transition-colors">OpenAI / ChatGPT</router-link>
           <router-link to="/gemini-hub" @click="aihubOpen = false"
-            class="block px-4 py-2 text-sm theme-text-secondary hover:theme-text-primary hover:theme-surface-soft transition-colors">Gemini 资源</router-link>
+            class="block px-4 py-2 text-sm theme-text-muted hover:theme-text-primary hover:theme-surface-soft transition-colors">Gemini 资源</router-link>
         </div>
       </div>
     </Transition>
@@ -250,15 +251,15 @@
               active-class="theme-nav-link-active">
               <span class="w-5 text-center">🟠</span>Claude 资源
             </router-link>
-            <router-link to="/chatgpt-hub" @click="showMobileMenu = false"
+            <router-link to="/codex-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 text-center">🟢</span>ChatGPT 资源
+              <span class="w-5 text-center">🟢</span>Codex 资源
             </router-link>
             <router-link to="/openai-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 text-center">⚪</span>OpenAI 全产品
+              <span class="w-5 text-center">⚪</span>OpenAI / ChatGPT
             </router-link>
             <router-link to="/gemini-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"

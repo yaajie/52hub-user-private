@@ -167,7 +167,7 @@ const relatedLinks = computed(() => {
   const slug = (post.value?.slug || '').toLowerCase()
   if (slug.includes('codex')) {
     return [
-      { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+      { to: '/codex-hub', text: 'Codex 资源中心' },
       { to: '/claude-hub', text: 'Claude 资源中心' },
       { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x 直充' },
       { to: '/products/claude-max-5x', text: 'Claude Max 5x 直充' },
@@ -215,7 +215,7 @@ const relatedLinks = computed(() => {
   }
   if (slug.startsWith('chatgpt-')) {
     return [
-      { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+      { to: '/openai-hub', text: 'OpenAI / ChatGPT 资源中心' },
       { to: '/products/chatgpt-plus', text: 'ChatGPT Plus 直充月卡' },
       { to: '/products/chatgpt-pro-5x', text: 'ChatGPT Pro 5x 直充月卡' },
       { to: '/tools', text: '在线工具集合' },
@@ -224,7 +224,7 @@ const relatedLinks = computed(() => {
   // fallback：公告或其它未匹配 slug
   return [
     { to: '/claude-hub', text: 'Claude 资源中心' },
-    { to: '/chatgpt-hub', text: 'ChatGPT 资源中心' },
+    { to: '/codex-hub', text: 'Codex 资源中心' },
     { to: '/tools', text: '在线工具集合' },
     { to: '/products', text: 'AI 订阅直充商品' },
   ]

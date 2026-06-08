@@ -294,11 +294,11 @@ const navBuiltin = computed(() => (appStore.config?.nav_config as { builtin?: Re
 const blogEnabled = computed(() => navBuiltin.value?.blog !== false)
 
 useHead({
-  title: '52HUB · Claude / ChatGPT / Gemini AI 工具资源中心 · 官方直充',
+  title: '52HUB · Claude / Codex / ChatGPT AI 智能体资源与订阅服务站',
   meta: [
-    { name: 'description', content: '52HUB · AI 工具教程、官方入口、实用资源汇总，并提供 ChatGPT / Claude / Gemini 官方订阅直充与 Apple ID 账号代办服务。' },
-    { property: 'og:title', content: '52HUB · AI 工具资源中心 + 官方直充' },
-    { property: 'og:description', content: 'AI 工具教程、官方入口、实用资源整理，并提供官方订阅直充与账号服务。' },
+    { name: 'description', content: '52HUB · AI 智能体资源与服务站：Claude、Codex、ChatGPT 的官方入口、教程、实用工具与官方订阅直充，帮你把这些 AI 工具真正用起来。站长 Jay 多年整理。' },
+    { property: 'og:title', content: '52HUB · AI 智能体资源与订阅服务站（Claude / Codex / ChatGPT）' },
+    { property: 'og:description', content: 'Claude、Codex、ChatGPT 的官方入口、教程、实用工具与官方订阅直充，帮你把这些 AI 工具真正用起来。' },
     { property: 'og:url', content: 'https://52hub.org/' },
     { property: 'og:type', content: 'website' },
   ],

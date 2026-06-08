@@ -19,7 +19,7 @@ const toolsViewLoader: RouteComponentLoader = () => import('../views/Tools.vue')
 const aiIpCheckViewLoader: RouteComponentLoader = () => import('../views/AiIpCheck.vue')
 const codexAuthViewLoader: RouteComponentLoader = () => import('../views/CodexAuth.vue')
 const claudeHubViewLoader: RouteComponentLoader = () => import('../views/ClaudeHub.vue')
-const chatgptHubViewLoader: RouteComponentLoader = () => import('../views/ChatgptHub.vue')
+const codexHubViewLoader: RouteComponentLoader = () => import('../views/CodexHub.vue')
 const openaiHubViewLoader: RouteComponentLoader = () => import('../views/OpenaiHub.vue')
 const geminiHubViewLoader: RouteComponentLoader = () => import('../views/GeminiHub.vue')
 
@@ -36,7 +36,7 @@ const routeWarmupLoaders: RouteComponentLoader[] = [
     aiIpCheckViewLoader,
     codexAuthViewLoader,
     claudeHubViewLoader,
-    chatgptHubViewLoader,
+    codexHubViewLoader,
     openaiHubViewLoader,
     geminiHubViewLoader,
 ]
@@ -274,9 +274,9 @@ const router = createRouter({
             component: claudeHubViewLoader,
         },
         {
-            path: '/chatgpt-hub',
-            name: 'chatgpt-hub',
-            component: chatgptHubViewLoader,
+            path: '/codex-hub',
+            name: 'codex-hub',
+            component: codexHubViewLoader,
         },
         {
             path: '/openai-hub',
@@ -287,6 +287,11 @@ const router = createRouter({
             path: '/gemini-hub',
             name: 'gemini-hub',
             component: geminiHubViewLoader,
+        },
+        {
+            // 合并：ChatGPT 资源页并入 OpenAI 资源页（2026-06-08 重组），旧 URL 永久重定向，保 SEO 不 404
+            path: '/chatgpt-hub',
+            redirect: '/openai-hub',
         },
         {
             path: '/notice',

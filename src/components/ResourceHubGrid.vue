@@ -17,7 +17,8 @@
         :style="{ '--hub-accent': hub.accent, '--hub-accent-soft': hub.accentSoft }"
       >
         <div class="hub-card-visual mb-4 flex h-20 items-center justify-between rounded-xl border theme-border px-3">
-          <component :is="hub.icon" class="h-7 w-7" :style="{ color: hub.accent }" />
+          <img v-if="hub.logo" :src="hub.logo" :alt="hub.title" class="h-7 w-7 object-contain" />
+          <component v-else :is="hub.icon" class="h-7 w-7" :style="{ color: hub.accent }" />
           <div class="hub-signal-stack" aria-hidden="true">
             <span v-for="i in 4" :key="`${hub.to}-${i}`" :style="{ width: `${42 + i * 13}px` }"></span>
           </div>
@@ -39,14 +40,17 @@ import type { Component } from 'vue'
 import {
   BoltIcon,
   CpuChipIcon,
-  SparklesIcon,
+  BookOpenIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/vue/24/outline'
+import claudeLogo from '../assets/ai-products/claude-ai.svg'
+import openaiLogo from '../assets/ai-products/openai.svg'
 
 type HubCard = {
   to: string
   code: string
   icon: Component
+  logo?: string
   accent: string
   accentSoft: string
   title: string
@@ -54,10 +58,10 @@ type HubCard = {
 }
 
 const hubs = [
-  { to: '/claude-hub', code: 'ANT', icon: BoltIcon, accent: '#D97757', accentSoft: 'rgba(217, 119, 87, 0.15)', title: 'Claude 资源', desc: '官方入口、Claude Code、注册教程和订阅档位集中整理。' },
-  { to: '/openai-hub', code: 'OAI', icon: CpuChipIcon, accent: '#10A37F', accentSoft: 'rgba(16, 163, 127, 0.16)', title: 'OpenAI 全产品', desc: 'ChatGPT、Sora、DALL-E、API、Codex 的入口与用法。' },
-  { to: '/gemini-hub', code: 'GMI', icon: SparklesIcon, accent: '#4285F4', accentSoft: 'rgba(66, 133, 244, 0.16)', title: 'Gemini 资源', desc: 'AI Studio、Vertex、NotebookLM、Veo 和订阅选择。' },
+  { to: '/claude-hub', code: 'ANT', icon: BoltIcon, logo: claudeLogo, accent: '#D97757', accentSoft: 'rgba(217, 119, 87, 0.15)', title: 'Claude 资源', desc: '官方入口、Claude Code、注册教程和 Pro / Max 订阅档位集中整理。' },
+  { to: '/codex-hub', code: 'CDX', icon: CpuChipIcon, logo: openaiLogo, accent: '#10A37F', accentSoft: 'rgba(16, 163, 127, 0.16)', title: 'Codex 资源', desc: 'OpenAI Codex 智能体（官方桌面客户端）上手、ChatGPT Pro 订阅门槛与登录环境。' },
   { to: '/tools', code: 'TLS', icon: WrenchScrewdriverIcon, accent: '#8B5CF6', accentSoft: 'rgba(139, 92, 246, 0.16)', title: '在线工具', desc: 'AI IP 环境检测、Codex Auth、服务状态、DNS 隐私与接码入口。' },
+  { to: '/blog', code: 'EDU', icon: BookOpenIcon, accent: '#4285F4', accentSoft: 'rgba(66, 133, 244, 0.16)', title: '最新教程', desc: 'Claude / ChatGPT / Codex 的选购、注册、登录、防封与排错实战笔记。' },
 ] satisfies HubCard[]
 </script>
 

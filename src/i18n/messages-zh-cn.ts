@@ -51,13 +51,13 @@ const messages =
         },
         nav: {
             home: '首页',
-            products: '商品中心',
+            products: '订阅服务',
             blog: '资讯',
             notice: '公告',
             about: '关于',
         },
         footer: {
-            description: '52HUB · AI 工具教程资源 + 官方订阅直充与 Apple ID 账号代办',
+            description: '52HUB · AI 智能体资源与服务站 · 教程 · 工具 · 官方订阅直充',
             quickLinks: '快速链接',
             contact: '联系我们',
             rights: '保留所有权利',
@@ -73,9 +73,9 @@ const messages =
         },
         home: {
             hero: {
-                title: 'AI 工具直充 & 账号代购',
-                subtitle: 'ChatGPT · Claude · Gemini · Apple ID — 直充月卡 / 出号 / 礼品卡兑换',
-                cta: '看看商品',
+                title: 'AI 智能体资源与服务站',
+                subtitle: 'Claude · Codex · ChatGPT — 官方入口、教程、工具与订阅直充，一站整理',
+                cta: '看 AI 教程',
                 badge: '52HUB',
             },
             announcement: {
@@ -90,7 +90,7 @@ const messages =
             },
             featured: {
                 title: '精选推荐',
-                description: '站长精挑细选 · 从教程延伸到可代办的官方订阅与账号服务',
+                description: '站长精选 · 教程之外，提供官方订阅直充等服务',
                 empty: '暂无商品',
                 viewAll: '查看全部商品 →',
             },
@@ -161,7 +161,7 @@ const messages =
         },
         about: {
             title: '关于 52HUB',
-            subtitle: '站长 Jay · 整理 AI 工具资源，顺便提供官方订阅直充与账号代办服务',
+            subtitle: '站长 Jay · 整理 AI 工具资源与教程，并提供官方订阅直充等服务',
             introduction: '52HUB 整理 AI 工具教程、官方入口与实用资源，并提供 ChatGPT / Claude / Gemini 官方订阅直充与 Apple ID 账号代办服务。',
             ourServices: '服务范围',
             service1: '官方订阅直充与账号代办，覆盖 Claude / ChatGPT / Gemini / Apple ID',
@@ -186,7 +186,7 @@ const messages =
         bottomNav: {
             home: '首页',
             tools: '工具',
-            products: '商品',
+            products: '订阅',
             cart: '购物车',
             me: '我的',
         },

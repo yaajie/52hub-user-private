@@ -14,7 +14,7 @@
           </div>
           <!-- 前端硬编码短 slogan（忽略后台 site_description 的长描述，避免破坏 footer 对齐） -->
           <p class="text-sm leading-relaxed theme-text-muted">
-            AI 工具资源中心 · 教程 + 官方直充
+            AI 智能体资源与服务站 · 教程 · 工具 · 官方订阅直充
           </p>
           <div class="space-y-2.5 text-sm">
             <a :href="telegramServiceUrl" target="_blank"
@@ -65,10 +65,10 @@
               <router-link to="/claude-hub" class="theme-link-muted transition-colors">Claude 资源</router-link>
             </li>
             <li>
-              <router-link to="/chatgpt-hub" class="theme-link-muted transition-colors">ChatGPT 资源</router-link>
+              <router-link to="/codex-hub" class="theme-link-muted transition-colors">Codex 资源</router-link>
             </li>
             <li>
-              <router-link to="/openai-hub" class="theme-link-muted transition-colors">OpenAI 全产品</router-link>
+              <router-link to="/openai-hub" class="theme-link-muted transition-colors">OpenAI / ChatGPT</router-link>
             </li>
             <li>
               <router-link to="/gemini-hub" class="theme-link-muted transition-colors">Gemini 资源</router-link>

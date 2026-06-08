@@ -39,7 +39,7 @@ const sections = [
     items: [
       { name: 'AI IP 环境检测', url: '/tools/ip', desc: '登录 Claude / Claude Code 或调用 API 前先检测当前出口环境' },
       { name: 'Claude 桌面客户端', url: 'https://claude.ai/download', desc: 'macOS / Windows 官方客户端' },
-      { name: 'Claude Code', url: 'https://github.com/anthropics/claude-code', desc: '命令行编程助手，GitHub 仓库' },
+      { name: 'Claude Code', url: 'https://claude.com/product/claude-code', desc: 'Anthropic AI 智能体（agent）：终端 / IDE / 桌面应用 / 浏览器，Claude Pro·Max 订阅含，不只是写代码' },
       { name: 'Anthropic Cookbook', url: 'https://github.com/anthropics/anthropic-cookbook', desc: '官方示例代码集' },
     ],
   },
@@ -55,12 +55,13 @@ const sections = [
 ]
 
 const modelTable = {
-  title: '模型对比',
-  columns: ['模型', '核心优势', '适用场景'],
+  title: 'Claude 订阅套餐',
+  columns: ['套餐', '含 Claude Code', '适用'],
   rows: [
-    { cells: ['Claude Opus 4.7', '最强推理 / 长文档处理', '复杂编程、研究、长文分析'] },
-    { cells: ['Claude Sonnet 4.7', '速度与智能平衡', '日常对话、写作、代码辅助'] },
-    { cells: ['Claude Haiku 4.5', '极速响应 / 低成本', '批量任务、实时应用'] },
+    { cells: ['Pro（约 $20/月）', '含 · 基础用量', '日常对话 / 写作 + 小型代码库短冲刺'] },
+    { cells: ['Max 5x（$100/月）', '含 · 5 倍用量', '大型代码库日常使用，性价比高'] },
+    { cells: ['Max 20x（$200/月）', '含 · 20 倍用量', '重度 agent 用户，最大模型访问'] },
+    { cells: ['Team / Enterprise', '含 · 团队席位', '团队协作 / 企业管控'] },
   ],
 }
 

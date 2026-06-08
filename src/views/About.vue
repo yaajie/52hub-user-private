@@ -28,7 +28,7 @@
           <div class="about-hero-tile">
             <span>AI 资源</span>
             <strong>入口 / 教程 / 排坑</strong>
-            <small>把 ChatGPT、Claude、Gemini、Codex 常用路径集中整理</small>
+            <small>把 Claude、Codex、ChatGPT 等 AI 智能体与工具的常用路径集中整理</small>
           </div>
           <div class="about-hero-tile">
             <span>订阅服务</span>
@@ -185,7 +185,7 @@ const resolveLocalizedText = (raw: unknown): string => {
 }
 
 const heroTitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.title) || '关于 52HUB')
-const heroSubtitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.subtitle) || '站长 Jay 整理的 AI 工具资源中心 + 官方订阅直充与账号代办服务')
+const heroSubtitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.subtitle) || '站长 Jay 打造的 AI 智能体资源与服务站 · 教程 · 工具 · 官方订阅直充')
 const introductionText = computed(() => resolveLocalizedText(aboutConfig.value?.introduction))
 const servicesTitle = computed(() => resolveLocalizedText(aboutConfig.value?.services?.title))
 const contactTitle = computed(() => resolveLocalizedText(aboutConfig.value?.contact?.title))
