@@ -31,9 +31,9 @@
             <small>把 Claude、Codex、ChatGPT 等 AI 智能体与工具的常用路径集中整理</small>
           </div>
           <div class="about-hero-tile">
-            <span>订阅服务</span>
-            <strong>直充 / 成品号 / 礼品卡</strong>
-            <small>优先说明交付边界，避免把虚拟商品说成永久稳定</small>
+            <span>AI 服务</span>
+            <strong>代订阅 / 成品号 / API / 账号</strong>
+            <small>客户有需要就提供；优先说明交付边界，不把虚拟商品说成永久稳定</small>
           </div>
           <div class="about-hero-tile">
             <span>站点原则</span>
@@ -185,7 +185,7 @@ const resolveLocalizedText = (raw: unknown): string => {
 }
 
 const heroTitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.title) || '关于 52HUB')
-const heroSubtitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.subtitle) || '站长 Jay 打造的 AI 智能体资源与服务站 · 教程 · 工具 · 官方订阅直充')
+const heroSubtitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.subtitle) || '站长 Jay 打造的 AI 智能体资源与服务站 · 教程 · 工具 · 代订阅 / 成品号 / API 等服务')
 const introductionText = computed(() => resolveLocalizedText(aboutConfig.value?.introduction))
 const servicesTitle = computed(() => resolveLocalizedText(aboutConfig.value?.services?.title))
 const contactTitle = computed(() => resolveLocalizedText(aboutConfig.value?.contact?.title))
@@ -206,9 +206,9 @@ const hasContact = computed(() => contactTitle.value !== '' || contactText.value
 useHead({
   title: '关于 52HUB · 站长 Jay 自述 - 52HUB',
   meta: [
-    { name: 'description', content: '52HUB 站长 Jay 自述：玩 ChatGPT / Claude 几年，把买号、订阅、IP 配置踩过的坑整理成站点，既是 AI 实用资源站，也提供官方订阅直充与账号服务。' },
+    { name: 'description', content: '52HUB 站长 Jay 自述：玩 ChatGPT / Claude 几年，把买号、订阅、IP 配置踩过的坑整理成站点，既是 AI 实用资源站，也按需提供代订阅、成品号、API 等服务。' },
     { property: 'og:title', content: '关于 52HUB · 站长 Jay 自述 - 52HUB' },
-    { property: 'og:description', content: 'AI 工具实用资源站 + 官方订阅直充与账号服务。站长 Jay 自述创站初衷与服务范围。' },
+    { property: 'og:description', content: 'AI 工具实用资源站 + 代订阅 / 成品号 / API 等按需服务。站长 Jay 自述创站初衷与服务范围。' },
     { property: 'og:url', content: 'https://52hub.org/about' },
     { property: 'og:type', content: 'website' },
   ],

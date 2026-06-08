@@ -178,7 +178,7 @@ const relatedLinks = computed(() => {
       { to: '/gemini-hub', text: 'Gemini 资源中心' },
       { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
       { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
-      { to: '/products', text: 'AI 订阅直充商品' },
+      { to: '/products', text: 'AI 订阅 / 成品号 / API 等服务' },
     ]
   }
   if (slug.startsWith('apple-id-')) {
@@ -226,7 +226,7 @@ const relatedLinks = computed(() => {
     { to: '/claude-hub', text: 'Claude 资源中心' },
     { to: '/codex-hub', text: 'Codex 资源中心' },
     { to: '/tools', text: '在线工具集合' },
-    { to: '/products', text: 'AI 订阅直充商品' },
+    { to: '/products', text: 'AI 订阅 / 成品号 / API 等服务' },
   ]
 })
 

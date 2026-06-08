@@ -14,7 +14,7 @@
           </div>
           <!-- 前端硬编码短 slogan（忽略后台 site_description 的长描述，避免破坏 footer 对齐） -->
           <p class="text-sm leading-relaxed theme-text-muted">
-            AI 智能体资源与服务站 · 教程 · 工具 · 官方订阅直充
+            AI 智能体资源与服务站 · 教程 · 工具 · 代订阅 / 成品号 / API 等服务
           </p>
           <div class="space-y-2.5 text-sm">
             <a :href="telegramServiceUrl" target="_blank"

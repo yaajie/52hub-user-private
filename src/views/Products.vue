@@ -150,7 +150,7 @@ const isCategory = computed(() => !!categorySlug.value)
 useHead({
   title: computed(() => isCategory.value
     ? `${categorySlug.value} 分类商品 - 52HUB`
-    : '商品中心 · Claude / ChatGPT / Gemini 直充 + Apple ID 账号 - 52HUB'),
+    : 'AI 服务 · Claude / ChatGPT / Gemini 代订阅 / 成品号 / API + Apple ID 账号 - 52HUB'),
   meta: computed(() => {
     const base = [
       { property: 'og:type', content: 'website' },
@@ -164,9 +164,9 @@ useHead({
     }
     return [
       ...base,
-      { name: 'description', content: '52HUB 商品中心 · ChatGPT Plus / Claude Pro / Gemini 官方订阅直充，美区 / 港区 Apple ID 独享账号，Claude 礼品卡兑换号。' },
-      { property: 'og:title', content: '商品中心 · 直充 + Apple ID 账号 - 52HUB' },
-      { property: 'og:description', content: 'ChatGPT / Claude / Gemini 官方订阅直充 + Apple ID 账号 + Claude 礼品卡。' },
+      { name: 'description', content: '52HUB AI 服务 · Claude / ChatGPT / Gemini 的代订阅、成品号、API 额度兑换，美区 / 港区 Apple ID 独享账号，礼品卡兑换号。' },
+      { property: 'og:title', content: 'AI 服务 · 代订阅 / 成品号 / API + Apple ID 账号 - 52HUB' },
+      { property: 'og:description', content: 'Claude / ChatGPT / Gemini 代订阅、成品号、API 额度 + Apple ID 账号 + 礼品卡。' },
       { property: 'og:url', content: 'https://52hub.org/products' },
     ]
   }),
@@ -185,7 +185,7 @@ useHead({
       '@type': 'Store',
       name: '52HUB',
       url: 'https://52hub.org/products',
-      description: '52HUB 商品中心 · ChatGPT / Claude / Gemini 官方订阅直充与 Apple ID 账号服务。',
+      description: '52HUB AI 服务 · Claude / ChatGPT / Gemini 代订阅、成品号、API 与 Apple ID 账号等服务。',
     }),
   }]),
 })

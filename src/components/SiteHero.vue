@@ -24,7 +24,7 @@
               AI 工具入口、教程与订阅，一站整理
             </h1>
             <p class="mt-5 max-w-2xl text-base leading-8 theme-text-secondary sm:text-lg">
-              站长把 Claude、Codex、ChatGPT 等 AI 智能体与工具的官方入口、实用工具和订阅直充路径整理到一处，少走弯路，直接找到能用的方案。
+              站长把 Claude、Codex、ChatGPT 等 AI 智能体与工具的官方入口、实用工具，以及代订阅 / 成品号 / API 等服务整理到一处，少走弯路，直接找到能用的方案。
             </p>
 
             <div class="site-hero-actions mt-7 grid gap-3 sm:flex sm:flex-wrap">
