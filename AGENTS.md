@@ -33,7 +33,7 @@ git status --short
 - 分支：`52hub/v1.0.2-user-hardening`
 - **最新代码 commit：`f0001c5 52hub: 接入零依赖防回潮 lint（grep theme 守卫 + stylelint）到 prebuild`**（其下 `3d0637f` 固化整站 token 统一/IP 收敛/阶段3）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：基本 clean（2026-06-08 多轮已上线改动已于本日固化为 `3d0637f`+`f0001c5`；仅剩 2 个本地 stylelint 回滚备份 `package*.pre-stylelint-20260608-115236` 未跟踪，非源码，可随时删；尚未 push 到 private remote）
+- working tree：基本 clean（2026-06-08 多轮已上线改动已于本日固化为 `3d0637f`+`f0001c5`；仅剩 2 个本地 stylelint 回滚备份 `package*.pre-stylelint-20260608-115236` 未跟踪，非源码，可随时删；已 push 到 private remote `yaajie/52hub-user-private`）
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
 ---
