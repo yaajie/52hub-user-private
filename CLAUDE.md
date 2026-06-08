@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`ae3bd35 docs: sync Codex Auth premium layout deployment`**（其上 `4aa7ba7`）
+- **最新代码 commit：`f0001c5 52hub: 接入零依赖防回潮 lint（grep theme 守卫 + stylelint）到 prebuild`**（其下 `3d0637f` 固化整站 token 统一/IP 收敛/阶段3）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：dirty（60 处未提交：官方支付宝设备分流 + 详情页人工发货提示隐藏 + 提交订单页手续费换行 + 2026-06-08 整站 token 统一/IP 收敛/阶段3 导航与顶距/阶段0 grep 守卫/stylelint 工具链；未跟踪含 `.stylelintrc.json`、`scripts/check-theme-tokens.sh`、`package*.pre-stylelint-20260608-115236`；视觉改动 dist 已上线、源码均未 commit/push）
+- working tree：基本 clean（2026-06-08 多轮已上线改动已于本日固化为 `3d0637f`+`f0001c5`；仅剩 2 个本地 stylelint 回滚备份 `package*.pre-stylelint-20260608-115236` 未跟踪，非源码，可随时删；尚未 push 到 private remote）
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
 ---
