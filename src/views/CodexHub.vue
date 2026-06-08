@@ -2,6 +2,8 @@
   <HubLayout
     :accent="accent"
     :hero="hero"
+    :showcase="showcase"
+    :features="features"
     :sections="sections"
     :model-table="modelTable"
     :faq="faq"
@@ -13,15 +15,54 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import {
+  BoltIcon, Squares2X2Icon, SparklesIcon, ArrowPathIcon, ShieldCheckIcon, RectangleGroupIcon,
+} from '@heroicons/vue/24/outline'
 import HubLayout from '../components/hub/HubLayout.vue'
+import codexLogo from '../assets/ai-products/codex-logo.webp'
 
 const accent = '#10A37F' // OpenAI 绿（Codex 属 OpenAI）
 
 const hero = {
   title: 'Codex 资源中心',
   subtitle: 'OpenAI Codex 已从写代码工具进化为能自己规划、执行任务的 AI 智能体（agent），主要通过 Codex 官方桌面客户端使用。这里整理官方入口、ChatGPT 订阅门槛、登录环境与上手要点。',
+  logo: codexLogo,
   ctaPrimary: { label: '看 Codex vs Claude Code', to: '/blog/chatgpt-codex-vs-claude-code' },
   ctaSecondary: { label: '立即下单 ChatGPT Pro', to: '/products/chatgpt-pro-5x' },
+}
+
+const showcase = {
+  title: '看 Codex 跑一个任务',
+  desc: '你只描述目标，Codex 会自己读代码、改文件、跑测试再交付。下面是它处理一个真实需求的过程示意。',
+  points: [
+    '桌面应用 / 编辑器 / 终端 / 云端，统一连 ChatGPT 账户',
+    '多任务并行，长任务可在后台自动推进',
+    '改完自动跑测试、整理改动并提 PR',
+  ],
+  mockup: {
+    title: 'codex · acme-dashboard',
+    prompt: '给设置页加一个深色模式开关，记住选择并默认跟随系统',
+    steps: [
+      { text: '读取代码库结构与依赖' },
+      { text: 'Edit  ThemeProvider.tsx', meta: '+18 −2' },
+      { text: 'Edit  settings.tsx', meta: '+21 −0' },
+      { text: 'Run   npm test', meta: '✓ 12 passed' },
+      { text: '完成 · 已提交 PR #112', done: true },
+    ],
+  },
+}
+
+const features = {
+  title: 'Codex 能做什么',
+  desc: 'Codex 是 OpenAI 的编程智能体——你描述目标，它自己规划、写码、跑测试并交付，而不只是补全代码。',
+  items: [
+    { title: '端到端任务执行', desc: '从常规 Pull Request 到核心难题，胜任功能开发、复杂重构与代码迁移，依托 OpenAI 前沿编码模型。', icon: BoltIcon },
+    { title: '多智能体并行', desc: '桌面应用内置工作树与云端环境，多个智能体跨项目并行推进，把原需数周的开发周期缩短到数天。', icon: Squares2X2Icon },
+    { title: '技能（Skills）', desc: '不止写代码——参与代码理解、原型构建、文档编写，并与团队规范保持一致。', icon: SparklesIcon },
+    { title: '后台自动化', desc: '无需逐步提示即可长时间自动运行，处理问题分流、告警监控、CI/CD 等日常工作。', icon: ArrowPathIcon },
+    { title: '代码审查', desc: 'PR 审查能发现团队容易忽略的漏洞与向后兼容问题，从源头降低交付风险。', icon: ShieldCheckIcon },
+    { title: '多入口统一', desc: '桌面应用 / 编辑器(IDE) / 终端(CLI) / 云端，全部通过你的 ChatGPT 账户统一连接。', icon: RectangleGroupIcon },
+  ],
 }
 
 const sections = [

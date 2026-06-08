@@ -11,8 +11,42 @@
         :accent-gradient="accentGradient"
         :title="hero.title"
         :subtitle="hero.subtitle"
+        :logo="hero.logo"
         :cta-primary="hero.ctaPrimary"
         :cta-secondary="hero.ctaSecondary"
+      />
+
+      <section v-if="showcase" class="mb-12 grid items-center gap-8 lg:grid-cols-2">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="h-7 w-1.5 rounded-full" :style="{ background: accent }"></span>
+            <h2 class="text-xl font-semibold theme-text-primary sm:text-2xl">{{ showcase.title }}</h2>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed theme-text-secondary sm:text-base">{{ showcase.desc }}</p>
+          <ul v-if="showcase.points && showcase.points.length" class="mt-5 space-y-2.5">
+            <li v-for="p in showcase.points" :key="p" class="flex items-start gap-2.5 text-sm theme-text-secondary">
+              <span
+                class="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white"
+                :style="{ background: accent }"
+              >✓</span>
+              <span>{{ p }}</span>
+            </li>
+          </ul>
+        </div>
+        <HubMockup
+          :accent="accent"
+          :title="showcase.mockup.title"
+          :prompt="showcase.mockup.prompt"
+          :steps="showcase.mockup.steps"
+        />
+      </section>
+
+      <HubFeatures
+        v-if="features && features.items.length"
+        :title="features.title"
+        :desc="features.desc"
+        :items="features.items"
+        :accent="accent"
       />
 
       <HubSection
@@ -28,12 +62,16 @@
         :title="modelTable.title"
         :columns="modelTable.columns"
         :rows="modelTable.rows"
+        :accent="accent"
       />
 
       <HubFaq :items="faq" />
 
       <section v-if="cta.length" class="mb-10">
-        <h2 class="text-xl font-semibold theme-text-primary sm:text-2xl">订阅直充</h2>
+        <div class="flex items-center gap-3">
+          <span class="h-7 w-1.5 rounded-full" :style="{ background: accent }"></span>
+          <h2 class="text-xl font-semibold theme-text-primary sm:text-2xl">立即下单</h2>
+        </div>
         <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
           <HubCtaCard
             v-for="card in cta"
@@ -60,11 +98,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { Component } from 'vue'
 import { useRoute } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import HubCtaCard from './HubCtaCard.vue'
 import HubFaq from './HubFaq.vue'
+import HubFeatures from './HubFeatures.vue'
 import HubHero from './HubHero.vue'
+import HubMockup from './HubMockup.vue'
 import HubModelTable from './HubModelTable.vue'
 import HubRelatedList from './HubRelatedList.vue'
 import HubSection from './HubSection.vue'
@@ -75,8 +116,24 @@ const props = withDefaults(defineProps<{
   hero: {
     title: string
     subtitle: string
+    logo?: string
     ctaPrimary?: { label: string; to: string }
     ctaSecondary?: { label: string; to: string }
+  }
+  features?: {
+    title: string
+    desc?: string
+    items: Array<{ title: string; desc: string; icon?: Component }>
+  }
+  showcase?: {
+    title: string
+    desc: string
+    points?: string[]
+    mockup: {
+      title: string
+      prompt: string
+      steps: Array<{ text: string; meta?: string; done?: boolean }>
+    }
   }
   sections: Array<{
     title: string

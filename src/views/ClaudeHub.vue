@@ -2,6 +2,8 @@
   <HubLayout
     :accent="accent"
     :hero="hero"
+    :showcase="showcase"
+    :features="features"
     :sections="sections"
     :model-table="modelTable"
     :faq="faq"
@@ -13,15 +15,53 @@
 
 <script setup lang="ts">
 import { useHead } from '@unhead/vue'
+import {
+  MagnifyingGlassIcon, PencilSquareIcon, ArrowsRightLeftIcon, Squares2X2Icon, RectangleStackIcon, CpuChipIcon,
+} from '@heroicons/vue/24/outline'
 import HubLayout from '../components/hub/HubLayout.vue'
+import claudeLogo from '../assets/ai-products/claude-logo.webp'
 
 const accent = '#D97757' // Anthropic 橙
 
 const hero = {
   title: 'Claude 资源中心',
   subtitle: 'Anthropic 官方入口、Claude.ai / Console / API 文档、Claude Code、订阅档位攻略、Pro / Max 直充入口。',
+  logo: claudeLogo,
   ctaPrimary: { label: '看 Pro vs Max 攻略', to: '/blog/claude-pro-vs-max' },
   ctaSecondary: { label: '立即下单 Claude Pro', to: '/products/claude-pro' },
+}
+
+const showcase = {
+  title: '看 Claude Code 上手陌生项目',
+  desc: '用 agentic search 秒级读懂代码库，跨终端 / IDE / 桌面应用完成任务。下面是它接手一个新仓库的过程示意。',
+  points: [
+    '终端 / IDE（VS Code · Cursor · JetBrains）/ 桌面应用 / 浏览器',
+    'Claude Pro · Max 订阅含，按订阅额度使用',
+    '本地运行，改文件或跑命令前先征求许可',
+  ],
+  mockup: {
+    title: 'claude code · excalidraw',
+    prompt: '我是这个代码库的新人，帮我讲清它的结构',
+    steps: [
+      { text: 'agentic search 映射项目结构与依赖' },
+      { text: '识别 packages/excalidraw 核心组件' },
+      { text: '梳理协作 / 导出 / 离线 PWA 链路' },
+      { text: '输出高层架构概览', done: true },
+    ],
+  },
+}
+
+const features = {
+  title: 'Claude Code 能做什么',
+  desc: 'Claude Code 是 Anthropic 的编程智能体——读懂你的代码库、改文件、跑命令，跨终端、IDE、桌面应用与浏览器协作完成任务。',
+  items: [
+    { title: '秒级读懂代码库', desc: '用 agentic search 自动映射项目结构与依赖，几秒内说清这个仓库是做什么的，无需手动挑选上下文文件。', icon: MagnifyingGlassIcon },
+    { title: '可靠的多文件编辑', desc: '深度理解代码库与依赖关系，做出确实能跑通的强力跨文件修改。', icon: PencilSquareIcon },
+    { title: 'Issue → PR 全流程', desc: '集成 GitHub / GitLab 与命令行工具，从终端一站读 issue、写码、跑测试、提交 PR，不用来回切工具。', icon: ArrowsRightLeftIcon },
+    { title: '多入口', desc: '终端、IDE（VS Code / Cursor / JetBrains）、桌面应用、浏览器与移动端，随处接入，外出也能编码。', icon: Squares2X2Icon },
+    { title: '桌面应用并行多任务', desc: '改版桌面应用专为同时运行多个 Claude Code 任务设计，一边构建一边验证。', icon: RectangleStackIcon },
+    { title: '模型系列', desc: 'Opus（最强推理）/ Sonnet（速度与智能平衡）/ Haiku（极速低成本）三档系列，按订阅档位自动调用，无需追具体型号。', icon: CpuChipIcon },
+  ],
 }
 
 const sections = [
