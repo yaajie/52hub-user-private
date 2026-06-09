@@ -31,7 +31,7 @@
           rel="noopener noreferrer"
           class="flex items-center justify-between rounded-xl border border-sky-200 bg-sky-50/80 px-3 py-2.5 text-sm transition hover:bg-sky-100/80 dark:border-sky-500/20 dark:bg-sky-500/10 dark:hover:bg-sky-500/15"
         >
-          <span class="font-medium theme-text-primary">📨 TG 联系客服</span>
+          <span class="font-medium theme-text-primary"><PaperAirplaneIcon class="inline-block h-4 w-4 mr-1 text-sky-500 align-text-bottom" />TG 联系客服</span>
           <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
         </a>
 
@@ -41,7 +41,7 @@
           rel="noopener noreferrer"
           class="flex items-center justify-between rounded-xl border border-cyan-200 bg-cyan-50/80 px-3 py-2.5 text-sm transition hover:bg-cyan-100/80 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:hover:bg-cyan-500/15"
         >
-          <span class="font-medium theme-text-primary">📢 TG 公告频道</span>
+          <span class="font-medium theme-text-primary"><MegaphoneIcon class="inline-block h-4 w-4 mr-1 text-cyan-500 align-text-bottom" />TG 公告频道</span>
           <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
         </a>
 
@@ -88,6 +88,8 @@ import {
   ArrowTopRightOnSquareIcon,
   ChatBubbleLeftRightIcon,
   EnvelopeIcon,
+  MegaphoneIcon,
+  PaperAirplaneIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
 import IconQQ from './icons/IconQQ.vue'

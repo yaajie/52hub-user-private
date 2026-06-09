@@ -28,7 +28,9 @@
           class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-medium"
           :class="product.fulfillment_type === 'auto' ? 'theme-badge-info' : 'theme-badge-neutral'"
         >
-          {{ product.fulfillment_type === 'auto' ? '⚡ 自动发货' : '💬 人工交付' }}
+          <BoltIcon v-if="product.fulfillment_type === 'auto'" class="h-3 w-3" />
+          <ChatBubbleLeftRightIcon v-else class="h-3 w-3" />
+          {{ product.fulfillment_type === 'auto' ? '自动发货' : '人工交付' }}
         </span>
         <span
           class="inline-flex items-center rounded-full px-2 py-0.5 font-medium"
@@ -79,6 +81,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { productAPI } from '../../api/product'
 import { useLocalized, useProductLabels } from '../../composables/useProduct'
+import { BoltIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/outline'
 
 const props = withDefaults(defineProps<{
   slug?: string

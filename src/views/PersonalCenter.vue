@@ -121,7 +121,8 @@
                 <div class="flex items-center gap-3.5">
                   <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl theme-selected-surface text-xl">
                     <img v-if="isImagePath(userProfileStore.currentLevel?.icon)" :src="getImageUrl(userProfileStore.currentLevel!.icon)" class="h-7 w-7 object-contain" alt="" decoding="async" />
-                    <span v-else>{{ userProfileStore.currentLevel?.icon || '👤' }}</span>
+                    <span v-else-if="userProfileStore.currentLevel?.icon">{{ userProfileStore.currentLevel.icon }}</span>
+                    <UserCircleIcon v-else class="h-7 w-7 theme-text-muted" />
                   </div>
                   <div class="min-w-0">
                     <p class="text-[11px] font-semibold uppercase tracking-[0.14em] theme-text-muted">{{ t('personalCenter.memberLevel.currentLevel') }}</p>
@@ -152,7 +153,8 @@
                   <div class="flex items-center gap-3">
                     <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg theme-surface-muted text-base opacity-60">
                       <img v-if="isImagePath(userProfileStore.nextLevel.icon)" :src="getImageUrl(userProfileStore.nextLevel.icon)" class="h-6 w-6 object-contain" alt="" decoding="async" />
-                      <span v-else>{{ userProfileStore.nextLevel.icon || '⭐' }}</span>
+                      <span v-else-if="userProfileStore.nextLevel.icon">{{ userProfileStore.nextLevel.icon }}</span>
+                      <StarIcon v-else class="h-6 w-6 theme-text-muted" />
                     </div>
                     <div class="min-w-0">
                       <p class="text-[11px] font-semibold uppercase tracking-[0.14em] theme-text-muted">{{ t('personalCenter.memberLevel.nextLevel') }}</p>
@@ -282,7 +284,7 @@
 import { computed, onMounted, ref, type Component } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { HomeIcon, ShoppingBagIcon, WalletIcon, GiftIcon, ShieldCheckIcon, UserCircleIcon, MegaphoneIcon } from '@heroicons/vue/24/outline'
+import { HomeIcon, ShoppingBagIcon, WalletIcon, GiftIcon, ShieldCheckIcon, UserCircleIcon, MegaphoneIcon, StarIcon } from '@heroicons/vue/24/outline'
 import { getImageUrl } from '../utils/image'
 import { orderStatusClass, orderStatusLabel } from '../utils/status'
 import { pageAlertClass, type PageAlert } from '../utils/alerts'

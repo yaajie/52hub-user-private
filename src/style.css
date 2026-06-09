@@ -3,8 +3,19 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* 跨设备字体兜底：优先各系统原生 UI 字体（自带中文：Mac PingFang / Win 雅黑），
+   再依次回退到显式中文字体，最后才到通用 sans + 各平台彩色 emoji 字体。
+   不依赖任何需自托管或系统外的字体（如 Inter），任何设备都有可用字形。 */
+@theme {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Microsoft YaHei UI",
+    "Source Han Sans SC", "Noto Sans CJK SC", "Noto Sans SC", "WenQuanYi Micro Hei",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 :root {
-  font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", "PingFang SC", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: var(--font-sans);
   line-height: 1.5;
   font-weight: 400;
 

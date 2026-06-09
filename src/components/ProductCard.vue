@@ -147,7 +147,9 @@
       </div>
 
       <div class="mt-2 flex flex-wrap items-center gap-1.5 text-xs">
-        <span :class="['inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft', fulfillmentBadgeColor]">
+        <span :class="['inline-flex items-center gap-1 px-2 py-0.5 rounded-md theme-surface-soft', fulfillmentBadgeColor]">
+          <BoltIcon v-if="product?.fulfillment_type === 'auto'" class="h-3 w-3" />
+          <ChatBubbleLeftRightIcon v-else class="h-3 w-3" />
           {{ fulfillmentBadgeText }}
         </span>
         <span :class="['inline-flex items-center px-2 py-0.5 rounded-md theme-surface-soft', stockBadgeColor]">
@@ -173,6 +175,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { getFirstImageUrl, getImageUrl } from '../utils/image'
 import { useLocalized, useProductLabels } from '../composables/useProduct'
+import { BoltIcon, ChatBubbleLeftRightIcon } from '@heroicons/vue/24/outline'
 
 const props = withDefaults(defineProps<{
   product: any
@@ -212,7 +215,7 @@ const soldCount = computed(() => {
   return manualSold + autoSold
 })
 
-const fulfillmentBadgeText = computed(() => (props.product?.fulfillment_type === 'auto' ? '⚡ 自动发货' : '💬 人工交付'))
+const fulfillmentBadgeText = computed(() => (props.product?.fulfillment_type === 'auto' ? '自动发货' : '人工交付'))
 const fulfillmentBadgeColor = computed(() => (props.product?.fulfillment_type === 'auto' ? 'text-emerald-500' : 'text-amber-500'))
 
 const stockBadgeText = computed(() => {
