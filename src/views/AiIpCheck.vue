@@ -43,7 +43,7 @@
               {{ dailyLimitNote }}
             </p>
             <p class="mt-3 rounded-xl border p-3 text-xs leading-6" style="border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.07);text-wrap:pretty">
-              <strong class="theme-text-primary">检测结果仅供参考，不保证账号永不风控。</strong><span class="theme-text-secondary">本检测含「机场 / 多人共用」住宅 IP 识别——这类 IP 看着是住宅、登录 AI 却易被关联封号，是多数工具会漏的点。</span>
+              <strong class="theme-text-primary">检测结果仅供参考，不保证账号永不风控。</strong><span class="theme-text-secondary">别只看「住宅 / 机房」标签：多人共用的「机场」住宅 IP 看着干净却最易被关联封号；而大厂独享机房反而相对更稳。</span>
             </p>
           </div>
 
@@ -601,7 +601,7 @@ const riskFindings = computed(() => {
       level: 'critical',
       title: `多人共用 IP（检测到约 ${r.user_count} 个使用者）—— 疑似机场`,
       detail:
-        '多个用户共用同一出口 IP，是典型的「机场 / 公共代理池」特征。AI 平台会把共用同一 IP 的账号判定为互相关联，极易触发批量封号、登录异常、新号注册被拒。⚠️ 多人共用机场 IP 的封号风险远高于独立机房 IP —— 即使它显示为「住宅」，也强烈不建议用于任何重要 AI 账号。',
+        '多个用户共用同一出口 IP，是典型的「机场 / 公共代理池」特征。AI 平台会把共用同一 IP 的账号判定为互相关联，极易触发批量封号、登录异常、新号注册被拒。⚠️ 多人共用机场 IP 的封号风险远高于大厂独享机房 IP —— 即使它显示为「住宅」，也强烈不建议用于任何重要 AI 账号。',
     })
   }
   if (d?.public_proxy) list.push({ level: 'critical', title: '公共代理', detail: '出口被标记为公共代理，AI 平台普遍直接封禁，不建议使用。' })
@@ -618,7 +618,7 @@ const riskFindings = computed(() => {
       title: '机房 / 云出口（独立）',
       detail:
         '独立机房 / 云 IP：用于 API、Codex、Claude Code 等开发调用一般没问题；但日常登录、新号注册、付款比独立住宅更易触发风控，建议环境长期稳定。',
-      note: '注意：独立机房风险远低于多人共用机场 IP。',
+      note: '提示：AWS / 谷歌 / 阿里云等大厂独享机房 IP，风控远低于多人共用机场 IP。',
     })
   }
 
