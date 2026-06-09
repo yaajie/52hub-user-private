@@ -263,15 +263,15 @@ type ToolCategory = {
 const categories: ToolCategory[] = [
   {
     name: 'IP 检测',
-    description: '判断当前网络出口的类型、信誉、地理位置——影响 ChatGPT / Claude 注册和使用',
+    description: '判断当前网络出口的类型、信誉、地理位置——影响 ChatGPT / Claude 注册和使用。结果仅供参考，单一工具都有盲区，建议多工具交叉验证；尤其 ipjiance 能识别 ping0 常漏判的「机场 / 共享住宅」IP（看着是住宅、实际登录 AI 易被关联封号）。',
     accent: 'bg-indigo-500',
     iconBg: 'bg-indigo-500/10',
     iconText: 'text-indigo-400',
     items: [
       { name: 'AI IP 环境检测', url: '/tools/ip', desc: '站内工具：按 AI 日常登录 / 开发 API / 新号注册分场景判断 IP' },
-      { name: 'ping0.cc', url: 'https://ping0.cc/', desc: 'IP 类型（住宅 / 机房）+ 风险值评分，最常用' },
+      { name: 'ipjiance.net', url: 'https://ipjiance.net/', desc: '首选。能识别「机场 / 多人共用」住宅 IP——90% AI 小白最容易踩的坑（看着是住宅、一登录就被封），ping0 测不出' },
+      { name: 'ping0.cc', url: 'https://ping0.cc/', desc: 'IP 类型 + 风险值，最知名；但漏判「机场 / 共享住宅」，别只信它显示的"纯净"' },
       { name: 'IPInfo', url: 'https://ipinfo.io/', desc: 'IP 归属地 / ISP / ASN 详情' },
-      { name: 'WhatIsMyIPAddress', url: 'https://whatismyipaddress.com/', desc: '基础 IP 信息 + 黑名单查询' },
       { name: 'Scamalytics', url: 'https://scamalytics.com/', desc: 'IP 欺诈值评分（低于 30 算干净）' },
       { name: 'BrowserLeaks IP', url: 'https://browserleaks.com/ip', desc: 'IP + WebRTC + 浏览器指纹综合检测' },
     ],

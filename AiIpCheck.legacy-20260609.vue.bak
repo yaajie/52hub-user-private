@@ -40,10 +40,7 @@
             </div>
 
             <p class="mt-3 text-xs leading-6 theme-text-muted">
-              {{ dailyLimitNote }}
-            </p>
-            <p class="mt-3 rounded-xl border p-3 text-xs leading-6" style="border-color:rgba(245,158,11,.35);background:rgba(245,158,11,.07);text-wrap:pretty">
-              <strong class="theme-text-primary">检测结果仅供参考，不保证账号永不风控。</strong><span class="theme-text-secondary">本检测含「机场 / 多人共用」住宅 IP 识别——这类 IP 看着是住宅、登录 AI 却易被关联封号，是多数工具会漏的点。</span>
+              {{ dailyLimitNote }}检测结果用于判断 AI 使用环境，不保证账号永不风控。
             </p>
           </div>
 
@@ -96,71 +93,12 @@
       </section>
 
       <!-- 加载骨架 -->
-      <section v-if="loading" class="theme-panel mb-6 flex flex-col items-center justify-center rounded-2xl border p-10">
-        <div class="scan-anim">
-          <span class="scan-ring"></span>
-          <span class="scan-ring scan-ring-2"></span>
-          <span class="scan-core"></span>
-          <span class="scan-sweep"></span>
-        </div>
-        <p class="mt-6 text-sm theme-text-secondary">正在检测 IP 环境…… 综合多个专业风险库分析中</p>
+      <section v-if="loading" class="theme-panel mb-6 grid gap-3 rounded-2xl border p-5 sm:grid-cols-3">
+        <div v-for="i in 6" :key="i" class="theme-skeleton h-24 rounded-xl"></div>
       </section>
 
       <template v-else-if="result">
-        <section class="theme-panel rounded-2xl border p-5">
-          <div class="section-kicker">Findings</div>
-          <h2 class="text-lg font-bold theme-text-primary">发现问题</h2>
-          <p class="mt-1 text-xs theme-text-secondary">按检测信号逐条列出，红色为高风险项。</p>
-          <div class="mt-4 space-y-3">
-            <div
-              v-for="(f, i) in riskFindings"
-              :key="i"
-              class="flex gap-3 rounded-xl border p-4"
-              :style="findingStyle(f.level)"
-            >
-              <span class="mt-0.5 shrink-0 text-base" :style="`color:${findingColor(f.level)}`">{{ f.level === 'ok' ? '✓' : '●' }}</span>
-              <div>
-                <strong class="block text-sm theme-text-primary">{{ f.title }}</strong>
-                <p class="mt-1 text-sm leading-6 theme-text-secondary">{{ f.detail }}</p>
-                <p v-if="f.note" class="mt-2 text-sm font-medium leading-6 theme-text-primary">{{ f.note }}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section v-if="result.detections" class="theme-panel mt-3 rounded-2xl border p-5">
-          <div class="section-kicker">Risk Detections</div>
-          <h2 class="text-lg font-bold theme-text-primary">重要检测</h2>
-          <p class="mt-1 text-xs theme-text-secondary">代理 / VPN 等检测多为「否」属正常，重点看「使用人数」。</p>
-          <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div
-              v-for="d in detectionItems"
-              :key="d.label"
-              class="rounded-xl border p-3 text-center"
-              :style="d.hit ? 'border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.10)' : 'border-color:rgba(34,197,94,.30);background:rgba(34,197,94,.08)'"
-            >
-              <span class="block text-xs theme-text-secondary">{{ d.label }}</span>
-              <strong class="mt-1 block text-sm" :style="d.hit ? 'color:#ef4444' : 'color:#16a34a'">{{ d.hit ? '是' : '否' }}</strong>
-            </div>
-          </div>
-          <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div
-              v-for="m in keyMetrics"
-              :key="m.label"
-              class="rounded-xl border theme-border p-3"
-              :style="m.bad ? 'border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)' : ''"
-            >
-              <span class="block text-xs theme-text-secondary">{{ m.label }}</span>
-              <strong class="mt-1 block text-sm theme-text-primary" :style="m.bad ? 'color:#ef4444' : ''">{{ m.value }}</strong>
-            </div>
-          </div>
-        </section>
-
-        <p v-else-if="result.data_source === 'free'" class="mt-5 rounded-2xl border theme-border p-4 text-sm leading-7 theme-text-secondary">
-          当前为基础数据源，逐项风险检测（代理 / VPN / 黑名单 / 机场共用人数等）暂不可用，可稍后或换网络再检测。
-        </p>
-
-        <section class="report-console-grid mt-5">
+        <section class="report-console-grid">
           <div :class="['verdict-banner', bannerTone]" v-spotlight.border>
             <div class="verdict-copy">
               <span class="verdict-eyebrow">综合判断</span>
@@ -221,6 +159,62 @@
           </div>
         </section>
 
+        <section v-if="result.detections" class="theme-panel mt-5 rounded-2xl border p-5">
+          <div class="section-kicker">Risk Detections</div>
+          <h2 class="text-lg font-bold theme-text-primary">重要检测</h2>
+          <p class="mt-1 text-xs theme-text-secondary">机场用的常是干净住宅 IP，代理类检测多为「否」，关键看「使用人数 / 机场」——这是多数 IP 工具会漏、却最影响 AI 封号的点。</p>
+          <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div
+              v-for="d in detectionItems"
+              :key="d.label"
+              class="rounded-xl border p-3 text-center"
+              :style="d.hit ? 'border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.10)' : 'border-color:rgba(34,197,94,.30);background:rgba(34,197,94,.08)'"
+            >
+              <span class="block text-xs theme-text-secondary">{{ d.label }}</span>
+              <strong class="mt-1 block text-sm" :style="d.hit ? 'color:#ef4444' : 'color:#16a34a'">{{ d.hit ? '是' : '否' }}</strong>
+            </div>
+          </div>
+          <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div
+              v-for="m in keyMetrics"
+              :key="m.label"
+              class="rounded-xl border theme-border p-3"
+              :style="m.bad ? 'border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)' : ''"
+            >
+              <span class="block text-xs theme-text-secondary">{{ m.label }}</span>
+              <strong class="mt-1 block text-sm theme-text-primary" :style="m.bad ? 'color:#ef4444' : ''">{{ m.value }}</strong>
+            </div>
+          </div>
+        </section>
+
+        <p v-else-if="result.data_source === 'free'" class="mt-5 rounded-2xl border theme-border p-4 text-sm leading-7 theme-text-secondary">
+          当前为基础数据源，逐项风险检测（代理 / VPN / 黑名单 / 机场共用人数等）暂不可用，可稍后或换网络再检测。
+        </p>
+
+        <section class="detail-signal-grid grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(17rem,0.45fr)]">
+          <div class="theme-panel mt-5 rounded-2xl border p-5">
+            <div class="section-kicker">Network Signal</div>
+            <h2 class="text-lg font-bold theme-text-primary">综合信号</h2>
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              <div v-for="reason in reasons" :key="reason.text" :class="['signal-card', 'tone-' + reason.tone]">
+                <span class="reason-icon">{{ reason.icon }}</span>
+                <p>{{ reason.text }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="theme-panel mt-5 rounded-2xl border p-5">
+            <div class="section-kicker">Environment</div>
+            <h3 class="text-sm font-bold theme-text-primary">环境画像</h3>
+            <div class="mt-4 space-y-3">
+              <div v-for="item in environmentDetails" :key="item.label" class="metric-line">
+                <span>{{ item.label }}</span>
+                <strong>{{ item.value }}</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="risk-guidance-panel mt-5 rounded-2xl border theme-border p-5">
           <div class="section-kicker">Stable Usage</div>
           <h2 class="text-lg font-bold theme-text-primary">稳定使用 AI 产品的建议</h2>
@@ -254,6 +248,12 @@
             </div>
           </div>
         </section>
+
+        <p class="multi-tool-note mt-5 rounded-2xl border theme-border p-5 text-sm leading-7 theme-text-secondary">
+          本检测综合多个专业风险情报库判断，含「机场 / 多人共用」住宅 IP 识别（看着是住宅、实际登录 AI 易被关联封号——多数工具会漏）。结果仅供参考；如需更多角度可到
+          <router-link to="/tools" class="theme-text-primary underline">工具集</router-link>
+          对照其它工具。
+        </p>
 
       </template>
 
@@ -357,6 +357,17 @@ type BrowserIPAPIResponse = {
   ip?: string
 }
 
+type BrowserSignal = {
+  timezone: string
+  language: string
+  platform: string
+}
+
+type Reason = {
+  icon: string
+  text: string
+  tone: 'good' | 'warn' | 'bad' | 'neutral'
+}
 
 const manualIp = ref('')
 const loading = ref(false)
@@ -368,6 +379,12 @@ const turnstileToken = ref('')
 const turnstileRef = ref<InstanceType<typeof TurnstileCaptcha> | null>(null)
 const appStore = useAppStore()
 const route = useRoute()
+
+const browserSignal = ref<BrowserSignal>({
+  timezone: '检测中',
+  language: '检测中',
+  platform: '检测中',
+})
 
 const trustedCloudKeywords = [
   'oracle', 'amazon', 'aws', 'microsoft', 'azure', 'google', 'gcp',
@@ -407,18 +424,7 @@ const brandAssets = {
 
 const aiIpCheckConfig = computed(() => appStore.config?.ai_ip_check || null)
 const turnstileSiteKey = computed(() => String(aiIpCheckConfig.value?.turnstile?.site_key || ''))
-// 是否带了放行 token（URL 或已记住）——只读，不写 localStorage，供禁用验证码 / 自动出报告判断
-const hasBypassToken = computed(() => {
-  const fromUrl = String(route.query.bypass || '').trim()
-  if (fromUrl) return fromUrl.toLowerCase() !== 'off'
-  try {
-    return !!localStorage.getItem('aiip_bypass')
-  } catch {
-    return false
-  }
-})
-// 公网启用验证码；带放行 token 时本人免验证码（后端同样跳过）
-const turnstileEnabled = computed(() => Boolean(aiIpCheckConfig.value?.turnstile?.enabled && turnstileSiteKey.value) && !hasBypassToken.value)
+const turnstileEnabled = computed(() => Boolean(aiIpCheckConfig.value?.turnstile?.enabled && turnstileSiteKey.value))
 const dailyLimitNote = computed(() => {
   const limit = Number(aiIpCheckConfig.value?.daily_limit || 0)
   return limit > 0 ? `每个访问 IP 每日可免费检测 ${limit} 个不同 IP（重复查询同一 IP 不计次）。` : ''
@@ -531,6 +537,11 @@ const displayLocationText = computed(() => {
   return `${localized} (${original.replace(' · ', ' / ')})`
 })
 
+const asnText = computed(() => {
+  const parts = [result.value?.asn, result.value?.provider].filter(Boolean)
+  return parts.length ? parts.join(' · ') : '未知'
+})
+
 const networkLabel = computed(() => {
   if (result.value?.network_label === 'mainland_china') return '中国大陆网络'
   if (result.value?.network_label === 'shared_residential') return '机场/共享住宅'
@@ -560,76 +571,6 @@ const nativeIpText = computed(() => {
     return '需结合实际登录稳定性观察'
   }
   return result.value.is_datacenter ? '云服务/机房出口' : '未见明显代理特征'
-})
-
-// 发现问题：把检测到的具体风险用大白话逐条讲清楚，重点死磕「机场 / 多人共用」
-function findingColor(level: string) {
-  if (level === 'critical') return '#ef4444'
-  if (level === 'high') return '#f97316'
-  if (level === 'medium') return '#f59e0b'
-  return '#16a34a'
-}
-function findingStyle(level: string) {
-  const c = findingColor(level)
-  const bg =
-    level === 'ok'
-      ? 'rgba(34,197,94,.07)'
-      : level === 'critical'
-        ? 'rgba(239,68,68,.08)'
-        : level === 'high'
-          ? 'rgba(249,115,22,.08)'
-          : 'rgba(245,158,11,.08)'
-  return `border-color:${c}55;background:${bg}`
-}
-const riskFindings = computed(() => {
-  const r = result.value
-  if (!r) return []
-  const d = r.detections
-  const list: Array<{ level: 'critical' | 'high' | 'medium' | 'ok'; title: string; detail: string; note?: string }> = []
-
-  if (!r.region_supported) {
-    list.push({
-      level: 'critical',
-      title: '当前地区不受支持',
-      detail: '该 IP 所在地区不在 ChatGPT / Claude / Gemini 官方支持范围，需更换到受支持地区的出口才能正常使用。',
-    })
-  }
-
-  const shared = typeof r.user_count === 'number' && r.user_count >= 2
-  if (shared) {
-    list.push({
-      level: 'critical',
-      title: `多人共用 IP（检测到约 ${r.user_count} 个使用者）—— 疑似机场`,
-      detail:
-        '多个用户共用同一出口 IP，是典型的「机场 / 公共代理池」特征。AI 平台会把共用同一 IP 的账号判定为互相关联，极易触发批量封号、登录异常、新号注册被拒。⚠️ 多人共用机场 IP 的封号风险远高于独立机房 IP —— 即使它显示为「住宅」，也强烈不建议用于任何重要 AI 账号。',
-    })
-  }
-  if (d?.public_proxy) list.push({ level: 'critical', title: '公共代理', detail: '出口被标记为公共代理，AI 平台普遍直接封禁，不建议使用。' })
-  if (d?.anonymous_vpn) list.push({ level: 'critical', title: '匿名 VPN', detail: '出口为匿名 VPN，登录、注册、付款风控极高。' })
-  if (d?.tor) list.push({ level: 'critical', title: 'TOR 出口节点', detail: 'Tor 网络出口，几乎必被风控，禁止用于 AI 账号。' })
-  if (d?.blacklist) list.push({ level: 'critical', title: '已列入黑名单', detail: '该 IP 已被列入黑名单，强烈不建议。' })
-  if (d?.abuser) list.push({ level: 'high', title: '存在滥用记录', detail: '该 IP 有滥用记录，容易触发风控。' })
-  if (d?.attacker) list.push({ level: 'high', title: '存在攻击记录', detail: '该 IP 有网络攻击行为记录，信誉受损。' })
-
-  const hardRisk = !!(d && (d.public_proxy || d.anonymous_vpn || d.tor || d.blacklist || d.abuser || d.attacker))
-  if (r.is_datacenter && !shared && !hardRisk) {
-    list.push({
-      level: 'medium',
-      title: '机房 / 云出口（独立）',
-      detail:
-        '独立机房 / 云 IP：用于 API、Codex、Claude Code 等开发调用一般没问题；但日常登录、新号注册、付款比独立住宅更易触发风控，建议环境长期稳定。',
-      note: '注意：独立机房风险远低于多人共用机场 IP。',
-    })
-  }
-
-  if (list.length === 0) {
-    list.push({
-      level: 'ok',
-      title: '未发现明显风险',
-      detail: '未检测到代理 / VPN / 黑名单 / 机场共用等明显问题。仍建议保持网络、地区、设备和账号行为长期稳定 —— 风控不只看 IP。',
-    })
-  }
-  return list
 })
 
 // 重要检测宫格（仅 ipjiance 数据源有逐项 flag）
@@ -695,6 +636,16 @@ const primaryResultDetails = computed(() => {
   return rows
 })
 
+const environmentDetails = computed(() => {
+  if (!result.value) return []
+  return [
+    { label: '网络判断', value: networkLabel.value },
+    { label: '地区', value: displayLocationText.value },
+    { label: 'ASN / 归属', value: asnText.value },
+    { label: '浏览器时区', value: browserSignal.value.timezone },
+  ]
+})
+
 // 时区一致性以后端 timezone_status 为准：match=正常 / mismatch=需修正 / na=不适用（手动查别人 IP 时不比时区）。
 const timezoneChipText = computed(() => {
   switch (result.value?.timezone_status) {
@@ -756,6 +707,41 @@ const recommendations = computed(() => {
       desc: scenario.summary,
     }
   })
+})
+
+const reasons = computed<Reason[]>(() => {
+  if (!result.value) return []
+  const items: Reason[] = []
+
+  if (result.value.network_label === 'mainland_china') {
+    items.push({ icon: '!', tone: 'bad', text: '当前为中国大陆网络，ChatGPT、Claude、Gemini 无法直连使用。' })
+  } else if (result.value.is_residential) {
+    items.push({ icon: '+', tone: 'good', text: '住宅/ISP 宽带出口，AI 登录、注册、付款风控相对最友好。' })
+  } else if (result.value.is_trusted_cloud) {
+    items.push({ icon: '+', tone: 'good', text: '可信云/大型 IDC：API、开发调用友好；日常登录、注册不如住宅干净。' })
+  } else if (result.value.is_datacenter) {
+    items.push({ icon: '!', tone: 'warn', text: '检测到机房/托管网络：API 可优先用，新号注册和付款建议改用住宅 IP。' })
+  } else {
+    items.push({ icon: '+', tone: 'good', text: '未显示明显机房特征，但仍需结合地区稳定性和账号行为判断。' })
+  }
+
+  if (result.value.network_label === 'mainland_china') {
+    items.push({ icon: '!', tone: 'bad', text: '需要切换到可访问 AI 服务的海外出口后再检测。' })
+  } else if (result.value.verdict === 'excellent' || result.value.verdict === 'good') {
+    items.push({ icon: '+', tone: 'good', text: '综合评分较高，适合优先作为 AI 日常使用环境。' })
+  } else if (result.value.verdict === 'caution') {
+    items.push({ icon: '!', tone: 'warn', text: '综合评分可用但不算满分，建议先小范围使用并保持地区稳定。' })
+  } else {
+    items.push({ icon: '!', tone: 'bad', text: '综合风险偏高，不建议绑定重要账号或执行高敏操作。' })
+  }
+
+  if (result.value.timezone_status === 'mismatch') {
+    items.push({ icon: '!', tone: 'warn', text: '浏览器时区与 IP 落地时区不一致，长期登录 AI 账号建议修正出口或时区。' })
+  } else if (result.value.timezone_status === 'match') {
+    items.push({ icon: '+', tone: 'good', text: '浏览器时区与 IP 落地时区一致，无明显冲突。' })
+  }
+  items.push({ icon: '+', tone: 'good', text: '长期稳定的网络、设备和账号行为，通常比单次检测高分更重要。' })
+  return items
 })
 
 function toneLabel(tone: string) {
@@ -896,20 +882,20 @@ async function runManualCheck() {
   }
 }
 
+function detectBrowserSignal() {
+  browserSignal.value = {
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || '未知',
+    language: navigator.language || '未知',
+    platform: navigator.platform || '未知',
+  }
+}
+
 onMounted(() => {
+  detectBrowserSignal()
   if (!appStore.config) {
     void appStore.loadConfig()
   }
-  // 深链 ?ip=1.2.3.4：预填并（验证码未启用时）自动出报告，便于分享 / 复查（后端有缓存）。
-  const deepIp = normalizeIp(String(route.query.ip || ''))
-  if (isValidIp(deepIp)) {
-    manualIp.value = deepIp
-    if (!turnstileEnabled.value) {
-      void runManualCheck()
-    }
-  } else {
-    void fetchCurrentIpPreview()
-  }
+  void fetchCurrentIpPreview()
 })
 
 useHead({
@@ -1151,56 +1137,6 @@ useHead({
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tone);
-}
-
-.scan-anim {
-  position: relative;
-  width: 132px;
-  height: 132px;
-}
-.scan-ring,
-.scan-core,
-.scan-sweep {
-  position: absolute;
-  border-radius: 50%;
-}
-.scan-ring {
-  inset: 0;
-  border: 2px solid rgba(20, 184, 166, 0.25);
-}
-.scan-ring-2 {
-  inset: 22px;
-  border-color: rgba(20, 184, 166, 0.18);
-}
-.scan-core {
-  inset: 46px;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.65), rgba(20, 184, 166, 0));
-  animation: scan-pulse 1.5s ease-out infinite;
-}
-.scan-sweep {
-  inset: 0;
-  border: 2px solid transparent;
-  border-top-color: #14b8a6;
-  border-right-color: #14b8a6;
-  animation: scan-spin 1.1s linear infinite;
-}
-@keyframes scan-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes scan-pulse {
-  0% {
-    transform: scale(0.55);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.55);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
 }
 
 .verdict-title {
