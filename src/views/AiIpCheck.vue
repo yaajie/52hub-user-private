@@ -209,6 +209,13 @@
           </section>
         </section>
 
+        <p class="mt-5 rounded-2xl border theme-border p-4 text-sm leading-6 theme-text-secondary">
+          本工具检测结果仅供参考，建议结合多个工具综合判断，不要只信某一个的结果。可对照
+          <a href="https://ping0.cc/" target="_blank" rel="noopener" class="theme-text-primary underline">ping0.cc</a>、
+          <a href="https://ipjiance.net/" target="_blank" rel="noopener" class="theme-text-primary underline">ipjiance.net</a>，
+          或打开 <router-link to="/tools" class="theme-text-primary underline">工具集</router-link> 查看更多 IP 检测工具。
+        </p>
+
         <section class="theme-panel mt-5 rounded-2xl border p-5">
           <div class="section-kicker">Scenario Matrix</div>
           <h2 class="text-lg font-bold theme-text-primary">分场景建议</h2>
