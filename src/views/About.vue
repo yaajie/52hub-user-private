@@ -128,7 +128,7 @@
           <div class="space-y-3">
             <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-3 p-3 theme-surface-soft border theme-border rounded-xl hover:theme-surface-strong transition-colors group">
-              <span class="w-5 h-5 shrink-0 rounded-full bg-emerald-500"></span>
+              <IconWeChat class="w-5 h-5 shrink-0 text-[#07C160]" />
               <div class="flex-1">
                 <div class="text-sm font-semibold theme-text-primary">企微在线客服</div>
                 <div class="text-xs theme-text-muted">点击直接咨询 · 无需加好友</div>
@@ -156,6 +156,7 @@ import { computed, onMounted } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
+import IconWeChat from '../components/icons/IconWeChat.vue'
 
 const { locale } = useI18n()
 const appStore = useAppStore()

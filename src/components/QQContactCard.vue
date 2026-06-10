@@ -4,7 +4,7 @@
 
       <div class="rounded-xl border theme-border bg-[var(--ui-bg-soft)] p-3">
         <div class="flex items-start gap-2">
-          <span class="mt-1 inline-block h-3 w-3 shrink-0 rounded-full bg-emerald-500"></span>
+          <IconWeChat class="mt-0.5 h-5 w-5 shrink-0 text-[#07C160]" />
           <div class="min-w-0">
             <p class="text-sm font-bold theme-text-primary">企微在线客服</p>
             <p class="mt-1 text-xs font-medium theme-text-secondary">点击直接咨询，无需加好友</p>
@@ -34,6 +34,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import IconQQ from './icons/IconQQ.vue'
+import IconWeChat from './icons/IconWeChat.vue'
 import { CONTACTS } from '../constants/contact'
 
 const copied = ref(false)

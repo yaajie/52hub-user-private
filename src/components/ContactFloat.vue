@@ -31,7 +31,7 @@
           rel="noopener noreferrer"
           class="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5 text-sm transition hover:bg-emerald-100/80 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/15"
         >
-          <span class="font-medium theme-text-primary"><span class="inline-block h-2 w-2 mr-1.5 rounded-full bg-emerald-500 align-middle"></span>企微在线客服</span>
+          <span class="font-medium theme-text-primary"><IconWeChat class="inline-block h-4 w-4 mr-1 text-[#07C160] align-text-bottom" />企微在线客服</span>
           <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
         </a>
 
@@ -68,6 +68,7 @@ import {
   EnvelopeIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
+import IconWeChat from './icons/IconWeChat.vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
 
