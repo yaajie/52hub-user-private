@@ -20,8 +20,12 @@
             <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-2 theme-link-muted hover:theme-text-primary transition-colors">
               <IconWeChat class="w-4 h-4 text-[#07C160] shrink-0" />
-              <span>在线客服 · QQ 3691445470</span>
+              <span>企微在线客服</span>
             </a>
+            <div class="flex items-center gap-2 theme-text-muted">
+              <IconQQ class="w-4 h-4 text-[#1AB6FF] shrink-0" />
+              <span>QQ 3691445470</span>
+            </div>
           </div>
         </div>
 
@@ -118,6 +122,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
 import IconWeChat from './icons/IconWeChat.vue'
+import IconQQ from './icons/IconQQ.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()
