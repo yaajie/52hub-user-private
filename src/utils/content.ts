@@ -110,7 +110,7 @@ function isSafeUrl(value: string): boolean {
     }
 
     try {
-        const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://52hub.org'
+        const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://aikaitong.com'
         const parsed = new URL(compact, baseUrl)
         return ALLOWED_URL_PROTOCOLS.has(parsed.protocol)
     } catch {

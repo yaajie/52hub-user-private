@@ -10,7 +10,7 @@
         <div class="relative max-w-4xl">
           <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
             <span class="h-2 w-2 rounded-full bg-sky-500 shadow-[0_0_18px_rgba(14,165,233,0.65)]"></span>
-            52HUB RESOURCE DESK
+            AI开通 RESOURCE DESK
           </div>
 
           <h1 class="max-w-3xl text-4xl font-black leading-tight tracking-tight theme-text-primary md:text-5xl">
@@ -184,7 +184,7 @@ const resolveLocalizedText = (raw: unknown): string => {
   return ''
 }
 
-const heroTitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.title) || '关于 52HUB')
+const heroTitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.title) || '关于 AI开通')
 const heroSubtitle = computed(() => resolveLocalizedText(aboutConfig.value?.hero?.subtitle) || '站长 Jay 打造的 AI 智能体资源与服务站 · 教程 · 工具 · 代订阅 / 成品号 / API 等服务')
 const introductionText = computed(() => resolveLocalizedText(aboutConfig.value?.introduction))
 const servicesTitle = computed(() => resolveLocalizedText(aboutConfig.value?.services?.title))
@@ -204,15 +204,15 @@ const hasServices = computed(() => servicesTitle.value !== '' || serviceItems.va
 const hasContact = computed(() => contactTitle.value !== '' || contactText.value !== '')
 
 useHead({
-  title: '关于 52HUB · 站长 Jay 自述 - 52HUB',
+  title: '关于 AI开通 · 站长 Jay 自述 - AI开通',
   meta: [
-    { name: 'description', content: '52HUB 站长 Jay 自述：玩 ChatGPT / Claude 几年，把买号、订阅、IP 配置踩过的坑整理成站点，既是 AI 实用资源站，也按需提供代订阅、成品号、API 等服务。' },
-    { property: 'og:title', content: '关于 52HUB · 站长 Jay 自述 - 52HUB' },
+    { name: 'description', content: 'AI开通 站长 Jay 自述：玩 ChatGPT / Claude 几年，把买号、订阅、IP 配置踩过的坑整理成站点，既是 AI 实用资源站，也按需提供代订阅、成品号、API 等服务。' },
+    { property: 'og:title', content: '关于 AI开通 · 站长 Jay 自述 - AI开通' },
     { property: 'og:description', content: 'AI 工具实用资源站 + 代订阅 / 成品号 / API 等按需服务。站长 Jay 自述创站初衷与服务范围。' },
-    { property: 'og:url', content: 'https://52hub.org/about' },
+    { property: 'og:url', content: 'https://aikaitong.com/about' },
     { property: 'og:type', content: 'website' },
   ],
-  link: [{ rel: 'canonical', href: 'https://52hub.org/about' }],
+  link: [{ rel: 'canonical', href: 'https://aikaitong.com/about' }],
 })
 
 onMounted(async () => {

@@ -7,7 +7,7 @@
           <div class="hero-copy">
             <div class="hero-badge">
               <span class="hero-dot"></span>
-              <span class="font-mono text-xs tracking-wider">52HUB · AI IP CHECK</span>
+              <span class="font-mono text-xs tracking-wider">AI开通 · AI IP CHECK</span>
             </div>
             <h1 class="mt-5 max-w-3xl text-3xl font-black leading-tight theme-text-primary sm:text-5xl">
               AI IP 环境检测
@@ -920,19 +920,19 @@ onMounted(() => {
 })
 
 useHead({
-  title: 'AI IP 环境检测 · ChatGPT / Claude / Codex 使用建议 - 52HUB',
+  title: 'AI IP 环境检测 · ChatGPT / Claude / Codex 使用建议 - AI开通',
   meta: [
     {
       name: 'description',
-      content: '52HUB AI IP 环境检测，面向 ChatGPT、Claude Code、Gemini、Codex 等场景评估 IP 地区、ASN、网络风险和浏览器时区。',
+      content: 'AI开通 AI IP 环境检测，面向 ChatGPT、Claude Code、Gemini、Codex 等场景评估 IP 地区、ASN、网络风险和浏览器时区。',
     },
-    { property: 'og:title', content: 'AI IP 环境检测 - 52HUB' },
+    { property: 'og:title', content: 'AI IP 环境检测 - AI开通' },
     { property: 'og:description', content: '专门面向 AI 产品使用场景的 IP 环境检测：AI 日常登录、AI 开发/API、新号注册分开判断。' },
-    { property: 'og:url', content: 'https://52hub.org/tools/ip' },
+    { property: 'og:url', content: 'https://aikaitong.com/tools/ip' },
     { property: 'og:type', content: 'website' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/tools/ip' },
+    { rel: 'canonical', href: 'https://aikaitong.com/tools/ip' },
   ],
 })
 </script>

@@ -2,7 +2,7 @@
   <section class="resource-hub-grid container mx-auto px-4 pt-6">
     <div class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <p class="font-mono text-xs uppercase tracking-[0.18em] theme-text-muted">52hub resource matrix</p>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] theme-text-muted">aikaitong resource matrix</p>
         <h2 class="mt-1 text-xl font-semibold theme-text-primary sm:text-2xl">AI 资源 &amp; 工具</h2>
       </div>
     </div>

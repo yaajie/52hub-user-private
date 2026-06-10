@@ -149,8 +149,8 @@ const isCategory = computed(() => !!categorySlug.value)
 
 useHead({
   title: computed(() => isCategory.value
-    ? `${categorySlug.value} 分类商品 - 52HUB`
-    : 'AI 服务 · Claude / ChatGPT / Gemini 代订阅 / 成品号 / API + Apple ID 账号 - 52HUB'),
+    ? `${categorySlug.value} 分类商品 - AI开通`
+    : 'AI 服务 · Claude / ChatGPT / Gemini 代订阅 / 成品号 / API + Apple ID 账号 - AI开通'),
   meta: computed(() => {
     const base = [
       { property: 'og:type', content: 'website' },
@@ -159,23 +159,23 @@ useHead({
       return [
         ...base,
         { name: 'robots', content: 'noindex,follow' },
-        { property: 'og:url', content: `https://52hub.org/categories/${categorySlug.value}` },
+        { property: 'og:url', content: `https://aikaitong.com/categories/${categorySlug.value}` },
       ]
     }
     return [
       ...base,
-      { name: 'description', content: '52HUB AI 服务 · Claude / ChatGPT / Gemini 的代订阅、成品号、API 额度兑换，美区 / 港区 Apple ID 独享账号，礼品卡兑换号。' },
-      { property: 'og:title', content: 'AI 服务 · 代订阅 / 成品号 / API + Apple ID 账号 - 52HUB' },
+      { name: 'description', content: 'AI开通 AI 服务 · Claude / ChatGPT / Gemini 的代订阅、成品号、API 额度兑换，美区 / 港区 Apple ID 独享账号，礼品卡兑换号。' },
+      { property: 'og:title', content: 'AI 服务 · 代订阅 / 成品号 / API + Apple ID 账号 - AI开通' },
       { property: 'og:description', content: 'Claude / ChatGPT / Gemini 代订阅、成品号、API 额度 + Apple ID 账号 + 礼品卡。' },
-      { property: 'og:url', content: 'https://52hub.org/products' },
+      { property: 'og:url', content: 'https://aikaitong.com/products' },
     ]
   }),
   link: computed(() => [
     {
       rel: 'canonical',
       href: isCategory.value
-        ? `https://52hub.org/categories/${categorySlug.value}`
-        : 'https://52hub.org/products',
+        ? `https://aikaitong.com/categories/${categorySlug.value}`
+        : 'https://aikaitong.com/products',
     },
   ]),
   script: computed(() => isCategory.value ? [] : [{
@@ -183,9 +183,9 @@ useHead({
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Store',
-      name: '52HUB',
-      url: 'https://52hub.org/products',
-      description: '52HUB AI 服务 · Claude / ChatGPT / Gemini 代订阅、成品号、API 与 Apple ID 账号等服务。',
+      name: 'AI开通',
+      url: 'https://aikaitong.com/products',
+      description: 'AI开通 AI 服务 · Claude / ChatGPT / Gemini 代订阅、成品号、API 与 Apple ID 账号等服务。',
     }),
   }]),
 })

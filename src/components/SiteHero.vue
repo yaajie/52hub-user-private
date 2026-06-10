@@ -17,7 +17,7 @@
           <div class="site-hero-copy max-w-3xl">
             <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/78 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
               <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.75)]"></span>
-              52HUB AI RESOURCE OPS
+              AIKAITONG AI RESOURCE OPS
             </div>
 
             <h1 class="site-hero-title max-w-4xl text-4xl font-black leading-tight theme-text-primary sm:text-5xl lg:text-6xl">

@@ -101,7 +101,7 @@ const sections = [
       { name: 'Gemini Pro vs Advanced 怎么选', url: '/blog/gemini-pro-vs-advanced', desc: '订阅档位对比与决策' },
       { name: 'Sora / Veo / Hailuo 视频订阅', url: '/blog/sora-veo-hailuo-video-subscription', desc: '视频生成订阅对比，含 Veo' },
       { name: '如何挑靠谱的 AI 订阅店家', url: '/blog/how-to-pick-ai-subscription-store', desc: '避坑指南 / 售后判断' },
-      { name: '查看全部 AI 教程', url: '/blog', desc: '52HUB 博客全部教程（Gemini 专题持续更新）' },
+      { name: '查看全部 AI 教程', url: '/blog', desc: 'AI开通 博客全部教程（Gemini 专题持续更新）' },
     ],
   },
 ]
@@ -158,8 +158,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'Gemini 资源中心 · Google AI 全产品 · AI Studio · NotebookLM · Pro 直充 - 52HUB'
-const pageDesc = '52HUB Gemini 资源中心：Google Gemini 对话、AI Studio 开发者控制台、Vertex AI 企业平台、NotebookLM 研究工具、Imagen 图像、Veo 视频生成，Pro 与 Advanced 订阅档位对比，API 免费 tier 与定价，Gemini 商品订阅直充入口。'
+const pageTitle = 'Gemini 资源中心 · Google AI 全产品 · AI Studio · NotebookLM · Pro 直充 - AI开通'
+const pageDesc = 'AI开通 Gemini 资源中心：Google Gemini 对话、AI Studio 开发者控制台、Vertex AI 企业平台、NotebookLM 研究工具、Imagen 图像、Veo 视频生成，Pro 与 Advanced 订阅档位对比，API 免费 tier 与定价，Gemini 商品订阅直充入口。'
 
 useHead({
   title: pageTitle,
@@ -167,11 +167,11 @@ useHead({
     { name: 'description', content: pageDesc },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDesc },
-    { property: 'og:url', content: 'https://52hub.org/gemini-hub' },
+    { property: 'og:url', content: 'https://aikaitong.com/gemini-hub' },
     { property: 'og:type', content: 'website' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/gemini-hub' },
+    { rel: 'canonical', href: 'https://aikaitong.com/gemini-hub' },
   ],
 })
 </script>

@@ -201,8 +201,8 @@ const relatedLinks = computed(() => {
     return [
       { to: '/blog/apple-id-overseas-registration-guide', text: 'Apple ID 海外区注册全攻略' },
       { to: '/blog/chatgpt-anti-ban-guide', text: 'ChatGPT 账号防封号指南' },
-      { to: '/about', text: '关于 52HUB 与站长 Jay' },
-      { to: '/products', text: '52HUB AI 服务' },
+      { to: '/about', text: '关于 AI开通 与站长 Jay' },
+      { to: '/products', text: 'AI开通 AI 服务' },
     ]
   }
   if (slug.startsWith('claude-')) {
@@ -249,7 +249,7 @@ const debouncedLoadPost = debounceAsync(loadPost, 300)
 useHead({
   title: computed(() => {
     const p = post.value
-    return p ? `${getSeoText(p.title)} - 52HUB` : '52HUB'
+    return p ? `${getSeoText(p.title)} - AI开通` : 'AI开通'
   }),
   meta: computed(() => {
     const p = post.value
@@ -260,13 +260,13 @@ useHead({
       { name: 'description', content: summary },
       { property: 'og:title', content: title },
       { property: 'og:description', content: summary },
-      { property: 'og:url', content: `https://52hub.org/blog/${p.slug}` },
+      { property: 'og:url', content: `https://aikaitong.com/blog/${p.slug}` },
       { property: 'og:type', content: 'article' },
     ]
   }),
   link: computed(() => {
     const p = post.value
-    return p ? [{ rel: 'canonical', href: `https://52hub.org/blog/${p.slug}` }] : []
+    return p ? [{ rel: 'canonical', href: `https://aikaitong.com/blog/${p.slug}` }] : []
   }),
 })
 

@@ -95,7 +95,7 @@ useHead({
 
 const brandSiteName = computed(() => {
   const siteName = String(appStore.config?.brand?.site_name || '').trim()
-  return siteName !== '' ? siteName : '52Hub'
+  return siteName !== '' ? siteName : 'AI开通'
 })
 
 const goBack = () => {

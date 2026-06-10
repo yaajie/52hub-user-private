@@ -1,10 +1,10 @@
 /*
- * 52Hub source-hardened CSS hotfixes.
+ * AI开通 source-hardened CSS hotfixes.
  * Imported from main.ts, applied AFTER the upstream Tailwind build.
  * Originally accumulated as docker-cp hotfixes; consolidated 2026-05-07.
  */
 
-/* 52Hub visual hotfix: banner readability, product image ratio, and public footer cleanup. */
+/* AI开通 visual hotfix: banner readability, product image ratio, and public footer cleanup. */
 .home-page .home-hero-banner {
   isolation: isolate;
   background: #101114;
@@ -57,7 +57,7 @@ footer p:has(a[href*="github.com/dujiao-next"]) {
   }
 }
 
-/* 52Hub detail image: wrapper-level aspect-square (in ProductImageGallery.vue) handles the 1:1 box.
+/* AI开通 detail image: wrapper-level aspect-square (in ProductImageGallery.vue) handles the 1:1 box.
    We only force object-cover here to make sure the image fills the square instead of letterboxing. */
 .product-detail-page .mb-4.md\:mb-6.relative.group > img[src*="/uploads/product/"] {
   object-fit: cover !important;
@@ -65,7 +65,7 @@ footer p:has(a[href*="github.com/dujiao-next"]) {
   background: #111318 !important;
 }
 
-/* 52Hub stage 13: unified 24:9 banner (closer to original "ultrawide" production look). Single image upload, mobile scales proportionally. */
+/* AI开通 stage 13: unified 24:9 banner (closer to original "ultrawide" production look). Single image upload, mobile scales proportionally. */
 .home-page .home-hero-banner {
   aspect-ratio: 24 / 9;
   background: #101114;
@@ -129,7 +129,7 @@ footer p:has(a[href*="github.com/dujiao-next"]) {
   }
 }
 
-/* 52Hub brand logo: icon asset plus theme-colored text for light and dark mode readability. */
+/* AI开通 brand logo: icon asset plus theme-colored text for light and dark mode readability. */
 .theme-wordmark {
   display: inline-flex !important;
   align-items: center;
@@ -168,7 +168,7 @@ footer p:has(a[href*="github.com/dujiao-next"]) {
 }
 
 
-/* 52Hub mobile visual hotfix: keep brand/footer/product media consistent on small screens. */
+/* AI开通 mobile visual hotfix: keep brand/footer/product media consistent on small screens. */
 footer p:has(a[href*="github.com/dujiao-next"]),
 footer a[href*="github.com/dujiao-next"] {
   display: none !important;
@@ -206,7 +206,7 @@ footer a[href*="github.com/dujiao-next"] {
 }
 
 
-/* 52Hub mobile product cards: product poster images should be readable, not cropped. */
+/* AI开通 mobile product cards: product poster images should be readable, not cropped. */
 @media (max-width: 640px) {
   .theme-card-interactive img[src*="/uploads/product/"],
   .home-page #featured img[src*="/uploads/product/"] {

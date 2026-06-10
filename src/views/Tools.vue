@@ -13,7 +13,7 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span class="text-xs font-mono theme-text-muted">tools.52hub · live</span>
+              <span class="text-xs font-mono theme-text-muted">tools.aikaitong · live</span>
             </div>
             <h1 class="mt-5 text-3xl sm:text-4xl md:text-5xl font-black theme-text-primary leading-tight">
               AI 工具集合
@@ -559,19 +559,19 @@ onUnmounted(() => {
 })
 
 useHead({
-  title: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS / 礼品卡 - 52HUB',
+  title: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS / 礼品卡 - AI开通',
   meta: [
     {
       name: 'description',
-      content: '52HUB 整理的 AI 工具相关常用资源：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；同时提供 IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道、海外接码平台。',
+      content: 'AI开通 整理的 AI 工具相关常用资源：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；同时提供 IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道、海外接码平台。',
     },
-    { property: 'og:title', content: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS - 52HUB' },
-    { property: 'og:description', content: '52HUB 整理的 AI 工具入口：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦，同时提供 IP 检测、服务状态、DNS 泄露、礼品卡和接码入口。' },
-    { property: 'og:url', content: 'https://52hub.org/tools' },
+    { property: 'og:title', content: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS - AI开通' },
+    { property: 'og:description', content: 'AI开通 整理的 AI 工具入口：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦，同时提供 IP 检测、服务状态、DNS 泄露、礼品卡和接码入口。' },
+    { property: 'og:url', content: 'https://aikaitong.com/tools' },
     { property: 'og:type', content: 'website' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/tools' },
+    { rel: 'canonical', href: 'https://aikaitong.com/tools' },
   ],
 })
 </script>

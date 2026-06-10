@@ -294,15 +294,15 @@ const navBuiltin = computed(() => (appStore.config?.nav_config as { builtin?: Re
 const blogEnabled = computed(() => navBuiltin.value?.blog !== false)
 
 useHead({
-  title: '52HUB · Claude / Codex / ChatGPT AI 智能体资源与服务站',
+  title: 'AI开通 · Claude / Codex / ChatGPT AI 智能体资源与服务站',
   meta: [
-    { name: 'description', content: '52HUB · AI 智能体资源与服务站：Claude、Codex、ChatGPT 的官方入口、教程、实用工具，以及代订阅 / 成品号 / API 等服务，帮你把这些 AI 工具真正用起来。站长 Jay 多年整理。' },
-    { property: 'og:title', content: '52HUB · AI 智能体资源与服务站（Claude / Codex / ChatGPT）' },
+    { name: 'description', content: 'AI开通 · AI 智能体资源与服务站：Claude、Codex、ChatGPT 的官方入口、教程、实用工具，以及代订阅 / 成品号 / API 等服务，帮你把这些 AI 工具真正用起来。站长 Jay 多年整理。' },
+    { property: 'og:title', content: 'AI开通 · AI 智能体资源与服务站（Claude / Codex / ChatGPT）' },
     { property: 'og:description', content: 'Claude、Codex、ChatGPT 的官方入口、教程、实用工具，以及代订阅 / 成品号 / API 等服务，帮你把这些 AI 工具真正用起来。' },
-    { property: 'og:url', content: 'https://52hub.org/' },
+    { property: 'og:url', content: 'https://aikaitong.com/' },
     { property: 'og:type', content: 'website' },
   ],
-  link: [{ rel: 'canonical', href: 'https://52hub.org/' }],
+  link: [{ rel: 'canonical', href: 'https://aikaitong.com/' }],
 })
 
 // ==================== Shared State ====================

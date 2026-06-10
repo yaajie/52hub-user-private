@@ -499,7 +499,7 @@ const currentLocale = computed(() => {
 
 const brandSiteName = computed(() => {
   const text = String(appStore.config?.brand?.site_name || '').trim()
-  return text !== '' ? text : '52Hub'
+  return text !== '' ? text : 'AI开通'
 })
 
 const toggleMobileMenu = () => {

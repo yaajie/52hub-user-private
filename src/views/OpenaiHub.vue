@@ -160,8 +160,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'OpenAI / ChatGPT 资源中心 · 订阅档位 · 国内付款 · Sora / DALL-E / API - 52HUB'
-const pageDesc = '52HUB OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus 与 Pro 5x / 20x 订阅档位对比、国内 4 种付款方法、降低封号风险攻略、Sora 视频与 DALL-E 图像、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
+const pageTitle = 'OpenAI / ChatGPT 资源中心 · 订阅档位 · 国内付款 · Sora / DALL-E / API - AI开通'
+const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus 与 Pro 5x / 20x 订阅档位对比、国内 4 种付款方法、降低封号风险攻略、Sora 视频与 DALL-E 图像、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
 
 useHead({
   title: pageTitle,
@@ -169,11 +169,11 @@ useHead({
     { name: 'description', content: pageDesc },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDesc },
-    { property: 'og:url', content: 'https://52hub.org/openai-hub' },
+    { property: 'og:url', content: 'https://aikaitong.com/openai-hub' },
     { property: 'og:type', content: 'website' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/openai-hub' },
+    { rel: 'canonical', href: 'https://aikaitong.com/openai-hub' },
   ],
 })
 </script>

@@ -147,8 +147,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'Claude 资源中心 · Anthropic 官方入口 · Pro / Max 订阅直充 · 注册教程 - 52HUB'
-const pageDesc = '52HUB Claude 资源中心：Anthropic 官方入口（Claude.ai / Console / API 文档）、桌面客户端、Claude Code 使用指南、Pro 与 Max 5x / 20x 订阅档位对比、注册全流程、报错 403 排查、订阅直充入口与店家挑选指南，AI 工具站长一站整理。'
+const pageTitle = 'Claude 资源中心 · Anthropic 官方入口 · Pro / Max 订阅直充 · 注册教程 - AI开通'
+const pageDesc = 'AI开通 Claude 资源中心：Anthropic 官方入口（Claude.ai / Console / API 文档）、桌面客户端、Claude Code 使用指南、Pro 与 Max 5x / 20x 订阅档位对比、注册全流程、报错 403 排查、订阅直充入口与店家挑选指南，AI 工具站长一站整理。'
 
 useHead({
   title: pageTitle,
@@ -156,11 +156,11 @@ useHead({
     { name: 'description', content: pageDesc },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDesc },
-    { property: 'og:url', content: 'https://52hub.org/claude-hub' },
+    { property: 'og:url', content: 'https://aikaitong.com/claude-hub' },
     { property: 'og:type', content: 'website' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/claude-hub' },
+    { rel: 'canonical', href: 'https://aikaitong.com/claude-hub' },
   ],
 })
 </script>

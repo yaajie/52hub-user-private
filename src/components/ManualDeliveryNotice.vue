@@ -8,7 +8,7 @@
           商品页面显示为人工发货或人工交付的商品，下单付款后请保留订单号并联系客服处理。请加 QQ 群
           <span class="font-semibold theme-text-primary">1105879333</span>
           咨询，验证答案填写
-          <span class="font-semibold theme-text-primary">52hub</span>。
+          <span class="font-semibold theme-text-primary">AI开通</span>。
         </p>
       </div>
     </div>

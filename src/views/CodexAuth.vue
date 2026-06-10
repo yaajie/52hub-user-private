@@ -8,7 +8,7 @@
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
             </span>
-            <span class="font-mono text-xs theme-text-muted">52hub.tools/codex-auth · 本地运行</span>
+            <span class="font-mono text-xs theme-text-muted">aikaitong.tools/codex-auth · 本地运行</span>
           </div>
 
           <h1 class="codex-title max-w-3xl text-3xl font-black leading-tight theme-text-primary sm:text-4xl">
@@ -895,20 +895,20 @@ function downloadAuthJson() {
 }
 
 useHead({
-  title: 'Codex Auth JSON 本地生成器 · ChatGPT session 转 auth.json - 52HUB',
+  title: 'Codex Auth JSON 本地生成器 · ChatGPT session 转 auth.json - AI开通',
   meta: [
     {
       name: 'description',
-      content: '52HUB Codex Auth JSON 本地生成器：解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；在浏览器本地把 ChatGPT session JSON 转成 Codex CLI 可用的 auth.json，不上传、不保存、不代管凭据。',
+      content: 'AI开通 Codex Auth JSON 本地生成器：解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；在浏览器本地把 ChatGPT session JSON 转成 Codex CLI 可用的 auth.json，不上传、不保存、不代管凭据。',
     },
-    { property: 'og:title', content: 'Codex Auth JSON 本地生成器 · 52HUB' },
+    { property: 'og:title', content: 'Codex Auth JSON 本地生成器 · AI开通' },
     { property: 'og:description', content: '解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；页面本地转换 auth.json，不上传、不保存、不代管凭据。' },
-    { property: 'og:url', content: 'https://52hub.org/tools/codex-auth' },
+    { property: 'og:url', content: 'https://aikaitong.com/tools/codex-auth' },
     { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: 'https://52hub.org/images/tools/codex-auth-hero-light-v2.webp' },
+    { property: 'og:image', content: 'https://aikaitong.com/images/tools/codex-auth-hero-light-v2.webp' },
   ],
   link: [
-    { rel: 'canonical', href: 'https://52hub.org/tools/codex-auth' },
+    { rel: 'canonical', href: 'https://aikaitong.com/tools/codex-auth' },
   ],
 })
 </script>

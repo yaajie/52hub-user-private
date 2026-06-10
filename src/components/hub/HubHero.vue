@@ -7,7 +7,7 @@
     <div class="relative max-w-3xl">
       <div class="mb-4 inline-flex items-center gap-2 rounded-full border theme-border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.14em] theme-text-secondary">
         <span class="h-1.5 w-1.5 rounded-full" :style="{ background: accent, boxShadow: `0 0 10px ${accent}` }"></span>
-        52HUB · AI HUB
+        AI开通 · AI HUB
       </div>
       <div class="flex items-center gap-3 sm:gap-4">
         <img v-if="logo" :src="logo" alt="" class="h-12 w-12 shrink-0 object-contain drop-shadow-md sm:h-14 sm:w-14 lg:h-[3.75rem] lg:w-[3.75rem]" />

@@ -121,15 +121,15 @@ const { t } = useI18n()
 const appStore = useAppStore()
 
 useHead({
-  title: '公告 · 站点动态与服务变更 - 52HUB',
+  title: '公告 · 站点动态与服务变更 - AI开通',
   meta: [
-    { name: 'description', content: '52HUB 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
-    { property: 'og:title', content: '公告 · 站点动态与服务变更 - 52HUB' },
-    { property: 'og:description', content: '52HUB 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
-    { property: 'og:url', content: 'https://52hub.org/notice' },
+    { name: 'description', content: 'AI开通 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
+    { property: 'og:title', content: '公告 · 站点动态与服务变更 - AI开通' },
+    { property: 'og:description', content: 'AI开通 公告：站点动态、价格调整、服务变更、平台风控提醒。' },
+    { property: 'og:url', content: 'https://aikaitong.com/notice' },
     { property: 'og:type', content: 'website' },
   ],
-  link: [{ rel: 'canonical', href: 'https://52hub.org/notice' }],
+  link: [{ rel: 'canonical', href: 'https://aikaitong.com/notice' }],
 })
 
 const loading = ref(true)

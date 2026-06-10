@@ -149,7 +149,7 @@ const telegramServiceUrl = computed(() => {
 
 const brandSiteName = computed(() => {
   const siteName = config.value?.brand?.site_name
-  return typeof siteName === 'string' && siteName.trim() ? siteName.trim() : '52HUB'
+  return typeof siteName === 'string' && siteName.trim() ? siteName.trim() : 'AI开通'
 })
 
 // P1-O 视觉收尾：Footer 不再渲染后台 site_description（长描述破坏 4 列对齐），

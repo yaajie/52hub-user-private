@@ -1,8 +1,8 @@
 <template>
-  <aside class="owned-tools-panel" aria-label="52HUB 自有工具">
+  <aside class="owned-tools-panel" aria-label="AI开通 自有工具">
     <div class="owned-tools-panel__topline">
       <span class="owned-tools-panel__dot"></span>
-      <span>52HUB PRODUCT TOOLS</span>
+      <span>AIKAITONG PRODUCT TOOLS</span>
     </div>
 
     <div class="owned-tools-panel__header">
