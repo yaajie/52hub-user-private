@@ -138,8 +138,8 @@ footer p:has(a[href*="github.com/dujiao-next"]) {
   width: auto;
   min-width: 118px;
   height: 36px;
-  padding-left: 36px;
-  background: url('/icon.svg') left center / 30px 30px no-repeat;
+  padding-left: 44px;
+  background: url('/icon.svg') 2px center / 36px 36px no-repeat;
   border-color: transparent !important;
   color: var(--ui-text-primary) !important;
 }
