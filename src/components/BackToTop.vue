@@ -10,7 +10,7 @@
     <button
       v-if="visible"
       @click="scrollToTop"
-      class="fixed bottom-[8.25rem] right-3 sm:right-4 lg:bottom-[5.5rem] lg:right-[max(1.625rem,calc((100vw_-_1536px)/2_+_1.625rem))] z-40 flex h-11 w-11 items-center justify-center rounded-full border theme-btn-neutral shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5 theme-safe-bottom"
+      class="fixed bottom-[8.25rem] right-3 sm:right-4 lg:bottom-[5.5rem] lg:right-[max(0.875rem,calc((100vw_-_1536px)/2_-_3.875rem))] z-40 flex h-11 w-11 items-center justify-center rounded-full border theme-btn-neutral shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5 theme-safe-bottom"
       :aria-label="t('common.backToTop')"
     >
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

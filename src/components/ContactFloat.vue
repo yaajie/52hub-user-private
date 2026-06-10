@@ -8,7 +8,7 @@
     :class="[
       'fixed z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#07C160] text-white shadow-lg shadow-emerald-900/25 transition hover:bg-[#06ad56] hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300/60',
       'right-3 sm:right-4 lg:h-12 lg:w-12 lg:bottom-6',
-      'lg:right-[max(1.5rem,calc((100vw_-_1536px)/2_+_1.5rem))]',
+      'lg:right-[max(0.75rem,calc((100vw_-_1536px)/2_-_4rem))]',
       hideOnMobileToolPage ? 'hidden sm:flex' : 'bottom-20',
     ]"
   >
@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-// PC 端 right 用 max() 锁定在全局 container(2xl=1536px) 右缘外 1.5rem，
-// 超宽屏不再跟随视口无限外扩；窄于容器时回退 1.5rem 贴边。
+// PC 端 right 用 max() 把按钮挂在全局 container(2xl=1536px) 右缘外侧的空白边带里(距容器 16px)，
+// 相对容器固定、超宽屏不外扩也不压内容；视口无空白带(<~1690px)时退回 0.75rem 贴边。
 // 移动端 44px 缩小避让内容，停在 MobileBottomNav 上方(bottom-20)。
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
