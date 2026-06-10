@@ -234,7 +234,7 @@
                   to="/tools/ip"
                   class="mb-5 flex items-start gap-3 rounded-xl border theme-border theme-surface-soft px-4 py-3 text-sm transition hover:theme-surface-strong"
                 >
-                  <span class="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-sky-500/12 text-sky-500">
+                  <span class="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--ui-accent-soft)] text-[var(--ui-accent)]">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-2.8 7.8-7 9-4.2-1.2-7-4.5-7-9V7l7-4z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.5 12l1.6 1.6L15 9.8" />

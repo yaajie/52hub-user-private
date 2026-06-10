@@ -90,7 +90,7 @@ const props = withDefaults(defineProps<{
   fallbackDesc: string
   accent?: string
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 
 const { getLocalizedText, siteCurrency, formatPrice } = useLocalized()

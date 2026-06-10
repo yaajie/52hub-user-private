@@ -48,7 +48,7 @@ const props = withDefaults(defineProps<{
   ctaPrimary?: { label: string; to: string }
   ctaSecondary?: { label: string; to: string }
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 
 const heroStyle = computed(() => ({

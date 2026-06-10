@@ -14,7 +14,7 @@
         class="mb-8 flex flex-col gap-3 rounded-2xl border theme-border theme-panel p-4 transition hover:-translate-y-0.5 hover:theme-surface-strong sm:flex-row sm:items-center sm:justify-between sm:p-5"
       >
         <span class="flex min-w-0 items-start gap-3">
-          <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500/12 text-sky-500">
+          <span class="mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--ui-accent-soft)] text-[var(--ui-accent)]">
             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 4.5-2.8 7.8-7 9-4.2-1.2-7-4.5-7-9V7l7-4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.5 12l1.6 1.6L15 9.8" />
@@ -25,7 +25,7 @@
             <span class="mt-1 block text-sm leading-relaxed theme-text-secondary">按 ChatGPT / Claude Code / Gemini 使用场景判断当前出口，减少订阅后才发现环境不适合的情况。</span>
           </span>
         </span>
-        <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-sky-500 px-3 py-2 text-sm font-semibold text-white">
+        <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-[var(--ui-accent)] px-3 py-2 text-sm font-semibold text-white">
           去检测
         </span>
       </router-link>

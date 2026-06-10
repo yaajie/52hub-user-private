@@ -33,7 +33,7 @@
             <div class="mt-6 flex flex-col gap-3 sm:flex-row">
               <router-link
                 to="/tools/ip"
-                class="inline-flex items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-400"
+                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--ui-accent)] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--ui-accent-hover)]"
               >
                 AI IP 环境检测
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<{
   desc: string
   accent?: string
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 
 const isInternal = computed(() => props.url.startsWith('/'))

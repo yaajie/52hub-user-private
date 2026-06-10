@@ -25,7 +25,7 @@
           :aria-label="getLocalizedText(notice.title)">
           <!-- Icon Column -->
           <div
-            class="hidden sm:flex flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden theme-surface-soft border theme-border items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">
+            class="hidden sm:flex flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden theme-surface-soft border theme-border items-center justify-center text-[var(--ui-accent)] group-hover:scale-105 transition-transform">
             <img v-if="notice.thumbnail" :src="getImageUrl(notice.thumbnail)" :alt="getLocalizedText(notice.title)"
               loading="lazy" decoding="async" class="w-full h-full object-cover">
             <svg v-else class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-3 mb-2">
               <span
-                class="text-xs font-bold px-2 py-0.5 rounded text-blue-600 dark:text-blue-400 theme-surface-soft border theme-border uppercase tracking-wider">
+                class="text-xs font-bold px-2 py-0.5 rounded text-[var(--ui-accent)] theme-surface-soft border theme-border uppercase tracking-wider">
                 {{ t('nav.notice') }}
               </span>
               <time v-if="getNoticeDate(notice)" class="text-xs theme-text-muted font-mono">
@@ -47,7 +47,7 @@
             </div>
 
             <h2
-              class="text-xl font-bold theme-text-primary group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate mb-1">
+              class="text-xl font-bold theme-text-primary group-hover:text-[var(--ui-accent)] transition-colors truncate mb-1">
               {{ getLocalizedText(notice.title) }}
             </h2>
 

@@ -47,6 +47,6 @@ withDefaults(defineProps<{
   accent?: string
 }>(), {
   title: '模型对比',
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 </script>

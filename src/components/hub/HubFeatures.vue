@@ -40,7 +40,7 @@ const props = withDefaults(defineProps<{
   items: Array<{ title: string; desc: string; icon?: Component }>
   accent?: string
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 
 const gridClass = computed(() => {

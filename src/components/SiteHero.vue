@@ -33,11 +33,11 @@
                 <span>AI IP 环境检测</span>
               </router-link>
               <router-link to="/tools/codex-auth" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
-                <CommandLineIcon class="h-5 w-5 shrink-0 text-sky-500" />
+                <CommandLineIcon class="h-5 w-5 shrink-0 text-[var(--ui-accent)]" />
                 <span>Codex 登录辅助</span>
               </router-link>
               <router-link to="/blog" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
-                <BookOpenIcon class="h-5 w-5 shrink-0 text-sky-500" />
+                <BookOpenIcon class="h-5 w-5 shrink-0 text-[var(--ui-accent)]" />
                 <span>看 AI 教程</span>
               </router-link>
               <router-link to="/products" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
@@ -105,7 +105,7 @@ const signals = [
     code: 'CHECK',
     label: '网络与服务诊断',
     desc: 'IP、DNS、状态页集中查看',
-    color: '#6366f1',
+    color: '#e8590c',
     icon: ShieldCheckIcon,
   },
 ] satisfies Signal[]
@@ -151,8 +151,8 @@ const signals = [
 }
 
 .site-hero-primary {
-  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 58%, #0f766e 100%);
-  box-shadow: 0 18px 40px rgba(37, 99, 235, 0.24);
+  background: linear-gradient(135deg, #f7a52b 0%, #e8590c 100%);
+  box-shadow: 0 18px 40px rgba(232, 89, 12, 0.26);
 }
 
 .site-hero-secondary {

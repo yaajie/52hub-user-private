@@ -158,7 +158,7 @@ const props = withDefaults(defineProps<{
   }
   ogImage?: string
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
   faq: () => [],
 })
 

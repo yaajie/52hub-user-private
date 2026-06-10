@@ -52,6 +52,6 @@ withDefaults(defineProps<{
   prompt: string
   steps: Array<{ text: string; meta?: string; done?: boolean }>
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 </script>

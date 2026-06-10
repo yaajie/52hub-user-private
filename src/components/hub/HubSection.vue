@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<{
   items: Array<{ name: string; url: string; desc: string }>
   accent?: string
 }>(), {
-  accent: '#6366f1',
+  accent: '#d9480f',
 })
 
 // 按卡片数量动态选 grid，避免 md 3+1 孤儿
