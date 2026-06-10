@@ -19,7 +19,7 @@
               AI 工具集合
             </h1>
             <p class="mt-4 max-w-2xl text-sm sm:text-base theme-text-secondary leading-relaxed">
-              先检测 ChatGPT、Claude Code、Gemini、Codex 的当前 IP 环境，再处理 Codex 登录辅助、服务状态、DNS 隐私、礼品卡和接码入口。
+              先检测 ChatGPT、Claude Code、Gemini、Codex 的当前 IP 环境，再处理 Codex 登录辅助、服务状态与 DNS 隐私检测。
             </p>
             <div class="mt-5 flex flex-wrap gap-2">
               <span class="tools-stat-chip">
@@ -316,30 +316,6 @@ const categories: ToolCategory[] = [
       { name: 'BGP.he.net', url: 'https://bgp.he.net/', desc: 'Hurricane Electric · ASN / 路由 / IPv6 查询' },
     ],
   },
-  {
-    name: '充值卡 / 礼品卡',
-    description: 'Apple Gift Card / Visa Gift Card 等海外充值卡的常用入口',
-    accent: 'bg-amber-500',
-    iconBg: 'bg-amber-500/10',
-    iconText: 'text-amber-400',
-    items: [
-      { name: 'Apple 礼品卡（美区）', url: 'https://www.apple.com/shop/buy-giftcard/giftcard', desc: '官方 Apple Gift Card 直购（需海外卡）' },
-      { name: '土耳其 Apple Store', url: 'https://www.apple.com/tr/', desc: '土区 App Store 入口（充值便宜）' },
-      { name: '尼日利亚 Apple Store', url: 'https://www.apple.com/ng/', desc: '尼区 App Store 入口（部分 AI 订阅在尼区有价格优势）' },
-    ],
-  },
-  {
-    name: '接码服务（仅供参考）',
-    description: '海外手机号短信接收 · 用于注册各类账号',
-    accent: 'bg-rose-500',
-    iconBg: 'bg-rose-500/10',
-    iconText: 'text-rose-400',
-    items: [
-      { name: 'HeroSMS', url: 'https://hero-sms.com/', desc: '主流接码平台之一，号源覆盖 180+ 国家' },
-      { name: '5sim.net', url: 'https://5sim.net/zh/', desc: '主流接码平台，号源覆盖 130+ 国家，API 简洁文档全' },
-      { name: 'SMS-Activate', url: 'https://sms-activate.org/', desc: '俄系老牌平台，价格低号源杂，适合批量需求' },
-    ],
-  },
 ]
 
 const totalTools = computed(() => localTools.length + categories.reduce((sum, c) => sum + c.items.length, 0))
@@ -554,14 +530,14 @@ onUnmounted(() => {
 })
 
 useHead({
-  title: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS / 礼品卡 - AI开通',
+  title: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS - AI开通',
   meta: [
     {
       name: 'description',
-      content: 'AI开通 整理的 AI 工具相关常用资源：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；同时提供 IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询、礼品卡渠道、海外接码平台。',
+      content: 'AI开通 整理的 AI 工具相关常用资源：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；同时提供 IP 类型与风险检测、Claude/ChatGPT 服务状态、DNS 泄露检测、域名查询。',
     },
     { property: 'og:title', content: '实用工具集合 · Codex Auth / IP 检测 / 服务状态 / DNS - AI开通' },
-    { property: 'og:description', content: 'AI开通 整理的 AI 工具入口：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦，同时提供 IP 检测、服务状态、DNS 泄露、礼品卡和接码入口。' },
+    { property: 'og:description', content: 'AI开通 整理的 AI 工具入口：解决 Codex 登录时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦，同时提供 IP 检测、服务状态与 DNS 泄露检测。' },
     { property: 'og:url', content: 'https://aikaitong.com/tools' },
     { property: 'og:type', content: 'website' },
   ],

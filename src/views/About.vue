@@ -56,7 +56,7 @@
             <h2 class="text-lg font-bold theme-text-primary">发货说明</h2>
           </div>
           <ul class="space-y-3 text-sm theme-text-secondary leading-relaxed">
-            <li><strong class="theme-text-primary">自动发货</strong>：卡密类商品（Apple ID、礼品卡、邮箱、独享号）下单付款后立即在订单页显示卡密。</li>
+            <li><strong class="theme-text-primary">自动发货</strong>：卡密类商品（成品邮箱号、独享号等）下单付款后立即在订单页显示卡密。</li>
             <li><strong class="theme-text-primary">人工发货</strong>：订阅直充类商品下单后联系客服，通常 30 分钟内出号，多数 1 小时内可用。</li>
             <li class="theme-text-muted text-xs pt-2 border-t theme-border">延迟时可通过订单查询页或企微在线客服跟进。</li>
           </ul>
@@ -89,7 +89,7 @@
           </div>
           <ul class="space-y-3 text-sm theme-text-secondary leading-relaxed">
             <li>支付不经本站后端：信用卡 / 支付宝 / 微信信息由对应支付网关直接处理，本站<strong class="theme-text-primary">不接触、不存储</strong>支付卡号。</li>
-            <li>游客订单密码仅 <strong class="theme-text-primary">本地浏览器 24h</strong> 缓存，超时自动清除。</li>
+            <li>游客查询凭证仅在 <strong class="theme-text-primary">本地浏览器缓存 24h</strong>（公共设备防护），过期后凭订单号 + 订单密码仍可随时查询，订单不会丢失。</li>
             <li>站点不收集面部 / 位置 / 通讯录等敏感信息。</li>
           </ul>
         </div>

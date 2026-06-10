@@ -60,7 +60,7 @@ type HubCard = {
 const hubs = [
   { to: '/claude-hub', code: 'ANT', icon: BoltIcon, logo: claudeLogo, accent: '#D97757', accentSoft: 'rgba(217, 119, 87, 0.15)', title: 'Claude 资源', desc: '官方入口、Claude Code、注册教程和 Pro / Max 订阅档位集中整理。' },
   { to: '/codex-hub', code: 'CDX', icon: CpuChipIcon, logo: codexLogo, accent: '#10A37F', accentSoft: 'rgba(16, 163, 127, 0.16)', title: 'Codex 资源', desc: 'OpenAI Codex 智能体（官方桌面客户端）上手、ChatGPT Pro 订阅门槛与登录环境。' },
-  { to: '/tools', code: 'TLS', icon: WrenchScrewdriverIcon, accent: '#8B5CF6', accentSoft: 'rgba(139, 92, 246, 0.16)', title: '在线工具', desc: 'AI IP 环境检测、Codex Auth、服务状态、DNS 隐私与接码入口。' },
+  { to: '/tools', code: 'TLS', icon: WrenchScrewdriverIcon, accent: '#8B5CF6', accentSoft: 'rgba(139, 92, 246, 0.16)', title: '在线工具', desc: 'AI IP 环境检测、Codex Auth、服务状态与 DNS 隐私检测。' },
   { to: '/blog', code: 'EDU', icon: BookOpenIcon, accent: '#4285F4', accentSoft: 'rgba(66, 133, 244, 0.16)', title: '最新教程', desc: 'Claude / ChatGPT / Codex 的选购、注册、登录、防封与排错实战笔记。' },
 ] satisfies HubCard[]
 </script>

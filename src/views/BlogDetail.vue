@@ -185,7 +185,7 @@ const relatedLinks = computed(() => {
     return [
       { to: '/blog/chatgpt-plus-china-payment-guide', text: '国内付款订阅 ChatGPT Plus 全方法' },
       { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
-      { to: '/products', text: 'Apple ID 独享带密保号商品' },
+      { to: '/products', text: 'AI 会员代订阅 / 成品号商品' },
       { to: '/tools', text: '在线工具集合（IP 检测等）' },
     ]
   }

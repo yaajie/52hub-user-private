@@ -80,9 +80,6 @@
               <router-link to="/tools" class="theme-link-muted transition-colors">DNS / 隐私</router-link>
             </li>
             <li>
-              <router-link to="/tools" class="theme-link-muted transition-colors">礼品卡 / 接码</router-link>
-            </li>
-            <li>
               <router-link to="/tools" class="theme-link-muted transition-colors">域名查询</router-link>
             </li>
           </ul>
