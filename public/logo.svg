@@ -1,16 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-label="52Hub">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" width="200" height="56" role="img" aria-label="AI开通">
   <defs>
-    <linearGradient id="hubBlue" x1="12" y1="10" x2="58" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#22B8FF"/>
-      <stop offset="0.48" stop-color="#0877F2"/>
-      <stop offset="1" stop-color="#0047B8"/>
+    <linearGradient id="akbg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7A52B"/>
+      <stop offset="1" stop-color="#E8590C"/>
     </linearGradient>
   </defs>
-  <g fill="url(#hubBlue)">
-    <path d="M14 18 39 4l17 9-32 18-10-6z"/>
-    <path d="M14 18v16l10 6 32-18V13L24 31z" opacity=".88"/>
-    <path d="M27 31 40 24l20 11v13L40 37z"/>
-    <path d="M60 35 35 60l-18-10 33-21z"/>
+  <g transform="translate(6 6) scale(0.6875)">
+    <rect width="64" height="64" rx="15" fill="url(#akbg)"/>
+    <path d="M20 48 V30 A12 12 0 0 1 44 30 V48 H38 V30 A6 6 0 0 0 26 30 V48 Z" fill="#fff"/>
+    <circle cx="32" cy="35" r="4.4" fill="#fff"/>
   </g>
-  <text x="78" y="43" fill="#F7FAFC" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="31" font-weight="760" letter-spacing="0">52Hub</text>
+  <text x="62" y="37" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760" fill="#1f2937">AI开通</text>
 </svg>

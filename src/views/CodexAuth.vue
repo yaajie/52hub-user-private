@@ -551,13 +551,13 @@ const pipelineProgress = computed(() => {
 
 const sampleSessionJson = JSON.stringify({
   user: {
-    id: 'user_demo_52hub',
-    name: '52HUB Demo',
-    email: 'demo@52hub.local',
+    id: 'user_demo_aikaitong',
+    name: 'AI开通 Demo',
+    email: 'demo@aikaitong.local',
   },
   accessToken: 'sample_access_token_for_local_preview',
   account: {
-    id: 'acct_52hub_demo',
+    id: 'acct_aikaitong_demo',
     plan_type: 'plus',
   },
   expires: '2026-12-31T00:00:00.000Z',
