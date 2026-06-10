@@ -193,11 +193,17 @@ export function useProductList(options: UseProductListOptions = {}) {
   )
 
   const initialize = async () => {
-    await loadCategories()
-    if (syncSelectedCategoryFromRoute()) {
-      syncExpandedCategoryState()
+    if (route.name === categoryRouteName) {
+      // 分类路由要先拿 categories 才能把 slug 解析成 category_id，保持串行
+      await loadCategories()
+      if (syncSelectedCategoryFromRoute()) {
+        syncExpandedCategoryState()
+      }
+      await loadProducts()
+    } else {
+      // 全部商品视图不依赖分类结果，两个请求并行，移动端少等一跳 RTT
+      await Promise.all([loadCategories(), loadProducts()])
     }
-    await loadProducts()
     initializing = false
   }
 
