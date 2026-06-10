@@ -142,8 +142,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'Codex 资源中心 · OpenAI Codex 智能体 · 桌面客户端 · ChatGPT Pro 订阅直充 - AI开通'
-const pageDesc = 'AI开通 Codex 资源中心：OpenAI Codex 智能体（官方桌面客户端 / ChatGPT 内）入口、ChatGPT Pro 5x / 20x 订阅门槛与 Codex 可用性、登录环境与上手要点、Codex vs Claude Code 选型、订阅直充入口；进阶用户的 Codex CLI 与 Auth JSON 本地工具。'
+const pageTitle = 'Codex 资源中心 · OpenAI Codex 智能体 · ChatGPT Pro 订阅开通 - AI开通'
+const pageDesc = 'AI开通 Codex 资源中心：OpenAI Codex 智能体（官方桌面客户端 / ChatGPT 内）入口、ChatGPT Pro 订阅开通门槛与各档 Codex 用量、登录环境与上手要点、Codex vs Claude Code 选型、订阅直充入口；进阶用户的 Codex CLI 与 Auth JSON 本地工具。'
 
 useHead({
   title: pageTitle,

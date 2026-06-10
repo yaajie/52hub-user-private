@@ -158,8 +158,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'Gemini 资源中心 · Google AI 全产品 · AI Studio · NotebookLM · Pro 直充 - AI开通'
-const pageDesc = 'AI开通 Gemini 资源中心：Google Gemini 对话、AI Studio 开发者控制台、Vertex AI 企业平台、NotebookLM 研究工具、Imagen 图像、Veo 视频生成，Pro 与 Advanced 订阅档位对比，API 免费 tier 与定价，Gemini 商品订阅直充入口。'
+const pageTitle = 'Gemini 资源中心 · Google AI Pro 订阅开通 · AI Studio · NotebookLM - AI开通'
+const pageDesc = 'AI开通 Gemini 资源中心：Google Gemini 对话、AI Studio 开发者控制台、Vertex AI 企业平台、NotebookLM 研究工具、Imagen 图像、Veo 视频生成，Pro 与 Advanced 订阅开通与档位对比，API 免费 tier 与定价，Gemini 商品订阅直充入口。'
 
 useHead({
   title: pageTitle,

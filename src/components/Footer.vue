@@ -14,7 +14,7 @@
           </div>
           <!-- 前端硬编码短 slogan（忽略后台 site_description 的长描述，避免破坏 footer 对齐） -->
           <p class="text-sm leading-relaxed theme-text-muted">
-            AI 智能体资源与服务站 · 教程 · 工具 · 代订阅 / 成品号 / API 等服务
+            一站开通 ChatGPT / Claude / Gemini · 代订阅 · 成品号 · API · 教程与工具
           </p>
           <div class="space-y-2.5 text-sm">
             <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"

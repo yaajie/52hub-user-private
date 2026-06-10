@@ -294,11 +294,11 @@ const navBuiltin = computed(() => (appStore.config?.nav_config as { builtin?: Re
 const blogEnabled = computed(() => navBuiltin.value?.blog !== false)
 
 useHead({
-  title: 'AI开通 · Claude / Codex / ChatGPT AI 智能体资源与服务站',
+  title: 'AI开通 · ChatGPT / Claude / Gemini 一站开通：代订阅 · 成品号 · 教程与工具',
   meta: [
-    { name: 'description', content: 'AI开通 · AI 智能体资源与服务站：Claude、Codex、ChatGPT 的官方入口、教程、实用工具，以及代订阅 / 成品号 / API 等服务，帮你把这些 AI 工具真正用起来。站长 Jay 多年整理。' },
-    { property: 'og:title', content: 'AI开通 · AI 智能体资源与服务站（Claude / Codex / ChatGPT）' },
-    { property: 'og:description', content: 'Claude、Codex、ChatGPT 的官方入口、教程、实用工具，以及代订阅 / 成品号 / API 等服务，帮你把这些 AI 工具真正用起来。' },
+    { name: 'description', content: 'AI开通（aikaitong.com）帮你一站开通海外 AI：ChatGPT Plus / Pro、Claude Pro / Max、Gemini 代订阅与成品号，Codex / Claude Code 上手教程，API 接入与 AI IP 环境检测，少走弯路，直接用上。' },
+    { property: 'og:title', content: 'AI开通 · ChatGPT / Claude / Gemini 一站开通' },
+    { property: 'og:description', content: '代订阅 · 成品号 · API · 注册教程 · IP 检测，帮你把海外 AI 真正用起来。' },
     { property: 'og:url', content: 'https://aikaitong.com/' },
     { property: 'og:type', content: 'website' },
   ],

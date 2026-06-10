@@ -150,7 +150,7 @@ const isCategory = computed(() => !!categorySlug.value)
 useHead({
   title: computed(() => isCategory.value
     ? `${categorySlug.value} 分类商品 - AI开通`
-    : 'AI 服务 · Claude / ChatGPT / Gemini 代订阅 / 成品号 / API + Apple ID 账号 - AI开通'),
+    : 'AI 服务 · ChatGPT / Claude / Gemini 代订阅开通 · 成品号 / API + Apple ID 账号 - AI开通'),
   meta: computed(() => {
     const base = [
       { property: 'og:type', content: 'website' },
@@ -164,8 +164,8 @@ useHead({
     }
     return [
       ...base,
-      { name: 'description', content: 'AI开通 AI 服务 · Claude / ChatGPT / Gemini 的代订阅、成品号、API 额度兑换，美区 / 港区 Apple ID 独享账号，礼品卡兑换号。' },
-      { property: 'og:title', content: 'AI 服务 · 代订阅 / 成品号 / API + Apple ID 账号 - AI开通' },
+      { name: 'description', content: 'AI开通 AI 服务：ChatGPT / Claude / Gemini 代订阅开通、成品号、API 额度兑换，美区 / 港区 Apple ID 独享账号，礼品卡兑换号，下单即开通。' },
+      { property: 'og:title', content: 'AI 服务 · 代订阅开通 / 成品号 / API + Apple ID - AI开通' },
       { property: 'og:description', content: 'Claude / ChatGPT / Gemini 代订阅、成品号、API 额度 + Apple ID 账号 + 礼品卡。' },
       { property: 'og:url', content: 'https://aikaitong.com/products' },
     ]

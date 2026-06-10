@@ -160,8 +160,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'OpenAI / ChatGPT 资源中心 · 订阅档位 · 国内付款 · Sora / DALL-E / API - AI开通'
-const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus 与 Pro 5x / 20x 订阅档位对比、国内 4 种付款方法、降低封号风险攻略、Sora 视频与 DALL-E 图像、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
+const pageTitle = 'OpenAI / ChatGPT 资源中心 · Plus / Pro 订阅开通 · 国内付款 · Sora / API - AI开通'
+const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus / Pro 订阅开通与档位对比、国内 4 种付款方法、降低封号风险攻略、Sora 视频与 DALL-E 图像、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
 
 useHead({
   title: pageTitle,

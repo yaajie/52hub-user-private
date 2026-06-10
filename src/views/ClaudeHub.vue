@@ -147,8 +147,8 @@ const related = {
   ],
 }
 
-const pageTitle = 'Claude 资源中心 · Anthropic 官方入口 · Pro / Max 订阅直充 · 注册教程 - AI开通'
-const pageDesc = 'AI开通 Claude 资源中心：Anthropic 官方入口（Claude.ai / Console / API 文档）、桌面客户端、Claude Code 使用指南、Pro 与 Max 5x / 20x 订阅档位对比、注册全流程、报错 403 排查、订阅直充入口与店家挑选指南，AI 工具站长一站整理。'
+const pageTitle = 'Claude 资源中心 · Pro / Max 订阅开通 · 注册教程 · 官方入口 - AI开通'
+const pageDesc = 'AI开通 Claude 资源中心：Anthropic 官方入口（Claude.ai / Console / API 文档）、桌面客户端、Claude Code 使用指南、Claude Pro / Max 5x / 20x 怎么选与订阅开通、注册全流程、报错 403 排查、订阅直充入口与店家挑选指南，AI 工具站长一站整理。'
 
 useHead({
   title: pageTitle,
