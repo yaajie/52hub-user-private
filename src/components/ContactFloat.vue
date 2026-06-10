@@ -36,37 +36,6 @@
         </a>
 
         <a
-          :href="telegramServiceUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-between rounded-xl border border-sky-200 bg-sky-50/80 px-3 py-2.5 text-sm transition hover:bg-sky-100/80 dark:border-sky-500/20 dark:bg-sky-500/10 dark:hover:bg-sky-500/15"
-        >
-          <span class="font-medium theme-text-primary"><PaperAirplaneIcon class="inline-block h-4 w-4 mr-1 text-sky-500 align-text-bottom" />TG 联系客服</span>
-          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
-        </a>
-
-        <a
-          :href="CONTACTS.telegramChannel"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-between rounded-xl border border-cyan-200 bg-cyan-50/80 px-3 py-2.5 text-sm transition hover:bg-cyan-100/80 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:hover:bg-cyan-500/15"
-        >
-          <span class="font-medium theme-text-primary"><MegaphoneIcon class="inline-block h-4 w-4 mr-1 text-cyan-500 align-text-bottom" />TG 公告频道</span>
-          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
-        </a>
-
-        <div class="rounded-xl border theme-border px-3 py-2.5">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-sm font-medium theme-text-primary"><IconQQ class="inline-block h-4 w-4 mr-1 text-[#1AB6FF] align-text-bottom" />QQ {{ CONTACTS.qq }}</span>
-            <button
-              type="button"
-              class="rounded-md px-2 py-1 text-xs font-medium bg-[var(--ui-bg-soft)] theme-text-secondary transition hover:bg-[var(--ui-bg-muted)]"
-              @click="copyQQ"
-            >{{ copied ? '已复制' : '复制' }}</button>
-          </div>
-        </div>
-
-        <a
           v-if="supportEmail"
           :href="`mailto:${supportEmail}`"
           class="flex items-center justify-between rounded-xl border theme-border px-3 py-2.5 text-sm transition hover:bg-[var(--ui-bg-soft)]"
@@ -97,11 +66,8 @@ import {
   ArrowTopRightOnSquareIcon,
   ChatBubbleLeftRightIcon,
   EnvelopeIcon,
-  MegaphoneIcon,
-  PaperAirplaneIcon,
   XMarkIcon,
 } from '@heroicons/vue/24/outline'
-import IconQQ from './icons/IconQQ.vue'
 import { useAppStore } from '../stores/app'
 import { CONTACTS } from '../constants/contact'
 
@@ -109,26 +75,10 @@ const appStore = useAppStore()
 const route = useRoute()
 
 const open = ref(false)
-const copied = ref(false)
 const hideOnMobileToolPage = computed(() => route.path === '/tools/codex-auth')
-
-const telegramServiceUrl = computed(() => {
-  const value = appStore.config?.contact?.telegram
-  return typeof value === 'string' && value.trim() ? value.trim() : CONTACTS.telegramService
-})
 
 const supportEmail = computed(() => {
   const value = appStore.config?.contact?.email
   return typeof value === 'string' && value.trim() ? value.trim() : ''
 })
-
-const copyQQ = async () => {
-  try {
-    await navigator.clipboard.writeText(CONTACTS.qq)
-    copied.value = true
-    setTimeout(() => { copied.value = false }, 2000)
-  } catch {
-    // clipboard not available, no-op
-  }
-}
 </script>

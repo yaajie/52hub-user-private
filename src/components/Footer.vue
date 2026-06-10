@@ -17,24 +17,6 @@
             AI 智能体资源与服务站 · 教程 · 工具 · 代订阅 / 成品号 / API 等服务
           </p>
           <div class="space-y-2.5 text-sm">
-            <a :href="telegramServiceUrl" target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-2 theme-link-muted hover:theme-text-primary transition-colors">
-              <svg class="w-4 h-4 text-blue-400 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-              </svg>
-              <span>TG 客服 @HUB52service</span>
-            </a>
-            <a :href="CONTACTS.telegramChannel" target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center gap-2 theme-link-muted hover:theme-text-primary transition-colors">
-              <svg class="w-4 h-4 text-cyan-500 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-              </svg>
-              <span>TG 频道 @Hub52Notice</span>
-            </a>
             <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-2 theme-link-muted hover:theme-text-primary transition-colors">
               <IconQQ class="w-4 h-4 text-[#1AB6FF] shrink-0" />
@@ -135,17 +117,12 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
-import { CONTACTS } from '../constants/contact'
 import IconQQ from './icons/IconQQ.vue'
 
 const { t } = useI18n()
 const appStore = useAppStore()
 
 const config = computed(() => appStore.config)
-const telegramServiceUrl = computed(() => {
-  const value = config.value?.contact?.telegram
-  return typeof value === 'string' && value.trim() ? value.trim() : CONTACTS.telegramService
-})
 
 const brandSiteName = computed(() => {
   const siteName = config.value?.brand?.site_name

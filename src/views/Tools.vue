@@ -222,7 +222,7 @@
             <span class="theme-text-secondary">cat disclaimer.txt</span><br />
             <span class="block mt-2">本页仅整理公开网络检测工具入口，结果仅供网络诊断参考。</span>
             <span class="block">请遵守当地法律法规和各平台服务条款，本站不提供、不推广任何翻墙工具或非法跨境访问服务。</span>
-            <span class="block mt-2 theme-text-primary">› 发现好用的工具？欢迎在 TG 客服 <a :href="telegramServiceUrl" target="_blank" rel="noopener noreferrer" class="theme-text-accent underline">@HUB52service</a> 推荐补充。</span>
+            <span class="block mt-2 theme-text-primary">› 发现好用的工具？欢迎通过企微在线客服推荐补充。</span>
           </div>
         </div>
       </div>
@@ -233,12 +233,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useHead } from '@unhead/vue'
-import { useAppStore } from '../stores/app'
-import { CONTACTS } from '../constants/contact'
 import OwnedToolsPanel from '../components/OwnedToolsPanel.vue'
-
-const appStore = useAppStore()
-const telegramServiceUrl = computed(() => appStore.config?.contact?.telegram || CONTACTS.telegramService)
 
 const localTools = [
   { name: 'AI IP 环境检测', url: '/tools/ip', desc: '按 ChatGPT / Claude / Codex 等 AI 使用场景判断 IP，不把机房 IP 一刀切判死。' },

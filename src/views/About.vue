@@ -58,7 +58,7 @@
           <ul class="space-y-3 text-sm theme-text-secondary leading-relaxed">
             <li><strong class="theme-text-primary">自动发货</strong>：卡密类商品（Apple ID、礼品卡、邮箱、独享号）下单付款后立即在订单页显示卡密。</li>
             <li><strong class="theme-text-primary">人工发货</strong>：订阅直充类商品下单后联系客服，通常 30 分钟内出号，多数 1 小时内可用。</li>
-            <li class="theme-text-muted text-xs pt-2 border-t theme-border">延迟时可通过订单查询页或 TG 客服跟进。</li>
+            <li class="theme-text-muted text-xs pt-2 border-t theme-border">延迟时可通过订单查询页或企微在线客服跟进。</li>
           </ul>
         </div>
 
@@ -126,16 +126,6 @@
             {{ contactText }}
           </p>
           <div class="space-y-3">
-            <a :href="telegramUrl" target="_blank" rel="noopener noreferrer"
-              class="flex items-center gap-3 p-3 theme-surface-soft border theme-border rounded-xl hover:theme-surface-strong transition-colors group">
-              <svg class="w-5 h-5 text-sky-500 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-              </svg>
-              <div class="flex-1">
-                <div class="text-sm font-semibold theme-text-primary">Telegram 客服</div>
-                <div class="text-xs theme-text-muted">@HUB52service · 7×24 接单</div>
-              </div>
-            </a>
             <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-3 p-3 theme-surface-soft border theme-border rounded-xl hover:theme-surface-strong transition-colors group">
               <span class="w-5 h-5 shrink-0 rounded-full bg-emerald-500"></span>
@@ -166,15 +156,11 @@ import { computed, onMounted } from 'vue'
 import { useHead } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '../stores/app'
-import { CONTACTS } from '../constants/contact'
 
 const { locale } = useI18n()
 const appStore = useAppStore()
 
 const aboutConfig = computed(() => appStore.config?.about || null)
-const contactConfig = computed(() => appStore.config?.contact || null)
-
-const telegramUrl = computed(() => contactConfig.value?.telegram || CONTACTS.telegramService)
 
 const resolveLocalizedText = (raw: unknown): string => {
   if (!raw || typeof raw !== 'object') {
