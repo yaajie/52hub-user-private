@@ -1,14 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" width="200" height="56" role="img" aria-label="AI开通">
-  <defs>
-    <linearGradient id="akbg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#F7A52B"/>
-      <stop offset="1" stop-color="#E8590C"/>
-    </linearGradient>
-  </defs>
   <g transform="translate(6 6) scale(0.6875)">
-    <rect width="64" height="64" rx="15" fill="url(#akbg)"/>
-    <path d="M20 48 V30 A12 12 0 0 1 44 30 V48 H38 V30 A6 6 0 0 0 26 30 V48 Z" fill="#fff"/>
-    <circle cx="32" cy="35" r="4.4" fill="#fff"/>
+    <rect width="64" height="64" rx="15" fill="#1b1613"/>
+    <path d="M31 51 V29 A10 10 0 0 1 51 29 V51" fill="none" stroke="#F2820F" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M28 22 L14 26.5 V51 L28 51 Z" fill="#EE7A1C"/>
+    <circle cx="39" cy="39" r="9" fill="#F2820F" opacity="0.28"/>
+    <circle cx="39" cy="39" r="5" fill="#FFCF8A"/>
   </g>
   <text x="62" y="37" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760" fill="#1f2937">AI开通</text>
 </svg>
