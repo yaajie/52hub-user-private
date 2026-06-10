@@ -136,16 +136,23 @@
                 <div class="text-xs theme-text-muted">@HUB52service · 7×24 接单</div>
               </div>
             </a>
-            <router-link to="/notice/announcement-channel"
+            <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-3 p-3 theme-surface-soft border theme-border rounded-xl hover:theme-surface-strong transition-colors group">
+              <span class="w-5 h-5 shrink-0 rounded-full bg-emerald-500"></span>
+              <div class="flex-1">
+                <div class="text-sm font-semibold theme-text-primary">企微在线客服</div>
+                <div class="text-xs theme-text-muted">点击直接咨询 · 无需加好友</div>
+              </div>
+            </a>
+            <div class="flex items-center gap-3 p-3 theme-surface-soft border theme-border rounded-xl">
               <svg class="w-5 h-5 text-[#1AB6FF] shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 6c2.07 0 3.75 1.68 3.75 3.75S14.07 13.5 12 13.5s-3.75-1.68-3.75-3.75S9.93 6 12 6zM5.25 18.75c0-3 6-4.5 6.75-4.5s6.75 1.5 6.75 4.5v.75H5.25v-.75z" />
               </svg>
               <div class="flex-1">
-                <div class="text-sm font-semibold theme-text-primary">QQ 群</div>
-                <div class="text-xs theme-text-muted">1105879333 · 密码 52hub</div>
+                <div class="text-sm font-semibold theme-text-primary">QQ 咨询</div>
+                <div class="text-xs theme-text-muted">3691445470</div>
               </div>
-            </router-link>
+            </div>
           </div>
         </div>
       </section>

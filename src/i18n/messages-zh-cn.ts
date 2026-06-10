@@ -96,7 +96,7 @@ const messages =
             },
             cta: {
                 title: '没找到想要的？',
-                description: '加 QQ 群 1105879333 直接问客服。',
+                description: '点企微在线客服或加 QQ 3691445470 直接问客服。',
                 button: '看全部商品',
             },
             latest: {

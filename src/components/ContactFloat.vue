@@ -26,6 +26,16 @@
 
       <div class="space-y-2 p-3">
         <a
+          :href="CONTACTS.wechatService"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50/80 px-3 py-2.5 text-sm transition hover:bg-emerald-100/80 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/15"
+        >
+          <span class="font-medium theme-text-primary"><span class="inline-block h-2 w-2 mr-1.5 rounded-full bg-emerald-500 align-middle"></span>企微在线客服</span>
+          <ArrowTopRightOnSquareIcon class="h-4 w-4 theme-text-muted" />
+        </a>
+
+        <a
           :href="telegramServiceUrl"
           target="_blank"
           rel="noopener noreferrer"
@@ -47,14 +57,13 @@
 
         <div class="rounded-xl border theme-border px-3 py-2.5">
           <div class="flex items-center justify-between gap-2">
-            <span class="text-sm font-medium theme-text-primary"><IconQQ class="inline-block h-4 w-4 mr-1 text-[#1AB6FF] align-text-bottom" />QQ 群 {{ CONTACTS.qqGroup }}</span>
+            <span class="text-sm font-medium theme-text-primary"><IconQQ class="inline-block h-4 w-4 mr-1 text-[#1AB6FF] align-text-bottom" />QQ {{ CONTACTS.qq }}</span>
             <button
               type="button"
               class="rounded-md px-2 py-1 text-xs font-medium bg-[var(--ui-bg-soft)] theme-text-secondary transition hover:bg-[var(--ui-bg-muted)]"
               @click="copyQQ"
             >{{ copied ? '已复制' : '复制' }}</button>
           </div>
-          <p class="mt-1.5 text-xs theme-text-muted">验证答案：<span class="font-medium theme-text-primary">{{ CONTACTS.qqGroupVerifyAnswer }}</span></p>
         </div>
 
         <a
@@ -115,7 +124,7 @@ const supportEmail = computed(() => {
 
 const copyQQ = async () => {
   try {
-    await navigator.clipboard.writeText(CONTACTS.qqGroup)
+    await navigator.clipboard.writeText(CONTACTS.qq)
     copied.value = true
     setTimeout(() => { copied.value = false }, 2000)
   } catch {

@@ -35,11 +35,11 @@
               </svg>
               <span>TG 频道 @Hub52Notice</span>
             </a>
-            <router-link to="/notice/announcement-channel"
+            <a href="https://work.weixin.qq.com/kfid/kfcbbf5731aecc5daeb" target="_blank" rel="noopener noreferrer"
               class="flex items-center gap-2 theme-link-muted hover:theme-text-primary transition-colors">
               <IconQQ class="w-4 h-4 text-[#1AB6FF] shrink-0" />
-              <span>QQ 群 1105879333</span>
-            </router-link>
+              <span>在线客服 · QQ 3691445470</span>
+            </a>
           </div>
         </div>
 

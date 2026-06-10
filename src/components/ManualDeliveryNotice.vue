@@ -5,10 +5,9 @@
       <div class="space-y-1">
         <p class="text-sm font-bold theme-text-primary">人工发货说明</p>
         <p class="text-xs leading-relaxed theme-text-secondary">
-          商品页面显示为人工发货或人工交付的商品，下单付款后请保留订单号并联系客服处理。请加 QQ 群
-          <span class="font-semibold theme-text-primary">1105879333</span>
-          咨询，验证答案填写
-          <span class="font-semibold theme-text-primary">AI开通</span>。
+          商品页面显示为人工发货或人工交付的商品，下单付款后请保留订单号并联系客服处理。可通过企微在线客服或
+          <span class="font-semibold theme-text-primary">QQ 3691445470</span>
+          咨询。
         </p>
       </div>
     </div>
