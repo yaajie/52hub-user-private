@@ -11,8 +11,8 @@
         </p>
       </div>
 
-      <!-- 分类标签条（2026-06-11 博客体验专项：slug 规则前端分类，与文章页右栏共用 BLOG_CATEGORIES） -->
-      <div class="mb-8 flex flex-wrap items-center justify-center gap-2 sm:mb-12">
+      <!-- 移动端分类标签条（lg+ 用左侧分类栏；slug 规则前端分类，与文章页右栏共用 BLOG_CATEGORIES） -->
+      <div class="mb-8 flex flex-wrap items-center justify-center gap-2 lg:hidden">
         <button
           v-for="cat in categoryTabs"
           :key="cat.key"
@@ -28,10 +28,34 @@
         </button>
       </div>
 
+      <div class="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8 lg:items-start">
+        <!-- 左侧分类栏（桌面端，与 /products 布局语言一致） -->
+        <aside class="hidden lg:block lg:sticky lg:top-24">
+          <div class="rounded-2xl border theme-border theme-panel p-4">
+            <h2 class="mb-3 px-2 text-sm font-bold theme-text-primary">文章分类</h2>
+            <nav class="space-y-1">
+              <button
+                v-for="cat in categoryTabs"
+                :key="`side-${cat.key}`"
+                type="button"
+                class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors"
+                :class="activeCat === cat.key
+                  ? 'bg-[var(--ui-accent)] font-semibold text-white shadow-sm'
+                  : 'theme-text-secondary hover:theme-surface-strong hover:theme-text-primary'"
+                @click="selectCategory(cat.key)"
+              >
+                <span>{{ cat.label }}</span>
+                <span class="font-mono text-xs opacity-70">{{ cat.count }}</span>
+              </button>
+            </nav>
+          </div>
+        </aside>
+
+        <div>
       <!-- Loading State -->
-      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         <div v-for="i in 4" :key="i"
-          class="theme-surface-muted rounded-2xl h-[300px] animate-pulse border">
+          class="theme-surface-muted rounded-2xl h-[260px] animate-pulse border">
         </div>
       </div>
 
@@ -39,7 +63,7 @@
       <div v-else-if="pagedPosts.length > 0">
         <div :class="pagedPosts.length === 1
           ? 'max-w-2xl mx-auto'
-          : 'grid grid-cols-1 md:grid-cols-2 gap-8'">
+          : 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'">
           <router-link v-for="post in pagedPosts" :key="post.id" :to="getPostLink(post.slug)"
             v-spotlight
             class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-[var(--ui-bg-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
@@ -50,8 +74,8 @@
                 loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             </div>
 
-            <div class="p-8 flex flex-col flex-1">
-              <div class="flex items-center justify-between mb-6">
+            <div class="p-6 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-4">
                 <span class="theme-badge-meta"
                   :class="post.type === 'blog'
                     ? 'theme-badge-accent'
@@ -64,16 +88,16 @@
               </div>
 
               <h2
-                class="text-2xl font-bold mb-4 theme-text-primary transition-colors line-clamp-2 leading-tight">
+                class="text-lg font-bold mb-3 theme-text-primary transition-colors line-clamp-2 leading-snug">
                 {{ getLocalizedText(post.title) }}
               </h2>
 
-              <p class="theme-text-secondary text-sm mb-8 line-clamp-3 leading-relaxed flex-1">
+              <p class="theme-text-secondary text-sm mb-5 line-clamp-2 leading-relaxed flex-1">
                 {{ getLocalizedText(post.summary) }}
               </p>
 
               <div
-                class="flex items-center text-sm font-medium theme-text-muted group-hover:text-[var(--ui-text-primary)] transition-colors mt-auto pt-6 border-t theme-border">
+                class="flex items-center text-sm font-medium theme-text-muted group-hover:text-[var(--ui-text-primary)] transition-colors mt-auto pt-4 border-t theme-border">
                 {{ t('blog.readMore') }}
                 <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-2" fill="none"
                   stroke="currentColor" viewBox="0 0 24 24">
@@ -122,6 +146,8 @@
         <p class="theme-text-muted text-lg">
           {{ t('blog.empty') }}
         </p>
+      </div>
+        </div>
       </div>
     </div>
   </div>
