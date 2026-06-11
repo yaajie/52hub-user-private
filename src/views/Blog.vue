@@ -3,12 +3,29 @@
     class="blog-page min-h-screen theme-page pt-24 pb-16 relative overflow-hidden">
     <div class="container mx-auto px-4 relative z-10">
       <!-- Page Header -->
-      <div class="mb-8 mt-4 text-center sm:mb-16 sm:mt-12">
+      <div class="mb-6 mt-4 text-center sm:mb-10 sm:mt-12">
         <h1 class="mb-3 text-3xl font-black tracking-tight theme-text-primary sm:mb-6 sm:text-4xl md:text-6xl">{{ t('nav.blog') }}</h1>
         <p
-          class="theme-text-secondary mx-auto max-w-xl border-b theme-border pb-4 text-sm leading-relaxed sm:max-w-2xl sm:pb-8 sm:text-lg">
+          class="theme-text-secondary mx-auto max-w-xl text-sm leading-relaxed sm:max-w-2xl sm:text-lg">
           {{ t('blog.subtitle') }}
         </p>
+      </div>
+
+      <!-- 分类标签条（2026-06-11 博客体验专项：slug 规则前端分类，与文章页右栏共用 BLOG_CATEGORIES） -->
+      <div class="mb-8 flex flex-wrap items-center justify-center gap-2 sm:mb-12">
+        <button
+          v-for="cat in categoryTabs"
+          :key="cat.key"
+          type="button"
+          class="rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
+          :class="activeCat === cat.key
+            ? 'border-transparent bg-[var(--ui-accent)] text-white shadow-sm'
+            : 'theme-border theme-panel theme-text-secondary hover:theme-surface-strong'"
+          @click="selectCategory(cat.key)"
+        >
+          {{ cat.label }}
+          <span class="ml-1 font-mono text-xs opacity-70">{{ cat.count }}</span>
+        </button>
       </div>
 
       <!-- Loading State -->
@@ -19,11 +36,11 @@
       </div>
 
       <!-- Posts Grid -->
-      <div v-else-if="posts.length > 0">
-        <div :class="posts.length === 1
+      <div v-else-if="pagedPosts.length > 0">
+        <div :class="pagedPosts.length === 1
           ? 'max-w-2xl mx-auto'
           : 'grid grid-cols-1 md:grid-cols-2 gap-8'">
-          <router-link v-for="post in posts" :key="post.id" :to="getPostLink(post.slug)"
+          <router-link v-for="post in pagedPosts" :key="post.id" :to="getPostLink(post.slug)"
             v-spotlight
             class="group theme-panel backdrop-blur-xl border rounded-2xl overflow-hidden hover:bg-[var(--ui-bg-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl flex flex-col no-underline"
             :aria-label="getLocalizedText(post.title)">
@@ -67,7 +84,7 @@
           </router-link>
         </div>
 
-        <!-- Pagination -->
+        <!-- Pagination（前端分页） -->
         <div v-if="totalPages > 1" class="mt-16 flex justify-center">
           <nav
             class="flex items-center space-x-2 theme-panel-soft backdrop-blur-md p-2 rounded-2xl border">
@@ -111,16 +128,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useHead } from '@unhead/vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { postAPI } from '../api'
 import { getImageUrl } from '../utils/image'
-import { debounceAsync } from '../utils/debounce'
+import { BLOG_CATEGORIES, matchCategory } from '../utils/blogCategories'
 
 const { t } = useI18n()
 const appStore = useAppStore()
+const route = useRoute()
+const router = useRouter()
 
 useHead({
   title: '资讯 · AI 工具教程与实战笔记 - AI开通',
@@ -135,11 +155,53 @@ useHead({
 })
 
 const loading = ref(true)
-const posts = ref<any[]>([])
+const allPosts = ref<any[]>([])
 const currentPage = ref(1)
-const pageSize = ref(12)
-const total = ref(0)
-const totalPages = ref(0)
+const pageSize = 12
+
+// 18 篇量级一次拉全量，分类筛选与分页全部前端完成（gzip 后体积很小，省掉翻页/筛选的网络往返）
+const loadPosts = async () => {
+  loading.value = true
+  try {
+    const response = await postAPI.list({ type: 'blog', page: 1, page_size: 100 })
+    allPosts.value = response.data.data || []
+  } catch (error) {
+    console.error('Failed to load posts:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 分类：?cat= 同步，便于分享/回退
+const activeCat = computed(() => {
+  const q = String(route.query.cat || 'all')
+  return q === 'all' || BLOG_CATEGORIES.some((c) => c.key === q) ? q : 'all'
+})
+
+const categoryTabs = computed(() => {
+  const tabs = [{ key: 'all', label: '全部', count: allPosts.value.length }]
+  for (const cat of BLOG_CATEGORIES) {
+    const count = allPosts.value.filter((p) => matchCategory(p.slug, cat.key)).length
+    if (count > 0) tabs.push({ key: cat.key, label: cat.label, count })
+  }
+  return tabs
+})
+
+const filteredPosts = computed(() =>
+  allPosts.value.filter((p) => matchCategory(p.slug, activeCat.value)),
+)
+
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredPosts.value.length / pageSize)))
+
+const pagedPosts = computed(() => {
+  const start = (currentPage.value - 1) * pageSize
+  return filteredPosts.value.slice(start, start + pageSize)
+})
+
+const selectCategory = (key: string) => {
+  currentPage.value = 1
+  router.replace({ query: key === 'all' ? {} : { cat: key } })
+}
 
 const getLocalizedText = (jsonData: any) => {
   if (!jsonData) return ''
@@ -160,43 +222,16 @@ const formatDate = (dateString: string) => {
 
 const getPostDate = (post: any) => post.published_at || post.created_at || post.updated_at || ''
 
-const loadPosts = async () => {
-  loading.value = true
-  try {
-    const response = await postAPI.list({
-      type: 'blog',
-      page: currentPage.value,
-      page_size: pageSize.value,
-    })
-    posts.value = response.data.data || []
-    if (response.data.pagination) {
-      total.value = response.data.pagination.total || 0
-      totalPages.value = response.data.pagination.total_page || 0
-    }
-  } catch (error) {
-    console.error('Failed to load posts:', error)
-  } finally {
-    loading.value = false
-  }
-}
-
-const debouncedLoadPosts = debounceAsync(loadPosts, 300)
-
 const getPostLink = (slug: string) => `/blog/${slug}`
 
 const changePage = (page: number) => {
   if (page < 1 || page > totalPages.value) return
   currentPage.value = page
-  debouncedLoadPosts()
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 onMounted(() => {
   loadPosts()
-})
-
-onUnmounted(() => {
-  debouncedLoadPosts.cancel()
 })
 </script>
 
