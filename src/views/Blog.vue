@@ -11,8 +11,8 @@
         </p>
       </div>
 
-      <!-- 移动端分类标签条（lg+ 用左侧分类栏；slug 规则前端分类，与文章页右栏共用 BLOG_CATEGORIES） -->
-      <div class="mb-8 flex flex-wrap items-center justify-center gap-2 lg:hidden">
+      <!-- 分类标签条（按读者意图分类，slug 规则前端映射，与文章页右栏共用 BLOG_CATEGORIES） -->
+      <div class="mb-8 flex flex-wrap items-center justify-center gap-2 sm:mb-12">
         <button
           v-for="cat in categoryTabs"
           :key="cat.key"
@@ -28,30 +28,6 @@
         </button>
       </div>
 
-      <div class="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8 lg:items-start">
-        <!-- 左侧分类栏（桌面端，与 /products 布局语言一致） -->
-        <aside class="hidden lg:block lg:sticky lg:top-24">
-          <div class="rounded-2xl border theme-border theme-panel p-4">
-            <h2 class="mb-3 px-2 text-sm font-bold theme-text-primary">文章分类</h2>
-            <nav class="space-y-1">
-              <button
-                v-for="cat in categoryTabs"
-                :key="`side-${cat.key}`"
-                type="button"
-                class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors"
-                :class="activeCat === cat.key
-                  ? 'bg-[var(--ui-accent)] font-semibold text-white shadow-sm'
-                  : 'theme-text-secondary hover:theme-surface-strong hover:theme-text-primary'"
-                @click="selectCategory(cat.key)"
-              >
-                <span>{{ cat.label }}</span>
-                <span class="font-mono text-xs opacity-70">{{ cat.count }}</span>
-              </button>
-            </nav>
-          </div>
-        </aside>
-
-        <div>
       <!-- Loading State -->
       <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         <div v-for="i in 4" :key="i"
@@ -146,8 +122,6 @@
         <p class="theme-text-muted text-lg">
           {{ t('blog.empty') }}
         </p>
-      </div>
-        </div>
       </div>
     </div>
   </div>
