@@ -31,11 +31,21 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新代码 commit：`c3d7c24 52hub: hub 页精修——品牌 app 图标 + 图文 mockup + 能力图标卡`**（其下 `2ea7914` 商品中心收尾、`c500b2b` 服务口径放宽、`67e91c1` 定位对齐上线）
+- **最新业务代码 commit：`c3d7c24 52hub: hub 页精修——品牌 app 图标 + 图文 mockup + 能力图标卡`**（其下 `2ea7914` 商品中心收尾、`c500b2b` 服务口径放宽、`67e91c1` 定位对齐上线；最新交接文档 commit 以 `git log -1` 为准）
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：clean（已上线并 push，远端 = 本地 HEAD `c3d7c24`；线上 user 包 `index-B3Q2NNp9.js`，生产备份 `web/user.pre-deploy-20260608-183440`）
+- working tree：以 `git status --short` 为准；文档交接更新后应保持 clean 并 push 到 private。线上 user 包 `index-B3Q2NNp9.js`，生产备份 `web/user.pre-deploy-20260608-183440`
 - 标准品牌 logo：`src/assets/ai-products/codex-logo.webp`（蓝紫花瓣+>_）、`claude-logo.webp`（橙色星芒）；hub 视觉组件 `src/components/hub/`（HubHero/HubMockup/HubFeatures/HubLayout 等），以后 Codex/Claude 视觉统一用这套
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
+
+## 2026-06-12 生产迁移状态
+
+- 当前主站前台：`https://aikaitong.com`
+- 当前主站后台/CMS：`https://ht.aikaitong.com`
+- 当前主站 API：`https://aikaitong.com/api`
+- 旧主域：`https://52hub.org` / `https://www.52hub.org` 301 到 `https://aikaitong.com/`
+- 中转业务：`ai.52hub.org` / `relay.52hub.org` 保留不迁移。
+- 支付：新支付宝应用已接入并完成站长模拟支付 + 自动发货；旧通道改名“支付宝旧”并停用观察。
+- 说明：下方“最近任务记录”中 2026-06-06 标记“未提交”的支付宝分流等旧项，已在 2026-06-08 之后的业务代码提交中固化；以后以四份共享文档和 `git log` 为准。
 
 ---
 
