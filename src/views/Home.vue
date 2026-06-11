@@ -189,7 +189,7 @@
 
     <section class="latest-posts container mx-auto px-4 pt-8" v-if="latestPosts.length">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">最新教程</h2>
+        <h2 class="text-xl sm:text-2xl font-semibold theme-text-primary">最新 AI 资讯 &amp; 教程</h2>
         <router-link to="/blog" class="text-sm theme-text-muted hover:theme-text-primary">查看全部 →</router-link>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
