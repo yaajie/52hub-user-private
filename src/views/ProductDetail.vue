@@ -359,8 +359,8 @@
           </div>
         </div>
 
-        <!-- 售后保障与边界（立即购买下方、商品自定义详情上方） -->
-        <AfterSalesNotice />
+        <!-- 售后保障与边界（立即购买下方、商品自定义详情上方）；可在后台按商品 slug 隐藏 -->
+        <AfterSalesNotice v-if="!isAfterSalesHidden" />
 
         <!-- Details Content Card -->
         <div v-if="product.content"
@@ -488,6 +488,12 @@ const formatPromotionRule = (rule: PromotionRule) => {
 
 const loading = ref(true)
 const product = ref<Product | null>(null)
+
+// 售后保障组件：默认显示；商品 slug 在 site_config.after_sales_hidden 名单里则隐藏（后台 设置→模板 可改）
+const isAfterSalesHidden = computed(() => {
+  const list = (appStore.config as Record<string, unknown> | undefined)?.after_sales_hidden
+  return Array.isArray(list) && !!product.value && list.includes(product.value.slug)
+})
 const currentImage = ref<string>('')
 const selectedSkuId = ref(0)
 const quantity = ref(1)
