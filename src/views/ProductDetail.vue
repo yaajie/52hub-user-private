@@ -383,7 +383,7 @@
           </router-link>
         </div>
 
-        <PurchaseTerms />
+        <PurchaseTerms :show-after-sales="true" />
 
         <!-- Mobile Fixed Purchase Bar -->
         <ProductMobileBar
