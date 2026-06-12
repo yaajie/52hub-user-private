@@ -359,6 +359,9 @@
           </div>
         </div>
 
+        <!-- 售后保障与边界（立即购买下方、商品自定义详情上方） -->
+        <AfterSalesNotice />
+
         <!-- Details Content Card -->
         <div v-if="product.content"
           class="theme-panel backdrop-blur-xl border rounded-3xl overflow-hidden mb-12 p-6 md:p-8 lg:p-12 relative">
@@ -383,7 +386,7 @@
           </router-link>
         </div>
 
-        <PurchaseTerms :show-after-sales="true" />
+        <PurchaseTerms :show-purchase-notice="true" />
 
         <!-- Mobile Fixed Purchase Bar -->
         <ProductMobileBar
@@ -455,6 +458,7 @@ import { useLocalized, useProductLabels } from '../composables/useProduct'
 import ProductImageGallery from '../components/product/ProductImageGallery.vue'
 import ProductMobileBar from '../components/product/ProductMobileBar.vue'
 import PurchaseTerms from '../components/PurchaseTerms.vue'
+import AfterSalesNotice from '../components/AfterSalesNotice.vue'
 
 const route = useRoute()
 const router = useRouter()
