@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新业务代码 commit：`9ff1292 chore(verify): add WeChat domain verification file`**（新增微信风控申诉根目录 TXT；其下 `ee88ee5` 动态 sitemap、`bcb50a1` 售后保障隐藏名单、`c3d7c24` hub 页精修已上线；最新交接文档 commit 以 `git log -1` 为准）
+- **最新业务代码 commit：`c8a5a91 chore(verify): rotate WeChat domain verification file`（新增微信验证文件 `e4c0ffe785d10fb7cae400fc0bdfc0bf.txt`）**；其下 `f93194d` 记录上一轮微信验证部署、`9ff1292` 新增上一轮 `796c...txt`、`ee88ee5` 动态 sitemap、`bcb50a1` 售后保障隐藏名单、`c3d7c24` hub 页精修已上线；最新交接文档 commit 以 `git log -1` 为准
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：以 `git status --short` 为准；2026-06-16 微信验证文件已提交，当前仍有既有 `index.html` 未提交改动不属于本次验证任务。线上本次只同步 TXT，未重建 user 包；生产备份 `web/user.pre-wechat-verify-20260616-165450`
+- working tree：以 `git status --short` 为准；2026-06-16 新微信验证文件已上线，当前仍有既有 `index.html` 未提交改动不属于本次验证任务。线上本次只同步 TXT，未重建 user 包；生产备份 `web/user.pre-wechat-verify-e4c0-20260616-182251`
 - 标准品牌 logo：`src/assets/ai-products/codex-logo.webp`（蓝紫花瓣+>_）、`claude-logo.webp`（橙色星芒）；hub 视觉组件 `src/components/hub/`（HubHero/HubMockup/HubFeatures/HubLayout 等），以后 Codex/Claude 视觉统一用这套
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
@@ -79,6 +79,13 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 微信域名验证文件更换（2026-06-16，commit `c8a5a91`）：
+  - 新增 `public/e4c0ffe785d10fb7cae400fc0bdfc0bf.txt`，内容为微信要求的 `3b1d37fa9b04b1dbb231b4409bb3e1fa1cf773e4`。
+  - 生产备份：`/opt/dujiao-next/web/user.pre-wechat-verify-e4c0-20260616-182251`。
+  - 部署边界：只同步该 TXT 到 `/opt/dujiao-next/web/user/` 根目录；未构建、未重启、未改 admin/API/数据库/OpenResty/DNS。
+  - 验证：`https://aikaitong.com/e4c0ffe785d10fb7cae400fc0bdfc0bf.txt` 普通 UA 与微信 `MicroMessenger` UA 均返回 `text/plain`，body 匹配。
+  - 上一轮 `796c6b7f9381c8146af21861dd18c86d.txt` 暂未删除，不影响本次验证。
 
 - 微信域名风控申诉验证文件（2026-06-16，commit `9ff1292`）：
   - 新增 `public/796c6b7f9381c8146af21861dd18c86d.txt`，内容为微信要求的 `33ab0f266b0427ef01918a226a8d1f62476d6702`。
