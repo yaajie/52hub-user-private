@@ -16,7 +16,7 @@
         <div class="grid min-h-[470px] items-center gap-8 py-10 sm:min-h-[500px] sm:py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.72fr)] lg:py-14">
           <div class="site-hero-copy max-w-3xl">
             <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/78 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
-              <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_18px_rgba(16,185,129,0.75)]"></span>
+              <span class="h-2 w-2 rounded-full bg-[var(--ui-accent)] shadow-[0_0_18px_var(--ui-accent-soft)]"></span>
               AIKAITONG AI RESOURCE OPS
             </div>
 
@@ -41,7 +41,7 @@
                 <span>看 AI 教程</span>
               </router-link>
               <router-link to="/products" class="site-hero-secondary inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border theme-border px-5 text-sm font-bold theme-text-primary backdrop-blur-md transition hover:-translate-y-0.5 hover:theme-surface-strong">
-                <ShoppingBagIcon class="h-5 w-5 shrink-0 text-emerald-500" />
+                <ShoppingBagIcon class="h-5 w-5 shrink-0 text-[var(--ui-accent)]" />
                 <span>AI 服务</span>
               </router-link>
             </div>
@@ -91,14 +91,14 @@ const signals = [
     code: 'AUTH',
     label: 'Codex 登录辅助',
     desc: '减少海外手机验证码卡点',
-    color: '#0ea5e9',
+    color: '#f59e0b',
     icon: CommandLineIcon,
   },
   {
     code: 'STACK',
     label: 'AI 资源矩阵',
     desc: '官方入口、教程和订阅路径',
-    color: '#10b981',
+    color: '#f2820f',
     icon: CpuChipIcon,
   },
   {
@@ -125,22 +125,22 @@ const signals = [
 .site-hero-scrim {
   background:
     linear-gradient(90deg, rgba(248, 250, 252, 0.98) 0%, rgba(248, 250, 252, 0.94) 39%, rgba(248, 250, 252, 0.58) 58%, rgba(248, 250, 252, 0.08) 100%),
-    radial-gradient(circle at 16% 12%, rgba(14, 165, 233, 0.18), transparent 32rem),
-    radial-gradient(circle at 48% 100%, rgba(16, 185, 129, 0.12), transparent 28rem);
+    radial-gradient(circle at 16% 12%, rgba(242, 130, 15, 0.18), transparent 32rem),
+    radial-gradient(circle at 48% 100%, rgba(242, 130, 15, 0.12), transparent 28rem);
 }
 
 .site-hero-grid {
   opacity: 0.2;
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.28) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.24) 1px, transparent 1px);
+    linear-gradient(rgba(242, 130, 15, 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 130, 15, 0.24) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.75) 54%, transparent 100%);
 }
 
 .site-hero-scan {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.78), rgba(16, 185, 129, 0.58), transparent);
+  background: linear-gradient(90deg, transparent, rgba(242, 130, 15, 0.78), rgba(242, 130, 15, 0.58), transparent);
   animation: hero-scan 5.5s ease-in-out infinite;
   opacity: 0.75;
 }
@@ -184,8 +184,8 @@ const signals = [
 :global(.dark .site-hero-scrim) {
   background:
     linear-gradient(90deg, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.92) 43%, rgba(3, 7, 18, 0.66) 66%, rgba(3, 7, 18, 0.28) 100%),
-    radial-gradient(circle at 12% 8%, rgba(14, 165, 233, 0.15), transparent 30rem),
-    radial-gradient(circle at 52% 100%, rgba(16, 185, 129, 0.1), transparent 26rem);
+    radial-gradient(circle at 12% 8%, rgba(242, 130, 15, 0.15), transparent 30rem),
+    radial-gradient(circle at 52% 100%, rgba(242, 130, 15, 0.1), transparent 26rem);
 }
 
 :global(.dark .site-hero-grid) {
@@ -205,8 +205,8 @@ const signals = [
   .site-hero-scrim {
     background:
       linear-gradient(180deg, rgba(248, 250, 252, 0.96) 0%, rgba(248, 250, 252, 0.91) 58%, rgba(248, 250, 252, 0.78) 100%),
-      radial-gradient(circle at 28% 12%, rgba(14, 165, 233, 0.17), transparent 23rem),
-      radial-gradient(circle at 74% 76%, rgba(16, 185, 129, 0.12), transparent 22rem);
+      radial-gradient(circle at 28% 12%, rgba(242, 130, 15, 0.17), transparent 23rem),
+      radial-gradient(circle at 74% 76%, rgba(242, 130, 15, 0.12), transparent 22rem);
   }
 
   .site-hero-grid {
@@ -220,8 +220,8 @@ const signals = [
   :global(.dark .site-hero-scrim) {
     background:
       linear-gradient(180deg, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.93) 62%, rgba(3, 7, 18, 0.86) 100%),
-      radial-gradient(circle at 22% 8%, rgba(14, 165, 233, 0.12), transparent 23rem),
-      radial-gradient(circle at 74% 76%, rgba(16, 185, 129, 0.08), transparent 22rem);
+      radial-gradient(circle at 22% 8%, rgba(242, 130, 15, 0.12), transparent 23rem),
+      radial-gradient(circle at 74% 76%, rgba(242, 130, 15, 0.08), transparent 22rem);
   }
 }
 

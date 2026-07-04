@@ -47,7 +47,7 @@
               </div>
               <div class="space-y-2 sm:space-y-3">
                 <span class="theme-badge theme-badge-inverse gap-2 text-xs font-semibold uppercase tracking-wider">
-                  <span class="h-2 w-2 rounded-full bg-emerald-300"></span>
+                  <span class="h-2 w-2 rounded-full bg-[var(--ui-accent)]"></span>
                   {{ heroBadge }}
                 </span>
                 <h1 class="max-w-4xl text-xl font-semibold tracking-[-0.02em] text-white sm:text-2xl md:text-3xl">

@@ -221,7 +221,7 @@ onMounted(async () => {
 .about-hero {
   background:
     radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.16), transparent 28rem),
-    radial-gradient(circle at 92% 18%, rgba(16, 185, 129, 0.11), transparent 24rem),
+    radial-gradient(circle at 92% 18%, rgba(242, 130, 15, 0.11), transparent 24rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.7));
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
 }
@@ -269,7 +269,7 @@ onMounted(async () => {
 :global(.dark .about-hero) {
   background:
     radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.12), transparent 28rem),
-    radial-gradient(circle at 92% 18%, rgba(16, 185, 129, 0.08), transparent 24rem),
+    radial-gradient(circle at 92% 18%, rgba(242, 130, 15, 0.08), transparent 24rem),
     linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.58));
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
 }
