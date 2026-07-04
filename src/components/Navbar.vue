@@ -102,13 +102,6 @@
           </svg>
           {{ t('navbar.logout') }}
         </button>
-        <!-- Theme Switcher -->
-        <button @click="toggleTheme"
-          :aria-label="theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'"
-          class="theme-nav-link p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-          <SunIcon v-if="theme === 'dark'" class="w-4 h-4" aria-hidden="true" />
-          <MoonIcon v-else class="w-4 h-4" aria-hidden="true" />
-        </button>
 
         <!-- Language Switcher (Desktop) -->
         <div v-if="false" class="relative group/lang lang-switcher hidden lg:block">
@@ -319,14 +312,12 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '../stores/app'
 import { useUserAuthStore } from '../stores/userAuth'
-import { useTheme } from '../utils/theme'
-import { SunIcon, MoonIcon, WrenchScrewdriverIcon } from '@heroicons/vue/24/outline'
+import { WrenchScrewdriverIcon } from '@heroicons/vue/24/outline'
 
 const { t, locale } = useI18n()
 const route = useRoute()
 const appStore = useAppStore()
 const userAuthStore = useUserAuthStore()
-const { theme, toggleTheme } = useTheme()
 
 const showMobileMenu = ref(false)
 const showLangMenu = ref(false)

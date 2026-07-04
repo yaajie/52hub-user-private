@@ -1,41 +1,16 @@
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
-const TEA_THEME_KEY = 'dujiao_theme'
+// 2026-07-05 站长拍板：砍亮色只留暗色（站点=深褐黑+琥珀金定位，亮色为 dujiao-next 原版遗留、二开未系统适配）。
+// index.html 的 <html class="dark"> 已首帧固定暗色（防闪、无需 JS）；此处只保 useTheme API 兼容 Navbar/CodexAuth 调用方。
+type Theme = 'dark'
 
-type Theme = 'light' | 'dark'
+// 兜底：即使某页未走 index.html（理论不会），也确保 .dark 在。
+if (typeof document !== 'undefined') document.documentElement.classList.add('dark')
 
-const getSystemTheme = (): Theme => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
-const getSavedTheme = (): Theme | null => {
-    return localStorage.getItem(TEA_THEME_KEY) as Theme | null
-}
-
-const theme = ref<Theme>(getSavedTheme() || getSystemTheme())
-
-const applyTheme = (newTheme: Theme) => {
-    const root = document.documentElement
-    if (newTheme === 'dark') {
-        root.classList.add('dark')
-    } else {
-        root.classList.remove('dark')
-    }
-    localStorage.setItem(TEA_THEME_KEY, newTheme)
-}
-
-// Watch for changes and apply
-watch(theme, (newVal) => {
-    applyTheme(newVal)
-}, { immediate: true })
+const theme = ref<Theme>('dark')
 
 export const useTheme = () => {
-    const toggleTheme = () => {
-        theme.value = theme.value === 'dark' ? 'light' : 'dark'
-    }
-
-    return {
-        theme,
-        toggleTheme
-    }
+    // 亮色已砍，切换为空操作（切换按钮已从 Navbar 移除）
+    const toggleTheme = () => {}
+    return { theme, toggleTheme }
 }
