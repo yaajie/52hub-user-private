@@ -20,10 +20,13 @@ export function useLocalized() {
   const formatPrice = (amount: any, currency?: any): string => {
     const cur = currency ?? siteCurrency.value
     if (amount === null || amount === undefined || amount === '') return '-'
+    // 定点化: 任何金额渲染统一 2 位小数, 从边界堵住浮点脏值(如 2.8999999999999986)
+    const n = Number(amount)
+    const shown = Number.isFinite(n) ? n.toFixed(2) : String(amount)
     if (cur === null || cur === undefined || cur === '') {
-      return String(amount)
+      return shown
     }
-    return `${amount} ${cur}`
+    return `${shown} ${cur}`
   }
 
   return { getLocalizedText, siteCurrency, formatPrice }
@@ -109,6 +112,21 @@ export function useProductLabels() {
     return centsToAmount(original - promotion)
   }
 
+  // 会员省差价: 整数分算(仿 getSkuPromotionSaveAmount), 不用浮点直减
+  const getSkuMemberSaveAmount = (sku: any, memberPrice: any) => {
+    const original = parsePriceAmount(sku?.price_amount)
+    const member = amountToCents(memberPrice)
+    if (original === null || member === null || member >= original) return '0.00'
+    return centsToAmount(original - member)
+  }
+  // 有效单价(购物车用): 有促销取促销价, 否则原价
+  const getSkuEffectivePrice = (sku: any, product?: any) => {
+    if (sku && hasSkuPromotionPrice(sku)) return getSkuPromotionPriceAmount(sku)
+    if (sku) return sku.price_amount
+    if (product && hasPromotionPrice(product)) return getPromotionPriceAmount(product)
+    return product?.price_amount
+  }
+
   const hasPromotionRules = (product: any) => product?.promotion_rules?.length > 0
   const getPromotionRules = (product: any): any[] => product?.promotion_rules ?? []
 
@@ -124,6 +142,8 @@ export function useProductLabels() {
     hasSkuPromotionPrice,
     getSkuPromotionPriceAmount,
     getSkuPromotionSaveAmount,
+    getSkuMemberSaveAmount,
+    getSkuEffectivePrice,
     hasPromotionRules,
     getPromotionRules,
   }

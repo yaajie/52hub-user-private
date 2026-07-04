@@ -116,7 +116,7 @@
                     </div>
                   </div>
                   <div class="text-right">
-                    <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('checkout.previewTotal') }}</div>
+                    <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('checkout.itemSubtotal') }}</div>
                     <div class="text-sm font-semibold theme-text-primary">{{ itemSubtotal(item) }}</div>
                   </div>
                 </div>
@@ -349,7 +349,7 @@ import { useUserAuthStore } from '../stores/userAuth'
 import { guestOrderAPI, userOrderAPI, walletAPI, type CaptchaPayload } from '../api'
 import { debounceAsync } from '../utils/debounce'
 import { pageAlertClass, type PageAlert } from '../utils/alerts'
-import { amountToCents, centsToAmount, parseInteger } from '../utils/money'
+import { amountToCents, centsToAmount, parseInteger, rateToBasisPoints, calculateFeeCents } from '../utils/money'
 import { buildSkuDisplayText, normalizeSkuId } from '../utils/sku'
 import { refreshCartStockSnapshots } from '../utils/cartStock'
 import { getImageUrl } from '../utils/image'
@@ -527,20 +527,21 @@ const selectedChannelAmountHint = computed(() => {
 })
 
 const formatChannelFeeRate = (channel?: any) => {
-  const feeRate = Number(channel?.fee_rate)
-  const baseAmount = Number(previewTotal.value)
-  if (!Number.isFinite(feeRate) || feeRate <= 0 || !Number.isFinite(baseAmount) || baseAmount <= 0) {
-    return '¥0.00'
-  }
-  return `¥${(baseAmount * feeRate / 100).toFixed(2)}`
+  // 整数分算(与结果页 calculateFeeCents 一致, 消灭 1 分差) + 统一 formatMoney 币种(不硬编码 ¥)
+  const baseCents = amountToCents(previewTotal.value)
+  const rateBp = rateToBasisPoints(channel?.fee_rate)
+  if (baseCents === null || rateBp === null || rateBp <= 0) return formatPrice('0.00', previewCurrency.value)
+  const fee = calculateFeeCents(baseCents, rateBp)
+  if (fee === null) return formatPrice('0.00', previewCurrency.value)
+  return formatPrice(centsToAmount(fee), previewCurrency.value)
 }
 
 const formatChannelFixedFee = (channel?: any) => {
   const fixed = channel?.fixed_fee
   if (fixed === null || fixed === undefined || fixed === '' || Number(fixed) === 0) {
-    return '¥0.00 CNY'
+    return formatPrice('0.00', previewCurrency.value)
   }
-  return `¥${Number(fixed).toFixed(2)} CNY`
+  return formatPrice(String(fixed), previewCurrency.value)
 }
 
 const totalAmount = computed(() => {

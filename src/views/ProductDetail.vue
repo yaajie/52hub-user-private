@@ -139,7 +139,7 @@
                           </span>
                         </div>
                         <p v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="text-sm font-medium text-amber-600 dark:text-amber-300">
-                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
+                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(getSkuMemberSaveAmount(selectedSku, selectedSkuMemberPrice), siteCurrency) }}
                         </p>
                         <p v-else class="text-sm font-medium text-rose-500 dark:text-rose-300">
                           {{ t('products.saveAmount') }} {{ formatPrice(getSkuPromotionSaveAmount(selectedSku), siteCurrency) }}
@@ -156,7 +156,7 @@
                           </span>
                         </div>
                         <p class="text-sm font-medium text-amber-600 dark:text-amber-300">
-                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(Number(selectedSku.price_amount) - selectedSkuMemberPrice!, siteCurrency) }}
+                          {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(getSkuMemberSaveAmount(selectedSku, selectedSkuMemberPrice), siteCurrency) }}
                         </p>
                       </div>
                       <!-- 选中 SKU 但无促销价也无会员价 -->
@@ -468,7 +468,7 @@ const buyNowStore = useBuyNowStore()
 const userAuthStore = useUserAuthStore()
 
 const { getLocalizedText, siteCurrency, formatPrice } = useLocalized()
-const { getPurchaseTypeLabel, getFulfillmentTypeLabel, getStockBadgeClass, getStockStatusLabel, hasPromotionPrice, getPromotionPriceAmount, getPromotionSaveAmount, hasSkuPromotionPrice, getSkuPromotionPriceAmount, getSkuPromotionSaveAmount, hasPromotionRules, getPromotionRules } = useProductLabels()
+const { getPurchaseTypeLabel, getFulfillmentTypeLabel, getStockBadgeClass, getStockStatusLabel, hasPromotionPrice, getPromotionPriceAmount, getPromotionSaveAmount, hasSkuPromotionPrice, getSkuPromotionPriceAmount, getSkuPromotionSaveAmount, getSkuMemberSaveAmount, getSkuEffectivePrice, hasPromotionRules, getPromotionRules } = useProductLabels()
 
 const formatPromotionRule = (rule: PromotionRule) => {
   const amount = formatPrice(rule.min_amount, siteCurrency.value)
@@ -744,7 +744,7 @@ const buyNow = () => {
     skuStockEnforced: shouldEnforceSkuStock(sku),
     slug: product.value.slug,
     title: product.value.title,
-    priceAmount: String(sku?.price_amount || product.value.price_amount || '0.00'),
+    priceAmount: String(getSkuEffectivePrice(sku, product.value) || sku?.price_amount || product.value.price_amount || '0.00'),
     image: images.value[0],
     maxPurchaseQuantity: normalizeOptionalLimitNumber(product.value.max_purchase_quantity) ?? undefined,
     purchaseType: product.value.purchase_type,

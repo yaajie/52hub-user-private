@@ -25,7 +25,7 @@ const accent = '#10A37F' // OpenAI 绿
 
 const hero = {
   title: 'OpenAI / ChatGPT 资源中心',
-  subtitle: 'OpenAI 官方入口、ChatGPT 订阅档位与国内付款、Sora / DALL-E / API 产品导航。Codex 专题单独见 Codex 资源中心。',
+  subtitle: 'OpenAI 官方入口、ChatGPT 订阅档位与国内付款、DALL-E 图像 / API 产品导航（Sora 已停服，视频改用替代方案）。Codex 专题单独见 Codex 资源中心。',
   logo: openaiLogo,
   ctaPrimary: { label: '看国内付款方法', to: '/blog/chatgpt-plus-china-payment-guide' },
   ctaSecondary: { label: '立即下单 ChatGPT Plus', to: '/products/chatgpt-plus' },
@@ -59,7 +59,7 @@ const features = {
     { title: '原生多模态', desc: '看图说话、语音对话、读文档、分析截图，文字 / 图像 / 语音 / 视频在一个对话里自由切换。', icon: SparklesIcon },
     { title: '深度研究 / Agent', desc: '给一个研究问题，自己联网搜索、读多源、交叉核对，输出带引用的结构化报告；Agent 模式可代你完成多步任务。', icon: MagnifyingGlassIcon },
     { title: 'DALL·E 图像生成', desc: '在 ChatGPT 里用自然语言生成与编辑图片，Plus 及以上集成可用，做配图 / 海报 / 概念图。', icon: PhotoIcon },
-    { title: 'Sora 视频生成', desc: '文本到视频模型，在 sora.com 独立站按订阅档位享额度生成短视频。', icon: FilmIcon },
+    { title: 'AI 视频（Sora 已停服）', desc: 'OpenAI Sora 已于 2026 年全线停服（App 与 API 下线），ChatGPT 订阅不含视频生成；文生 / 图生视频改用 Veo、可灵、海螺、Runway 等，详见博客对比。', icon: FilmIcon },
     { title: '跨端 + 自定义 GPTs', desc: '桌面 / iOS / 安卓 / 网页对话与记忆同步；可自建或调用 GPTs，把常用流程固化成专属助手。', icon: Squares2X2Icon },
   ],
 }
@@ -80,7 +80,7 @@ const sections = [
       { name: 'GPT 模型', url: 'https://platform.openai.com/docs/models', desc: '当前一代旗舰对话与推理模型' },
       { name: 'Codex 资源中心', url: '/codex-hub', desc: '站内专题：订阅门槛 / Codex CLI / 登录解法（已独立成页）' },
       { name: 'DALL-E', url: 'https://openai.com/dall-e-3', desc: '图像生成模型' },
-      { name: 'Sora', url: 'https://sora.com/', desc: '视频生成模型独立站' },
+      { name: 'AI 视频替代方案', url: '/blog/sora-veo-hailuo-video-subscription', desc: 'Sora 已停服，看 Veo / 可灵 / 海螺 等替代对比' },
     ],
   },
   {
@@ -112,7 +112,7 @@ const modelTable = {
     { cells: ['o3', '推理模型（思维链）', '复杂数学 / 编程 / 长链条思考'] },
     { cells: ['Codex', 'AI 智能体 / 任务执行', 'ChatGPT Pro 自带，详见 Codex 资源中心'] },
     { cells: ['DALL-E 3', '图像生成', 'Plus+ 集成在 ChatGPT 内'] },
-    { cells: ['Sora', '视频生成', 'sora.com 独立站，订阅享额度'] },
+    { cells: ['视频生成', 'Sora 已停服', '2026 年已下线，改用 Veo / 可灵 / 海螺 等'] },
   ],
 }
 
@@ -134,8 +134,8 @@ const faq = [
     a: '不是。ChatGPT 是消费者产品按月订阅；API 是开发者产品按 token 计费，账单完全分开。订阅了 Plus 也不会送 API 额度。开发应用需要单独去 platform.openai.com 充值。',
   },
   {
-    q: 'Sora 和 DALL-E 怎么用，需要单独付费吗？',
-    a: 'DALL-E 集成在 ChatGPT 里（Plus 以上可用），Sora 在独立站点 sora.com。两个都包含在 ChatGPT 订阅里，按订阅档位享用对应额度，不需要单独付费。开发者需要走 API。',
+    q: 'ChatGPT 订阅还能用 Sora 视频吗？',
+    a: '不能了。OpenAI Sora 已于 2026 年停服（3 月官宣、4 月网页与 App 下线、9 月 API 停），ChatGPT 订阅不含视频生成。图像仍可用 DALL-E（Plus 以上，集成在 ChatGPT 里）；要做视频改用 Veo / 可灵 / 海螺 / Runway，对比见站内博客《Sora 停服后视频订阅怎么选》。',
   },
 ]
 
@@ -147,21 +147,21 @@ const ctaCards = [
 
 const related = {
   title: '相关阅读',
-  desc: 'Codex 的订阅门槛、CLI 与登录解法单独整理在 Codex 资源中心；Sora / DALL-E 等其它产品的实战内容随博客逐步补充。',
+  desc: 'Codex 的订阅门槛、CLI 与登录解法单独整理在 Codex 资源中心；DALL-E 图像、视频替代方案等实战内容随博客逐步补充。',
   items: [
     { to: '/codex-hub', text: 'Codex 资源中心（订阅 / CLI / 登录解法）' },
     { to: '/claude-hub', text: 'Claude 资源中心' },
     { to: '/tools/ip', text: 'AI IP 环境检测' },
     { to: '/blog/chatgpt-plus-china-payment-guide', text: '国内付款订阅 ChatGPT Plus 全方法' },
-    { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora / Veo / Hailuo 视频订阅怎么买' },
+    { to: '/blog/sora-veo-hailuo-video-subscription', text: 'Sora 停服后，视频订阅怎么选' },
     { to: '/blog/how-to-pick-ai-subscription-store', text: '如何挑靠谱的 AI 订阅店家' },
     { to: '/blog', text: '全部 AI 工具教程' },
     { to: '/products', text: '订阅直充与账号商品' },
   ],
 }
 
-const pageTitle = 'OpenAI / ChatGPT 资源中心 · Plus / Pro 订阅开通 · 国内付款 · Sora / API - AI开通'
-const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus / Pro 订阅开通与档位对比、国内 4 种付款方法、降低封号风险攻略、Sora 视频与 DALL-E 图像、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
+const pageTitle = 'OpenAI / ChatGPT 资源中心 · Plus / Pro 订阅开通 · 国内付款 · DALL-E / API - AI开通'
+const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus / Pro 订阅开通与档位对比、国内 4 种付款方法、降低封号风险攻略、DALL-E 图像与 AI 视频替代方案、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
 
 useHead({
   title: pageTitle,

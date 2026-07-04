@@ -1459,20 +1459,21 @@ const resolveChannelName = (channel?: any, fallbackChannelType?: unknown, apiCha
 }
 
 const formatChannelFeeRate = (channel?: any) => {
-  const feeRate = Number(channel?.fee_rate)
-  const baseAmount = Number(order.value?.total_amount)
-  if (!Number.isFinite(feeRate) || feeRate <= 0 || !Number.isFinite(baseAmount) || baseAmount <= 0) {
-    return '¥0.00'
-  }
-  return `¥${(baseAmount * feeRate / 100).toFixed(2)}`
+  // 整数分算(与结果页 calculateFeeCents 一致, 消灭 1 分差) + 统一 formatMoney 币种(不硬编码 ¥)
+  const baseCents = amountToCents(order.value?.total_amount)
+  const rateBp = rateToBasisPoints(channel?.fee_rate)
+  if (baseCents === null || rateBp === null || rateBp <= 0) return formatMoney('0.00', order.value?.currency)
+  const fee = calculateFeeCents(baseCents, rateBp)
+  if (fee === null) return formatMoney('0.00', order.value?.currency)
+  return formatMoney(centsToAmount(fee), order.value?.currency)
 }
 
 const formatChannelFixedFee = (channel?: any) => {
   const fixedFee = channel?.fixed_fee
   if (fixedFee === null || fixedFee === undefined || fixedFee === '' || Number(fixedFee) === 0) {
-    return '¥0.00 CNY'
+    return formatMoney('0.00', order.value?.currency)
   }
-  return `¥${Number(fixedFee).toFixed(2)} CNY`
+  return formatMoney(String(fixedFee), order.value?.currency)
 }
 
 onMounted(() => {

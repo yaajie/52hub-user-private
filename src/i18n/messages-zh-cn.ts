@@ -664,6 +664,7 @@ const messages =
             previewPromotion: '活动价',
             previewMemberDiscount: '会员优惠',
             previewTotal: '应付金额',
+            itemSubtotal: '小计',
             previewLoading: '正在计算优惠...',
             couponRefreshing: '优惠码已更新，正在重新计算...',
             stockSyncing: '正在同步最新库存，请稍候...',

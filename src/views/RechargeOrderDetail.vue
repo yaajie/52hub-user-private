@@ -174,18 +174,19 @@ const isPending = computed(() => {
 
 const payLink = computed(() => String(payment.value?.pay_url || '').trim())
 const interactionMode = computed(() => String(payment.value?.interaction_mode || '').toLowerCase())
+const isPayLinkInteractionMode = (mode?: unknown) => ['redirect', 'page', 'wap'].includes(String(mode || '').toLowerCase())
 const isTelegramMiniApp = computed(() => telegramMiniAppStore.isMiniApp && telegramMiniAppStore.isReady)
 const showTelegramPayHint = computed(() => isTelegramMiniApp.value && Boolean(payLink.value))
 
 const qrCodeContent = computed(() => String(payment.value?.qr_code || '').trim())
 const qrFallbackContent = computed(() => {
-  if (interactionMode.value === 'redirect') return ''
+  if (isPayLinkInteractionMode(interactionMode.value)) return ''
   if (qrCodeContent.value) return ''
   return payLink.value
 })
 const qrDisplayContent = computed(() => qrCodeContent.value || qrFallbackContent.value)
 const qrUsingPayLinkFallback = computed(() => Boolean(!qrCodeContent.value && qrFallbackContent.value))
-const showQRCode = computed(() => interactionMode.value !== 'redirect' && Boolean(qrImageUrl.value))
+const showQRCode = computed(() => !isPayLinkInteractionMode(interactionMode.value) && Boolean(qrImageUrl.value))
 
 const feeRateDisplay = computed(() => {
   const rate = rateToBasisPoints(recharge.value?.fee_rate ?? payment.value?.fee_rate)
@@ -353,7 +354,7 @@ onMounted(async () => {
   if (isPending.value) {
     startPolling()
     // Auto-redirect for redirect mode
-    if (payLink.value && interactionMode.value === 'redirect') {
+    if (payLink.value && isPayLinkInteractionMode(interactionMode.value)) {
       handleOpenPayLink()
     }
   }

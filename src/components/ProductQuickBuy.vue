@@ -338,6 +338,7 @@ const {
   getPromotionPriceAmount,
   hasSkuPromotionPrice,
   getSkuPromotionPriceAmount,
+  getSkuEffectivePrice,
   hasPromotionRules,
   getPromotionRules,
 } = useProductLabels()
@@ -567,7 +568,7 @@ const handleBuyNow = () => {
     skuStockEnforced: shouldEnforceSkuStock(sku),
     slug: props.product.slug,
     title: props.product.title,
-    priceAmount: String(sku?.price_amount || props.product.price_amount || '0.00'),
+    priceAmount: String(getSkuEffectivePrice(sku, props.product) || sku?.price_amount || props.product.price_amount || '0.00'),
     image: images[0] || '',
     maxPurchaseQuantity: normalizeOptionalLimitNumber(props.product.max_purchase_quantity) ?? undefined,
     purchaseType: props.product.purchase_type,
