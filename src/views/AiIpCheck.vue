@@ -1120,12 +1120,6 @@ useHead({
   }
 }
 
-.verdict-gauge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .verdict-eyebrow {
   font-size: 0.72rem;
   font-weight: 800;
@@ -1161,8 +1155,8 @@ useHead({
 .scan-sweep {
   inset: 0;
   border: 2px solid transparent;
-  border-top-color: #14b8a6;
-  border-right-color: #14b8a6;
+  border-top-color: #f2820f;
+  border-right-color: #f2820f;
   animation: scan-spin 1.1s linear infinite;
 }
 @keyframes scan-spin {
@@ -1313,6 +1307,10 @@ useHead({
   height: 1.55rem;
 }
 
+.product-signal-icon.brand-icon-openai {
+  filter: invert(1);
+}
+
 .product-signal-chip span {
   flex: 1;
   min-width: 0;
@@ -1332,13 +1330,6 @@ useHead({
   font-style: normal;
   font-weight: 900;
   padding: 0.16rem 0.45rem;
-}
-
-.verdict-chips {
-  margin-top: 0.9rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 .chip {
@@ -1460,25 +1451,6 @@ useHead({
   background-color: var(--tone-soft);
 }
 
-/* 综合信号 */
-.signal-card {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  min-height: 5.5rem;
-  border: 1px solid var(--ui-border);
-  border-radius: 1rem;
-  padding: 0.9rem;
-  color: var(--ui-text-secondary);
-  background-color: var(--ui-bg-page);
-}
-
-.signal-card p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
 .reason-icon {
   display: inline-flex;
   width: 1.5rem;
@@ -1491,31 +1463,6 @@ useHead({
   line-height: 1;
   color: var(--ui-text-on-accent);
   background-color: var(--tone);
-}
-
-/* 环境画像 */
-.metric-line {
-  display: grid;
-  gap: 0.25rem;
-  border-bottom: 1px solid var(--ui-border);
-  padding-bottom: 0.75rem;
-}
-
-.metric-line:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.metric-line span {
-  color: var(--ui-text-muted);
-  font-size: 0.76rem;
-}
-
-.metric-line strong {
-  color: var(--ui-text-primary);
-  font-size: 0.9rem;
-  line-height: 1.45;
-  overflow-wrap: anywhere;
 }
 
 /* 查询结果表 */
@@ -1806,162 +1753,6 @@ useHead({
   text-wrap: pretty;
 }
 
-.brand-board {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--ui-border);
-  border-radius: 1.35rem;
-  background:
-    linear-gradient(135deg, color-mix(in oklab, var(--ui-bg-elevated) 86%, var(--ui-accent) 14%), var(--ui-bg-elevated));
-  padding: 1.25rem;
-  box-shadow: var(--ui-shadow-1);
-}
-
-.brand-board::before {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  content: '';
-  background-image:
-    linear-gradient(color-mix(in oklab, var(--ui-accent) 9%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--ui-accent) 9%, transparent) 1px, transparent 1px);
-  background-size: 30px 30px;
-  mask-image: linear-gradient(110deg, black, transparent 80%);
-}
-
-.brand-board-head,
-.brand-card-grid {
-  position: relative;
-  z-index: 1;
-}
-
-.brand-board-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.brand-board-head p {
-  max-width: 28rem;
-  color: var(--ui-text-muted);
-  font-size: 0.86rem;
-  line-height: 1.65;
-}
-
-.brand-card-grid {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1.1rem;
-}
-
-@media (min-width: 820px) {
-  .brand-card-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.brand-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1rem;
-  min-height: 9.5rem;
-  border: 1px solid color-mix(in oklab, var(--tone) 28%, var(--ui-border));
-  border-radius: 1.15rem;
-  background:
-    radial-gradient(circle at 80% 18%, color-mix(in oklab, var(--tone) 18%, transparent), transparent 8rem),
-    color-mix(in oklab, var(--ui-bg-page) 72%, var(--ui-bg-elevated) 28%);
-  padding: 1rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.brand-card:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in oklab, var(--tone) 55%, var(--ui-border));
-  box-shadow: 0 18px 50px color-mix(in oklab, var(--tone) 12%, transparent);
-}
-
-.brand-icon-wrap {
-  display: grid;
-  width: 4rem;
-  height: 4rem;
-  place-items: center;
-  border-radius: 0;
-  background: transparent;
-}
-
-.brand-icon {
-  display: block;
-  width: 3.35rem;
-  height: 3.35rem;
-  border-radius: 0;
-  object-fit: contain;
-  padding: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.brand-icon-openai {
-  filter: invert(1);
-}
-
-.brand-icon-claude {
-  width: 3.55rem;
-  height: 3.55rem;
-}
-
-.brand-icon-gemini {
-  width: 3.45rem;
-  height: 3.45rem;
-}
-
-:global(html:not(.dark) .ai-ip-check-page .brand-icon-openai) {
-  filter: none;
-}
-
-.brand-card-copy {
-  min-width: 0;
-}
-
-.brand-card-copy span {
-  display: block;
-  color: var(--ui-text-muted);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.brand-card-copy strong {
-  display: block;
-  margin-top: 0.15rem;
-  color: var(--ui-text-primary);
-  font-size: 1.15rem;
-}
-
-.brand-card-copy small {
-  display: block;
-  margin-top: 0.55rem;
-  color: var(--ui-text-secondary);
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
-
-.brand-card em {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  border-radius: 999px;
-  background: var(--tone-soft);
-  color: var(--tone);
-  font-size: 0.78rem;
-  font-style: normal;
-  font-weight: 800;
-  padding: 0.28rem 0.72rem;
-}
-
 @media (max-width: 719px) {
   .ai-ip-check-page {
     width: 100%;
@@ -2077,15 +1868,6 @@ useHead({
     gap: 0.7rem;
   }
 
-  .brand-board {
-    padding: 1rem;
-  }
-
-  .brand-board-head p,
-  .detail-signal-grid {
-    display: none;
-  }
-
   .notes-accordion {
     margin-top: 1rem;
     width: calc(100vw - 2rem);
@@ -2120,38 +1902,6 @@ useHead({
     max-width: 100%;
     white-space: normal;
     word-break: break-word;
-  }
-
-  .brand-card {
-    min-height: 8.6rem;
-    padding: 0.9rem;
-  }
-
-  .brand-icon-wrap {
-    width: 3.2rem;
-    height: 3.2rem;
-  }
-
-  .brand-icon,
-  .brand-icon-claude,
-  .brand-icon-gemini {
-    width: 2.8rem;
-    height: 2.8rem;
-  }
-
-  .brand-card-copy strong {
-    font-size: 1.02rem;
-  }
-
-  .brand-card-copy small {
-    margin-top: 0.4rem;
-    font-size: 0.78rem;
-    line-height: 1.45;
-  }
-
-  .brand-card em {
-    right: 0.8rem;
-    bottom: 0.8rem;
   }
 }
 </style>
