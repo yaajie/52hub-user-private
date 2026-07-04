@@ -57,94 +57,64 @@
         <p class="theme-text-muted">{{ t('payment.orderNotFound') }}</p>
       </div>
 
-      <div v-else-if="showResultView" class="space-y-6">
-        <div class="theme-panel rounded-2xl p-6">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h2 class="text-xl font-bold theme-text-primary">{{ paymentResultTitle }}</h2>
-              <p class="text-sm theme-text-muted mt-1">{{ paymentGuideTip }}</p>
-              <div class="mt-2 text-xs theme-text-muted">
-                {{ t('payment.methodLabel') }}：{{ resultChannelName }}
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-2">
-              <button @click="handleRefresh" :disabled="loading"
-                class="theme-btn-inline-md border theme-btn-secondary disabled:opacity-60">
-                {{ t('payment.refreshStatus') }}
-              </button>
-              <button @click="resetPayment"
-                class="theme-btn-inline-md border theme-btn-secondary">
-                {{ t('payment.changeMethod') }}
-              </button>
+      <div v-else-if="showResultView" class="mx-auto max-w-3xl">
+        <div class="theme-panel rounded-2xl p-6 text-center">
+          <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full theme-surface-soft border theme-border">
+            <span class="text-xl">{{ showQRCode ? '⌁' : '↗' }}</span>
+          </div>
+          <h2 class="text-xl font-bold theme-text-primary">{{ paymentResultTitle }}</h2>
+          <p class="mt-2 text-sm theme-text-muted">
+            {{ isPayLinkInteractionMode(interactionMode) ? t('payment.redirectCompactTip') : paymentGuideTip }}
+          </p>
+          <div class="mt-3 text-xs theme-text-muted">
+            {{ t('payment.orderNo') }}：{{ order.order_no }} · {{ t('payment.methodLabel') }}：{{ resultChannelName }}
+          </div>
+          <div class="mt-2 text-base font-semibold theme-text-primary">
+            {{ t('payment.payableAmountLabel') }}：{{ payableAmountDisplay }}
+            <span v-if="feeAmountDisplay !== '-'" class="ml-1 text-xs font-normal theme-text-muted">（{{ t('payment.feeAmountLabel') }} {{ feeAmountDisplay }}）</span>
+          </div>
+
+          <div v-if="showQRCode" class="mt-6 theme-surface-soft border rounded-2xl p-6">
+            <div class="text-sm theme-text-muted mb-4">{{ paymentGuideTitle }}</div>
+            <img :src="qrImageUrl" alt="QR Code" decoding="async" class="mx-auto h-56 w-56 object-contain" />
+            <div v-if="qrUsingPayLinkFallback" class="mt-3 text-xs theme-text-muted">
+              {{ t('payment.qrFallbackHint') }}
             </div>
           </div>
 
-          <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 space-y-4">
-              <div v-if="showQRCode"
-                class="theme-surface-soft border rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-                <div class="text-sm theme-text-muted mb-4">{{ paymentGuideTitle }}</div>
-                <img :src="qrImageUrl" alt="QR Code" decoding="async" class="w-56 h-56 object-contain" />
-                <div v-if="qrUsingPayLinkFallback" class="mt-3 text-xs theme-text-muted">
-                  {{ t('payment.qrFallbackHint') }}
-                </div>
-              </div>
+          <div v-else class="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <button
+              type="button"
+              @click="handleOpenPayLink"
+              class="theme-btn-inline-md theme-btn-primary font-semibold">
+              {{ t('payment.openPayLink') }}
+            </button>
+            <button @click="handleCopyPayLink"
+              class="theme-btn-inline-md border theme-btn-secondary">
+              {{ t('payment.copyPayLink') }}
+            </button>
+            <span v-if="copied" class="text-xs text-emerald-500">{{ t('payment.copied') }}</span>
+          </div>
 
-              <div v-else class="theme-surface-soft border rounded-2xl p-6">
-                <div class="text-sm theme-text-muted mb-3">{{ t('payment.openPayLink') }}</div>
-                <button
-                  type="button"
-                  @click="handleOpenPayLink"
-                  class="theme-btn-inline-md border theme-btn-secondary font-semibold">
-                  {{ t('payment.openPayLink') }}
-                </button>
-                <div v-if="openedPayWindow" class="mt-3 text-xs text-emerald-500">
-                  {{ payLinkOpenedTip }}
-                </div>
-                <div v-if="showTelegramPayHint" class="mt-3 text-xs theme-text-muted">
-                  {{ t('payment.telegramExternalHint') }}
-                </div>
-                <div class="mt-3 flex flex-wrap items-center gap-2">
-                  <button @click="handleCopyPayLink"
-                    class="px-3 py-1.5 rounded-lg border theme-btn-secondary text-xs">
-                    {{ t('payment.copyPayLink') }}
-                  </button>
-                  <span v-if="copied" class="text-xs text-emerald-500">{{ t('payment.copied') }}</span>
-                </div>
-                <div class="mt-3 text-xs theme-text-muted break-all">
-                  {{ t('payment.payLinkLabel') }}：{{ paymentResult.pay_url }}
-                </div>
-              </div>
-            </div>
+          <div v-if="openedPayWindow" class="mt-3 text-xs text-emerald-500">
+            {{ payLinkOpenedTip }}
+          </div>
+          <div v-if="showTelegramPayHint" class="mt-3 text-xs theme-text-muted">
+            {{ t('payment.telegramExternalHint') }}
+          </div>
 
-            <div class="space-y-4">
-              <div class="theme-surface-soft border rounded-2xl p-4">
-                <div class="text-xs theme-text-muted">{{ t('payment.orderNo') }}</div>
-                <div class="text-sm font-semibold theme-text-primary mt-1">{{ order.order_no }}</div>
-                <div class="mt-3 text-xs theme-text-muted">{{ t('payment.orderStatus') }}：{{ statusLabel(order.status) }}</div>
-                <div class="mt-2 text-xs theme-text-muted">
-                  {{ t('payment.methodLabel') }}：{{ resultChannelName }}
-                </div>
-              </div>
-              <PaymentAmountBreakdown
-                :order="order"
-                :payment-result="paymentResult"
-                :fee-rate-display="feeRateDisplay"
-                :fixed-fee-display="fixedFeeDisplay"
-                :fee-amount-display="feeAmountDisplay"
-                :payable-amount-display="payableAmountDisplay"
-                :wallet-paid-display="paymentWalletPaidDisplay"
-                :online-pay-display="paymentOnlinePayDisplay"
-                :show-countdown="showCountdown"
-                :countdown-text="countdownText"
-                :polling-active="pollingActive"
-                :format-money="formatMoney"
-              />
-              <div v-if="paymentResult.expires_at"
-                class="theme-surface-soft border rounded-2xl p-4 text-xs theme-text-muted">
-                {{ t('payment.expiresAt') }}：{{ formatDate(paymentResult.expires_at) }}
-              </div>
-            </div>
+          <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs">
+            <button @click="handleRefresh" :disabled="loading"
+              class="px-3 py-1.5 rounded-lg border theme-btn-secondary disabled:opacity-60">
+              {{ t('payment.refreshStatus') }}
+            </button>
+            <button @click="resetPayment"
+              class="px-3 py-1.5 rounded-lg border theme-btn-secondary">
+              {{ t('payment.changeMethod') }}
+            </button>
+            <span v-if="showCountdown" class="theme-text-muted">
+              {{ t('payment.countdownLabel') }}：<span class="font-mono">{{ countdownText }}</span>
+            </span>
           </div>
         </div>
       </div>
@@ -468,7 +438,6 @@ import { amountToCents, basisPointsToPercent, calculateFeeCents, centsToAmount, 
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { loadGuestAuth, saveGuestAuth } from '../utils/guestAuth'
 import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
-import PaymentAmountBreakdown from '../components/payment/PaymentAmountBreakdown.vue'
 import PaymentChannelSelector from '../components/payment/PaymentChannelSelector.vue'
 import QRCode from 'qrcode'
 import { pageAlertClass, type PageAlert } from '../utils/alerts'
@@ -908,19 +877,6 @@ const canSubmitPayment = computed(() => {
   if (orderExpired.value || orderCanceled.value) return false
   return true
 })
-const paymentWalletPaidDisplay = computed(() => {
-  if (paymentResult.value?.wallet_paid_amount === undefined || paymentResult.value?.wallet_paid_amount === null || paymentResult.value?.wallet_paid_amount === '') {
-    return '-'
-  }
-  return formatMoney(String(paymentResult.value.wallet_paid_amount), order.value?.currency)
-})
-const paymentOnlinePayDisplay = computed(() => {
-  if (paymentResult.value?.online_pay_amount === undefined || paymentResult.value?.online_pay_amount === null || paymentResult.value?.online_pay_amount === '') {
-    return '-'
-  }
-  return formatMoney(String(paymentResult.value.online_pay_amount), order.value?.currency)
-})
-
 const loadOrderPaymentChannels = async () => {
   if (isGuest.value) {
     orderPaymentChannels.value = []

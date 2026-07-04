@@ -10,8 +10,8 @@
           class="theme-link-muted text-sm transition-colors">{{
             t('guestOrderDetail.backSearch') }}</router-link>
       </div>
-      <div class="mb-8 grid gap-4 lg:grid-cols-2">
-        <ManualDeliveryNotice />
+      <div v-if="showSupportNotices" class="mb-8 grid gap-4" :class="showManualDeliveryNotice ? 'lg:grid-cols-2' : 'lg:grid-cols-1'">
+        <ManualDeliveryNotice v-if="showManualDeliveryNotice" />
         <QQContactCard />
       </div>
 
@@ -58,6 +58,7 @@
               <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('orders.orderNo') }}</div>
               <div class="text-sm font-semibold theme-text-primary mt-1">{{ order.order_no }}</div>
               <div class="text-xs theme-text-muted mt-2">{{ t('orderDetail.createdAtLabel') }}：{{ formatDate(order.created_at) }}</div>
+              <div v-if="order.paid_at" class="text-xs theme-text-muted mt-1">{{ t('orderDetail.paidAtLabel') }}：{{ formatDate(order.paid_at) }}</div>
             </div>
             <div class="flex flex-col items-start md:items-end gap-2">
               <div class="text-xs uppercase tracking-wider theme-text-muted">{{ t('orderDetail.amountTotal') }}</div>
@@ -76,7 +77,52 @@
           </div>
         </div>
 
-        <div class="theme-panel rounded-2xl p-6">
+        <div v-if="primaryFulfillment" class="theme-panel rounded-2xl p-6">
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-bold">{{ t('orderDetail.fulfillmentTitle') }}</h2>
+              <p v-if="primaryFulfillmentTitle" class="mt-1 text-xs theme-text-muted">{{ primaryFulfillmentTitle }}</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button v-if="isFulfillmentTruncated(primaryFulfillment)"
+                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg theme-btn-primary transition-colors shadow-sm disabled:opacity-50"
+                :disabled="fulfillmentDownloading"
+                @click="handleDownloadFulfillment(primaryFulfillmentOrderNo)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
+                {{ fulfillmentDownloading ? t('orderDetail.fulfillmentDownloading') : t('orderDetail.fulfillmentDownload') }}
+              </button>
+              <button v-if="primaryFulfillment.status === 'delivered' && !isFulfillmentTruncated(primaryFulfillment)"
+                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm"
+                :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'theme-btn-primary'"
+                @click="handleCopyFulfillment(primaryFulfillment)">
+                <svg v-if="!fulfillmentCopied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                {{ fulfillmentCopied ? t('orderDetail.fulfillmentCopied') : t('orderDetail.fulfillmentCopy') }}
+              </button>
+            </div>
+          </div>
+          <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentType') }}：{{
+            fulfillmentTypeLabelText(primaryFulfillment.type) }}</div>
+          <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentStatus') }}：{{
+            fulfillmentStatusLabelText(primaryFulfillment.status) }}</div>
+          <div v-if="isFulfillmentTruncated(primaryFulfillment)" class="mt-4">
+            <div class="text-sm theme-text-muted mb-2">{{ t('orderDetail.fulfillmentTotalLines', { count: primaryFulfillment.payload_line_count }) }}</div>
+            <div class="mb-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+              {{ t('orderDetail.fulfillmentTruncatedHint') }}
+            </div>
+            <div class="theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden max-h-64 overflow-y-auto">{{ primaryFulfillment.payload }}</div>
+          </div>
+          <div v-else-if="fulfillmentDeliveryLines(primaryFulfillment).length"
+            class="mt-4 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary space-y-1 break-all overflow-hidden">
+            <div v-for="(line, index) in fulfillmentDeliveryLines(primaryFulfillment)" :key="`primary-fulfillment-${index}`">{{ line }}</div>
+          </div>
+          <div v-else
+            class="mt-4 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden">
+            {{ primaryFulfillment.payload }}
+          </div>
+        </div>
+
+        <div v-if="showAmountCard" class="theme-panel rounded-2xl p-6">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.amountTitle') }}</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div class="theme-surface-soft border rounded-xl p-4">
@@ -202,7 +248,7 @@
           <article class="prose prose-sm dark:prose-invert max-w-none theme-text-secondary" v-html="productContent"></article>
         </section>
 
-        <div v-if="order.children && order.children.length > 0"
+        <div v-if="showChildOrdersSection"
           class="theme-panel rounded-2xl p-6">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.childOrdersTitle') }}</h2>
           <div class="space-y-4">
@@ -296,7 +342,7 @@
                     t('orderDetail.childFulfillmentTitle') }}</h3>
                   <button v-if="child.fulfillment?.status === 'delivered'"
                     class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors shadow-sm"
-                    :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
+                    :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'theme-btn-primary'"
                     @click="handleCopyFulfillment(child.fulfillment)">
                     <svg v-if="!fulfillmentCopied" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -311,7 +357,7 @@
                   <div v-if="isFulfillmentTruncated(child.fulfillment)" class="mt-3">
                     <div class="flex items-center justify-between mb-2">
                       <span class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentTotalLines', { count: child.fulfillment.payload_line_count }) }}</span>
-                      <button class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800 transition-colors shadow-sm disabled:opacity-50"
+                      <button class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg theme-btn-primary transition-colors shadow-sm disabled:opacity-50"
                         :disabled="fulfillmentDownloading"
                         @click="handleDownloadFulfillment(child.order_no || order.order_no)">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
@@ -338,13 +384,13 @@
           </div>
         </div>
 
-        <div v-if="order.fulfillment"
+        <div v-if="showStandaloneOrderFulfillment"
           class="theme-panel rounded-2xl p-6">
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-lg font-bold">{{ t('orderDetail.fulfillmentTitle') }}</h2>
             <div class="flex items-center gap-2">
               <button v-if="isFulfillmentTruncated(order.fulfillment)"
-                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800 transition-colors shadow-sm disabled:opacity-50"
+                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg theme-btn-primary transition-colors shadow-sm disabled:opacity-50"
                 :disabled="fulfillmentDownloading"
                 @click="handleDownloadFulfillment(order.order_no)">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
@@ -352,7 +398,7 @@
               </button>
               <button v-if="order.fulfillment.status === 'delivered' && !isFulfillmentTruncated(order.fulfillment)"
                 class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm"
-                :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
+                :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'theme-btn-primary'"
                 @click="handleCopyFulfillment(order.fulfillment)">
                 <svg v-if="!fulfillmentCopied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -475,8 +521,22 @@ const handleCopyFulfillment = async (fulfillment: any) => {
   } catch {}
 }
 
-const showTimeCard = computed(() => {
+const finishedOrderStatuses = ['paid', 'fulfilling', 'partially_delivered', 'delivered', 'completed']
+const isFinishedOrder = computed(() => finishedOrderStatuses.includes(String(order.value?.status || '')))
+
+const amountCents = (amount?: string) => amountToCents(amount || '0') ?? 0
+
+const showAmountCard = computed(() => {
   if (!order.value) return false
+  const original = amountCents(order.value.original_amount)
+  const total = amountCents(order.value.total_amount)
+  return original !== total
+    || hasDiscountAmount(order.value.discount_amount)
+    || hasDiscountAmount(order.value.member_discount_amount)
+})
+
+const showTimeCard = computed(() => {
+  if (!order.value || isFinishedOrder.value) return false
   return Boolean(order.value.paid_at || order.value.expires_at || order.value.canceled_at)
 })
 
@@ -522,6 +582,57 @@ const deliveryInstructionSections = computed(() => {
 
   return sections
 })
+
+const childOrders = computed(() => (Array.isArray(order.value?.children) ? order.value.children : []))
+
+const firstOrderItemTitle = (items?: any[]) => {
+  const list = Array.isArray(items) ? items : []
+  for (const item of list) {
+    const title = getLocalizedText(item?.title)
+    if (title) return title
+  }
+  return ''
+}
+
+const primaryFulfillmentSource = computed(() => {
+  if (!order.value) return null
+  if (order.value.fulfillment) {
+    return {
+      fulfillment: order.value.fulfillment,
+      orderNo: order.value.order_no,
+      title: firstOrderItemTitle(order.value.items),
+      source: 'parent',
+    }
+  }
+
+  if (childOrders.value.length === 1 && childOrders.value[0]?.fulfillment) {
+    const child = childOrders.value[0]
+    return {
+      fulfillment: child.fulfillment,
+      orderNo: child.order_no || order.value.order_no,
+      title: firstOrderItemTitle(child.items),
+      source: 'single-child',
+    }
+  }
+  return null
+})
+
+const primaryFulfillment = computed(() => primaryFulfillmentSource.value?.fulfillment || null)
+const primaryFulfillmentOrderNo = computed(() => primaryFulfillmentSource.value?.orderNo || order.value?.order_no || '')
+const primaryFulfillmentTitle = computed(() => primaryFulfillmentSource.value?.title || '')
+const showChildOrdersSection = computed(() => childOrders.value.length > 0 && primaryFulfillmentSource.value?.source !== 'single-child')
+const showStandaloneOrderFulfillment = computed(() => Boolean(order.value?.fulfillment) && !primaryFulfillment.value)
+
+const hasManualFulfillment = computed(() => {
+  const items = [
+    ...(Array.isArray(order.value?.items) ? order.value.items : []),
+    ...childOrders.value.flatMap((child: any) => Array.isArray(child?.items) ? child.items : []),
+  ]
+  return items.some((item: any) => String(item?.fulfillment_type || '').toLowerCase() === 'manual')
+})
+
+const showManualDeliveryNotice = computed(() => Boolean(order.value) && hasManualFulfillment.value)
+const showSupportNotices = computed(() => Boolean(order.value) && (showManualDeliveryNotice.value || !isFinishedOrder.value))
 
 const resolveOrderProductSlug = (orderData: any) => {
   const direct = String(orderData?.product?.slug || '').trim()

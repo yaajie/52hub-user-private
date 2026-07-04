@@ -73,7 +73,8 @@
           <ul class="space-y-2 text-sm theme-text-secondary leading-relaxed">
             <li><strong class="theme-text-primary">包首登</strong> · 首次登录失败 24h 内可退或换号</li>
             <li><strong class="theme-text-primary">24h 质保</strong> · 卡密本身问题免费补发或退款</li>
-            <li><strong class="theme-text-primary">订阅直充</strong> · 成功充值后视为交付完成，平台风控不可保</li>
+            <li><strong class="theme-text-primary">订阅直充（质保版）</strong> · 质保 30 天订阅状态：掉订阅按剩余天数退差价或补开；使用行为导致的封号不在范围</li>
+            <li><strong class="theme-text-primary">订阅直充（到账版）</strong> · 只保充值到账，到账即交付完成，平台风控不可保</li>
             <li><strong class="theme-text-primary">退款渠道</strong> · 原路退回 / 退入余额</li>
             <li class="theme-text-muted text-xs pt-2 border-t theme-border">虚拟商品一经出库不退换；用户自行操作导致的封号 / 误操作不在售后范围。</li>
           </ul>

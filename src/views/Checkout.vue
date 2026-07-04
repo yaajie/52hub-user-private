@@ -180,6 +180,9 @@
                 :placeholder="t('checkout.guestPasswordPlaceholder')"
               />
             </div>
+            <p v-if="checkoutMode === 'guest'" class="text-xs leading-relaxed text-amber-600 dark:text-amber-400">
+              {{ t('checkout.guestPasswordHint') }}
+            </p>
 
             <div v-if="checkoutMode === 'guest' && guestCaptchaEnabled" class="space-y-2">
               <p class="text-xs font-semibold uppercase tracking-[0.14em] theme-text-muted">{{ t('auth.common.captchaLabel') }}</p>
@@ -318,6 +321,10 @@
             </div>
           </div>
 
+          <div class="theme-alert-warning rounded-lg border px-3 py-2.5 text-[13px] leading-relaxed">
+            {{ t('checkout.transferTip') }}
+          </div>
+
           <button
             @click="handleSubmit"
             :disabled="!canSubmit"
@@ -390,6 +397,20 @@ const selectedChannelId = ref<number | null>(null)
 const useBalance = ref(false)
 const walletLoading = ref(false)
 const walletBalance = ref('0')
+
+const buildPayRoutePath = (orderNo: string) => {
+  const encodedOrderNo = encodeURIComponent(orderNo)
+  return userAuthStore.isAuthenticated
+    ? `/pay?order_no=${encodedOrderNo}`
+    : `/pay?guest=1&order_no=${encodedOrderNo}`
+}
+
+const buildOrderDetailPath = (orderNo: string) => {
+  const encodedOrderNo = encodeURIComponent(orderNo)
+  return userAuthStore.isAuthenticated
+    ? `/orders/${encodedOrderNo}`
+    : `/guest/orders/${encodedOrderNo}`
+}
 
 // Payment channels
 const paymentChannels = computed(() => {
@@ -1148,11 +1169,15 @@ const handleSubmit = async () => {
 
     clearSourceStore()
 
-    // Redirect to the existing Payment page which handles all payment display
-    const query = userAuthStore.isAuthenticated
-      ? `order_no=${encodeURIComponent(responseData.order_no)}`
-      : `guest=1&order_no=${encodeURIComponent(responseData.order_no)}`
-    router.push(`/pay?${query}`)
+    const orderNo = String(responseData.order_no || '').trim()
+    if (responseData.order_paid && !responseData.payment_id) {
+      router.push(buildOrderDetailPath(orderNo))
+      return
+    }
+
+    // 一律经 /pay 收银页：它会自动新开标签打开网关（autoOpenPayLink），
+    // 本页保留订单号锚点——放弃支付的用户仍能看到订单号并重试（2026-07-04 审计：直跳丢锚点）
+    router.push(buildPayRoutePath(orderNo))
   } catch (err: any) {
     error.value = err.message || t('checkout.errors.submitFailed')
     if (guestCaptchaEnabled.value && captchaProvider.value === 'image') {
