@@ -16,7 +16,7 @@
         <div class="grid min-h-[470px] items-center gap-8 py-10 sm:min-h-[500px] sm:py-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.72fr)] lg:py-14">
           <div class="site-hero-copy max-w-3xl">
             <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/78 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
-              <span class="h-2 w-2 rounded-full bg-[var(--ui-accent)] shadow-[0_0_18px_var(--ui-accent-soft)]"></span>
+              <span class="theme-status-dot"></span>
               AIKAITONG AI RESOURCE OPS
             </div>
 

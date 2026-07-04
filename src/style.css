@@ -20,6 +20,15 @@
   background-color: var(--ui-bg-overlay-strong);
   border-color: var(--ui-border-strong);
 }
+/* 状态点归一(2026-07-05 审计#38): 同语义点此前 5 种写法/光晕 3 样(token-soft/硬编码琥珀rgba/硬编码绿rgba)。
+   色由 --dot 驱动(默认品牌琥珀), 光晕自动 color-mix 派生, 改一处色光晕跟随。绿点用 style=--dot:var(--ui-success)。 */
+@utility theme-status-dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--dot, var(--ui-accent));
+  box-shadow: 0 0 18px color-mix(in oklab, var(--dot, var(--ui-accent)) 55%, transparent);
+}
 
 /* 跨设备字体兜底：优先各系统原生 UI 字体（自带中文：Mac PingFang / Win 雅黑），
    再依次回退到显式中文字体，最后才到通用 sans + 各平台彩色 emoji 字体。

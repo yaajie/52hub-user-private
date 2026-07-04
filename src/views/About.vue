@@ -9,7 +9,7 @@
         <div class="about-hero-grid absolute inset-0" aria-hidden="true"></div>
         <div class="relative max-w-4xl">
           <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
-            <span class="h-2 w-2 rounded-full bg-[var(--ui-accent)] shadow-[0_0_18px_rgba(232,89,12,0.6)]"></span>
+            <span class="theme-status-dot"></span>
             AI开通 RESOURCE DESK
           </div>
 

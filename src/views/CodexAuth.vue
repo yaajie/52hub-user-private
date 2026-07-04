@@ -65,7 +65,7 @@
 
           <div class="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
             <div class="visual-chip">
-              <span class="h-2 w-2 rounded-full bg-[var(--ui-success)] shadow-[0_0_18px_rgba(52,211,153,0.9)]"></span>
+              <span class="theme-status-dot" style="--dot: var(--ui-success)"></span>
               <span>local transform</span>
             </div>
             <div class="visual-chip hidden sm:inline-flex">
