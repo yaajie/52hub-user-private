@@ -942,7 +942,7 @@ useHead({
 .tone-good { --tone: var(--ui-success); --tone-soft: var(--ui-success-soft); }
 .tone-warn { --tone: var(--ui-warning); --tone-soft: var(--ui-warning-soft); }
 .tone-bad { --tone: var(--ui-danger); --tone-soft: var(--ui-danger-soft); }
-.tone-idle { --tone: var(--ui-info); --tone-soft: var(--ui-info-soft); }
+.tone-idle { --tone: var(--ui-accent); --tone-soft: var(--ui-accent-soft); }
 .tone-neutral { --tone: var(--ui-text-muted); --tone-soft: var(--ui-bg-soft); }
 
 /* 页面背景：在主题底色之上叠加轻量科技感光晕（不覆盖底色，保证亮/暗都成立） */
@@ -1147,15 +1147,15 @@ useHead({
 }
 .scan-ring {
   inset: 0;
-  border: 2px solid rgba(20, 184, 166, 0.25);
+  border: 2px solid rgba(242, 130, 15, 0.28);
 }
 .scan-ring-2 {
   inset: 22px;
-  border-color: rgba(20, 184, 166, 0.18);
+  border-color: rgba(242, 130, 15, 0.20);
 }
 .scan-core {
   inset: 46px;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.65), rgba(20, 184, 166, 0));
+  background: radial-gradient(circle, rgba(242, 130, 15, 0.62), rgba(242, 130, 15, 0));
   animation: scan-pulse 1.5s ease-out infinite;
 }
 .scan-sweep {
