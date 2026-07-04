@@ -80,7 +80,7 @@
       <!-- Price -->
       <div class="text-right">
         <div v-if="hasPromotionPrice(product)" class="flex flex-col items-end">
-          <span class="text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-300 whitespace-nowrap">
+          <span class="text-xs sm:text-sm font-bold theme-price-promotion whitespace-nowrap">
             {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
           </span>
           <div class="flex items-center gap-1">

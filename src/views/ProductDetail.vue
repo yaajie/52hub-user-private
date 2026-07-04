@@ -131,7 +131,7 @@
                           <span v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="theme-price-lg text-amber-600 dark:text-amber-300">
                             {{ formatPrice(selectedSkuMemberPrice!, siteCurrency) }}
                           </span>
-                          <span v-else class="theme-price-lg text-rose-600 dark:text-rose-300">
+                          <span v-else class="theme-price-lg theme-price-promotion">
                             {{ formatPrice(getSkuPromotionPriceAmount(selectedSku), siteCurrency) }}
                           </span>
                           <span class="theme-price-original">
@@ -141,7 +141,7 @@
                         <p v-if="hasMemberPrice && selectedSkuMemberPrice! < Number(getSkuPromotionPriceAmount(selectedSku))" class="text-sm font-medium text-amber-600 dark:text-amber-300">
                           {{ t('products.memberPriceTag') }} · {{ t('products.saveAmount') }} {{ formatPrice(getSkuMemberSaveAmount(selectedSku, selectedSkuMemberPrice), siteCurrency) }}
                         </p>
-                        <p v-else class="text-sm font-medium text-rose-500 dark:text-rose-300">
+                        <p v-else class="text-sm font-medium theme-price-promotion">
                           {{ t('products.saveAmount') }} {{ formatPrice(getSkuPromotionSaveAmount(selectedSku), siteCurrency) }}
                         </p>
                       </div>
@@ -168,14 +168,14 @@
                       <!-- 未选 SKU，产品级有促销价 -->
                       <div v-else-if="hasPromotionPrice(product)" class="space-y-2">
                         <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
-                          <span class="theme-price-lg text-rose-600 dark:text-rose-300">
+                          <span class="theme-price-lg theme-price-promotion">
                             {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
                           </span>
                           <span class="theme-price-original">
                             {{ formatPrice(product.price_amount, siteCurrency) }}
                           </span>
                         </div>
-                        <p class="text-sm font-medium text-rose-500 dark:text-rose-300">
+                        <p class="text-sm font-medium theme-price-promotion">
                           {{ t('products.saveAmount') }} {{ formatPrice(getPromotionSaveAmount(product), siteCurrency) }}
                         </p>
                       </div>

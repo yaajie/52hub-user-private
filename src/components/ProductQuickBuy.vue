@@ -116,7 +116,7 @@
                 <!-- Price -->
                 <div class="mt-auto pt-1">
                   <template v-if="selectedSku && hasSkuPromotionPrice(selectedSku)">
-                    <span class="text-lg md:text-xl font-bold text-rose-600 dark:text-rose-400">
+                    <span class="text-lg md:text-xl font-bold theme-price-promotion">
                       {{ formatPrice(getSkuPromotionPriceAmount(selectedSku), siteCurrency) }}
                     </span>
                     <span class="ml-1.5 text-xs theme-text-muted line-through">
@@ -129,7 +129,7 @@
                     </span>
                   </template>
                   <template v-else-if="hasPromotionPrice(product)">
-                    <span class="text-lg md:text-xl font-bold text-rose-600 dark:text-rose-400">
+                    <span class="text-lg md:text-xl font-bold theme-price-promotion">
                       {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
                     </span>
                     <span class="ml-1.5 text-xs theme-text-muted line-through">

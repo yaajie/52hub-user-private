@@ -93,7 +93,7 @@
       <div class="flex items-center justify-between border-t theme-border pt-2 md:pt-4 mt-auto">
         <div class="flex flex-col">
           <span class="hidden md:block text-xs theme-text-muted uppercase tracking-wider">{{ t('products.price') }}</span>
-          <span v-if="hasPromotionPrice(product)" class="theme-price-sm text-rose-600 dark:text-rose-300">
+          <span v-if="hasPromotionPrice(product)" class="theme-price-sm theme-price-promotion">
             {{ formatPrice(getPromotionPriceAmount(product), siteCurrency) }}
           </span>
           <span v-else class="theme-price-sm theme-text-primary">
@@ -131,7 +131,7 @@
           <span
             class="hidden md:flex text-xs uppercase font-bold transition-colors items-center gap-1"
             :class="isSoldOut(product)
-              ? 'text-rose-500/90 dark:text-rose-300/90'
+              ? 'theme-price-promotion'
               : 'theme-text-muted group-hover:text-[var(--ui-text-primary)]'">
             <svg class="w-4 h-4 transition-transform" :class="isSoldOut(product) ? '' : 'group-hover:translate-x-1'" fill="none"
               stroke="currentColor" viewBox="0 0 24 24">
