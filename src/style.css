@@ -3,6 +3,24 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* @utility: 这些类被 hover:/group-hover: 前缀引用, 必须是 @utility 才能让 Tailwind v4 生成变体
+   (2026-07-05 审计 P2#32: 40 处 hover:theme-* 交互反馈此前静默失效, 含 SKU 选中环)。
+   theme-surface-strong 此前根本未定义(18 处 hover 指向空类), 用 --ui-bg-overlay-strong 补上。 */
+@utility theme-text-primary {
+  color: var(--ui-text-primary);
+}
+@utility theme-text-accent {
+  color: var(--ui-accent);
+}
+@utility theme-surface-soft {
+  background-color: var(--ui-bg-soft);
+  border-color: var(--ui-border);
+}
+@utility theme-surface-strong {
+  background-color: var(--ui-bg-overlay-strong);
+  border-color: var(--ui-border-strong);
+}
+
 /* 跨设备字体兜底：优先各系统原生 UI 字体（自带中文：Mac PingFang / Win 雅黑），
    再依次回退到显式中文字体，最后才到通用 sans + 各平台彩色 emoji 字体。
    不依赖任何需自托管或系统外的字体（如 Inter），任何设备都有可用字形。 */
@@ -228,10 +246,6 @@ html[data-telegram-mini-app="true"] body {
     background-color: var(--ui-bg-overlay-strong);
   }
 
-  .theme-text-primary {
-    color: var(--ui-text-primary);
-  }
-
   .theme-text-secondary {
     color: var(--ui-text-secondary);
   }
@@ -324,11 +338,6 @@ html[data-telegram-mini-app="true"] body {
     border-color: var(--ui-border);
   }
 
-  .theme-surface-soft {
-    background-color: var(--ui-bg-soft);
-    border-color: var(--ui-border);
-  }
-
   .theme-surface-muted {
     background-color: var(--ui-bg-muted);
     border-color: var(--ui-border);
@@ -351,10 +360,6 @@ html[data-telegram-mini-app="true"] body {
     outline: none;
     box-shadow: 0 0 0 3px var(--ui-focus-ring);
     border-radius: 0.35rem;
-  }
-
-  .theme-text-accent {
-    color: var(--ui-accent);
   }
 
   .theme-wordmark {

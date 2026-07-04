@@ -12,6 +12,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 PATTERN='(gray-[0-9]|slate-[0-9]00)'
+# TODO(2026-07-05 视觉批 C 收尾后启用): PATTERN 扩加 emerald|teal|sky|indigo|purple|violet|cyan(现存量 73 处,清完 emerald/sky 等再锁)
 SCAN_DIRS="src/views src/components"
 
 matches="$(grep -rnE "$PATTERN" $SCAN_DIRS --include='*.vue' --include='*.ts' || true)"
