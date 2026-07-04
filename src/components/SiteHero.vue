@@ -151,7 +151,7 @@ const signals = [
 }
 
 .site-hero-primary {
-  background: linear-gradient(135deg, #f7a52b 0%, #e8590c 100%);
+  background: var(--ui-accent-gradient);
   box-shadow: 0 18px 40px rgba(232, 89, 12, 0.26);
 }
 

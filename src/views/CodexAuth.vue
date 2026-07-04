@@ -1017,7 +1017,7 @@ useHead({
 }
 
 .tech-gradient-text-dark {
-  background-image: linear-gradient(135deg, #7dd3fc 0%, #a78bfa 45%, #5eead4 100%);
+  background-image: linear-gradient(135deg, #f2820f 0%, #fbbf24 45%, #f59e0b 100%);
 }
 
 .flow-rail {

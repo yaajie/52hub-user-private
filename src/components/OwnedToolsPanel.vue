@@ -176,7 +176,7 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
 }
 
 .owned-tool__icon--ip {
-  background: linear-gradient(135deg, #f7a52b, #e8590c);
+  background: var(--ui-accent-gradient);
   color: white;
   box-shadow: 0 16px 36px rgba(232, 89, 12, 0.28);
 }

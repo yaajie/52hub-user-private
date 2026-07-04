@@ -52,6 +52,7 @@
   --ui-accent: #d9480f;
   --ui-accent-hover: #c2410c;
   --ui-accent-soft: rgba(217, 72, 15, 0.13);
+  --ui-accent-gradient: linear-gradient(135deg, #f7a52b 0%, #e8590c 100%);
   --ui-success: #2f8f6f;
   --ui-success-soft: rgba(47, 143, 111, 0.14);
   --ui-warning: #b06b00;
