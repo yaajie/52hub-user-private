@@ -65,5 +65,45 @@
 <body>
   <div id="app"><noscript>本站需启用 JavaScript 才能正常运行。</noscript></div>
   <script type="module" data-cfasync="false" src="/src/main.ts"></script>
+  <script>/* aikaitong-ux-tips: 支付方式转账提示 + 订单密码说明（源码内置，build 自动带上，勿删；曾因仅服务端注入未入源码而在重新部署时丢失） */
+(function(){
+  function addPayTip(){
+    if(document.getElementById("akt-pay-tip"))return;
+    var btns=document.querySelectorAll("button");
+    for(var i=0;i<btns.length;i++){
+      var b=btns[i];
+      if((b.textContent||"").indexOf("提交订单并支付")>-1){
+        var tip=document.createElement("div");
+        tip.id="akt-pay-tip";
+        tip.style.cssText="margin:10px 0 12px;padding:10px 12px;border:1px solid rgba(230,162,60,.45);border-radius:8px;background:rgba(230,162,60,.08);color:#e6a23c;font-size:13px;line-height:1.7";
+        tip.textContent="💡 联系客服「转账付款」可免以上支付平台手续费,并即时安排交付。";
+        b.parentNode.insertBefore(tip,b);
+        return;
+      }
+    }
+  }
+  function addPwdTip(){
+    var inputs=document.querySelectorAll("input[placeholder]");
+    for(var i=0;i<inputs.length;i++){
+      var el=inputs[i];
+      if(el.placeholder==="订单密码"){
+        el.placeholder="订单密码(自设,查订单用)";
+      }
+      if(el.placeholder.indexOf("订单密码")>-1 && !el.dataset.aktTip){
+        el.dataset.aktTip="1";
+        var box=el.closest("div")||el.parentNode;
+        var t=document.createElement("div");
+        t.className="akt-pwd-tip";
+        t.style.cssText="margin-top:6px;color:#e6a23c;font-size:12px;line-height:1.6";
+        t.textContent="❗ 订单密码仅用于你后续查询订单,自己设一个好记的即可 —— 不是你要充值/开通账号的密码。";
+        box.parentNode.insertBefore(t,box.nextSibling);
+      }
+    }
+  }
+  function run(){try{addPayTip();addPwdTip();}catch(e){}}
+  new MutationObserver(run).observe(document.documentElement,{childList:true,subtree:true});
+  if(document.readyState!=="loading")run();else document.addEventListener("DOMContentLoaded",run);
+})();
+  </script>
 </body>
 </html>
