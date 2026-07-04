@@ -947,70 +947,44 @@ useHead({
 
 /* 页面背景：在主题底色之上叠加轻量科技感光晕（不覆盖底色，保证亮/暗都成立） */
 .ai-ip-check-page {
-  --ui-bg-page: #060913;
-  --ui-bg-elevated: #0b1220;
-  --ui-bg-soft: #101a2b;
-  --ui-bg-muted: #172237;
-  --ui-border: rgba(96, 165, 250, 0.22);
-  --ui-text-primary: #f8fbff;
-  --ui-text-secondary: #c7d2e6;
-  --ui-text-muted: #8292aa;
-  --ui-accent: #35d6ff;
-  --ui-accent-hover: #73e4ff;
-  --ui-accent-soft: rgba(53, 214, 255, 0.12);
-  --ui-info: #60a5fa;
-  --ui-info-soft: rgba(96, 165, 250, 0.14);
-  --ui-success: #2dd4bf;
-  --ui-success-soft: rgba(45, 212, 191, 0.15);
-  --ui-warning: #f59e0b;
-  --ui-warning-soft: rgba(245, 158, 11, 0.16);
-  --ui-danger: #fb7185;
-  --ui-danger-soft: rgba(251, 113, 133, 0.16);
-  --ui-text-on-accent: #03131f;
-  --ui-focus-ring: rgba(53, 214, 255, 0.24);
+  /* 深色科技背景保留, 但改暖(深褐黑); 交互色(accent/success/focus/warning/danger/info)删覆写→继承全局品牌琥珀
+     (2026-07-05 视觉批: 此前整页青蓝背离品牌"深褐黑+琥珀金", 是拼凑感头号来源) */
+  --ui-bg-page: #0a0806;
+  --ui-bg-elevated: #14100b;
+  --ui-bg-soft: #1b150e;
+  --ui-bg-muted: #241c12;
+  --ui-border: rgba(242, 130, 15, 0.20);
+  --ui-text-primary: #fbf7f2;
+  --ui-text-secondary: #e0d5c7;
+  --ui-text-muted: #a6947f;
   --ui-shadow-1: 0 18px 48px rgba(0, 0, 0, 0.24);
   --ui-shadow-2: 0 32px 90px rgba(0, 0, 0, 0.36);
   color: var(--ui-text-primary);
   background-image:
-    linear-gradient(rgba(53, 214, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(53, 214, 255, 0.035) 1px, transparent 1px),
-    radial-gradient(circle at 14% 6%, rgba(45, 212, 191, 0.20), transparent 30rem),
-    radial-gradient(circle at 86% 10%, rgba(96, 165, 250, 0.22), transparent 28rem),
-    linear-gradient(180deg, #07111d 0%, #060913 45%, #05070e 100%);
+    linear-gradient(rgba(242, 130, 15, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 130, 15, 0.035) 1px, transparent 1px),
+    radial-gradient(circle at 14% 6%, rgba(242, 130, 15, 0.18), transparent 30rem),
+    radial-gradient(circle at 86% 10%, rgba(217, 119, 6, 0.20), transparent 28rem),
+    linear-gradient(180deg, #14100b 0%, #0a0806 45%, #070502 100%);
   background-size: 34px 34px, 34px 34px, auto, auto, auto;
   background-attachment: fixed;
 }
 
 :global(html:not(.dark) .ai-ip-check-page) {
-  --ui-bg-page: #f5f8fc;
+  /* 亮色: 暖白 + 琥珀网格; 交互色与文字删覆写→继承全局品牌(值同 :root, 不再另立青蓝一套) */
+  --ui-bg-page: #fdfaf6;
   --ui-bg-elevated: #ffffff;
-  --ui-bg-soft: #eef5fb;
-  --ui-bg-muted: #dbe8f4;
-  --ui-border: rgba(14, 116, 144, 0.18);
-  --ui-text-primary: #0f172a;
-  --ui-text-secondary: #334155;
-  --ui-text-muted: #64748b;
-  --ui-accent: #0891b2;
-  --ui-accent-hover: #0e7490;
-  --ui-accent-soft: rgba(8, 145, 178, 0.10);
-  --ui-info: #2563eb;
-  --ui-info-soft: rgba(37, 99, 235, 0.10);
-  --ui-success: #0f766e;
-  --ui-success-soft: rgba(15, 118, 110, 0.10);
-  --ui-warning: #d97706;
-  --ui-warning-soft: rgba(217, 119, 6, 0.12);
-  --ui-danger: #e11d48;
-  --ui-danger-soft: rgba(225, 29, 72, 0.10);
-  --ui-text-on-accent: #ffffff;
-  --ui-focus-ring: rgba(8, 145, 178, 0.18);
-  --ui-shadow-1: 0 18px 48px rgba(15, 23, 42, 0.08);
-  --ui-shadow-2: 0 28px 72px rgba(15, 23, 42, 0.12);
+  --ui-bg-soft: #faf4ec;
+  --ui-bg-muted: #f2e8db;
+  --ui-border: rgba(217, 72, 15, 0.16);
+  --ui-shadow-1: 0 18px 48px rgba(50, 30, 10, 0.08);
+  --ui-shadow-2: 0 28px 72px rgba(50, 30, 10, 0.12);
   background-image:
-    linear-gradient(rgba(8, 145, 178, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(8, 145, 178, 0.05) 1px, transparent 1px),
-    radial-gradient(circle at 14% 6%, rgba(45, 212, 191, 0.18), transparent 30rem),
-    radial-gradient(circle at 86% 10%, rgba(37, 99, 235, 0.12), transparent 28rem),
-    linear-gradient(180deg, #f8fbff 0%, #eef6fb 55%, #f8fbff 100%);
+    linear-gradient(rgba(217, 72, 15, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 72, 15, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 14% 6%, rgba(242, 130, 15, 0.14), transparent 30rem),
+    radial-gradient(circle at 86% 10%, rgba(217, 119, 6, 0.10), transparent 28rem),
+    linear-gradient(180deg, #fdfaf6 0%, #faf4ec 55%, #fdfaf6 100%);
 }
 
 :global(html:not(.dark) .ai-ip-check-page .hero-shell) {
