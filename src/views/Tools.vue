@@ -10,8 +10,8 @@
           <div class="tools-hero-copy theme-panel border theme-border rounded-2xl p-5 sm:p-7">
             <div class="inline-flex items-center gap-2 rounded-full theme-surface-soft border theme-border px-3 py-1">
               <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--ui-success)] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--ui-success)]"></span>
               </span>
               <span class="text-xs font-mono theme-text-muted">tools.aikaitong · live</span>
             </div>
@@ -60,7 +60,7 @@
               <div class="flex flex-wrap items-center gap-2">
                 <span class="font-mono text-[0.68rem] uppercase theme-text-muted">network signal</span>
                 <span class="inline-flex items-center gap-1.5 rounded-full theme-surface-soft border theme-border px-2.5 py-1 text-[11px] font-mono theme-text-muted">
-                  <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                  <span class="h-1.5 w-1.5 rounded-full bg-[var(--ui-success)]"></span>
                   live
                 </span>
               </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="diagnostic-pill">
                   <span>AI 注册风险</span>
-                  <strong :class="ipInfo.isDatacenter ? 'text-amber-400' : 'text-emerald-400'">
+                  <strong :class="ipInfo.isDatacenter ? 'text-amber-400' : 'text-[var(--ui-success)]'">
                     {{ ipInfo.isDatacenter ? '机房 IP，谨慎使用' : '普通出口，风险较低' }}
                   </strong>
                 </div>
@@ -259,9 +259,9 @@ const categories: ToolCategory[] = [
   {
     name: 'IP 检测',
     description: '判断当前网络出口的类型、信誉、地理位置——影响 ChatGPT / Claude 注册和使用。结果仅供参考，单一工具都有盲区，建议多工具交叉验证；尤其 ipjiance 能识别 ping0 常漏判的「机场 / 共享住宅」IP（看着是住宅、实际登录 AI 易被关联封号）。',
-    accent: 'bg-indigo-500',
-    iconBg: 'bg-indigo-500/10',
-    iconText: 'text-indigo-400',
+    accent: 'bg-amber-500',
+    iconBg: 'bg-amber-500/10',
+    iconText: 'text-amber-400',
     items: [
       { name: 'AI IP 环境检测', url: '/tools/ip', desc: '站内工具：按 AI 日常登录 / 开发 API / 新号注册分场景判断 IP' },
       { name: 'ipjiance.net', url: 'https://ipjiance.net/', desc: '首选。能识别「机场 / 多人共用」住宅 IP——90% AI 小白最容易踩的坑（看着是住宅、一登录就被封），ping0 测不出' },
@@ -274,9 +274,9 @@ const categories: ToolCategory[] = [
   {
     name: '服务状态',
     description: '当 AI 服务用不了时，先查这里——是平台挂了还是你网络问题',
-    accent: 'bg-emerald-500',
-    iconBg: 'bg-emerald-500/10',
-    iconText: 'text-emerald-400',
+    accent: 'bg-orange-500',
+    iconBg: 'bg-orange-500/10',
+    iconText: 'text-orange-400',
     items: [
       { name: 'Anthropic Status', url: 'https://status.anthropic.com/', desc: 'Claude / Claude Code / API 状态' },
       { name: 'OpenAI Status', url: 'https://status.openai.com/', desc: 'ChatGPT / API / Sora 状态' },
@@ -289,9 +289,9 @@ const categories: ToolCategory[] = [
   {
     name: 'DNS / 隐私检测',
     description: '代理是否真的安全？DNS 有没有泄露？这里能查清楚',
-    accent: 'bg-purple-500',
-    iconBg: 'bg-purple-500/10',
-    iconText: 'text-purple-400',
+    accent: 'bg-amber-600',
+    iconBg: 'bg-amber-600/10',
+    iconText: 'text-amber-500',
     items: [
       { name: 'DNS Leak Test', url: 'https://dnsleaktest.com/', desc: 'DNS 泄露检测' },
       { name: 'BrowserLeaks WebRTC', url: 'https://browserleaks.com/webrtc', desc: 'WebRTC 泄露真实 IP 检测' },
@@ -304,9 +304,9 @@ const categories: ToolCategory[] = [
   {
     name: '域名 / 备案查询',
     description: '查一个网站可信不可信，备案信息和注册时间最直观',
-    accent: 'bg-sky-500',
-    iconBg: 'bg-sky-500/10',
-    iconText: 'text-sky-400',
+    accent: 'bg-amber-400',
+    iconBg: 'bg-amber-400/10',
+    iconText: 'text-amber-300',
     items: [
       { name: 'Whois 查询', url: 'https://whois.chinaz.com/', desc: '域名注册信息、到期时间' },
       { name: 'ICP 备案查询', url: 'https://icp.chinaz.com/', desc: '国内 ICP 备案信息（境外域名查不到正常）' },

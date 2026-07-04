@@ -93,11 +93,11 @@
                 <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
               </div>
-              <span class="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-sky-100/70">browser only</span>
+              <span class="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-amber-100/70">browser only</span>
             </div>
             <div class="grid gap-2 font-mono text-xs sm:grid-cols-2">
               <div class="terminal-line">
-                <span class="text-sky-300">$</span>
+                <span class="text-amber-300">$</span>
                 <span>read session JSON</span>
               </div>
               <div class="terminal-line">
@@ -105,13 +105,13 @@
                 <span>no upload / no storage</span>
               </div>
               <div class="terminal-line">
-                <span class="text-sky-300">$</span>
+                <span class="text-amber-300">$</span>
                 <span>build auth.json</span>
               </div>
               <div class="terminal-line">
                 <span :class="currentAuthJson ? 'text-emerald-300' : 'text-amber-300'">›</span>
                 <span>{{ currentAuthJson ? 'copy or download' : 'paste to generate' }}</span>
-                <span class="terminal-cursor text-sky-300">▍</span>
+                <span class="terminal-cursor text-amber-300">▍</span>
               </div>
             </div>
           </div>
@@ -175,7 +175,7 @@
               v-model="sessionRaw"
               spellcheck="false"
               autocomplete="off"
-              class="min-h-[340px] w-full resize-y rounded-xl border theme-border theme-panel-soft p-5 font-mono text-[0.95rem] leading-7 theme-text-primary outline-none transition focus:border-sky-500/60 focus:ring-2 focus:ring-sky-500/20"
+              class="min-h-[340px] w-full resize-y rounded-xl border theme-border theme-panel-soft p-5 font-mono text-[0.95rem] leading-7 theme-text-primary outline-none transition focus:border-amber-500/60 focus:ring-2 focus:ring-amber-500/20"
               placeholder="在此粘贴 ChatGPT session JSON..."
               @input="scheduleParse"
             ></textarea>
@@ -933,15 +933,15 @@ useHead({
   background:
     radial-gradient(circle at 13% 8%, color-mix(in oklab, var(--ui-accent) 18%, transparent), transparent 28rem),
     radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.16), transparent 30rem),
-    radial-gradient(circle at 56% 104%, rgba(124, 58, 237, 0.12), transparent 28rem);
+    radial-gradient(circle at 56% 104%, rgba(217, 119, 6, 0.12), transparent 28rem);
 }
 
 .codex-auth-page::after {
   inset: 0;
   opacity: 0.08;
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.6) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.5) 1px, transparent 1px);
+    linear-gradient(rgba(242, 130, 15, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(242, 130, 15, 0.5) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(180deg, #000 0%, transparent 70%);
 }
@@ -1010,7 +1010,7 @@ useHead({
 }
 
 .tech-gradient-text {
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 45%, #0f9f8f 100%);
+  background: linear-gradient(135deg, #f2820f 0%, #d97706 45%, #f59e0b 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1052,7 +1052,7 @@ useHead({
 .flow-rail::after {
   right: auto;
   width: var(--flow-progress);
-  background: linear-gradient(90deg, var(--ui-accent), #14b8a6, #8b5cf6);
+  background: linear-gradient(90deg, var(--ui-accent), #14b8a6, #d97706);
   box-shadow: 0 0 18px color-mix(in oklab, var(--ui-accent) 50%, transparent);
   transition: width 260ms ease;
 }
@@ -1144,7 +1144,7 @@ useHead({
   --hero-pointer-y: 34%;
   --hero-pointer-alpha: 0.58;
   background:
-    radial-gradient(circle at 72% 24%, rgba(14, 165, 233, 0.14), transparent 34%),
+    radial-gradient(circle at 72% 24%, rgba(242, 130, 15, 0.14), transparent 34%),
     radial-gradient(circle at 24% 78%, rgba(16, 185, 129, 0.1), transparent 32%),
     linear-gradient(180deg, rgba(248, 250, 252, 0.18), rgba(255, 255, 255, 0));
   cursor: crosshair;
@@ -1184,7 +1184,7 @@ useHead({
   opacity: calc(var(--hero-pointer-alpha) * 0.62);
   background:
     radial-gradient(circle at var(--hero-pointer-x) var(--hero-pointer-y), rgba(125, 211, 252, 0.34), transparent 14rem),
-    radial-gradient(circle at calc(var(--hero-pointer-x) + 8%) calc(var(--hero-pointer-y) + 10%), rgba(139, 92, 246, 0.18), transparent 16rem);
+    radial-gradient(circle at calc(var(--hero-pointer-x) + 8%) calc(var(--hero-pointer-y) + 10%), rgba(242, 130, 15, 0.18), transparent 16rem);
   mix-blend-mode: screen;
   transition: opacity 180ms ease;
 }
@@ -1263,7 +1263,7 @@ useHead({
   min-width: 0;
   align-items: center;
   gap: 0.45rem;
-  border: 1px solid rgba(14, 165, 233, 0.18);
+  border: 1px solid rgba(242, 130, 15, 0.18);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.66);
   padding: 0.45rem 0.72rem;
@@ -1275,7 +1275,7 @@ useHead({
 }
 
 .visual-console {
-  border: 1px solid rgba(14, 165, 233, 0.16);
+  border: 1px solid rgba(242, 130, 15, 0.16);
   background: rgba(255, 255, 255, 0.68);
   box-shadow: 0 22px 62px rgba(15, 23, 42, 0.12);
   color: #475569;
@@ -1286,7 +1286,7 @@ useHead({
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.6rem;
-  border: 1px solid rgba(14, 165, 233, 0.14);
+  border: 1px solid rgba(242, 130, 15, 0.14);
   border-radius: 0.8rem;
   background: rgba(255, 255, 255, 0.62);
   padding: 0.55rem 0.65rem;
@@ -1297,7 +1297,7 @@ useHead({
 }
 
 .signal-row:hover {
-  border-color: rgba(14, 165, 233, 0.28);
+  border-color: rgba(242, 130, 15, 0.28);
   background: rgba(255, 255, 255, 0.76);
   transform: translateX(2px);
 }
@@ -1357,7 +1357,7 @@ useHead({
 
 :global(.dark .visual-panel) {
   background:
-    radial-gradient(circle at 72% 24%, rgba(14, 165, 233, 0.22), transparent 34%),
+    radial-gradient(circle at 72% 24%, rgba(242, 130, 15, 0.22), transparent 34%),
     radial-gradient(circle at 24% 78%, rgba(16, 185, 129, 0.14), transparent 32%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0));
 }
@@ -1914,8 +1914,8 @@ useHead({
 }
 
 .action-button.primary {
-  border: 1px solid rgba(14, 165, 233, 0.55);
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.9), rgba(59, 130, 246, 0.92));
+  border: 1px solid rgba(242, 130, 15, 0.55);
+  background: linear-gradient(135deg, rgba(242, 130, 15, 0.9), rgba(59, 130, 246, 0.92));
   color: white;
 }
 
@@ -1927,7 +1927,7 @@ useHead({
 
 .boundary-note {
   background:
-    linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(14, 165, 233, 0.06)),
+    linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(242, 130, 15, 0.06)),
     rgba(255, 251, 235, 0.92);
   transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
@@ -1940,7 +1940,7 @@ useHead({
 
 .boundary-note-dark {
   background:
-    linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(14, 165, 233, 0.08)),
+    linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(242, 130, 15, 0.08)),
     rgba(120, 53, 15, 0.16);
 }
 
