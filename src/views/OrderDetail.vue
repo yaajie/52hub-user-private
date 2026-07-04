@@ -297,7 +297,7 @@
                     t('orderDetail.childFulfillmentTitle') }}</h3>
                   <button v-if="child.fulfillment?.status === 'delivered'"
                     class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors shadow-sm"
-                    :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
+                    :class="fulfillmentCopied ? 'bg-[var(--ui-success)] text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
                     @click="handleCopyFulfillment(child.fulfillment)">
                     <svg v-if="!fulfillmentCopied" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
@@ -353,7 +353,7 @@
               </button>
               <button v-if="order.fulfillment.status === 'delivered' && !isFulfillmentTruncated(order.fulfillment)"
                 class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm"
-                :class="fulfillmentCopied ? 'bg-emerald-600 text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
+                :class="fulfillmentCopied ? 'bg-[var(--ui-success)] text-white' : 'bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800'"
                 @click="handleCopyFulfillment(order.fulfillment)">
                 <svg v-if="!fulfillmentCopied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                 <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>

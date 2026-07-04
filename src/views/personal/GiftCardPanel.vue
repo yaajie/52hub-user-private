@@ -2,8 +2,8 @@
   <div class="space-y-6 gift-card-panel-enter">
     <div class="theme-personal-card overflow-hidden">
       <div class="relative">
-        <div class="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-emerald-400/10 blur-2xl"></div>
-        <div class="pointer-events-none absolute -bottom-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-sky-400/10 blur-2xl"></div>
+        <div class="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-[var(--ui-success-soft)] blur-2xl"></div>
+        <div class="pointer-events-none absolute -bottom-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-[var(--ui-accent-soft)] blur-2xl"></div>
         <div class="relative">
           <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -21,17 +21,17 @@
 
           <div
             v-if="lastRedeem"
-            class="mb-6 rounded-2xl border border-emerald-200/70 bg-emerald-50/60 p-4 shadow-sm success-burst dark:border-emerald-500/20 dark:bg-emerald-500/10"
+            class="mb-6 rounded-2xl border border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] p-4 shadow-sm success-burst border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)]"
           >
             <div class="flex items-start gap-3">
-              <div class="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 text-white">
+              <div class="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--ui-success)] text-white">
                 <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 010 1.415l-7.08 7.08a1 1 0 01-1.415 0l-3.18-3.18a1 1 0 111.414-1.414l2.473 2.473 6.373-6.374a1 1 0 011.415 0z" clip-rule="evenodd" />
                 </svg>
               </div>
               <div class="flex-1 space-y-2">
-                <h3 class="text-sm font-semibold text-emerald-700 dark:text-emerald-300">{{ t('personalCenter.giftCard.successTitle') }}</h3>
-                <div class="grid grid-cols-1 gap-2 text-xs text-emerald-700/90 dark:text-emerald-200 md:grid-cols-3">
+                <h3 class="text-sm font-semibold text-[var(--ui-success)]">{{ t('personalCenter.giftCard.successTitle') }}</h3>
+                <div class="grid grid-cols-1 gap-2 text-xs text-[var(--ui-success)] md:grid-cols-3">
                   <div>
                     <div class="opacity-75">{{ t('personalCenter.giftCard.successCode') }}</div>
                     <div class="mt-0.5 font-mono">{{ String(lastRedeem.gift_card?.code || '-').toUpperCase() }}</div>

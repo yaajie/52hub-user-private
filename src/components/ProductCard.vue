@@ -216,7 +216,7 @@ const soldCount = computed(() => {
 })
 
 const fulfillmentBadgeText = computed(() => (props.product?.fulfillment_type === 'auto' ? '自动发货' : '人工交付'))
-const fulfillmentBadgeColor = computed(() => (props.product?.fulfillment_type === 'auto' ? 'text-emerald-500' : 'text-amber-500'))
+const fulfillmentBadgeColor = computed(() => (props.product?.fulfillment_type === 'auto' ? 'text-[var(--ui-success)]' : 'text-amber-500'))
 
 const stockBadgeText = computed(() => {
   if (availableStockCount.value >= 50) return '✓ 库存充足'
@@ -225,5 +225,5 @@ const stockBadgeText = computed(() => {
   return '× 暂时缺货'
 })
 
-const stockBadgeColor = computed(() => (availableStockCount.value === 0 ? 'text-red-500' : 'text-emerald-500'))
+const stockBadgeColor = computed(() => (availableStockCount.value === 0 ? 'text-red-500' : 'text-[var(--ui-success)]'))
 </script>

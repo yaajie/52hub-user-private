@@ -203,7 +203,7 @@
 
                 <div class="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm theme-text-secondary">
                   <span class="inline-flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-[var(--ui-success)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2l7 4v6c0 5-3 8-7 10-4-2-7-5-7-10V6l7-4z" />
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4" />
                     </svg>
@@ -610,7 +610,7 @@ const skuStockBadgeClass = (sku: ProductSKU): string => {
   if (available === null) return 'theme-border theme-text-secondary'
   if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
   if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
-  return 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300'
+  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
 }
 
 const quantityEffectiveLimit = computed(() => {

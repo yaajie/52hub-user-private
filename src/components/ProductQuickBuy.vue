@@ -472,7 +472,7 @@ const skuStockBadgeClass = (sku: any) => {
   if (available === null) return 'theme-border theme-text-secondary'
   if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
   if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
-  return 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300'
+  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
 }
 
 const skuStockDotClass = (sku: any) => {
@@ -480,7 +480,7 @@ const skuStockDotClass = (sku: any) => {
   if (available === null) return 'bg-[var(--ui-text-muted)]'
   if (available <= 0) return 'bg-rose-500 dark:bg-rose-400'
   if (available <= 5) return 'bg-amber-500 dark:bg-amber-400'
-  return 'bg-emerald-500 dark:bg-emerald-400'
+  return 'bg-[var(--ui-success)]'
 }
 
 const skuDisplayText = (sku: any) => buildSkuDisplayText({

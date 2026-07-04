@@ -2,8 +2,8 @@
   <div class="space-y-6 api-panel-enter">
     <div class="theme-personal-card overflow-hidden">
       <div class="relative">
-        <div class="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-violet-400/10 blur-2xl"></div>
-        <div class="pointer-events-none absolute -bottom-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-sky-400/10 blur-2xl"></div>
+        <div class="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-[var(--ui-accent-soft)] blur-2xl"></div>
+        <div class="pointer-events-none absolute -bottom-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-[var(--ui-accent-soft)] blur-2xl"></div>
         <div class="relative">
           <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -85,23 +85,23 @@
               <!-- First-time notice: secret never viewed -->
               <div
                 v-if="!hasViewedSecret && !newSecret"
-                class="rounded-2xl border border-sky-200/70 bg-sky-50/60 p-4 shadow-sm dark:border-sky-500/20 dark:bg-sky-500/10"
+                class="rounded-2xl border border-[var(--ui-accent-soft)] bg-[var(--ui-accent-soft)] p-4 shadow-sm border-[var(--ui-accent-soft)] bg-[var(--ui-accent-soft)]"
               >
                 <div class="flex items-start gap-3">
-                  <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-500 text-white">
+                  <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--ui-accent)] text-white">
                     <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
                     </svg>
                   </div>
                   <div class="flex-1">
-                    <h3 class="text-sm font-semibold text-sky-700 dark:text-sky-300">{{ t('personalCenter.apiPanel.approvedNoticeTitle') }}</h3>
-                    <p class="mt-1 text-xs text-sky-700/80 dark:text-sky-200">
+                    <h3 class="text-sm font-semibold text-[var(--ui-accent)]">{{ t('personalCenter.apiPanel.approvedNoticeTitle') }}</h3>
+                    <p class="mt-1 text-xs text-[var(--ui-accent)]">
                       {{ t('personalCenter.apiPanel.approvedNoticeDesc') }}
                     </p>
                     <button
                       type="button"
                       :disabled="submitting"
-                      class="mt-3 inline-flex items-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60"
+                      class="mt-3 inline-flex items-center rounded-xl bg-[var(--ui-accent)] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[var(--ui-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
                       @click="handleFirstGenerate"
                     >
                       {{ submitting ? t('personalCenter.apiPanel.regenerating') : t('personalCenter.apiPanel.generateSecret') }}
@@ -151,26 +151,26 @@
               <!-- Newly generated secret (shown once) -->
               <div
                 v-if="newSecret"
-                class="rounded-2xl border border-emerald-200/70 bg-emerald-50/60 p-4 shadow-sm dark:border-emerald-500/20 dark:bg-emerald-500/10 new-secret-burst"
+                class="rounded-2xl border border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] p-4 shadow-sm border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] new-secret-burst"
               >
                 <div class="flex items-start gap-3">
-                  <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                  <div class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--ui-success)] text-white">
                     <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 010 1.415l-7.08 7.08a1 1 0 01-1.415 0l-3.18-3.18a1 1 0 111.414-1.414l2.473 2.473 6.373-6.374a1 1 0 011.415 0z" clip-rule="evenodd" />
                     </svg>
                   </div>
                   <div class="flex-1">
-                    <h3 class="text-sm font-semibold text-emerald-700 dark:text-emerald-300">{{ t('personalCenter.apiPanel.newSecretTitle') }}</h3>
-                    <p class="mt-1 text-xs text-emerald-700/80 dark:text-emerald-200">
+                    <h3 class="text-sm font-semibold text-[var(--ui-success)]">{{ t('personalCenter.apiPanel.newSecretTitle') }}</h3>
+                    <p class="mt-1 text-xs text-[var(--ui-success)]">
                       {{ t('personalCenter.apiPanel.newSecretWarning') }}
                     </p>
                     <div class="mt-3 flex flex-wrap items-center gap-2">
-                      <span class="rounded-lg border border-emerald-300/60 bg-white/60 px-2.5 py-1 font-mono text-sm text-emerald-800 break-all dark:border-emerald-500/30 dark:bg-emerald-900/30 dark:text-emerald-100">
+                      <span class="rounded-lg border border-[var(--ui-success-soft)] bg-white/60 px-2.5 py-1 font-mono text-sm text-[var(--ui-success)] break-all border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]">
                         {{ newSecret }}
                       </span>
                       <button
                         type="button"
-                        class="inline-flex items-center rounded-lg border border-emerald-300/60 bg-emerald-100/60 px-2.5 py-1 text-xs font-semibold text-emerald-700 transition-colors hover:bg-emerald-200/60 dark:border-emerald-500/30 dark:bg-emerald-800/30 dark:text-emerald-200"
+                        class="inline-flex items-center rounded-lg border border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] px-2.5 py-1 text-xs font-semibold text-[var(--ui-success)] transition-colors hover:bg-[var(--ui-success-soft)] border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]"
                         @click="copyToClipboard(newSecret)"
                       >
                         {{ t('personalCenter.apiPanel.copySecret') }}
@@ -193,7 +193,7 @@
                     type="button"
                     :disabled="submitting"
                     class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
-                    :class="credential.is_active ? 'bg-emerald-500' : 'bg-[var(--ui-bg-muted)]'"
+                    :class="credential.is_active ? 'bg-[var(--ui-success)]' : 'bg-[var(--ui-bg-muted)]'"
                     role="switch"
                     :aria-checked="credential.is_active"
                     @click="handleToggleStatus"

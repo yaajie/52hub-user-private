@@ -14,7 +14,7 @@
           :href="CONTACTS.wechatService"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+          class="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-[var(--ui-success)] px-3 py-2 text-sm font-semibold text-white transition hover:bg-[var(--ui-success)]"
         >
           打开在线客服
         </a>

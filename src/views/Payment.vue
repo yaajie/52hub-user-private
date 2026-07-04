@@ -93,10 +93,10 @@
               class="theme-btn-inline-md border theme-btn-secondary">
               {{ t('payment.copyPayLink') }}
             </button>
-            <span v-if="copied" class="text-xs text-emerald-500">{{ t('payment.copied') }}</span>
+            <span v-if="copied" class="text-xs text-[var(--ui-success)]">{{ t('payment.copied') }}</span>
           </div>
 
-          <div v-if="openedPayWindow" class="mt-3 text-xs text-emerald-500">
+          <div v-if="openedPayWindow" class="mt-3 text-xs text-[var(--ui-success)]">
             {{ payLinkOpenedTip }}
           </div>
           <div v-if="showTelegramPayHint" class="mt-3 text-xs theme-text-muted">
@@ -345,7 +345,7 @@
                     class="px-3 py-1.5 rounded-lg border theme-btn-secondary font-bold text-xs">
                     {{ t('payment.copyPayLink') }}
                   </button>
-                  <span v-if="copied" class="text-xs text-emerald-500">{{ t('payment.copied') }}</span>
+                  <span v-if="copied" class="text-xs text-[var(--ui-success)]">{{ t('payment.copied') }}</span>
                 </div>
               </div>
             </div>

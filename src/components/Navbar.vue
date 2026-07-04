@@ -247,7 +247,7 @@
             <router-link to="/codex-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span></span>Codex 资源
+              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-success)]"></span></span>Codex 资源
             </router-link>
             <router-link to="/openai-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"

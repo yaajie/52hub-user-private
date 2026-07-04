@@ -5,8 +5,8 @@
         <section class="hero-copy-panel interactive-panel relative overflow-hidden rounded-2xl border theme-border theme-panel p-6 sm:p-8">
           <div class="hero-runtime-badge mb-5 inline-flex items-center gap-2 rounded-full border theme-border theme-surface-soft px-3 py-1">
             <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--ui-success)] opacity-60"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-[var(--ui-success)]"></span>
             </span>
             <span class="font-mono text-xs theme-text-muted">aikaitong.tools/codex-auth · 本地运行</span>
           </div>
@@ -65,11 +65,11 @@
 
           <div class="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
             <div class="visual-chip">
-              <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]"></span>
+              <span class="h-2 w-2 rounded-full bg-[var(--ui-success)] shadow-[0_0_18px_rgba(52,211,153,0.9)]"></span>
               <span>local transform</span>
             </div>
             <div class="visual-chip hidden sm:inline-flex">
-              <span :class="currentAuthJson ? 'bg-emerald-400' : 'bg-amber-400'" class="h-2 w-2 rounded-full"></span>
+              <span :class="currentAuthJson ? 'bg-[var(--ui-success)]' : 'bg-amber-400'" class="h-2 w-2 rounded-full"></span>
               <span>{{ currentAuthJson ? 'auth.json ready' : 'waiting input' }}</span>
             </div>
           </div>
@@ -91,7 +91,7 @@
               <div class="flex items-center gap-2">
                 <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-success)]"></span>
               </div>
               <span class="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-amber-100/70">browser only</span>
             </div>
@@ -101,7 +101,7 @@
                 <span>read session JSON</span>
               </div>
               <div class="terminal-line">
-                <span class="text-emerald-300">›</span>
+                <span class="text-[var(--ui-success)]">›</span>
                 <span>no upload / no storage</span>
               </div>
               <div class="terminal-line">
@@ -109,7 +109,7 @@
                 <span>build auth.json</span>
               </div>
               <div class="terminal-line">
-                <span :class="currentAuthJson ? 'text-emerald-300' : 'text-amber-300'">›</span>
+                <span :class="currentAuthJson ? 'text-[var(--ui-success)]' : 'text-amber-300'">›</span>
                 <span>{{ currentAuthJson ? 'copy or download' : 'paste to generate' }}</span>
                 <span class="terminal-cursor text-amber-300">▍</span>
               </div>
@@ -260,7 +260,7 @@
           <code>下载 auth.json 后，按下方“放置路径”复制对应系统路径或命令，把文件放到 Codex 配置目录。</code>
         </div>
         <pre class="json-output whitespace-pre-wrap break-all px-5 py-5 font-mono text-sm leading-7 theme-text-primary sm:px-6">{{ authOutput }}</pre>
-        <p v-if="copyStatus" :class="['border-t theme-border px-5 py-3 text-sm', copyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']">
+        <p v-if="copyStatus" :class="['border-t theme-border px-5 py-3 text-sm', copyStatusType === 'ok' ? 'text-[var(--ui-success)]' : 'text-rose-700 dark:text-rose-300']">
           {{ copyStatus }}
         </p>
       </section>
@@ -348,7 +348,7 @@
 
           <p
             v-if="placementCopyStatus"
-            :class="['placement-copy-status', placementCopyStatusType === 'ok' ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300']"
+            :class="['placement-copy-status', placementCopyStatusType === 'ok' ? 'text-[var(--ui-success)]' : 'text-rose-700 dark:text-rose-300']"
             aria-live="polite"
           >
             {{ placementCopyStatus }}

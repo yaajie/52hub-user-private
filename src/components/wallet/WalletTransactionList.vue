@@ -38,7 +38,7 @@
                 {{ directionLabel(item.direction) }}
               </span>
             </td>
-            <td class="px-4 py-3 font-mono text-sm" :class="item.direction === 'in' ? 'text-emerald-500' : 'text-rose-500'">
+            <td class="px-4 py-3 font-mono text-sm" :class="item.direction === 'in' ? 'text-[var(--ui-success)]' : 'text-rose-500'">
               {{ signedAmount(item.direction, item.amount, item.currency) }}
             </td>
             <td class="px-4 py-3 font-mono text-sm theme-text-primary">

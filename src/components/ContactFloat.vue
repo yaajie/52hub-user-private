@@ -6,7 +6,7 @@
     aria-label="企微在线客服"
     title="企微在线客服"
     :class="[
-      'fixed z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#07C160] text-white shadow-lg shadow-emerald-900/25 transition hover:bg-[#06ad56] hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-300/60',
+      'fixed z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#07C160] text-white shadow-lg shadow-[var(--ui-success-soft)] transition hover:bg-[#06ad56] hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[var(--ui-success-soft)]',
       'right-3 sm:right-4 lg:h-12 lg:w-12 lg:bottom-6',
       'lg:right-[max(0.75rem,calc((100vw_-_1536px)/2_-_4rem))]',
       hideOnMobileToolPage ? 'hidden sm:flex' : 'bottom-20',
