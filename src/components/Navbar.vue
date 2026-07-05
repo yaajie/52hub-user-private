@@ -242,22 +242,22 @@
             <router-link to="/claude-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-orange-500"></span></span>Claude 资源
+              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-accent)]"></span></span>Claude 资源
             </router-link>
             <router-link to="/codex-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-success)]"></span></span>Codex 资源
+              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-accent)]"></span></span>Codex 资源
             </router-link>
             <router-link to="/openai-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-text-muted)]"></span></span>OpenAI / ChatGPT
+              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-accent)]"></span></span>OpenAI / ChatGPT
             </router-link>
             <router-link to="/gemini-hub" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"
               active-class="theme-nav-link-active">
-              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span></span>Gemini 资源
+              <span class="w-5 flex items-center justify-center"><span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-accent)]"></span></span>Gemini 资源
             </router-link>
             <router-link to="/tools" @click="showMobileMenu = false"
               class="block w-full text-left px-4 py-3 rounded-xl theme-nav-link text-sm min-h-[44px] flex items-center gap-3"

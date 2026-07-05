@@ -60,7 +60,7 @@ const features = {
     { title: 'Issue → PR 全流程', desc: '集成 GitHub / GitLab 与命令行工具，从终端一站读 issue、写码、跑测试、提交 PR，不用来回切工具。', icon: ArrowsRightLeftIcon },
     { title: '多入口', desc: '终端、IDE（VS Code / Cursor / JetBrains）、桌面应用、浏览器与移动端，随处接入，外出也能编码。', icon: Squares2X2Icon },
     { title: '桌面应用并行多任务', desc: '改版桌面应用专为同时运行多个 Claude Code 任务设计，一边构建一边验证。', icon: RectangleStackIcon },
-    { title: '模型系列', desc: 'Opus（最强推理）/ Sonnet（速度与智能平衡）/ Haiku（极速低成本）三档系列，按订阅档位自动调用，无需追具体型号。', icon: CpuChipIcon },
+    { title: '模型系列', desc: 'Fable 5（当前最强公开模型，7/1 恢复后 Pro / Max 已可用、有额度限制）/ Opus（强推理）/ Sonnet（速度与智能平衡）/ Haiku（极速低成本），按订阅档位调用。', icon: CpuChipIcon },
   ],
 }
 
