@@ -74,13 +74,13 @@
               <router-link to="/tools/ip" class="theme-link-muted transition-colors">AI IP 环境检测</router-link>
             </li>
             <li>
-              <router-link to="/tools" class="theme-link-muted transition-colors">服务状态</router-link>
+              <router-link to="/tools#status" class="theme-link-muted transition-colors">服务状态</router-link>
             </li>
             <li>
-              <router-link to="/tools" class="theme-link-muted transition-colors">DNS / 隐私</router-link>
+              <router-link to="/tools#dns" class="theme-link-muted transition-colors">DNS / 隐私</router-link>
             </li>
             <li>
-              <router-link to="/tools" class="theme-link-muted transition-colors">域名查询</router-link>
+              <router-link to="/tools#domain" class="theme-link-muted transition-colors">域名查询</router-link>
             </li>
           </ul>
         </div>

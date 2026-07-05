@@ -27,12 +27,15 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input v-model="email" type="email"
             class="form-input-lg"
+            :aria-label="t('guestOrders.emailPlaceholder')"
             :placeholder="t('guestOrders.emailPlaceholder')" />
           <input v-model="orderPassword" type="password"
             class="form-input-lg"
+            :aria-label="t('guestOrders.passwordPlaceholder')"
             :placeholder="t('guestOrders.passwordPlaceholder')" />
           <input v-model="orderNo" type="text"
             class="form-input-lg"
+            :aria-label="t('guestOrders.orderNoPlaceholder')"
             :placeholder="t('guestOrders.orderNoPlaceholder')" />
           <button @click="handleSearch" :disabled="loading"
             class="theme-btn-primary rounded-xl font-bold px-6 py-3 transition-colors disabled:opacity-50 inline-flex items-center justify-center gap-2">

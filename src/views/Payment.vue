@@ -37,9 +37,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input v-model="guestAuth.email" type="email"
             class="form-input-lg"
+            :aria-label="t('guestOrders.emailPlaceholder')"
             :placeholder="t('guestOrders.emailPlaceholder')" />
           <input v-model="guestAuth.order_password" type="password"
             class="form-input-lg"
+            :aria-label="t('guestOrders.passwordPlaceholder')"
             :placeholder="t('guestOrders.passwordPlaceholder')" />
         </div>
         <div v-if="guestAuthError"

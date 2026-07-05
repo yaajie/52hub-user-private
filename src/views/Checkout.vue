@@ -139,6 +139,7 @@
               v-model="couponCode"
               type="text"
               class="w-full form-input-lg"
+              :aria-label="t('checkout.couponPlaceholder')"
               :placeholder="t('checkout.couponPlaceholder')"
             />
           </div>
@@ -171,12 +172,14 @@
                 v-model="guestEmail"
                 type="email"
                 class="w-full form-input-lg"
+                :aria-label="t('checkout.guestEmailPlaceholder')"
                 :placeholder="t('checkout.guestEmailPlaceholder')"
               />
               <input
                 v-model="guestPassword"
                 type="password"
                 class="w-full form-input-lg"
+                :aria-label="t('checkout.guestPasswordPlaceholder')"
                 :placeholder="t('checkout.guestPasswordPlaceholder')"
               />
             </div>

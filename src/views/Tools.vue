@@ -169,7 +169,7 @@
       <section
         v-for="(category, idx) in categories"
         :key="category.name"
-        :id="`tool-section-${idx}`"
+        :id="category.anchor"
         class="mb-12 scroll-mt-28"
       >
         <div class="flex items-center gap-3 mb-5">
@@ -248,6 +248,7 @@ type ToolItem = {
 
 type ToolCategory = {
   name: string
+  anchor: string      // 稳定锚点 id（Footer /tools#xxx 直达），勿随排序变
   description: string
   accent: string      // 左侧色条
   iconBg: string      // 首字图标背景
@@ -258,6 +259,7 @@ type ToolCategory = {
 const categories: ToolCategory[] = [
   {
     name: 'IP 检测',
+    anchor: 'ip',
     description: '判断当前网络出口的类型、信誉、地理位置——影响 ChatGPT / Claude 注册和使用。结果仅供参考，单一工具都有盲区，建议多工具交叉验证；尤其 ipjiance 能识别 ping0 常漏判的「机场 / 共享住宅」IP（看着是住宅、实际登录 AI 易被关联封号）。',
     accent: 'bg-amber-500',
     iconBg: 'bg-amber-500/10',
@@ -273,6 +275,7 @@ const categories: ToolCategory[] = [
   },
   {
     name: '服务状态',
+    anchor: 'status',
     description: '当 AI 服务用不了时，先查这里——是平台挂了还是你网络问题',
     accent: 'bg-orange-500',
     iconBg: 'bg-orange-500/10',
@@ -288,6 +291,7 @@ const categories: ToolCategory[] = [
   },
   {
     name: 'DNS / 隐私检测',
+    anchor: 'dns',
     description: '代理是否真的安全？DNS 有没有泄露？这里能查清楚',
     accent: 'bg-amber-600',
     iconBg: 'bg-amber-600/10',
@@ -303,6 +307,7 @@ const categories: ToolCategory[] = [
   },
   {
     name: '域名 / 备案查询',
+    anchor: 'domain',
     description: '查一个网站可信不可信，备案信息和注册时间最直观',
     accent: 'bg-amber-400',
     iconBg: 'bg-amber-400/10',

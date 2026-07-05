@@ -48,7 +48,7 @@
               :placeholder="t('auth.register.emailPlaceholder')"
               @blur="formValidation.touchField('email', email)"
             />
-            <p v-if="formValidation.hasError('email')" class="mt-1.5 text-xs text-red-500">
+            <p v-if="formValidation.hasError('email')" role="alert" class="mt-1.5 text-xs text-red-500">
               {{ formValidation.getError('email') }}
             </p>
           </div>
@@ -84,7 +84,7 @@
                 </svg>
               </button>
             </div>
-            <p v-if="formValidation.hasError('password')" class="mt-1.5 text-xs text-red-500">
+            <p v-if="formValidation.hasError('password')" role="alert" class="mt-1.5 text-xs text-red-500">
               {{ formValidation.getError('password') }}
             </p>
             <div v-if="password && !formValidation.hasError('password')" class="mt-2 flex items-center gap-2">
@@ -167,6 +167,7 @@
 
           <div
             v-if="error"
+            role="alert"
             class="rounded-xl border theme-alert-danger px-4 py-3 text-center text-sm"
           >
             {{ error }}
