@@ -8,7 +8,7 @@
               <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--ui-success)] opacity-60"></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-[var(--ui-success)]"></span>
             </span>
-            <span class="font-mono text-xs theme-text-muted">aikaitong.tools/codex-auth · 本地运行</span>
+            <span class="font-mono text-xs theme-text-muted">aikaitong.tools/codex-auth · local</span>
           </div>
 
           <h1 class="codex-title max-w-3xl text-3xl font-black leading-tight theme-text-primary sm:text-4xl">

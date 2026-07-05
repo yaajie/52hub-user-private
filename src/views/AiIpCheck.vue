@@ -7,7 +7,7 @@
           <div class="hero-copy">
             <div class="hero-badge">
               <span class="hero-dot"></span>
-              <span class="font-mono text-xs tracking-wider">AI开通 · AI IP CHECK</span>
+              <span class="font-mono text-xs tracking-wider">AIKAITONG · AI IP CHECK</span>
             </div>
             <h1 class="mt-5 max-w-3xl text-3xl font-black leading-tight theme-text-primary sm:text-5xl">
               AI IP 环境检测

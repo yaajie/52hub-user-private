@@ -35,7 +35,7 @@ const showcase = {
   title: '看 ChatGPT 跑一次深度研究',
   desc: '你给一个研究问题，ChatGPT 会自己联网搜索、读多个来源、交叉核对，再输出带引用的报告。下面是它处理一个真实问题的过程示意。',
   points: [
-    'GPT-5 旗舰推理 + 联网搜索 + 多模态（图 / 语音 / 视频）',
+    'GPT-5.5 旗舰推理 + 联网搜索 + 多模态（图 / 语音 / 视频）',
     'Plus / Pro 订阅含，按档位享更高用量与更强模型',
     '桌面 / iOS / 安卓 / 网页，跨端同步对话与记忆',
   ],
@@ -55,7 +55,7 @@ const features = {
   title: 'ChatGPT 能做什么',
   desc: 'ChatGPT 是 OpenAI 的旗舰 AI 助手——对话、写作、编程、看图、联网研究、生成图像与视频，一个入口覆盖日常到专业场景。',
   items: [
-    { title: 'GPT-5 旗舰推理', desc: '当前一代旗舰对话与推理模型，日常问答、写作、编程一把抓；o 系列推理模型处理数学与长链条思考。', icon: CpuChipIcon },
+    { title: 'GPT-5.5 旗舰推理', desc: '当前一代旗舰对话与推理模型，日常问答、写作、编程一把抓；o 系列推理模型处理数学与长链条思考。', icon: CpuChipIcon },
     { title: '原生多模态', desc: '看图说话、语音对话、读文档、分析截图，文字 / 图像 / 语音 / 视频在一个对话里自由切换。', icon: SparklesIcon },
     { title: '深度研究 / Agent', desc: '给一个研究问题，自己联网搜索、读多源、交叉核对，输出带引用的结构化报告；Agent 模式可代你完成多步任务。', icon: MagnifyingGlassIcon },
     { title: 'DALL·E 图像生成', desc: '在 ChatGPT 里用自然语言生成与编辑图片，Plus 及以上集成可用，做配图 / 海报 / 概念图。', icon: PhotoIcon },
@@ -107,7 +107,7 @@ const modelTable = {
   title: '模型与产品对比',
   columns: ['模型 / 产品', '定位', '怎么用'],
   rows: [
-    { cells: ['GPT-5', '当前旗舰对话推理', '日常对话 / 编程 / 写作首选'] },
+    { cells: ['GPT-5.5', '当前旗舰对话推理', '日常对话 / 编程 / 写作首选'] },
     { cells: ['GPT-4o', '多模态（图 / 语音 / 视频）', '看图说话 / 语音对话 / 图像分析'] },
     { cells: ['o3', '推理模型（思维链）', '复杂数学 / 编程 / 长链条思考'] },
     { cells: ['Codex', 'AI 智能体 / 任务执行', 'ChatGPT Pro 自带，详见 Codex 资源中心'] },
@@ -161,7 +161,7 @@ const related = {
 }
 
 const pageTitle = 'OpenAI / ChatGPT 资源中心 · Plus / Pro 订阅开通 · 国内付款 · DALL-E / API - AI开通'
-const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus / Pro 订阅开通与档位对比、国内 4 种付款方法、降低封号风险攻略、DALL-E 图像与 AI 视频替代方案、Platform API 与定价，GPT-5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
+const pageDesc = 'AI开通 OpenAI / ChatGPT 资源中心：OpenAI 官方入口、ChatGPT Plus / Pro 订阅开通与档位对比、国内 4 种付款方法、降低封号风险攻略、DALL-E 图像与 AI 视频替代方案、Platform API 与定价，GPT-5.5 / 4o / o3 模型对比；Codex 专题见 Codex 资源中心。'
 
 useHead({
   title: pageTitle,

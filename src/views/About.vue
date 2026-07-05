@@ -10,7 +10,7 @@
         <div class="relative max-w-4xl">
           <div class="mb-5 inline-flex items-center gap-2 rounded-full border theme-border bg-white/72 px-3 py-1 text-xs font-semibold theme-text-secondary shadow-sm backdrop-blur-md dark:bg-white/8">
             <span class="theme-status-dot"></span>
-            AI开通 RESOURCE DESK
+            AIKAITONG RESOURCE DESK
           </div>
 
           <h1 class="max-w-3xl text-4xl font-black leading-tight tracking-tight theme-text-primary md:text-5xl">

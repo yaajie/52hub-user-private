@@ -88,8 +88,8 @@ const sections = [
     title: '实用教程（站内）',
     items: [
       { name: 'Codex vs Claude Code 怎么选', url: '/blog/chatgpt-codex-vs-claude-code', desc: '两个 AI 智能体（agent）的定位、订阅门槛与使用方式对比' },
-      { name: 'ChatGPT Plus / Pro 5x / 20x 怎么选', url: '/blog/chatgpt-plus-vs-pro-comparison', desc: 'Codex 需要 Pro，按用量挑档位' },
-      { name: '国内充值 ChatGPT 全方法', url: '/blog/chatgpt-plus-china-payment-guide', desc: '订阅 Pro 解锁 Codex 的 4 种付款路径' },
+      { name: 'ChatGPT Plus / Pro 5x / 20x 怎么选', url: '/blog/chatgpt-plus-vs-pro-comparison', desc: 'Plus 起含 Codex，按用量挑档位' },
+      { name: '国内充值 ChatGPT 全方法', url: '/blog/chatgpt-plus-china-payment-guide', desc: '订阅 ChatGPT 用 Codex 的 4 种付款路径' },
       { name: 'ChatGPT 账号封号原因 + 降低风控', url: '/blog/chatgpt-anti-ban-guide', desc: '住宅 IP / 使用习惯 / 自查清单' },
     ],
   },
