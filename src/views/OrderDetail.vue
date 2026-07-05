@@ -46,9 +46,7 @@
                 order.currency) }}</div>
             </div>
             <div class="flex items-center gap-3">
-              <span class="theme-badge px-3 py-1 text-xs font-medium" :class="statusClass(order.status)">
-                {{ statusLabel(order.status) }}
-              </span>
+              <OrderStatusBadge :status="order.status" />
               <router-link v-if="order.status === 'pending_payment'" :to="`/pay?order_no=${order.order_no}`"
                 class="px-4 py-2 rounded-lg theme-btn-primary font-bold text-sm">
                 {{ t('orderDetail.payNow') }}
@@ -126,71 +124,7 @@
 
         <div class="theme-panel rounded-2xl p-6">
           <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.itemsTitle') }}</h2>
-          <div v-if="order.items && order.items.length > 0" class="space-y-4">
-            <div v-for="(item, idx) in order.items" :key="idx"
-              class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3">
-              <div class="flex min-w-0 items-start gap-3">
-                <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-16 sm:w-16">
-                  <img
-                    v-if="orderItemImage(item)"
-                    :src="orderItemImage(item)"
-                    :alt="getLocalizedText(item.title)"
-                    loading="lazy"
-                    decoding="async"
-                    class="h-full w-full object-cover"
-                  />
-                  <div v-else class="flex h-full w-full items-center justify-center theme-text-muted">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="1.5"
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div class="min-w-0">
-                  <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
-                  <div class="text-xs theme-text-muted">{{ t('orderDetail.quantityLabel') }}：{{ item.quantity }}</div>
-                  <div v-if="orderItemSkuText(item)" class="text-xs theme-text-muted mt-1">{{ t('orderDetail.itemSkuLabel') }}：{{ orderItemSkuText(item) }}</div>
-                  <div class="text-xs theme-text-muted mt-1">
-                    {{ t('orderDetail.itemFulfillmentLabel') }}：{{ fulfillmentTypeLabelText(item.fulfillment_type) }}
-                  </div>
-                  <div v-if="item.tags && item.tags.length" class="mt-2 flex flex-wrap gap-2">
-                    <span v-for="(tag, index) in item.tags" :key="index"
-                      class="px-2 py-0.5 text-[11px] rounded-full theme-surface-muted border theme-text-muted">
-                      {{ tag }}
-                    </span>
-                  </div>
-                  <div v-if="manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot).length"
-                    class="mt-3 rounded-xl border theme-panel p-3 text-xs theme-text-secondary">
-                    <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
-                    <div v-for="row in manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot)" :key="row.key" class="mb-1 last:mb-0">
-                      <span class="theme-text-primary">{{ row.label }}</span>：{{ row.value }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="shrink-0 pl-[4.25rem] sm:pl-0 text-left sm:text-right text-sm theme-text-muted space-y-1">
-                <div>{{ t('orderDetail.unitPriceLabel') }}：{{ formatMoney(item.unit_price, order.currency) }}</div>
-                <div>{{ t('orderDetail.totalPriceLabel') }}：{{ formatMoney(item.total_price, order.currency) }}</div>
-                <div v-if="hasDiscountAmount(item.coupon_discount_amount)">
-                  {{ t('orderDetail.couponDiscountLabel') }}：{{ formatMoney(item.coupon_discount_amount, order.currency)
-                  }}
-                </div>
-                <div v-if="hasDiscountAmount(item.promotion_discount_amount)">
-                  {{ t('orderDetail.promotionDiscountLabel') }}：{{ formatMoney(item.promotion_discount_amount,
-                  order.currency) }}
-                </div>
-                <div v-if="hasDiscountAmount(item.member_discount_amount)" class="text-amber-700 dark:text-amber-400">
-                  {{ t('orderDetail.memberDiscountLabel') }}：{{ formatMoney(item.member_discount_amount,
-                  order.currency) }}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div v-else class="text-sm theme-text-muted">{{ t('orderDetail.noItems') }}</div>
+          <OrderItemsList :items="order.items" :currency="order.currency" />
         </div>
 
         <section v-if="productContent" class="theme-panel border theme-border rounded-2xl p-5 sm:p-6">
@@ -215,10 +149,7 @@
                   <div class="text-xs theme-text-muted mt-1">{{ t('orderDetail.childOrderAmount') }}：{{
                     formatMoney(child.total_amount, child.currency || order.currency) }}</div>
                 </div>
-                <span class="theme-badge px-3 py-1 text-xs font-medium"
-                  :class="statusClass(child.status)">
-                  {{ statusLabel(child.status) }}
-                </span>
+                <OrderStatusBadge :status="child.status" />
               </div>
               <div class="mt-4">
                 <h3 class="text-sm font-semibold theme-text-primary mb-3">{{ t('orderDetail.childItemsTitle')
@@ -411,17 +342,27 @@ import { useRoute, useRouter } from 'vue-router'
 import { userOrderAPI } from '../api'
 import { useAppStore } from '../stores/app'
 import { useI18n } from 'vue-i18n'
-import { orderStatusClass, orderStatusLabel } from '../utils/status'
 import { fulfillmentStatusLabel, fulfillmentTypeLabel } from '../utils/fulfillment'
 import { debounceAsync } from '../utils/debounce'
 import { copyText } from '../utils/clipboard'
-import { amountToCents } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
-import { getImageUrl } from '../utils/image'
 import { processHtmlForDisplay } from '../utils/content'
+import {
+  formatDate,
+  formatMoney,
+  hasDiscountAmount,
+  hasAmount,
+  orderItemImage,
+  formatManualValue,
+  normalizeManualSnapshotFields,
+  fulfillmentDeliveryLines,
+  type ManualFormSnapshotField,
+} from '../utils/orderDisplay'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { toast } from '../composables/useToast'
 import { productAPI } from '../api'
+import OrderStatusBadge from '../components/order/OrderStatusBadge.vue'
+import OrderItemsList from '../components/order/OrderItemsList.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -580,90 +521,14 @@ const cancelOrder = async () => {
   }
 }
 
-const statusLabel = (status: string) => orderStatusLabel(t, status)
-
 const fulfillmentTypeLabelText = (type: string) => fulfillmentTypeLabel(t, type, 'orderDetail')
 
 const fulfillmentStatusLabelText = (status: string) => fulfillmentStatusLabel(t, status, 'orderDetail')
-
-const statusClass = (status: string) => orderStatusClass(status)
-
-const formatDate = (raw?: string) => {
-  if (!raw) return ''
-  const date = new Date(raw)
-  if (Number.isNaN(date.getTime())) return raw
-  return date.toLocaleString()
-}
 
 const getLocalizedText = (jsonData: any) => {
   if (!jsonData) return ''
   const locale = appStore.locale
   return jsonData[locale] || jsonData['zh-CN'] || jsonData['en-US'] || ''
-}
-
-const orderItemImage = (item: any) => {
-  const snapshot = item?.sku_snapshot
-  if (!snapshot || typeof snapshot !== 'object') return ''
-  const rawImage = String(snapshot.image || '').trim()
-  if (!rawImage) return ''
-  return getImageUrl(rawImage)
-}
-
-const formatMoney = (amount?: string, currency?: string) => {
-  if (amount === null || amount === undefined || amount === '') return '-'
-  if (currency === null || currency === undefined || currency === '') {
-    return String(amount)
-  }
-  return `${amount} ${currency}`
-}
-
-const hasDiscountAmount = (amount?: string) => {
-  if (amount === null || amount === undefined || amount === '') return false
-  const valueCents = amountToCents(amount)
-  return valueCents !== null && valueCents > 0
-}
-
-const hasAmount = (amount?: string) => {
-  if (amount === null || amount === undefined || amount === '') return false
-  const valueCents = amountToCents(amount)
-  return valueCents !== null && valueCents > 0
-}
-
-const formatManualValue = (value: unknown) => {
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item)).join(', ')
-  }
-  if (value === null || value === undefined) {
-    return '-'
-  }
-  if (typeof value === 'object') {
-    try {
-      return JSON.stringify(value)
-    } catch {
-      return String(value)
-    }
-  }
-  return String(value)
-}
-
-interface ManualFormSnapshotField {
-  key: string
-  label?: Record<string, string> | string
-}
-
-const normalizeManualSnapshotFields = (schemaSnapshot: any): ManualFormSnapshotField[] => {
-  if (!schemaSnapshot || typeof schemaSnapshot !== 'object') return []
-  const rawFields = Array.isArray(schemaSnapshot.fields) ? schemaSnapshot.fields : []
-  return rawFields
-    .map((field: any) => {
-      const key = String(field?.key || '').trim()
-      if (!key) return null
-      return {
-        key,
-        label: field?.label,
-      } as ManualFormSnapshotField
-    })
-    .filter(Boolean) as ManualFormSnapshotField[]
 }
 
 const resolveManualFieldLabel = (field: ManualFormSnapshotField) => {
@@ -709,33 +574,6 @@ const orderItemSkuText = (item: any) => {
     locale: appStore.locale,
     fallback: t('productDetail.skuFallback'),
   })
-}
-
-const fulfillmentDeliveryLines = (fulfillment: any) => {
-  const deliveryData = fulfillment?.delivery_data || fulfillment?.logistics
-  const lines: string[] = []
-  if (deliveryData && typeof deliveryData === 'object') {
-    const note = String(deliveryData.note || '').trim()
-    if (note) {
-      lines.push(note)
-    }
-    const entries = Array.isArray(deliveryData.entries) ? deliveryData.entries : []
-    entries.forEach((entry: any) => {
-      const key = String(entry?.key || '').trim()
-      const value = String(entry?.value || '').trim()
-      if (!key && !value) {
-        return
-      }
-      if (!key) {
-        lines.push(value)
-      } else if (!value) {
-        lines.push(key)
-      } else {
-        lines.push(`${key}: ${value}`)
-      }
-    })
-  }
-  return lines
 }
 
 onMounted(() => {
