@@ -1172,7 +1172,7 @@ useHead({
 }
 
 .hero-visual-image-dark {
-  background-image: url('/images/tools/codex-auth-hero-dark-v2.webp');
+  background-image: url('/images/tools/codex-auth-hero-dark-v3.webp');
   opacity: 1;
   filter: saturate(1.08) contrast(1.08) brightness(0.96);
 }
