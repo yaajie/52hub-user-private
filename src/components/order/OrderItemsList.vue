@@ -1,7 +1,8 @@
 <template>
-  <div v-if="items && items.length > 0" class="space-y-4">
+  <div v-if="items && items.length > 0" :class="variant === 'compact' ? 'space-y-3' : 'space-y-4'">
     <div v-for="(item, idx) in items" :key="idx"
-      class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3">
+      class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3"
+      :class="variant === 'compact' ? 'text-sm theme-text-muted' : ''">
       <div class="flex min-w-0 items-start gap-3">
         <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-16 sm:w-16">
           <img
@@ -80,7 +81,9 @@ import {
   type ManualFormSnapshotField,
 } from '../../utils/orderDisplay'
 
-defineProps<{ items: any[]; currency?: string }>()
+withDefaults(defineProps<{ items: any[]; currency?: string; variant?: 'standard' | 'compact' }>(), {
+  variant: 'standard',
+})
 
 const appStore = useAppStore()
 const { t } = useI18n()

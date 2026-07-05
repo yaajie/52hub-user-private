@@ -137,181 +137,22 @@
           <article class="prose prose-sm dark:prose-invert max-w-none theme-text-secondary" v-html="productContent"></article>
         </section>
 
-        <div v-if="order.children && order.children.length > 0"
-          class="theme-panel rounded-2xl p-6">
-          <h2 class="text-lg font-bold mb-4">{{ t('orderDetail.childOrdersTitle') }}</h2>
-          <div class="space-y-4">
-            <div v-for="child in order.children" :key="child.id"
-              class="theme-surface-soft border rounded-2xl p-4">
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <div>
-                  <div class="text-sm theme-text-muted">{{ t('orderDetail.childOrderNo') }}：{{ child.order_no }}</div>
-                  <div class="text-xs theme-text-muted mt-1">{{ t('orderDetail.childOrderAmount') }}：{{
-                    formatMoney(child.total_amount, child.currency || order.currency) }}</div>
-                </div>
-                <OrderStatusBadge :status="child.status" />
-              </div>
-              <div class="mt-4">
-                <h3 class="text-sm font-semibold theme-text-primary mb-3">{{ t('orderDetail.childItemsTitle')
-                  }}</h3>
-                <div v-if="child.items && child.items.length" class="space-y-3">
-                  <div v-for="(item, cidx) in child.items" :key="cidx"
-                    class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 border-b theme-border pb-3 text-sm theme-text-muted">
-                    <div class="flex min-w-0 items-start gap-3">
-                      <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl border theme-panel transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm sm:h-16 sm:w-16">
-                        <img
-                          v-if="orderItemImage(item)"
-                          :src="orderItemImage(item)"
-                          :alt="getLocalizedText(item.title)"
-                          loading="lazy"
-                          decoding="async"
-                          class="h-full w-full object-cover"
-                        />
-                        <div v-else class="flex h-full w-full items-center justify-center theme-text-muted">
-                          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div class="min-w-0">
-                        <div class="theme-text-primary font-medium">{{ getLocalizedText(item.title) }}</div>
-                        <div class="text-xs theme-text-muted">{{ t('orderDetail.quantityLabel') }}：{{ item.quantity }}</div>
-                        <div v-if="orderItemSkuText(item)" class="text-xs theme-text-muted mt-1">{{ t('orderDetail.itemSkuLabel') }}：{{ orderItemSkuText(item) }}</div>
-                        <div class="text-xs theme-text-muted mt-1">
-                          {{ t('orderDetail.itemFulfillmentLabel') }}：{{ fulfillmentTypeLabelText(item.fulfillment_type) }}
-                        </div>
-                        <div v-if="item.tags && item.tags.length" class="mt-2 flex flex-wrap gap-2">
-                          <span v-for="(tag, index) in item.tags" :key="index"
-                            class="px-2 py-0.5 text-[11px] rounded-full theme-surface-muted border theme-text-muted">
-                            {{ tag }}
-                          </span>
-                        </div>
-                        <div v-if="manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot).length"
-                          class="mt-3 rounded-xl border theme-panel p-3 text-xs theme-text-secondary">
-                          <div class="mb-2 font-semibold theme-text-secondary">{{ t('orderDetail.manualSubmissionTitle') }}</div>
-                          <div v-for="row in manualSubmissionRows(item.manual_form_submission, item.manual_form_schema_snapshot)" :key="row.key" class="mb-1 last:mb-0">
-                            <span class="theme-text-primary">{{ row.label }}</span>：{{ row.value }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="shrink-0 pl-[4.25rem] sm:pl-0 text-left sm:text-right text-sm theme-text-muted space-y-1">
-                      <div>{{ t('orderDetail.unitPriceLabel') }}：{{ formatMoney(item.unit_price, order.currency) }}
-                      </div>
-                      <div>{{ t('orderDetail.totalPriceLabel') }}：{{ formatMoney(item.total_price, order.currency) }}
-                      </div>
-                      <div v-if="hasDiscountAmount(item.coupon_discount_amount)">
-                        {{ t('orderDetail.couponDiscountLabel') }}：{{ formatMoney(item.coupon_discount_amount,
-                        order.currency) }}
-                      </div>
-                      <div v-if="hasDiscountAmount(item.promotion_discount_amount)">
-                        {{ t('orderDetail.promotionDiscountLabel') }}：{{ formatMoney(item.promotion_discount_amount,
-                        order.currency) }}
-                      </div>
-                      <div v-if="hasDiscountAmount(item.member_discount_amount)" class="text-amber-700 dark:text-amber-400">
-                        {{ t('orderDetail.memberDiscountLabel') }}：{{ formatMoney(item.member_discount_amount,
-                        order.currency) }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-else class="text-sm theme-text-muted">{{ t('orderDetail.noItems') }}</div>
-              </div>
-              <div class="mt-4">
-                <div class="flex items-center justify-between mb-3">
-                  <h3 class="text-sm font-semibold theme-text-primary">{{
-                    t('orderDetail.childFulfillmentTitle') }}</h3>
-                  <button v-if="child.fulfillment?.status === 'delivered'"
-                    class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg transition-colors shadow-sm"
-                    :class="fulfillmentCopied ? 'bg-[var(--ui-success)] text-white' : 'theme-btn-primary'"
-                    @click="handleCopyFulfillment(child.fulfillment)">
-                    <svg v-if="!fulfillmentCopied" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    <svg v-else class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                    {{ fulfillmentCopied ? t('orderDetail.fulfillmentCopied') : t('orderDetail.fulfillmentCopy') }}
-                  </button>
-                </div>
-                <div v-if="child.fulfillment">
-                  <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentType') }}：{{
-                    fulfillmentTypeLabelText(child.fulfillment.type) }}</div>
-                  <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentStatus') }}：{{
-                    fulfillmentStatusLabelText(child.fulfillment.status) }}</div>
-                  <div v-if="isFulfillmentTruncated(child.fulfillment)" class="mt-3">
-                    <div class="flex items-center justify-between mb-2">
-                      <span class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentTotalLines', { count: child.fulfillment.payload_line_count }) }}</span>
-                      <button class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg theme-btn-primary transition-colors shadow-sm disabled:opacity-50"
-                        :disabled="fulfillmentDownloading"
-                        @click="handleDownloadFulfillment(child.order_no || order.order_no)">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                        {{ fulfillmentDownloading ? t('orderDetail.fulfillmentDownloading') : t('orderDetail.fulfillmentDownload') }}
-                      </button>
-                    </div>
-                    <div class="mb-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
-                      {{ t('orderDetail.fulfillmentTruncatedHint') }}
-                    </div>
-                    <div class="theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden max-h-48 overflow-y-auto">{{ child.fulfillment.payload }}</div>
-                  </div>
-                  <div v-else-if="fulfillmentDeliveryLines(child.fulfillment).length"
-                    class="mt-3 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary space-y-1 break-all overflow-hidden">
-                    <div v-for="(line, index) in fulfillmentDeliveryLines(child.fulfillment)" :key="`child-fulfillment-${child.id}-${index}`">{{ line }}</div>
-                  </div>
-                  <div v-else-if="child.fulfillment.payload"
-                    class="mt-3 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden">
-                    {{ child.fulfillment.payload }}
-                  </div>
-                </div>
-                <div v-else class="text-sm theme-text-muted">{{ t('orderDetail.childFulfillmentEmpty') }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ChildOrdersSection v-if="order.children && order.children.length > 0"
+          :children="order.children"
+          :parent-currency="order.currency"
+          :parent-order-no="order.order_no"
+          :fulfillment-copied="fulfillmentCopied"
+          :fulfillment-downloading="fulfillmentDownloading"
+          @copy-fulfillment="handleCopyFulfillment"
+          @download-fulfillment="handleDownloadFulfillment" />
 
-        <div v-if="order.fulfillment"
-          class="theme-panel rounded-2xl p-6">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold">{{ t('orderDetail.fulfillmentTitle') }}</h2>
-            <div class="flex items-center gap-2">
-              <button v-if="isFulfillmentTruncated(order.fulfillment)"
-                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg theme-btn-primary transition-colors shadow-sm disabled:opacity-50"
-                :disabled="fulfillmentDownloading"
-                @click="handleDownloadFulfillment(order.order_no)">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>
-                {{ fulfillmentDownloading ? t('orderDetail.fulfillmentDownloading') : t('orderDetail.fulfillmentDownload') }}
-              </button>
-              <button v-if="order.fulfillment.status === 'delivered' && !isFulfillmentTruncated(order.fulfillment)"
-                class="inline-flex items-center gap-1 text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm"
-                :class="fulfillmentCopied ? 'bg-[var(--ui-success)] text-white' : 'theme-btn-primary'"
-                @click="handleCopyFulfillment(order.fulfillment)">
-                <svg v-if="!fulfillmentCopied" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                {{ fulfillmentCopied ? t('orderDetail.fulfillmentCopied') : t('orderDetail.fulfillmentCopy') }}
-              </button>
-            </div>
-          </div>
-          <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentType') }}：{{
-            fulfillmentTypeLabelText(order.fulfillment.type) }}</div>
-          <div class="text-sm theme-text-muted">{{ t('orderDetail.fulfillmentStatus') }}：{{
-            fulfillmentStatusLabelText(order.fulfillment.status) }}</div>
-          <div v-if="isFulfillmentTruncated(order.fulfillment)" class="mt-4">
-            <div class="text-sm theme-text-muted mb-2">{{ t('orderDetail.fulfillmentTotalLines', { count: order.fulfillment.payload_line_count }) }}</div>
-            <div class="mb-2 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
-              {{ t('orderDetail.fulfillmentTruncatedHint') }}
-            </div>
-            <div class="theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden max-h-64 overflow-y-auto">{{ order.fulfillment.payload }}</div>
-          </div>
-          <div v-else-if="fulfillmentDeliveryLines(order.fulfillment).length"
-            class="mt-4 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary space-y-1 break-all overflow-hidden">
-            <div v-for="(line, index) in fulfillmentDeliveryLines(order.fulfillment)" :key="`fulfillment-${order.order_no || 'order'}-${index}`">{{ line }}</div>
-          </div>
-          <div v-else
-            class="mt-4 theme-surface-soft border rounded-xl p-4 text-sm theme-text-secondary whitespace-pre-wrap break-all overflow-hidden">
-            {{ order.fulfillment.payload }}
-          </div>
-        </div>
+        <FulfillmentCard v-if="order.fulfillment"
+          :fulfillment="order.fulfillment"
+          :order-no="order.order_no"
+          :copied="fulfillmentCopied"
+          :downloading="fulfillmentDownloading"
+          @copy="handleCopyFulfillment"
+          @download="handleDownloadFulfillment" />
 
         <section v-if="deliveryInstructionSections.length" class="theme-panel border theme-border rounded-2xl p-5 sm:p-6">
           <h3 class="text-base font-semibold theme-text-primary mb-3 flex items-center gap-2">
@@ -342,27 +183,23 @@ import { useRoute, useRouter } from 'vue-router'
 import { userOrderAPI } from '../api'
 import { useAppStore } from '../stores/app'
 import { useI18n } from 'vue-i18n'
-import { fulfillmentStatusLabel, fulfillmentTypeLabel } from '../utils/fulfillment'
 import { debounceAsync } from '../utils/debounce'
 import { copyText } from '../utils/clipboard'
-import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { processHtmlForDisplay } from '../utils/content'
 import {
   formatDate,
   formatMoney,
   hasDiscountAmount,
   hasAmount,
-  orderItemImage,
-  formatManualValue,
-  normalizeManualSnapshotFields,
   fulfillmentDeliveryLines,
-  type ManualFormSnapshotField,
 } from '../utils/orderDisplay'
 import { useConfirmDialog } from '../composables/useConfirmDialog'
 import { toast } from '../composables/useToast'
 import { productAPI } from '../api'
 import OrderStatusBadge from '../components/order/OrderStatusBadge.vue'
 import OrderItemsList from '../components/order/OrderItemsList.vue'
+import FulfillmentCard from '../components/order/FulfillmentCard.vue'
+import ChildOrdersSection from '../components/order/ChildOrdersSection.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -376,10 +213,6 @@ const fulfillmentCopied = ref(false)
 let fulfillmentCopiedTimer: ReturnType<typeof setTimeout> | null = null
 
 const fulfillmentDownloading = ref(false)
-
-const isFulfillmentTruncated = (fulfillment: any) => {
-  return fulfillment?.payload_line_count > 100
-}
 
 const handleDownloadFulfillment = async (orderNo: string) => {
   if (fulfillmentDownloading.value) return
@@ -521,59 +354,10 @@ const cancelOrder = async () => {
   }
 }
 
-const fulfillmentTypeLabelText = (type: string) => fulfillmentTypeLabel(t, type, 'orderDetail')
-
-const fulfillmentStatusLabelText = (status: string) => fulfillmentStatusLabel(t, status, 'orderDetail')
-
 const getLocalizedText = (jsonData: any) => {
   if (!jsonData) return ''
   const locale = appStore.locale
   return jsonData[locale] || jsonData['zh-CN'] || jsonData['en-US'] || ''
-}
-
-const resolveManualFieldLabel = (field: ManualFormSnapshotField) => {
-  if (typeof field.label === 'string' && field.label.trim()) return field.label.trim()
-  if (field.label && typeof field.label === 'object') {
-    const localized = getLocalizedText(field.label)
-    if (localized) return localized
-  }
-  return field.key
-}
-
-const manualSubmissionRows = (submission: any, schemaSnapshot?: any) => {
-  if (!submission || typeof submission !== 'object') return []
-  const entries = Object.entries(submission).filter(([key]) => String(key).trim() !== '')
-  if (entries.length === 0) return []
-
-  const valueMap = new Map(entries.map(([key, value]) => [String(key), value] as const))
-  const rows: Array<{ key: string; label: string; value: string }> = []
-
-  normalizeManualSnapshotFields(schemaSnapshot).forEach((field) => {
-    if (!valueMap.has(field.key)) return
-    rows.push({
-      key: field.key,
-      label: resolveManualFieldLabel(field),
-      value: formatManualValue(valueMap.get(field.key)),
-    })
-    valueMap.delete(field.key)
-  })
-
-  valueMap.forEach((value, key) => {
-    rows.push({
-      key,
-      label: key,
-      value: formatManualValue(value),
-    })
-  })
-
-  return rows
-}
-
-const orderItemSkuText = (item: any) => {
-  return buildSkuDisplayTextFromSnapshot(item?.sku_snapshot, {
-    locale: appStore.locale,
-    fallback: t('productDetail.skuFallback'),
-  })
 }
 
 onMounted(() => {
