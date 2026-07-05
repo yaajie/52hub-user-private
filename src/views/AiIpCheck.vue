@@ -1793,7 +1793,7 @@ useHead({
     overflow-wrap: anywhere;
   }
 
-  .hero-copy p {
+  .hero-copy > p:first-of-type {
     display: none;
   }
 
