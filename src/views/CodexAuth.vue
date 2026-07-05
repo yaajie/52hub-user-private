@@ -905,7 +905,7 @@ useHead({
     { property: 'og:description', content: '解决登录 Codex 时卡在海外手机号码验证的问题，减少找接码、等验证码的麻烦；页面本地转换 auth.json，不上传、不保存、不代管凭据。' },
     { property: 'og:url', content: 'https://aikaitong.com/tools/codex-auth' },
     { property: 'og:type', content: 'website' },
-    { property: 'og:image', content: 'https://aikaitong.com/images/tools/codex-auth-hero-light-v2.webp' },
+    { property: 'og:image', content: 'https://aikaitong.com/images/tools/codex-auth-hero-dark-v3.webp' },
   ],
   link: [
     { rel: 'canonical', href: 'https://aikaitong.com/tools/codex-auth' },
