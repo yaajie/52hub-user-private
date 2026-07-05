@@ -470,16 +470,16 @@ const skuStockText = (sku: any) => {
 const skuStockBadgeClass = (sku: any) => {
   const available = skuAvailableStock(sku)
   if (available === null) return 'theme-border theme-text-secondary'
-  if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
-  if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
-  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
+  if (available <= 0) return 'border-[var(--ui-danger-soft)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)]'
+  if (available <= 5) return 'border-[var(--ui-warning-soft)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]'
+  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
 }
 
 const skuStockDotClass = (sku: any) => {
   const available = skuAvailableStock(sku)
   if (available === null) return 'bg-[var(--ui-text-muted)]'
-  if (available <= 0) return 'bg-rose-500 dark:bg-rose-400'
-  if (available <= 5) return 'bg-amber-500 dark:bg-amber-400'
+  if (available <= 0) return 'bg-[var(--ui-danger)]'
+  if (available <= 5) return 'bg-[var(--ui-warning)]'
   return 'bg-[var(--ui-success)]'
 }
 

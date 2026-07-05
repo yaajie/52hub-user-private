@@ -61,10 +61,10 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
   border-radius: 1.5rem;
   padding: 1.2rem;
   background:
-    radial-gradient(circle at 12% 0%, rgba(34, 211, 238, 0.18), transparent 15rem),
-    radial-gradient(circle at 100% 12%, rgba(16, 185, 129, 0.12), transparent 14rem),
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--ui-accent) 18%, transparent), transparent 15rem),
+    radial-gradient(circle at 100% 12%, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 14rem),
     color-mix(in srgb, var(--ui-bg-panel) 84%, transparent);
-  box-shadow: 0 26px 80px rgba(2, 132, 199, 0.14);
+  box-shadow: 0 26px 80px color-mix(in srgb, var(--ui-accent) 14%, transparent);
   backdrop-filter: blur(18px);
 }
 
@@ -74,8 +74,8 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--ui-accent) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ui-accent) 8%, transparent) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 76%);
 }
@@ -107,8 +107,8 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 999px;
-  background: #22d3ee;
-  box-shadow: 0 0 18px rgba(34, 211, 238, 0.74);
+  background: var(--ui-accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--ui-accent) 74%, transparent);
 }
 
 .owned-tools-panel__header {
@@ -162,7 +162,7 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
 
 .owned-tool--primary {
   min-height: 6.4rem;
-  border-color: color-mix(in srgb, #22d3ee 42%, var(--ui-border));
+  border-color: color-mix(in srgb, var(--ui-accent) 42%, var(--ui-border));
 }
 
 .owned-tool__icon {
@@ -182,9 +182,9 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
 }
 
 .owned-tool__icon--auth {
-  border: 1px solid color-mix(in srgb, #38bdf8 30%, var(--ui-border));
-  background: color-mix(in srgb, #0ea5e9 12%, transparent);
-  color: #38bdf8;
+  border: 1px solid color-mix(in srgb, var(--ui-accent) 30%, var(--ui-border));
+  background: color-mix(in srgb, var(--ui-accent) 12%, transparent);
+  color: var(--ui-accent);
 }
 
 .owned-tool__body {
@@ -216,8 +216,8 @@ import { CommandLineIcon, ShieldCheckIcon } from '@heroicons/vue/24/outline'
   min-width: 3.2rem;
   min-height: 2.2rem;
   border-radius: 999px;
-  color: #67e8f9;
-  background: rgba(8, 145, 178, 0.16);
+  color: var(--ui-accent);
+  background: color-mix(in srgb, var(--ui-accent) 16%, transparent);
   font-size: 0.78rem;
   font-weight: 800;
 }

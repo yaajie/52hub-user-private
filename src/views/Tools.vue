@@ -552,8 +552,8 @@ useHead({
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at top left, rgba(14, 165, 233, 0.13), transparent 34%),
-    linear-gradient(135deg, rgba(16, 185, 129, 0.08), transparent 48%);
+    radial-gradient(circle at top left, color-mix(in srgb, var(--ui-accent) 13%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--ui-accent) 8%, transparent), transparent 48%);
 }
 
 .tools-hero-copy::after {
@@ -562,7 +562,7 @@ useHead({
   inset: auto -10% -45%;
   height: 70%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.12), transparent 64%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 64%);
 }
 
 .tools-stat-chip {
@@ -588,7 +588,7 @@ useHead({
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(14, 165, 233, 0.06), transparent 46%),
+    linear-gradient(135deg, color-mix(in srgb, var(--ui-accent) 6%, transparent), transparent 46%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
 }
 
@@ -597,7 +597,7 @@ useHead({
   position: absolute;
   inset: 0 auto 0 0;
   width: 3px;
-  background: linear-gradient(180deg, rgb(14, 165, 233), rgb(16, 185, 129));
+  background: linear-gradient(180deg, var(--ui-accent), var(--ui-accent-hover));
 }
 
 .diagnostic-pill,
@@ -660,6 +660,6 @@ useHead({
 }
 
 .tool-card:hover::after {
-  background: linear-gradient(180deg, rgba(99, 102, 241, 0.8), rgba(168, 85, 247, 0.4));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ui-accent) 80%, transparent), color-mix(in srgb, var(--ui-accent-hover) 40%, transparent));
 }
 </style>

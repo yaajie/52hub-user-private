@@ -220,7 +220,7 @@ onMounted(async () => {
 <style scoped>
 .about-hero {
   background:
-    radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.16), transparent 28rem),
+    radial-gradient(circle at 10% 8%, color-mix(in srgb, var(--ui-accent) 16%, transparent), transparent 28rem),
     radial-gradient(circle at 92% 18%, rgba(242, 130, 15, 0.11), transparent 24rem),
     linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.7));
   box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
@@ -229,14 +229,14 @@ onMounted(async () => {
 .about-hero-grid {
   opacity: 0.18;
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.24) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.2) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--ui-accent) 24%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ui-accent) 20%, transparent) 1px, transparent 1px);
   background-size: 52px 52px;
   mask-image: linear-gradient(135deg, #000, transparent 76%);
 }
 
 .about-hero-tile {
-  border: 1px solid rgba(14, 165, 233, 0.16);
+  border: 1px solid color-mix(in srgb, var(--ui-accent) 16%, transparent);
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.66);
   padding: 1rem;
@@ -246,7 +246,7 @@ onMounted(async () => {
 
 .about-hero-tile span {
   display: block;
-  color: #0f766e;
+  color: var(--ui-accent);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.68rem;
   letter-spacing: 0.12em;
@@ -268,7 +268,7 @@ onMounted(async () => {
 
 :global(.dark .about-hero) {
   background:
-    radial-gradient(circle at 10% 8%, rgba(14, 165, 233, 0.12), transparent 28rem),
+    radial-gradient(circle at 10% 8%, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 28rem),
     radial-gradient(circle at 92% 18%, rgba(242, 130, 15, 0.08), transparent 24rem),
     linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(2, 6, 23, 0.58));
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
@@ -279,12 +279,12 @@ onMounted(async () => {
 }
 
 :global(.dark .about-hero-tile) {
-  border-color: rgba(125, 211, 252, 0.14);
+  border-color: color-mix(in srgb, var(--ui-accent) 14%, transparent);
   background: rgba(255, 255, 255, 0.07);
   box-shadow: none;
 }
 
 :global(.dark .about-hero-tile span) {
-  color: #67e8f9;
+  color: var(--ui-accent);
 }
 </style>

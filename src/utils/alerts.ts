@@ -7,9 +7,9 @@ export interface PageAlert {
 
 export const pageAlertClass = (level: PageAlertLevel) => {
   const classMap: Record<PageAlertLevel, string> = {
-    success: 'border-emerald-200 bg-emerald-50 text-emerald-600 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200',
-    error: 'border-red-200 bg-red-50 text-red-500 dark:border-red-500/20 dark:bg-red-500/10',
-    warning: 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200',
+    success: 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]',
+    error: 'border-[var(--ui-danger-soft)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)]',
+    warning: 'border-[var(--ui-warning-soft)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]',
   }
   return classMap[level]
 }

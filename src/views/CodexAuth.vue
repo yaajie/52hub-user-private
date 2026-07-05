@@ -89,8 +89,8 @@
           <div class="visual-console absolute inset-x-4 bottom-4 rounded-2xl p-4 backdrop-blur-md">
             <div class="mb-3 flex items-center justify-between gap-3">
               <div class="flex items-center gap-2">
-                <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
-                <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-danger)]"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-warning)]"></span>
                 <span class="h-2.5 w-2.5 rounded-full bg-[var(--ui-success)]"></span>
               </div>
               <span class="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-amber-100/70">browser only</span>
@@ -932,7 +932,7 @@ useHead({
   inset: 0;
   background:
     radial-gradient(circle at 13% 8%, color-mix(in oklab, var(--ui-accent) 18%, transparent), transparent 28rem),
-    radial-gradient(circle at 86% 16%, rgba(20, 184, 166, 0.16), transparent 30rem),
+    radial-gradient(circle at 86% 16%, color-mix(in srgb, var(--ui-accent) 16%, transparent), transparent 30rem),
     radial-gradient(circle at 56% 104%, rgba(217, 119, 6, 0.12), transparent 28rem);
 }
 
@@ -983,7 +983,7 @@ useHead({
 .hero-copy-panel {
   background:
     radial-gradient(circle at 16% 0%, color-mix(in oklab, var(--ui-accent-soft) 78%, transparent), transparent 20rem),
-    radial-gradient(circle at 84% 16%, rgba(20, 184, 166, 0.12), transparent 18rem),
+    radial-gradient(circle at 84% 16%, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 18rem),
     color-mix(in oklab, var(--ui-bg-elevated) 94%, transparent);
 }
 
@@ -1052,7 +1052,7 @@ useHead({
 .flow-rail::after {
   right: auto;
   width: var(--flow-progress);
-  background: linear-gradient(90deg, var(--ui-accent), #14b8a6, #d97706);
+  background: linear-gradient(90deg, var(--ui-accent), var(--ui-accent-hover), #d97706);
   box-shadow: 0 0 18px color-mix(in oklab, var(--ui-accent) 50%, transparent);
   transition: width 260ms ease;
 }
@@ -1145,7 +1145,7 @@ useHead({
   --hero-pointer-alpha: 0.58;
   background:
     radial-gradient(circle at 72% 24%, rgba(242, 130, 15, 0.14), transparent 34%),
-    radial-gradient(circle at 24% 78%, rgba(16, 185, 129, 0.1), transparent 32%),
+    radial-gradient(circle at 24% 78%, color-mix(in srgb, var(--ui-accent) 10%, transparent), transparent 32%),
     linear-gradient(180deg, rgba(248, 250, 252, 0.18), rgba(255, 255, 255, 0));
   cursor: crosshair;
 }
@@ -1183,7 +1183,7 @@ useHead({
   pointer-events: none;
   opacity: calc(var(--hero-pointer-alpha) * 0.62);
   background:
-    radial-gradient(circle at var(--hero-pointer-x) var(--hero-pointer-y), rgba(125, 211, 252, 0.34), transparent 14rem),
+    radial-gradient(circle at var(--hero-pointer-x) var(--hero-pointer-y), color-mix(in srgb, var(--ui-accent) 34%, transparent), transparent 14rem),
     radial-gradient(circle at calc(var(--hero-pointer-x) + 8%) calc(var(--hero-pointer-y) + 10%), rgba(242, 130, 15, 0.18), transparent 16rem);
   mix-blend-mode: screen;
   transition: opacity 180ms ease;
@@ -1192,7 +1192,7 @@ useHead({
 .visual-orbit {
   position: absolute;
   pointer-events: none;
-  border: 1px solid rgba(125, 211, 252, 0.2);
+  border: 1px solid color-mix(in srgb, var(--ui-accent) 20%, transparent);
   border-radius: 999px;
   opacity: 0.45;
   transform: rotate(-8deg);
@@ -1233,8 +1233,8 @@ useHead({
   inset: 0;
   opacity: 0.13;
   background-image:
-    linear-gradient(rgba(125, 211, 252, 0.22) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 211, 252, 0.18) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--ui-accent) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ui-accent) 18%, transparent) 1px, transparent 1px);
   background-size: 42px 42px;
   mask-image: linear-gradient(180deg, transparent, #000 20%, #000 78%, transparent);
 }
@@ -1249,13 +1249,13 @@ useHead({
   top: 0;
   height: 100%;
   width: 34%;
-  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.12), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent);
   transform: skewX(-14deg);
   animation: codex-auth-scan 4.8s ease-in-out infinite;
 }
 
 .scan-beam-dark {
-  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.22), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ui-accent) 22%, transparent), transparent);
 }
 
 .visual-chip {
@@ -1323,19 +1323,19 @@ useHead({
 }
 
 .signal-ok .signal-led {
-  background: #34d399;
-  box-shadow: 0 0 18px rgba(52, 211, 153, 0.68);
+  background: var(--ui-success);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--ui-success) 68%, transparent);
 }
 
 .signal-warn .signal-led,
 .signal-active .signal-led {
-  background: #fbbf24;
-  box-shadow: 0 0 18px rgba(251, 191, 36, 0.5);
+  background: var(--ui-warning);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--ui-warning) 50%, transparent);
 }
 
 .signal-error .signal-led {
-  background: #fb7185;
-  box-shadow: 0 0 18px rgba(251, 113, 133, 0.58);
+  background: var(--ui-danger);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--ui-danger) 58%, transparent);
 }
 
 .terminal-line {
@@ -1358,7 +1358,7 @@ useHead({
 :global(.dark .visual-panel) {
   background:
     radial-gradient(circle at 72% 24%, rgba(242, 130, 15, 0.22), transparent 34%),
-    radial-gradient(circle at 24% 78%, rgba(16, 185, 129, 0.14), transparent 32%),
+    radial-gradient(circle at 24% 78%, color-mix(in srgb, var(--ui-accent) 14%, transparent), transparent 32%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0));
 }
 
@@ -1368,28 +1368,28 @@ useHead({
 }
 
 :global(.dark .visual-chip) {
-  border-color: rgba(125, 211, 252, 0.22);
+  border-color: color-mix(in srgb, var(--ui-accent) 22%, transparent);
   background: rgba(2, 6, 23, 0.58);
-  color: rgba(224, 242, 254, 0.92);
+  color: rgba(248, 250, 252, 0.92);
   box-shadow: 0 18px 44px rgba(2, 6, 23, 0.32);
 }
 
 :global(.dark .visual-console) {
-  border-color: rgba(125, 211, 252, 0.2);
+  border-color: color-mix(in srgb, var(--ui-accent) 20%, transparent);
   background: rgba(15, 23, 42, 0.68);
   box-shadow: 0 24px 72px rgba(0, 0, 0, 0.34);
   color: rgba(226, 232, 240, 0.92);
 }
 
 :global(.dark .signal-row) {
-  border-color: rgba(125, 211, 252, 0.16);
+  border-color: color-mix(in srgb, var(--ui-accent) 16%, transparent);
   background: rgba(2, 6, 23, 0.58);
   color: rgba(226, 232, 240, 0.78);
   box-shadow: 0 18px 44px rgba(2, 6, 23, 0.26);
 }
 
 :global(.dark .signal-row:hover) {
-  border-color: rgba(125, 211, 252, 0.32);
+  border-color: color-mix(in srgb, var(--ui-accent) 32%, transparent);
   background: rgba(2, 6, 23, 0.68);
 }
 
@@ -1915,7 +1915,7 @@ useHead({
 
 .action-button.primary {
   border: 1px solid rgba(242, 130, 15, 0.55);
-  background: linear-gradient(135deg, rgba(242, 130, 15, 0.9), rgba(59, 130, 246, 0.92));
+  background: linear-gradient(135deg, var(--ui-accent), var(--ui-accent-hover));
   color: white;
 }
 
@@ -2037,7 +2037,7 @@ useHead({
 
 @keyframes codex-auth-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 4px var(--ui-bg-elevated), 0 0 0 rgba(10, 132, 255, 0);
+    box-shadow: 0 0 0 4px var(--ui-bg-elevated), 0 0 0 transparent;
     transform: scale(1);
   }
   50% {
@@ -2107,7 +2107,7 @@ useHead({
   .codex-auth-page::before {
     background:
       radial-gradient(circle at 20% 2%, color-mix(in oklab, var(--ui-accent) 16%, transparent), transparent 19rem),
-      radial-gradient(circle at 90% 34%, rgba(20, 184, 166, 0.12), transparent 17rem);
+      radial-gradient(circle at 90% 34%, color-mix(in srgb, var(--ui-accent) 12%, transparent), transparent 17rem);
   }
 
   .codex-title {

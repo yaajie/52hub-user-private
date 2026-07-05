@@ -166,7 +166,7 @@ const route = useRoute()
 const SITE_ORIGIN = 'https://aikaitong.com'
 const hubVisualStyle = computed(() => ({
   '--hub-accent': props.accent,
-  '--hub-gradient': props.accentGradient || `linear-gradient(135deg, ${props.accent}, rgba(14, 165, 233, 0.55))`,
+  '--hub-gradient': props.accentGradient || `linear-gradient(135deg, ${props.accent}, var(--ui-accent-hover))`,
 }))
 
 // Breadcrumb Schema：首页 → 当前 hub

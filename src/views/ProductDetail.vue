@@ -255,8 +255,8 @@
                     {{ t('products.promotionRulesTitle') }}
                   </h2>
                   <ul class="space-y-1">
-                    <li v-for="rule in getPromotionRules(product)" :key="rule.id" class="text-sm text-orange-600 dark:text-orange-300/90 flex items-center gap-1.5">
-                      <span class="w-1 h-1 rounded-full bg-orange-400 dark:bg-orange-500 shrink-0"></span>
+                    <li v-for="rule in getPromotionRules(product)" :key="rule.id" class="text-sm text-[var(--ui-accent)] flex items-center gap-1.5">
+                      <span class="w-1 h-1 rounded-full bg-[var(--ui-accent)] shrink-0"></span>
                       <span>{{ formatPromotionRule(rule) }}</span>
                     </li>
                   </ul>
@@ -608,9 +608,9 @@ const skuStockText = (sku: ProductSKU): string => {
 const skuStockBadgeClass = (sku: ProductSKU): string => {
   const available = skuAvailableStock(sku)
   if (available === null) return 'theme-border theme-text-secondary'
-  if (available <= 0) return 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/30 dark:text-rose-300'
-  if (available <= 5) return 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
-  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)] border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
+  if (available <= 0) return 'border-[var(--ui-danger-soft)] bg-[var(--ui-danger-soft)] text-[var(--ui-danger)]'
+  if (available <= 5) return 'border-[var(--ui-warning-soft)] bg-[var(--ui-warning-soft)] text-[var(--ui-warning)]'
+  return 'border-[var(--ui-success-soft)] bg-[var(--ui-success-soft)] text-[var(--ui-success)]'
 }
 
 const quantityEffectiveLimit = computed(() => {
