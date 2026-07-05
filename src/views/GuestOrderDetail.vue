@@ -51,7 +51,7 @@
         <p class="theme-text-muted">{{ t('guestOrderDetail.notFound') }}</p>
       </div>
 
-      <div v-else class="space-y-6">
+      <div v-else-if="order" class="space-y-6">
         <div class="theme-panel rounded-2xl p-6">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
