@@ -66,7 +66,7 @@
           </div>
           <h2 class="text-xl font-bold theme-text-primary">{{ paymentResultTitle }}</h2>
           <p class="mt-2 text-sm theme-text-muted">
-            {{ isPayLinkInteractionMode(interactionMode) ? t('payment.redirectCompactTip') : paymentGuideTip }}
+            {{ showQRCode ? paymentGuideTip : t('payment.redirectCompactTip') }}
           </p>
           <div class="mt-3 text-xs theme-text-muted">
             {{ t('payment.orderNo') }}：{{ order.order_no }} · {{ t('payment.methodLabel') }}：{{ resultChannelName }}
@@ -439,7 +439,7 @@ import { copyText } from '../utils/clipboard'
 import { amountToCents, basisPointsToPercent, calculateFeeCents, centsToAmount, rateToBasisPoints } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { loadGuestAuth, saveGuestAuth } from '../utils/guestAuth'
-import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
+import { filterPaymentChannelsForDevice, isMobilePaymentClient } from '../utils/paymentChannels'
 import PaymentChannelSelector from '../components/payment/PaymentChannelSelector.vue'
 import QRCode from 'qrcode'
 import { pageAlertClass, type PageAlert } from '../utils/alerts'
@@ -598,12 +598,27 @@ const interactionLabel = computed(() => {
 
 const interactionMode = computed(() => String(paymentResult.value?.interaction_mode || '').toLowerCase())
 const isPayLinkInteractionMode = (mode?: unknown) => ['redirect', 'page', 'wap'].includes(String(mode || '').toLowerCase())
-const paymentResultTitle = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.resultRedirectTitle') : t('payment.resultTitle'))
-const paymentGuideTitle = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.redirectTitle') : t('payment.qrTitle'))
-const paymentGuideTip = computed(() => isPayLinkInteractionMode(interactionMode.value) ? t('payment.redirectTip') : t('payment.qrTip'))
+const paymentProviderType = computed(() => String(
+  paymentResult.value?.provider_type || resultChannel.value?.provider_type || ''
+).trim().toLowerCase())
+const paymentChannelType = computed(() => String(
+  paymentResult.value?.channel_type || resultChannel.value?.channel_type || ''
+).trim().toLowerCase())
+const presentPaymentAsQRCode = computed(() => (
+  interactionMode.value === 'qr' ||
+  (
+    interactionMode.value === 'wap' &&
+    paymentProviderType.value === 'official' &&
+    paymentChannelType.value === 'alipay' &&
+    !isMobilePaymentClient()
+  )
+))
+const paymentResultTitle = computed(() => presentPaymentAsQRCode.value ? t('payment.resultTitle') : t('payment.resultRedirectTitle'))
+const paymentGuideTitle = computed(() => presentPaymentAsQRCode.value ? t('payment.qrTitle') : t('payment.redirectTitle'))
+const paymentGuideTip = computed(() => presentPaymentAsQRCode.value ? t('payment.qrTip') : t('payment.redirectTip'))
 
 const showPayLink = computed(() => {
-  return isPayLinkInteractionMode(interactionMode.value) || Boolean(payLink.value)
+  return !presentPaymentAsQRCode.value && (isPayLinkInteractionMode(interactionMode.value) || Boolean(payLink.value))
 })
 const isTelegramMiniApp = computed(() => telegramMiniAppStore.isMiniApp && telegramMiniAppStore.isReady)
 const showTelegramPayHint = computed(() => isTelegramMiniApp.value && Boolean(payLink.value))
@@ -614,13 +629,13 @@ const payLinkOpenedTip = computed(() => (
 const payLink = computed(() => String(paymentResult.value?.pay_url || '').trim())
 const qrCodeContent = computed(() => String(paymentResult.value?.qr_code || '').trim())
 const qrFallbackContent = computed(() => {
-  if (interactionMode.value !== 'qr') return ''
+  if (!presentPaymentAsQRCode.value) return ''
   if (qrCodeContent.value) return ''
   return payLink.value
 })
 const qrDisplayContent = computed(() => qrCodeContent.value || qrFallbackContent.value)
 const qrUsingPayLinkFallback = computed(() => Boolean(!qrCodeContent.value && qrFallbackContent.value))
-const showQRCode = computed(() => interactionMode.value === 'qr' && Boolean(qrDisplayContent.value))
+const showQRCode = computed(() => presentPaymentAsQRCode.value && Boolean(qrDisplayContent.value))
 
 const qrImageUrl = ref('')
 const qrRenderVersion = ref(0)
@@ -1062,6 +1077,7 @@ const openPayLinkInCompatibleWindow = (replaceCurrentPage = false) => {
 
 const autoOpenPayLink = (mode?: unknown) => {
   if (!payLink.value || !isPayLinkInteractionMode(mode)) return
+  if (presentPaymentAsQRCode.value) return
   openPayLinkInCompatibleWindow(true)
 }
 
