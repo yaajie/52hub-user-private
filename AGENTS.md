@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新业务代码 commit：`c8a5a91 chore(verify): rotate WeChat domain verification file`（新增微信验证文件 `e4c0ffe785d10fb7cae400fc0bdfc0bf.txt`）**；其下 `f93194d` 记录上一轮微信验证部署、`9ff1292` 新增上一轮 `796c...txt`、`ee88ee5` 动态 sitemap、`bcb50a1` 售后保障隐藏名单、`c3d7c24` hub 页精修已上线；最新交接文档 commit 以 `git log -1` 为准
+- **最新业务代码 commit：`66877b6 fix(payment): render official Alipay WAP as desktop QR`**；电脑端把官方支付宝 WAP `pay_url` 渲染为站内二维码，手机端仍自动跳转支付宝 WAP；最新交接文档 commit 以 `git log -1` 为准
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：以 `git status --short` 为准；2026-06-16 新微信验证文件已上线，当前仍有既有 `index.html` 未提交改动不属于本次验证任务。线上本次只同步 TXT，未重建 user 包；生产备份 `web/user.pre-wechat-verify-e4c0-20260616-182251`
+- working tree：以 `git status --short` 为准；本轮提交后仍有既有 `src/utils/blogCategories.ts` 未提交改动，不属于支付宝修复。生产前台已部署本轮 clean worktree 构建产物；备份 `web/user.pre-alipay-wap-desktop-qr-20260709-193445`
 - 标准品牌 logo：`src/assets/ai-products/codex-logo.webp`（蓝紫花瓣+>_）、`claude-logo.webp`（橙色星芒）；hub 视觉组件 `src/components/hub/`（HubHero/HubMockup/HubFeatures/HubLayout 等），以后 Codex/Claude 视觉统一用这套
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
@@ -44,7 +44,7 @@ git status --short
 - 当前主站 API：`https://aikaitong.com/api`
 - 旧主域：`https://52hub.org` / `https://www.52hub.org` 301 到 `https://aikaitong.com/`
 - 中转业务：`ai.52hub.org` / `relay.52hub.org` 保留不迁移。
-- 支付：新支付宝应用已接入并完成站长模拟支付 + 自动发货；旧通道改名“支付宝旧”并停用观察。
+- 支付：当前只启用官方支付宝 WAP 通道 `#7`；page/qr 均停用。电脑端显示 WAP 链接二维码，手机端跳转 `alipay.trade.wap.pay`。本轮已验证支付发起与支付宝官方收银台，未执行真实扣款/异步回调/自动发货。
 - 说明：下方“最近任务记录”中 2026-06-06 标记“未提交”的支付宝分流等旧项，已在 2026-06-08 之后的业务代码提交中固化；以后以四份共享文档和 `git log` 为准。
 
 ---
@@ -79,6 +79,12 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 官方支付宝仅 WAP 能力时的电脑端二维码适配（2026-07-09，commit `66877b6`）：
+  - 生产恢复软删除的 `#7 official/alipay/wap`，保持 `#5 page`、`#6 qr` 停用；公开配置只暴露一条支付宝 WAP 通道。
+  - `Payment.vue` 在电脑端把官方支付宝 WAP `pay_url` 作为二维码内容，不再自动跳手机收银台；手机端仍自动跳转。
+  - 生产备份：数据库 `/opt/dujiao-next/backups/payment_channels-before-alipay-wap-20260709-193049.sql`；前台 `/opt/dujiao-next/web/user.pre-alipay-wap-desktop-qr-20260709-193445`。
+  - 验证：clean worktree `npm run build` 通过；生产 chunk `Payment-4Yq95gt9.js`；电脑端真实测试订单显示二维码且不离站；iPhone 模拟端跳到 `openapi.alipay.com`，method=`alipay.trade.wap.pay`、product_code=`QUICK_WAP_WAY`；未做真实扣款/回调/发货。
 
 - 微信域名验证文件更换（2026-06-16，commit `c8a5a91`）：
   - 新增 `public/e4c0ffe785d10fb7cae400fc0bdfc0bf.txt`，内容为微信要求的 `3b1d37fa9b04b1dbb231b4409bb3e1fa1cf773e4`。
