@@ -439,7 +439,7 @@ import { copyText } from '../utils/clipboard'
 import { amountToCents, basisPointsToPercent, calculateFeeCents, centsToAmount, rateToBasisPoints } from '../utils/money'
 import { buildSkuDisplayTextFromSnapshot } from '../utils/sku'
 import { loadGuestAuth, saveGuestAuth } from '../utils/guestAuth'
-import { filterPaymentChannelsForDevice, isMobilePaymentClient } from '../utils/paymentChannels'
+import { filterPaymentChannelsForDevice } from '../utils/paymentChannels'
 import PaymentChannelSelector from '../components/payment/PaymentChannelSelector.vue'
 import QRCode from 'qrcode'
 import { pageAlertClass, type PageAlert } from '../utils/alerts'
@@ -598,21 +598,7 @@ const interactionLabel = computed(() => {
 
 const interactionMode = computed(() => String(paymentResult.value?.interaction_mode || '').toLowerCase())
 const isPayLinkInteractionMode = (mode?: unknown) => ['redirect', 'page', 'wap'].includes(String(mode || '').toLowerCase())
-const paymentProviderType = computed(() => String(
-  paymentResult.value?.provider_type || resultChannel.value?.provider_type || ''
-).trim().toLowerCase())
-const paymentChannelType = computed(() => String(
-  paymentResult.value?.channel_type || resultChannel.value?.channel_type || ''
-).trim().toLowerCase())
-const presentPaymentAsQRCode = computed(() => (
-  interactionMode.value === 'qr' ||
-  (
-    interactionMode.value === 'wap' &&
-    paymentProviderType.value === 'official' &&
-    paymentChannelType.value === 'alipay' &&
-    !isMobilePaymentClient()
-  )
-))
+const presentPaymentAsQRCode = computed(() => interactionMode.value === 'qr')
 const paymentResultTitle = computed(() => presentPaymentAsQRCode.value ? t('payment.resultTitle') : t('payment.resultRedirectTitle'))
 const paymentGuideTitle = computed(() => presentPaymentAsQRCode.value ? t('payment.qrTitle') : t('payment.redirectTitle'))
 const paymentGuideTip = computed(() => presentPaymentAsQRCode.value ? t('payment.qrTip') : t('payment.redirectTip'))
