@@ -31,9 +31,9 @@ git status --short
 ## 当前仓库快照（每次 commit 后必须更新此块）
 
 - 分支：`52hub/v1.0.2-user-hardening`
-- **最新业务代码 commit：`66877b6 fix(payment): render official Alipay WAP as desktop QR`**；电脑端把官方支付宝 WAP `pay_url` 渲染为站内二维码，手机端仍自动跳转支付宝 WAP；最新交接文档 commit 以 `git log -1` 为准
+- **最新业务代码 commit：`3b5f2a6 fix(payment): route native Alipay flows by device`**；电脑 `page`、手机 `wap` 均直接进入支付宝原生收银台，只有真实 `qr` 模式展示二维码；最新交接文档 commit 以 `git log -1` 为准
 - private remote：`https://github.com/yaajie/52hub-user-private`（只推 private，不推 origin）
-- working tree：以 `git status --short` 为准；本轮提交后仍有既有 `src/utils/blogCategories.ts` 未提交改动，不属于支付宝修复。生产前台已部署本轮 clean worktree 构建产物；备份 `web/user.pre-alipay-wap-desktop-qr-20260709-193445`
+- working tree：以 `git status --short` 为准；本轮提交后仍有既有 `src/utils/blogCategories.ts` 未提交改动，不属于支付宝修复。生产前台已部署 `3b5f2a6` 对应支付产物；备份 `/opt/dujiao-next/backups/pre-alipay-device-routing-20260802T182300Z/`
 - 标准品牌 logo：`src/assets/ai-products/codex-logo.webp`（蓝紫花瓣+>_）、`claude-logo.webp`（橙色星芒）；hub 视觉组件 `src/components/hub/`（HubHero/HubMockup/HubFeatures/HubLayout 等），以后 Codex/Claude 视觉统一用这套
 - 构建注意：`prebuild` 现会先跑 `npm run lint:theme`（grep 守卫）+ `npm run lint:css`（stylelint），命中硬编码 gray/slate 或 CSS 错误会 fail 阻断 build
 
@@ -44,7 +44,7 @@ git status --short
 - 当前主站 API：`https://aikaitong.com/api`
 - 旧主域：`https://52hub.org` / `https://www.52hub.org` 301 到 `https://aikaitong.com/`
 - 中转业务：`ai.52hub.org` / `relay.52hub.org` 保留不迁移。
-- 支付：当前只启用官方支付宝 WAP 通道 `#7`；page/qr 均停用。电脑端显示 WAP 链接二维码，手机端跳转 `alipay.trade.wap.pay`。本轮已验证支付发起与支付宝官方收银台，未执行真实扣款/异步回调/自动发货。
+- 支付：官方支付宝 `#10 page` 与 `#7 wap` 均启用；电脑只显示 `#10/page`、手机只显示 `#7/wap`，提交后均直接进入对应支付宝原生收银台。2026-08-03 已用两张 ¥0.10 未支付订单验证渠道与收银台，未执行真实扣款/异步回调/自动发货。
 - 说明：下方“最近任务记录”中 2026-06-06 标记“未提交”的支付宝分流等旧项，已在 2026-06-08 之后的业务代码提交中固化；以后以四份共享文档和 `git log` 为准。
 
 ---
@@ -79,6 +79,12 @@ npm run build
 ```
 
 ## 最近任务记录
+
+- 官方支付宝电脑 / 手机原生分流与自动跳转（2026-08-03，commit `3b5f2a6`）：
+  - 生产 `#10 official/alipay/page` 与 `#7 official/alipay/wap` 均启用；现有共享过滤保证电脑/手机各只显示一个支付宝。
+  - `Payment.vue` 删除桌面 WAP 转二维码和手机 WAP 手动打开旧分支；只有真实 `qr` 模式展示二维码，`page/wap` 当前页直接进入收银台。
+  - 生产备份：`/opt/dujiao-next/backups/pre-alipay-device-routing-20260802T182300Z/`；本地原文件备份：`/Users/Apple/52hub-source-hardening/backups/pre-aikaitong-alipay-native-20260803-022330/Payment.vue`。
+  - 验证：`npm run build` 通过；生产 chunk `Payment-DUkF2HsY.js`；电脑单 `DJ20260803024643631013` 为 `#10/page` 并进入桌面收银台，手机单 `DJ20260803024815321887` 为 `#7/wap` 并进入 H5 收银台；均未付款。
 
 - 官方支付宝仅 WAP 能力时的电脑端二维码适配（2026-07-09，commit `66877b6`）：
   - 生产恢复软删除的 `#7 official/alipay/wap`，保持 `#5 page`、`#6 qr` 停用；公开配置只暴露一条支付宝 WAP 通道。
